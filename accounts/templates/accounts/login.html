@@ -6,7 +6,7 @@
 {% endblock css %}
 
 {% block title %}
-    Register
+    Login
 {% endblock title %}
 
 
@@ -14,12 +14,13 @@
     <div class="register-form-row">
         <div class="register-form-container">
             <h1 class="register-form-brand-name">Django Job Portal</h1>
-            <h2 class="register-form-name">Sign up</h2>
+            <h2 class="register-form-name">Sign in</h2>
+            {% if error %} <p class='errorlist'>{{ error }}</p> {% endif %}
             <form class="register-from" action="" method='POST'>
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit" class="register-form-sign-up-btn">
-                    Sign up
+                    Sign in
                 </button>
             </form>
         </div>

@@ -21,5 +21,17 @@ li {
 input {
     width: 100%;
     box-sizing: border-box;
+    font-size: 1rem;
+    font-family: "Roboto", sans-serif;;
 }
 
+textarea {
+    resize: vertical;
+    font-size: 1rem;
+    font-family: "Roboto", sans-serif;
+}
+
+button {
+    font-size: 1rem;
+    font-family: "Roboto", sans-serif;
+}

@@ -10,6 +10,11 @@ def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(
             user=instance, 
-            username=instance.username,
-            email = instance.email
         )
+
+@receiver(post_save, sender=User)
+def save_profile(sender, instance, **kwargs):
+    instance.profile.username = instance.username
+    instance.profile.email = instance.email
+    instance.profile.save()
+

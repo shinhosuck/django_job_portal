@@ -1,0 +1,60 @@
+.register-form-row {
+    min-height: 100svh;
+    display: grid;
+    align-content: center;
+    padding: 3rem 0;
+}
+
+.register-form-container {
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+
+    display: grid;
+    align-content: start;
+    row-gap: 1rem;
+}
+
+.register-form-brand-name {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.register-from {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+}
+
+/* .register-from > *:nth-child(6) {
+    display: none;
+} */
+
+.register-from > p {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+}
+
+.register-from > p > label {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.register-from > p > input {
+    border: 1px solid lightgray;
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+}
+
+.register-form-sign-up-btn {
+    padding: 0.9rem 1rem;
+    border: none;
+    background: green;
+    color: white;
+    border-radius: 5px;
+}
+
+.errorlist {
+    color: red;
+}
