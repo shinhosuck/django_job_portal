@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+
 
 
 def home_view(request):
-    return JsonResponse({'message': 'hello world'}, safe=False)
+    return render(request, 'jobs/home.html', {'greeting': 'This is the home page!'})
