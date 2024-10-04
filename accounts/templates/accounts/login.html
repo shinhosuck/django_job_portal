@@ -9,20 +9,38 @@
     Login
 {% endblock title %}
 
+{% block nav %}{% endblock nav %}
 
 {% block content %}
-    <div class="register-form-row">
-        <div class="register-form-container">
-            <h1 class="register-form-brand-name">Django Job Portal</h1>
-            <h2 class="register-form-name">Sign in</h2>
+    <div class="login-form-row">
+        <div class="login-form-container">
+            <h1 class="login-form-brand-name">
+                <a href="{% url 'jobs:home' %}">HireSpot</a>
+            </h1>
             {% if error %} <p class='errorlist'>{{ error }}</p> {% endif %}
-            <form class="register-from" action="" method='POST'>
+            <form class="login-from" action="" method='POST'>
+                <h2 class="login-form-name">
+                    Login
+                </h2>
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit" class="register-form-sign-up-btn">
-                    Sign in
+                <button type="submit" class="login-form-login-btn">
+                    Login
                 </button>
             </form>
+            <div class="login-form-not-yet-registered">
+                <p class="">Not yet registered?</p>
+                <a class="" href="{% url 'accounts:register' %}">Register</a>
+            </div>
+            <div class="login-form-underline">
+                <div></div>
+                <span>OR</span>
+                <div></div>
+            </div>
+            <a href="" class="login-form-google-link">
+                <img src="{% static "accounts/imgs/google.png" %}" alt="">
+                <span>Continue with Google</span>
+            </a>
         </div>
     </div>
 {% endblock content %}

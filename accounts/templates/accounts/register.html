@@ -9,19 +9,28 @@
     Register
 {% endblock title %}
 
+{% block nav %}{% endblock nav %}
 
 {% block content %}
     <div class="register-form-row">
         <div class="register-form-container">
-            <h1 class="register-form-brand-name">Django Job Portal</h1>
-            <h2 class="register-form-name">Sign up</h2>
+            <h1 class="register-form-brand-name">
+                <a href="{% url 'jobs:home' %}">HireSpot</a>
+            </h1>
             <form class="register-from" action="" method='POST'>
+                <h2 class="register-form-name">
+                    Register
+                </h2>
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit" class="register-form-sign-up-btn">
-                    Sign up
+                    Register
                 </button>
             </form>
+            <div class="register-form-already-registered">
+                <p class="">Already registered?</p>
+                <a class="" href="{% url 'accounts:login' %}">Login</a>
+            </div>
         </div>
     </div>
 {% endblock content %}

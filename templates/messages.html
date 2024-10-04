@@ -1,0 +1,10 @@
+<div class="{% if messages %}messages{% endif %}">
+    {% for message in messages %}
+        <div class="{{ message.tags }} message-container">
+            <p class="message">{{ message }}</p>
+            <button class="message-close-btn" onclick="closeMessageBtn(event)">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    {% endfor %}
+</div>

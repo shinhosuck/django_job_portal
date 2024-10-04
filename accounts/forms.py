@@ -20,7 +20,7 @@ User = get_user_model()
     
 
 class RegisterForm(forms.Form):
-    username = forms.CharField(max_length=50, required=True)
+    username = forms.CharField(required=True, max_length=50)
     email = forms.EmailField(required=True)
     password = forms.CharField(
             widget=forms.PasswordInput(attrs={'required':True})

@@ -7,11 +7,25 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'fa-6/css/all.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static "style.css" %}">
     {% block css %}{% endblock css %}
     <title>{% block title %}{% endblock title %}</title>
 </head>
 <body>
-    {% block content %}{% endblock content %}
+    <header>
+        {% block nav %}
+            {% include "nav.html" %}
+        {% endblock nav %}
+    </header>
+    <main>
+        {% if messages %}
+            {% include "messages.html" %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock content %}
+    </main>
+    <script type="text/javascript" src="{% static "main.js" %}"></script>
 </body>
 </html>
