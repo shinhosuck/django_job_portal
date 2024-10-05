@@ -1,3 +1,9 @@
+/* GLOBAL */
+.errorlist {
+    color: red
+}
+
+/* REGISTER */
 .register-form-row {
     min-height: 100svh;
     display: grid;
@@ -16,14 +22,28 @@
 }
 
 .register-form-brand-name {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     text-align: center;
+    font-weight: 600;
+    font-size: 2.5rem;
+}
+
+.register-form-brand-name > a {
+    color: var(--green-30);
+}
+
+.register-form-name {
+    margin-bottom: 0.5rem;
+    color: var(--black-20)
 }
 
 .register-from {
     display: grid;
     align-content: start;
     gap: 1rem;
+    padding: 1.2rem;
+    border-radius: 8px;
+    border: 1px solid var(--black-80)
 }
 
 /* .register-from > *:nth-child(6) {
@@ -39,22 +59,280 @@
 .register-from > p > label {
     font-size: 1rem;
     font-weight: 500;
+    color: var(--black-30)
 }
 
 .register-from > p > input {
-    border: 1px solid lightgray;
+    border: 1px solid var(--black-80);
     padding: 0.8rem 1rem;
     border-radius: 5px;
+    color: var(--black-20);
+    letter-spacing: 0.03rem;
 }
 
 .register-form-sign-up-btn {
     padding: 0.9rem 1rem;
     border: none;
-    background: green;
+    background: var(--green-30);
     color: white;
     border-radius: 5px;
+    letter-spacing: 0.03rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 100ms linear;
 }
 
-.errorlist {
-    color: red;
+@media (hover) {
+    .register-form-sign-up-btn:hover {
+        background: var(--green-40)
+    }
+}
+
+.register-form-already-registered {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.2rem;
+}
+
+.register-form-already-registered > p {
+    color: var(--black-20);
+    letter-spacing: 0.03rem;
+}
+
+.register-form-already-registered > a {
+    color: var(--green-35);
+    letter-spacing: 0.03rem;
+}
+
+/* LOGIN*/
+.login-form-row {
+    min-height: 100svh;
+    display: grid;
+    align-content: center;
+    padding: 3rem 0;
+}
+
+.login-form-container {
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+
+    display: grid;
+    align-content: start;
+    row-gap: 1rem;
+}
+
+.login-form-brand-name {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 2.5rem;
+}
+
+.login-form-brand-name > a {
+    color: var(--green-30);
+}
+
+.login-form-name {
+    margin-bottom: 0.5rem;
+    color: var(--black-20)
+}
+
+.login-from {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+    padding: 1.2rem;
+    border-radius: 8px;
+    border: 1px solid var(--black-80)
+}
+
+/* .register-from > *:nth-child(6) {
+    display: none;
+} */
+
+.login-from > p {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+}
+
+.login-from > p > label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--black-30)
+}
+
+.login-from > p > input {
+    border: 1px solid var(--black-80);
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    color: var(--black-20);
+    letter-spacing: 0.03rem;
+}
+
+.login-form-login-btn {
+    padding: 0.9rem 1rem;
+    border: none;
+    background: var(--green-30);
+    color: white;
+    border-radius: 5px;
+    letter-spacing: 0.03rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 100ms linear;
+}
+
+@media (hover) {
+    .login-form-login-btn:hover {
+        background: var(--green-40)
+    }
+}
+
+.login-form-not-yet-registered {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.2rem;
+}
+
+.login-form-not-yet-registered > p {
+    color: var(--black-20);
+    letter-spacing: 0.03rem;
+}
+
+.login-form-not-yet-registered > a {
+    color: var(--green-35);
+    letter-spacing: 0.03rem;
+}
+
+.login-form-underline {
+    display: grid;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    grid-template-columns: 1fr auto 1fr;
+}
+
+.login-form-underline > div {
+    border: 1px solid var(--black-80)
+}
+
+.login-form-underline > span {
+    color: var(--black-20)
+}
+
+.login-form-google-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+    border: 1px solid var(--black-80);
+    transition: background 100ms linear;
+}
+
+@media (hover) {
+    .login-form-google-link:hover {
+        background: var(--black-90)
+    }
+}
+
+.login-form-google-link > img {
+    width: 33px;
+    height: auto;
+}
+
+.login-form-google-link > span {
+    color: var(--black-20);
+    font-size: 1rem;
+    letter-spacing: 0.03rem;
+}
+
+/* LOGOUT */
+.logout-form-row {
+    min-height: 100svh;
+    padding: 5rem 0;
+}
+
+.logout-form-container {
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+
+    display: grid;
+    align-content: start;
+    row-gap: 1rem;
+}
+
+.logout-form-brand-name {
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 2.5rem;
+}
+
+.logout-form-brand-name > a {
+    color: var(--green-30);
+}
+
+.logout-form {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+}
+
+.logout-form-name {
+    margin-bottom: 1rem;
+    color: var(--black-20);
+    text-align: center;
+}
+
+.logout-form-logout-warning {
+    text-align: center;
+    font-size: 1.2rem;
+    letter-spacing: 0.03rem;
+}
+
+.logout-form-continue-browsing-btn {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 0.9rem 1rem;
+    border: none;
+    background: var(--green-30);
+    color: white;
+    border-radius: 5px;
+    letter-spacing: 0.03rem;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-top: 2rem;
+    transition: background 100ms linear;
+}
+
+.logout-form-logout-btn {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 0.9rem 1rem;
+    border: none;
+    background: var(--black-50);
+    color: white;
+    border-radius: 5px;
+    letter-spacing: 0.03rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 100ms linear;
+}
+
+@media (hover) {
+    .logout-form-continue-browsing-btn:hover {
+        background: var(--green-40)
+    }
+
+    .logout-form-logout-btn:hover {
+        background: var(--black-40)
+    }
 }
