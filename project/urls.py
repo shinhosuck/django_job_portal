@@ -8,7 +8,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('jobs.urls', namespace='jobs')),
-    path('', include('accounts.urls', namespace='accounts'))
+    path('', include('accounts.urls', namespace='accounts')),
+    path('social-auth/',include('social_django.urls', namespace='social'))
 ]
 urlpatterns += debug_toolbar_urls()
 

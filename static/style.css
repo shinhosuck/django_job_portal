@@ -168,9 +168,26 @@ button {
         letter-spacing: 0.03rem;
     }
 
+    .active-link {
+        font-weight: 600;
+        color: var(--green-40)
+    }
+
     .register-link {
         background: var(--green-30);
         padding: 0.5rem;
         border-radius: 5px;
+        transition: background 100ms linear;
+    }
+
+    @media (hover) {
+        .navlink:hover {
+            color: var(--green-40)
+        }
+
+        .register-link:hover {
+            background: var(--green-25);
+            color: var(--black-90);
+        }
     }
 }

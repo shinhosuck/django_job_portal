@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 3rd party
     'debug_toolbar',
+    'social_django',
     # my app
     'jobs.apps.JobsConfig',
     'accounts.apps.AccountsConfig'
@@ -130,3 +131,17 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 # login url
 LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+
+
+# google OAuth
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.google.GoogleOAuth2',
+]
+
+# client id
+os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+
+ # client secret
+os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
