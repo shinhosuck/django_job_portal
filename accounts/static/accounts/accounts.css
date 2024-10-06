@@ -57,9 +57,8 @@
 }
 
 .register-from > p > label {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--black-30)
+    letter-spacing: 0.03rem;
+    color: var(--black-10)
 }
 
 .register-from > p > input {
@@ -159,9 +158,8 @@
 }
 
 .login-from > p > label {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--black-30)
+    letter-spacing: 0.03rem;
+    color: var(--black-10)
 }
 
 .login-from > p > input {

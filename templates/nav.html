@@ -7,8 +7,8 @@
             <div class="navlinks">
                 <a class='{% if url_name == "home" %}active-link{% endif %} navlink' href="{% url 'jobs:home' %}">Home</a>
                 <a class='{% if url_name == "employer" %}active-link{% endif %} navlink' href="">Employer</a>
-                <a class='{% if url_name == "about" %}active-link{% endif %} navlink' href="">About</a>
-                <a class='{% if url_name == "contact" %}active-link{% endif %} navlink' href="">Contact</a>
+                <a class='{% if url_name == "about" %}active-link{% endif %} navlink' href="{% url 'jobs:about' %}">About</a>
+                <a class='{% if url_name == "contact" %}active-link{% endif %} navlink' href="{% url 'jobs:contact' %}">Contact</a>
                 {% if request.user.is_authenticated %}
                     <a class='navlink' href="{% url 'accounts:logout' %}">Logout</a>
                 {% else %}

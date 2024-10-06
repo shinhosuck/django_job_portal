@@ -12,35 +12,44 @@
 {% block nav %}{% endblock nav %}
 
 {% block content %}
-    <div class="login-form-row">
-        <div class="login-form-container">
-            <h1 class="login-form-brand-name">
-                <a href="{% url 'jobs:home' %}">HireSpot</a>
-            </h1>
-            {% if error %} <p class='errorlist'>{{ error }}</p> {% endif %}
-            <form class="login-from" action="" method='POST'>
-                <h2 class="login-form-name">
-                    Login
-                </h2>
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="login-form-login-btn">
-                    Login
-                </button>
-            </form>
-            <div class="login-form-not-yet-registered">
-                <p class="">Not yet registered?</p>
-                <a class="" href="{% url 'accounts:register' %}">Register</a>
+    {% if not request.user.is_authenticated %}
+        <div class="login-form-row">
+            <div class="login-form-container">
+                <h1 class="login-form-brand-name">
+                    <a href="{% url 'jobs:home' %}">HireSpot</a>
+                </h1>
+                {% if error %} <p class='errorlist'>{{ error }}</p> {% endif %}
+                <form class="login-from" action="" method='POST'>
+                    <h2 class="login-form-name">
+                        Login
+                    </h2>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="login-form-login-btn">
+                        Login
+                    </button>
+                </form>
+                <div class="login-form-not-yet-registered">
+                    <p class="">Not yet registered?</p>
+                    <a class="" href="{% url 'accounts:register' %}">Register</a>
+                </div>
+                <div class="login-form-underline">
+                    <div></div>
+                    <span>OR</span>
+                    <div></div>
+                </div>
+                <a href="{% url "social:begin" "google-oauth2" %}" class="login-form-google-link">
+                    <img src="{% static "accounts/imgs/google.png" %}" alt="">
+                    <span>Continue with Google</span>
+                </a>
             </div>
-            <div class="login-form-underline">
-                <div></div>
-                <span>OR</span>
-                <div></div>
-            </div>
-            <a href="{% url "social:begin" "google-oauth2" %}" class="login-form-google-link">
-                <img src="{% static "accounts/imgs/google.png" %}" alt="">
-                <span>Continue with Google</span>
-            </a>
         </div>
-    </div>
+    {% else %}
+        <div class="login-form-user-logged-in-already">
+            <h3>
+                {{ request.user.username }} is logged in already.
+            </h3>
+            <a href="{% url 'jobs:home' %}">Go back home</a>
+        </div>
+    {% endif %}
 {% endblock content %}
