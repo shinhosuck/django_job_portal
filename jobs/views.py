@@ -8,8 +8,16 @@ from django.contrib import messages
 User = get_user_model()
 
 
-def home_view(request):
-    return render(request, 'jobs/home.html', {'greeting': 'This is the home page!'})
+def landing_page_view(request):
+    if request.user.is_authenticated:
+        return redirect('jobs:jobs')
+    return render(request, 'jobs/landing_page.html')
+
+def jobs_view(request):
+    context = {
+        'message': 'Jobs page'
+    }
+    return render(request, 'jobs/jobs.html', context)
 
 def contact_view(request):
     form = MessageForm(request.POST or None)
@@ -25,7 +33,7 @@ def contact_view(request):
                 user = None 
             if user:
                 message.user = user
-                
+
             message.save()
 
             messages.success(request, 'Message successfully submited.')

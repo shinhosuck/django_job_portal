@@ -1,0 +1,22 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'jobs/jobs.css' %}">
+{% endblock css %}
+
+{% block title %}
+    Home
+{% endblock title %}
+
+{% block nav %}
+    {% include "landing_page_nav.html" %}
+{% endblock nav %}
+
+{% block content %}
+    <div class="hero-row">
+        <div class="hero-content-container">
+
+        </div>
+    </div>
+{% endblock content %}

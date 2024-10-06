@@ -1,3 +1,14 @@
+/* HHOME */
+.hero-content-container {
+    min-height: 100svh;
+    background: linear-gradient(to bottom, 
+        rgba(0, 0, 0, 0.700), rgba(0, 0, 0, 0.200)),
+        url('imgs/hero.webp');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 /* ABOUT */
 .about-container {
     width: 90%;

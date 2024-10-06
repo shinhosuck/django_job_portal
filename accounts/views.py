@@ -42,7 +42,7 @@ def login_view(request):
                 if next:
                     return redirect(next)
                 messages.success(request, 'Successfully logged in!')
-                return redirect('jobs:home')
+                return redirect('jobs:jobs')
             
         context['error'] = 'Username or password did not match.'
 
@@ -53,5 +53,5 @@ def logout_view(request):
     if request.method == 'POST':
         logout(request)
         messages.success(request, 'Successfully logged out!')
-        return redirect('jobs:home')
+        return redirect('jobs:jobs')
     return render(request, 'accounts/logout.html')
