@@ -1,0 +1,129 @@
+/* ABOUT */
+.about-container {
+    width: 90%;
+    max-width: 700px;
+    margin: 3rem auto;
+
+    display: grid;
+    align-content: start;
+    gap: 2rem;
+}
+
+.about-header {
+    font-size: 2rem;
+    color: var(--black-10);
+    letter-spacing: 0.03rem;
+}
+
+.about-img-container > img {
+    width: 100%;
+    aspect-ratio: 4 / 2;
+    object-fit: cover;
+    display: block;
+}
+
+.about-text {
+    letter-spacing: 0.04rem;
+    line-height: 1.4;
+    color: var(--black-20);
+    font-size: 1.05rem;
+}
+
+.about-link {
+    color: var(--green-30)
+}
+
+@media (hover) {
+    .about-link:hover {
+        text-decoration:underline;
+        text-decoration-thickness: 2px;
+    }
+}
+
+/* CONTACT */
+.contact-container {
+    width: 90%;
+    max-width: 700px;
+    margin: 3rem auto;
+
+    display: grid;
+    align-content: start;
+    gap: 2rem;
+}
+
+.contact-header {
+    font-size: 2rem;
+    color: var(--black-10);
+    letter-spacing: 0.03rem;
+}
+
+.contact-text {
+    letter-spacing: 0.04rem;
+    line-height: 1.4;
+    color: var(--black-20);
+    font-size: 1.05rem;
+    text-wrap: balance;
+}
+
+.contact-text > a {
+    color: var(--green-30)
+}
+
+@media (hover) {
+    .contact-text > a:hover {
+        text-decoration:underline;
+        text-decoration-thickness: 2px;
+    }
+}
+
+.contact-form {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+}
+
+.contact-form-row {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+}
+
+.contact-form-row > label {
+    letter-spacing: 0.03rem;
+    color: var(--black-10);
+}
+
+.contact-form-row > input {
+    letter-spacing: 0.03rem;
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--black-80);
+    color: var(--black-20)
+}
+
+.contact-form-row > textarea {
+    letter-spacing: 0.03rem;
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--black-80);
+    color: var(--black-20);
+    min-height: 50px;
+}
+
+.contact-form-submit-btn {
+    padding: 0.9rem 1rem;
+    border: none;
+    background: var(--green-30);
+    color: white;
+    border-radius: 5px;
+    letter-spacing: 0.03rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 100ms linear;
+}
+
+@media (hover) {
+    .contact-form-submit-btn:hover {
+        background: var(--green-40)
+    }
+}
