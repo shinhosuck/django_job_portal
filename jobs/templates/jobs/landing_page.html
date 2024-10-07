@@ -10,13 +10,29 @@
 {% endblock title %}
 
 {% block nav %}
-    {% include "landing_page_nav.html" %}
+    {% include "jobs/landing_page_nav.html" %}
 {% endblock nav %}
 
 {% block content %}
     <div class="hero-row">
         <div class="hero-content-container">
-
+            <div class="mobile-landing-page-hero-img-container">
+                <img src="{% static 'jobs/imgs/hero.webp' %}" alt="">
+            </div>
+            <div class="hero-text-container">
+                <h1 class="hero-header">Land Your Dream Job or Hire the Best Without Hassle</h1>
+                <p class="hero-text-body">
+                    At HireSpot, we bring together talented people and great companies. 
+                    Whether you're looking for your next job or trying to find the right 
+                    person to join your team, we're here to help. Enjoy an easy-to-use 
+                    platform with smart job matches, powerful search tools, 
+                    and everything you need to succeed.
+                </p>
+                <div class="hero-buttons">
+                    <a class="find-your-dream-job-btn" href="{% url 'accounts:login' %}">Find Your Dream Job!</a>
+                    <a class="post-a-job-btn" href="">Post a Job Today!</a>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock content %}

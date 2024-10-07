@@ -21,6 +21,8 @@
     --black-40:hsl(0, 0%, 40%);
     --black-45:hsl(0, 0%, 45%);
     --black-50:hsl(0, 0%, 50%);
+    --black-60:hsl(0, 0%, 60%);
+    --black-70:hsl(0, 0%, 70%);
     --black-80:hsl(0, 0%, 80%);
     --black-90:hsl(0, 0%, 90%);
 }
@@ -134,11 +136,77 @@ button {
     background: var(--green-10);
 }
 
+.mobile-nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.mobile-brand-logo {
+    font-size: 1.8rem;
+    line-height: 1;
+    font-weight: 600;
+    color: var(--green-35);
+}
+
+.mobile-navlinks-toggle-btns-container > button {
+    border: none;
+    background: none;
+    color: var(--black-80);
+    font-size: 1.4rem;
+}
+
+
+.hide-mobile-navlinks-toggle-btn {
+    display: none;
+}
+
+.mobile-navlinks {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+
+    display: grid;
+    align-content: start;
+    gap: 1.5rem;
+    padding: 2rem 0;
+
+    opacity: 0;
+    transition: opacity 100ms linear;
+    background: var(--green-20);
+}
+
+.show-mobile-navlinks {
+    top: 60.8px;
+    opacity: 1
+}
+
+.mobile-navlink {
+    color: var(--black-90);
+    letter-spacing: 0.03rem;
+    text-align: center;
+}
+
+@media (hover) {
+    .mobile-navlink:hover {
+        color: var(--green-40)
+    }
+}
+
 .lg-nav-bar {
     display: none;
 }
 
 @media screen and (min-width:700px) {
+    .mobile-nav-bar {
+        display: none;
+    }
+
     .lg-nav-bar {
         display: flex;
         align-items: center;
