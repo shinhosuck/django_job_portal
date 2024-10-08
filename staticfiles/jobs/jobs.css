@@ -120,12 +120,12 @@
 
 .hero-text-container {
     width: 90%;
-    max-width: 700px;
+    max-width: 500px;
     margin: 0 auto;
 
     display: grid;
     align-content: start;
-    gap: 2rem;
+    gap: 1.5rem;
     text-align: center;
     text-wrap: balance;
     padding: 3rem 0;
@@ -133,7 +133,7 @@
 
 .hero-header {
     color: var(--black-10);
-    font-size: 3rem;
+    font-size: 2.5rem;
 }
 
 .hero-text-body {
@@ -147,6 +147,7 @@
 .hero-buttons {
     display: grid;
     gap: 0.5rem;
+    margin-top: 1.5rem;
 }
 
 .hero-buttons > a {
@@ -171,7 +172,7 @@
     .hero-content-container {
         min-height: 100svh;
         background: linear-gradient(to top, 
-            rgba(0, 0, 0, 0.900), rgba(0, 0, 0, 0.6)),
+            rgba(0, 0, 0, 0.800), rgba(0, 0, 0, 0.7)),
             url('imgs/hero.webp');
         background-position: center;
         background-repeat: no-repeat;
@@ -188,11 +189,13 @@
 
     .hero-header {
         color: var(--black-90);
-        font-size: 3.3rem;
+        font-size: 3rem;
     }
     
     .hero-text-body {
-        color: var(--black-70)
+        color: var(--black-75);
+        font-size: 1.2rem;
+        line-height: 1.5;
     }
     
     .hero-buttons {
