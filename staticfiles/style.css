@@ -41,7 +41,6 @@
 
 body {
     font-family: "Roboto", sans-serif;
-    position: relative;
 }
 
 a {
@@ -194,6 +193,12 @@ button {
     color: var(--black-90);
     letter-spacing: 0.03rem;
     text-align: center;
+    font-size: 1.1rem;
+}
+
+.active-mobile-navlink {
+    font-weight: 600;
+    color: var(--green-40)
 }
 
 @media (hover) {

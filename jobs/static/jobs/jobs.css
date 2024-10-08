@@ -4,7 +4,7 @@
     background: var(--green-10);
 }
 
-.mobile-nav-bar {
+.landing-page-mobile-nav-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -13,14 +13,14 @@
     margin: 0 auto;
 }
 
-.mobile-brand-logo {
+.landing-page-mobile-brand-logo {
     font-size: 1.8rem;
     line-height: 1;
     font-weight: 600;
     color: var(--green-35);
 }
 
-.mobile-navlinks-toggle-btns-container > button {
+.landing-page-mobile-navlinks-toggle-btns-container > button {
     border: none;
     background: none;
     color: var(--black-80);
@@ -28,11 +28,11 @@
 }
 
 
-.hide-mobile-navlinks-toggle-btn {
+.landing-page-hide-mobile-navlinks-toggle-btn {
     display: none;
 }
 
-.mobile-navlinks {
+.landing-page-mobile-navlinks {
     position: absolute;
     top: -100%;
     left: 0;
@@ -49,33 +49,34 @@
     background: var(--green-20);
 }
 
-.show-mobile-navlinks {
+.landing-page-show-mobile-navlinks {
     top: 60.8px;
     opacity: 1
 }
 
-.mobile-navlink {
+.landing-page-mobile-navlink {
     color: var(--black-90);
     letter-spacing: 0.03rem;
     text-align: center;
+    font-size: 1.1rem;
 }
 
 @media (hover) {
-    .mobile-navlink:hover {
+    .landing-page-mobile-navlink:hover {
         color: var(--green-40)
     }
 }
 
-.lg-nav-bar {
+.landing-page-lg-nav-bar {
     display: none;
 }
 
 @media screen and (min-width:700px) {
-    .mobile-nav-bar {
+    .landing-page-mobile-nav-bar {
         display: none;
     }
 
-    .lg-nav-bar {
+    .landing-page-lg-nav-bar {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -86,36 +87,48 @@
         margin: 0 auto
     }
 
-    .brand-logo {
+    .landing-page-brand-logo {
         font-size: 2rem;
         line-height: 1;
         font-weight: 600;
         color: var(--green-35);
     }
 
-    .navlinks {
+    .landing-page-navlinks {
         display: flex;
         align-items: center;
         gap: 1.5rem;
     }
 
-    .navlink {
+    .landing-page-navlink {
         color: var(--black-90);
         letter-spacing: 0.03rem;
     }
 
     @media (hover) {
-        .navlink:hover {
+        .landing-page-navlink:hover {
             color: var(--green-40)
         }
     }
 }
 
 /* HOME */
+.mobile-landing-page-hero-img-container {
+    position: relative;
+}
 .mobile-landing-page-hero-img-container > img {
     width: 100%;
     height: auto;
     display: block;
+}
+
+.mobile-landing-page-hero-img-background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.300)
 }
 
 .hero-text-container {
@@ -127,7 +140,7 @@
     align-content: start;
     gap: 1.5rem;
     text-align: center;
-    text-wrap: balance;
+    text-wrap: pretty;
     padding: 3rem 0;
 }
 
@@ -144,20 +157,25 @@
     text-wrap: balance;
 }
 
+.hero-text-body > strong {
+    color: var(--green-30)
+}
+
 .hero-buttons {
     display: grid;
     gap: 0.5rem;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
 }
 
 .hero-buttons > a {
     color: var(--black-90);
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 500;
 }
 
 .find-your-dream-job-btn {
-    padding: 1rem;
+    justify-self: center;
+    padding: 1.2rem 2rem;
     border-radius: 5px;
     background: rgb(0, 157, 0);
 }
@@ -193,9 +211,13 @@
     }
     
     .hero-text-body {
-        color: var(--black-75);
+        color: var(--black-80);
         font-size: 1.2rem;
         line-height: 1.5;
+    }
+
+    .hero-text-body > strong {
+        color: var(--green-35)
     }
     
     .hero-buttons {
@@ -203,6 +225,7 @@
         align-items: center;
         justify-content: center;
         gap: 1rem;
+        margin-top: 2rem;
     }
      
     .post-a-job-btn {

@@ -1,33 +1,39 @@
+{% load static %}
+
 <div class="landing-page-nav-row">
-    <nav class="lg-nav-bar">
+    <nav class="landing-page-lg-nav-bar">
         <div class="brand-container">
-            <a href="{% url 'jobs:landing-page' %}" class="brand-logo">HireSpot</a>
+            <a href="{% url 'jobs:landing-page' %}" class="landing-page-brand-logo">HireSpot</a>
         </div>
         <div class="navlinks">
-            <a class='navlink' href="{% url 'jobs:jobs' %}">Just Explore Jobs</a>
-            <a class='navlink' href="{% url 'accounts:login' %}">Job seeker</a>
-            <a class='navlink' href="">Employer</a>
+            <a class='landing-page-navlink' href="{% url 'jobs:jobs' %}">Jobs</a>
+            <a class='landing-page-navlink' href="{% url 'accounts:login' %}">Job seeker</a>
+            <a class='landing-page-navlink' href="">Employer</a>
+            <a class='landing-page-navlink' href="{% url 'jobs:about' %}">About</a>
+            <a class='landing-page-navlink' href="{% url 'jobs:contact' %}">Contact</a>
         </div>
     </nav>
 
     <!-- Mobile nav bar -->
 
-    <nav class="mobile-nav-bar">
-        <div class="mobile-brand-container">
-            <a href="{% url 'jobs:landing-page' %}" class="mobile-brand-logo">HireSpot</a>
+    <nav class="landing-page-mobile-nav-bar">
+        <div class="landing-page-mobile-brand-container">
+            <a href="{% url 'jobs:landing-page' %}" class="landing-page-mobile-brand-logo">HireSpot</a>
         </div>
-        <div class="mobile-navlinks-toggle-btns-container">
-            <button type="button" class="mobile-navlinks-open-btn">
+        <div class="landing-page-mobile-navlinks-toggle-btns-container">
+            <button type="button" class="landing-page-mobile-navlinks-open-btn">
                 <i class="fas fa-bars"></i>
             </button>
-            <button type="button" class="mobile-navlinks-close-btn hide-mobile-navlinks-toggle-btn">
+            <button type="button" class="landing-page-mobile-navlinks-close-btn landing-page-hide-mobile-navlinks-toggle-btn">
                 <i class="fas fa-times"></i>
             </button>
         </div>
-        <div class="mobile-navlinks">
-            <a class='mobile-navlink' href="{% url 'jobs:jobs' %}">Just Explore Jobs</a>
-            <a class='mobile-navlink' href="{% url 'accounts:login' %}">Job seeker</a>
-            <a class='mobile-navlink' href="">Employer</a>
+        <div class="landing-page-mobile-navlinks">
+            <a class='landing-page-mobile-navlink' href="{% url 'jobs:jobs' %}">Jobs</a>
+            <a class='landing-page-mobile-navlink' href="{% url 'accounts:login' %}">Job seeker</a>
+            <a class='landing-page-mobile-navlink' href="">Employer</a>
+            <a class='landing-page-mobile-navlink' href="{% url 'jobs:about' %}">About</a>
+            <a class='landing-page-mobile-navlink' href="{% url 'jobs:contact' %}">Contact</a>
         </div>
     </nav>
 </div>

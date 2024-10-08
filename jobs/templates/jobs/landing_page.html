@@ -18,19 +18,23 @@
         <div class="hero-content-container">
             <div class="mobile-landing-page-hero-img-container">
                 <img src="{% static 'jobs/imgs/hero.webp' %}" alt="">
+                <div class="mobile-landing-page-hero-img-background-overlay"></div>
             </div>
             <div class="hero-text-container">
-                <h1 class="hero-header">Land Your Dream Job or Hire the Best, Effortlessly</h1>
+                <h1 class="hero-header">Land Your Dream Job Today!</h1>
                 <p class="hero-text-body">
-                    At HireSpot, we connect talented people with great companies.
-                    Whether you're job hunting or hiring, our platform offers 
-                    smart matches, powerful search tools, and everything you need to succeed.
+                    At <strong>HireSpot</strong>, we connect talented individuals with great companies, 
+                    offer personalized matches, and provide robust search tools to help 
+                    you find your next job opportunity.
                 </p>
                 <div class="hero-buttons">
                     <a class="find-your-dream-job-btn" href="{% url 'accounts:login' %}">Find Your Dream Job!</a>
-                    <a class="post-a-job-btn" href="">Post a Job Today!</a>
                 </div>
             </div>
         </div>
     </div>
 {% endblock content %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'jobs/jobs.js' %}"></script>
+{% endblock js %}

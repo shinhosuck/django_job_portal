@@ -16,7 +16,7 @@
         <div class="login-form-row">
             <div class="login-form-container">
                 <a  href='{% url "jobs:landing-page" %}' class="login-logo-container">
-                    <img src="{% static 'accounts/imgs/brand-logo.png' %}" alt="">
+                    <img src="{% static 'imgs/brand-logo.png' %}" alt="">
                 </a>
                 {% if error %} <p class='errorlist'>{{ error }}</p> {% endif %}
                 <form class="login-from" action="" method='POST'>

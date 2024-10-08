@@ -28,7 +28,7 @@
 }
 
 .register-logo-container > img {
-    width: 70%;
+    width: 60%;
     aspect-ratio: 6 / 2;
     display: block;
 }
@@ -130,7 +130,7 @@
 }
 
 .login-logo-container > img {
-    width: 70%;
+    width: 60%;
     aspect-ratio: 6 / 2;
     display: block;
 }
@@ -280,7 +280,7 @@
 }
 
 .logout-logo-container > img {
-    width: 70%;
+    width: 60%;
     aspect-ratio: 6 / 2;
     display: block;
 }
