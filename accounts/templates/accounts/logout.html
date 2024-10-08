@@ -14,11 +14,10 @@
 {% block content %}
     <div class="logout-form-row">
         <div class="logout-form-container">
-            <h1 class="logout-form-brand-name">
-                <a href="{% url 'jobs:landing-page' %}">HireSpot</a>
-            </h1>
+            <a href='{% url "jobs:landing-page" %}' class="logout-logo-container">
+                <img src="{% static 'accounts/imgs/brand-logo.png' %}" alt="">
+            </a>
             <form class="logout-form" action="" method="POST">
-                <h2 class="logout-form-name">Logout</h2>
                 <p class="logout-form-logout-warning">Are you sure you want to logout?</p>
                 {% csrf_token %}
                 <a href="{% url 'jobs:jobs' %}" class="logout-form-continue-browsing-btn" type="submit">

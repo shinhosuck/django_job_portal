@@ -15,9 +15,9 @@
     {% if not request.user.is_authenticated %}
         <div class="login-form-row">
             <div class="login-form-container">
-                <h1 class="login-form-brand-name">
-                    <a href="{% url 'jobs:landing-page' %}">HireSpot</a>
-                </h1>
+                <a  href='{% url "jobs:landing-page" %}' class="login-logo-container">
+                    <img src="{% static 'accounts/imgs/brand-logo.png' %}" alt="">
+                </a>
                 {% if error %} <p class='errorlist'>{{ error }}</p> {% endif %}
                 <form class="login-from" action="" method='POST'>
                     <h2 class="login-form-name">

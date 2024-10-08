@@ -1,6 +1,6 @@
 /* GLOBAL */
 .errorlist {
-    color: red
+    color: var(--error)
 }
 
 /* REGISTER */
@@ -21,15 +21,16 @@
     row-gap: 1rem;
 }
 
-.register-form-brand-name {
+.register-logo-container {
+    display: flex;
+    justify-content: center;
     margin-bottom: 1.5rem;
-    text-align: center;
-    font-weight: 600;
-    font-size: 2.5rem;
 }
 
-.register-form-brand-name > a {
-    color: var(--green-30);
+.register-logo-container > img {
+    width: 70%;
+    aspect-ratio: 6 / 2;
+    display: block;
 }
 
 .register-form-name {
@@ -73,7 +74,7 @@
     padding: 0.9rem 1rem;
     border: none;
     background: var(--green-30);
-    color: white;
+    color: var(--black-90);
     border-radius: 5px;
     letter-spacing: 0.03rem;
     font-size: 1.1rem;
@@ -122,15 +123,16 @@
     row-gap: 1rem;
 }
 
-.login-form-brand-name {
+.login-logo-container {
+    display: flex;
+    justify-content: center;
     margin-bottom: 1.5rem;
-    text-align: center;
-    font-weight: 600;
-    font-size: 2.5rem;
 }
 
-.login-form-brand-name > a {
-    color: var(--green-30);
+.login-logo-container > img {
+    width: 70%;
+    aspect-ratio: 6 / 2;
+    display: block;
 }
 
 .login-form-name {
@@ -174,7 +176,7 @@
     padding: 0.9rem 1rem;
     border: none;
     background: var(--green-30);
-    color: white;
+    color: var(--black-90);
     border-radius: 5px;
     letter-spacing: 0.03rem;
     font-size: 1.1rem;
@@ -265,33 +267,29 @@
     row-gap: 1rem;
 }
 
-.logout-form-brand-name {
-    margin-bottom: 2rem;
-    text-align: center;
-    font-weight: 600;
-    font-size: 2.5rem;
-}
-
-.logout-form-brand-name > a {
-    color: var(--green-30);
-}
-
 .logout-form {
     display: grid;
     align-content: start;
     gap: 0.5rem;
 }
 
-.logout-form-name {
-    margin-bottom: 1rem;
-    color: var(--black-20);
-    text-align: center;
+.logout-logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.logout-logo-container > img {
+    width: 70%;
+    aspect-ratio: 6 / 2;
+    display: block;
 }
 
 .logout-form-logout-warning {
     text-align: center;
     font-size: 1.2rem;
     letter-spacing: 0.03rem;
+    color: var(--error)
 }
 
 .logout-form-continue-browsing-btn {
@@ -301,7 +299,7 @@
     padding: 0.9rem 1rem;
     border: none;
     background: var(--green-30);
-    color: white;
+    color: var(--black-90);
     border-radius: 5px;
     letter-spacing: 0.03rem;
     font-size: 1.1rem;
@@ -317,7 +315,7 @@
     padding: 0.9rem 1rem;
     border: none;
     background: var(--black-50);
-    color: white;
+    color: var(--black-90);
     border-radius: 5px;
     letter-spacing: 0.03rem;
     font-size: 1.1rem;

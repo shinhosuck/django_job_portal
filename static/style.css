@@ -26,6 +26,9 @@
     --black-75:hsl(0, 0%, 77%);
     --black-80:hsl(0, 0%, 80%);
     --black-90:hsl(0, 0%, 90%);
+    /* success, warning, info, error messages */
+    --success: var(--green-30);
+    --error: hsl(16, 100%, 50%);
 }
 
 ::before,
@@ -101,7 +104,7 @@ button {
 }
 
 .success {
-    background: var(--green-30)
+    background: var(--success)
 }
 
 .message-container > p {

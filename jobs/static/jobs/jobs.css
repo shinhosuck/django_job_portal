@@ -327,7 +327,7 @@
     padding: 0.9rem 1rem;
     border: none;
     background: var(--green-30);
-    color: white;
+    color: var(--black-90);
     border-radius: 5px;
     letter-spacing: 0.03rem;
     font-size: 1.1rem;
