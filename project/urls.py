@@ -7,7 +7,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('jobs.urls', namespace='jobs')),
+    path('', include('job_portal.urls', namespace='job_portal')),
     path('', include('accounts.urls', namespace='accounts')),
     path('social-auth/',include('social_django.urls', namespace='social'))
 ]

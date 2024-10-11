@@ -10,8 +10,8 @@ User = get_user_model()
 
 def landing_page_view(request):
     if request.user.is_authenticated:
-        return redirect('jobs:jobs')
-    return render(request, 'jobs/landing_page.html')
+        return redirect('job_portal:jobs')
+    return render(request, 'landing_page.html')
 
 
 def jobs_view(request):
@@ -39,11 +39,11 @@ def contact_view(request):
             message.save()
 
             messages.success(request, 'Message successfully submited.')
-            return redirect('jobs:home')
+            return redirect('job_portal:home')
 
         context['error'] = 'There was an error. Please try again.'
-    return render(request, 'jobs/contact.html', context)
+    return render(request, 'contact.html', context)
 
 
 def about_view(request):
-    return render(request, 'jobs/about.html')
+    return render(request, 'about.html')

@@ -3,14 +3,14 @@
 <div class="landing-page-nav-row">
     <nav class="landing-page-lg-nav-bar">
         <div class="brand-container">
-            <a href="{% url 'jobs:landing-page' %}" class="landing-page-brand-logo">HireSpot</a>
+            <a href="{% url 'job_portal:landing-page' %}" class="landing-page-brand-logo">HireSpot</a>
         </div>
         <div class="navlinks">
-            <a class='landing-page-navlink' href="{% url 'jobs:jobs' %}">Jobs</a>
+            <a class='landing-page-navlink' href="{% url 'job_portal:jobs' %}">Jobs</a>
             <a class='landing-page-navlink' href="{% url 'accounts:login' %}">Job seeker</a>
             <a class='landing-page-navlink' href="">Employer</a>
-            <a class='landing-page-navlink' href="{% url 'jobs:about' %}">About</a>
-            <a class='landing-page-navlink' href="{% url 'jobs:contact' %}">Contact</a>
+            <a class='landing-page-navlink' href="{% url 'job_portal:about' %}">About</a>
+            <a class='landing-page-navlink' href="{% url 'job_portal:contact' %}">Contact</a>
         </div>
     </nav>
 
@@ -18,7 +18,7 @@
 
     <nav class="landing-page-mobile-nav-bar">
         <div class="landing-page-mobile-brand-container">
-            <a href="{% url 'jobs:landing-page' %}" class="landing-page-mobile-brand-logo">HireSpot</a>
+            <a href="{% url 'job_portal:landing-page' %}" class="landing-page-mobile-brand-logo">HireSpot</a>
         </div>
         <div class="landing-page-mobile-navlinks-toggle-btns-container">
             <button type="button" class="landing-page-mobile-navlinks-open-btn">
@@ -29,11 +29,11 @@
             </button>
         </div>
         <div class="landing-page-mobile-navlinks">
-            <a class='landing-page-mobile-navlink' href="{% url 'jobs:jobs' %}">Jobs</a>
+            <a class='landing-page-mobile-navlink' href="{% url 'job_portal:jobs' %}">Jobs</a>
             <a class='landing-page-mobile-navlink' href="{% url 'accounts:login' %}">Job seeker</a>
             <a class='landing-page-mobile-navlink' href="">Employer</a>
-            <a class='landing-page-mobile-navlink' href="{% url 'jobs:about' %}">About</a>
-            <a class='landing-page-mobile-navlink' href="{% url 'jobs:contact' %}">Contact</a>
+            <a class='landing-page-mobile-navlink' href="{% url 'job_portal:about' %}">About</a>
+            <a class='landing-page-mobile-navlink' href="{% url 'job_portal:contact' %}">Contact</a>
         </div>
     </nav>
 </div>

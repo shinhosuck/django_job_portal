@@ -6,7 +6,7 @@ from .views import (
     jobs_view
 )
 
-app_name = 'jobs' 
+app_name = 'job_portal' 
 
 
 urlpatterns = [
