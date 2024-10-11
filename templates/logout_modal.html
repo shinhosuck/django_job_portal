@@ -1,0 +1,16 @@
+
+<div class="logout-modal-container">
+    <div class="logout-modal-close-btn-container">
+        <button class="logout-modal-close-btn">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <form class="lobout-modal-form" action="{% url 'accounts:logout'%}" method="POST">
+        {% csrf_token %}
+        <h3 class="lobout-modal-form-message">Sorry to see you leave! Hope to see you soon!</h3>
+        <div class="lobout-modal-form-btns">
+            <a class="lobout-modal-form-continue-browsing" href="">Continue Browsing</a>
+            <button class="lobout-modal-form-logout-btn" type="submit">Logout</button>
+        </div>
+    </form>
+</div>

@@ -19,13 +19,22 @@
         {% endblock nav %}
     </header>
     <main>
+
         {% if messages %}
             {% include "messages.html" %}
         {% endif %}
 
         {% block content %}
         {% endblock content %}
+
+        {% include "logout_modal.html" %}
+
     </main>
+    <footer>
+        {% block footer %}
+            {% include "footer.html" %}
+        {% endblock footer %}
+    </footer>
     <script type="text/javascript" src="{% static "main.js" %}"></script>
     {% block js %}{% endblock js %}
 </body>

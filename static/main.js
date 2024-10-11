@@ -38,3 +38,29 @@ toggleBtns && toggleBtns.forEach((btn) => {
     })
 })
 
+
+// Navbar logout button
+const logoutModalContainer = document.querySelector('.logout-modal-container')
+const logoutBtn = document.querySelector('.logout-btn')
+const mobileLogoutBtn = document.querySelector('.mobile-logout-btn')
+
+logoutBtn && logoutBtn.addEventListener('click', () => {
+    logoutModalContainer.classList.toggle('show-logout-modal')
+})
+
+mobileLogoutBtn && mobileLogoutBtn.addEventListener('click', () => {
+    logoutModalContainer.classList.toggle('show-logout-modal')
+
+    // close mobile navlinks
+    mobileNavlinks.classList.toggle('show-mobile-navlinks')
+    mobileOpenBtn.classList.remove('hide-mobile-navlinks-toggle-btn')
+    mobileCloseBtn.classList.add('hide-mobile-navlinks-toggle-btn')
+})
+
+
+// close logout modal 
+const logoutModalCloseBtn = document.querySelector('.logout-modal-close-btn')
+
+logoutModalCloseBtn && logoutModalCloseBtn.addEventListener('click', () => {
+    logoutModalContainer.classList.toggle('show-logout-modal')
+})

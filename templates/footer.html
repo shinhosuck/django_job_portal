@@ -1,0 +1,76 @@
+{% load static %}
+
+
+<div class="footer-row">
+    <div class="footer-contents">
+        <div class="footer-content footer-brand-content">
+            <a  href='{% url "jobs:landing-page" %}' class="footer-brand-logo">
+                HireSpot
+            </a>
+            <p class="footer-brand-text-body" >
+                At <strong>HireSpot</strong>, we aim to make hiring easier for everyone. 
+                Our goal is to help businesses find the right people for 
+                their teams and to assist job seekers in showcasing their skills. 
+                With our simple platform, employers can quickly connect with qualified 
+                candidates, while job seekers can easily apply for jobs that match their talents.
+            </p>
+        </div>
+        {% with request.resolver_match.url_name as url_name %}
+            <div class="footer-content footer-quick-links">
+                <h2 class="footer-quick-links-header">Quick Links</h2>
+                {% if  not request.user.is_authenticated %}
+                    <a href="{% url 'jobs:landing-page' %}" class="footer-quick-link">Home</a>
+                {% endif %}
+                <a href="{% url 'jobs:jobs' %}" class="{% if url_name == 'jobs' %}active-footer-link{% endif %} footer-quick-link">Jobs</a>
+                {% if  not request.user.is_authenticated %}
+                    <a href="{% url 'accounts:login' %}" class="footer-quick-link">Job seeker</a>
+                    <a href="" class="footer-quick-link">Employer</a>
+                {% endif %}
+                <a href="{% url 'jobs:contact' %}" class="{% if url_name == 'contact' %}active-footer-link{% endif %} footer-quick-link">Contact</a>
+                <a href="{% url 'jobs:about' %}" class="{% if url_name == 'about' %}active-footer-link{% endif %} footer-quick-link">About</a>
+                {% if not request.user.is_authenticated %}
+                    <a href="{% url 'accounts:login' %}" class="{% if url_name == 'login' %}active-footer-link{% endif %} footer-quick-link">Login</a>
+                    <a href="{% url 'accounts:register' %}" class="{% if url_name == 'register' %}active-footer-link{% endif %} footer-quick-link">Register</a>
+                {% else %}
+                    <a href="{% url 'accounts:logout' %}" class="{% if url_name == 'logout' %}active-footer-link{% endif %} footer-quick-link">Logout</a>
+                {% endif %}
+            </div>
+        {% endwith %}
+        <div class="footer-content footer-contact-form-container">
+            <h2 class='footer-contact-form-header'>Message Us</h2>
+            <form action="" method='POST' class="footer-contact-form">
+                {% csrf_token %}
+                <div class="footer-message-form-input-row">
+                    <label for="email">Email:</label>
+                    <input 
+                        id="email"
+                        type="email" 
+                        name='email' 
+                        class="footer-message-form-email-input" 
+                    >
+                </div>
+                <div class="footer-message-form-textarea-row">
+                    <label for="message">Message:</label>
+                    <textarea 
+                        id="message"
+                        name="message" 
+                        class="footer-message-form-message-textarea" 
+                    >
+                    </textarea>
+                </div>
+                <button class="footer-form-submit-btn" type='submit'>Submit Message</button>
+            </form>
+        </div>
+    </div>
+    <div class="footer-social-links">
+        <a href="https://www.linkedin.com/in/eric-anderson-a6b906214" target="_blank"  class="footer-social-link">
+            <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/shinhosuck/django_job_portal" target="_blank" class="footer-social-link">
+            <i class="fa-brands fa-github"></i>
+        </a>
+    </div>
+    <div class="footer-copy-right">
+        <p>&copy;2024 HireSpot Team</p>
+    </div>
+</div>
