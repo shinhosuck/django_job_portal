@@ -13,11 +13,13 @@ def landing_page_view(request):
         return redirect('jobs:jobs')
     return render(request, 'jobs/landing_page.html')
 
+
 def jobs_view(request):
     context = {
         'message': 'Jobs page'
     }
     return render(request, 'jobs/jobs.html', context)
+
 
 def contact_view(request):
     form = MessageForm(request.POST or None)
@@ -41,6 +43,7 @@ def contact_view(request):
 
         context['error'] = 'There was an error. Please try again.'
     return render(request, 'jobs/contact.html', context)
+
 
 def about_view(request):
     return render(request, 'jobs/about.html')

@@ -9,6 +9,11 @@ from django.contrib.auth import (
 
 
 def register_view(request):
+
+    if request.user.is_authenticated:
+        messages.warning(request, "You are already registered and logged in!")
+        return redirect('jobs:jobs')
+
     form = RegisterForm(request.POST or None)
     context = {'form':form}
 
@@ -23,6 +28,11 @@ def register_view(request):
 
 
 def login_view(request):
+
+    if request.user.is_authenticated:
+        messages.warning(request, "You are already logged in!")
+        return redirect('jobs:jobs')
+
     next = request.GET.get('next') or None
     form = LoginForm(request.POST or None)
     context = {'form': form}
@@ -50,6 +60,11 @@ def login_view(request):
             
 
 def logout_view(request):
+
+    if not request.user.is_authenticated:
+        messages.error(request, "You haven't logged in yet!")
+        return redirect('jobs:jobs')
+
     if request.method == 'POST':
         logout(request)
         messages.success(request, 'Successfully logged out!')
