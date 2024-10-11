@@ -30,6 +30,7 @@
     /* success, warning, info, error messages */
     --success: var(--green-30);
     --error: hsl(16, 100%, 50%);
+    --warning: hsl(38, 80%, 49%);
 }
 
 ::before,
@@ -79,7 +80,7 @@ button {
     font-family: "Roboto", sans-serif;
 }
 
-/* MESSAGES */
+/* MESSAGES (message from backend:warning, error, success, info) */
 .messages {
     position:absolute;
     width: 90%;
@@ -87,7 +88,6 @@ button {
     top:70px;
     left: 50%;
     transform: translateX(-50%);
-
     display: flex;
 }
 
@@ -111,6 +111,14 @@ button {
     background: var(--success)
 }
 
+.warning {
+    background: var(--warning)
+}
+
+.error {
+    background: var(--error)
+}
+
 .message-container > p {
     text-align: center;
     letter-spacing: 0.04rem;
@@ -118,6 +126,7 @@ button {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 1.1rem;
 }
 
 .message-container > button {
@@ -166,7 +175,6 @@ button {
     color: var(--black-80);
     font-size: 1.4rem;
 }
-
 
 .hide-mobile-navlinks-toggle-btn {
     display: none;
