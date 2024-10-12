@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'candidates/candidates.css' %}">
+{% endblock css %}
+
+{% block title %}
+    Jobs
+{% endblock title %}
+
+{% block content %}
+    <h1>{{ message }}</h1>
+{% endblock content %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'candidates/candidates.js' %}"></script>
+{% endblock js %}

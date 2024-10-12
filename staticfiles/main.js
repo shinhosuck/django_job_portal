@@ -64,3 +64,34 @@ const logoutModalCloseBtn = document.querySelector('.logout-modal-close-btn')
 logoutModalCloseBtn && logoutModalCloseBtn.addEventListener('click', () => {
     logoutModalContainer.classList.toggle('show-logout-modal')
 })
+
+
+// Contact form on contact page
+const contactForm = Array.from(document.querySelectorAll('.contact-form > p'))
+                    
+contactForm.forEach((p)=> {
+    p.setAttribute('class', 'contact-form-row')
+})
+
+// Landing page Mobile navbar: toggle mobile navlinks
+const mobileNavLinksToggleBtnsContainer = document.querySelector('.landing-page-mobile-navlinks-toggle-btns-container')
+const navLinksToggleBtns = mobileNavLinksToggleBtnsContainer && 
+                            Array.from(mobileNavLinksToggleBtnsContainer.querySelectorAll('button'))
+const mobileNavLinks = document.querySelector('.landing-page-mobile-navlinks')
+const openBtn = document.querySelector('.landing-page-mobile-navlinks-open-btn')
+const closeBtn = document.querySelector('.landing-page-mobile-navlinks-close-btn')
+
+navLinksToggleBtns && navLinksToggleBtns.forEach((btn) => {
+    btn.addEventListener('click', (e)=> {
+        mobileNavLinks.classList.toggle('landing-page-show-mobile-navlinks')
+
+        if (e.currentTarget === openBtn) {
+            e.currentTarget.classList.add('landing-page-hide-mobile-navlinks-toggle-btn')
+            closeBtn.classList.remove('landing-page-hide-mobile-navlinks-toggle-btn')
+        }
+        else if (e.currentTarget === closeBtn) {
+            e.currentTarget.classList.add('landing-page-hide-mobile-navlinks-toggle-btn')
+            openBtn.classList.remove('landing-page-hide-mobile-navlinks-toggle-btn')
+        }
+    })
+})

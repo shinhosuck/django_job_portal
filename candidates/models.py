@@ -4,49 +4,24 @@ import uuid
 
 User = settings.AUTH_USER_MODEL
 
-class Company(models.Model):
+
+class JobSeeker(models.Model):
     id = models.UUIDField(
         primary_key=True, 
         editable=False, 
         default=uuid.uuid4
     )
-    representative = models.ForeignKey(
-        User, 
-        on_delete=models.SET_NULL,
-        null=True
-    )
-    company = models.CharField(max_length=200)
-    logo = models.ImageField(upload_to='company_logos')
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name_plural = 'Companies'
-        ordering = ['company']
-
-    def __str__(self):
-        return self.company
-    
-    
-class Job(models.Model):
-    id = models.UUIDField(
-        primary_key=True, 
-        editable=False, 
-        default=uuid.uuid4
-    )
-    category = models.CharField(max_length=50)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=150)
     job_title = models.CharField(max_length=200)
-    salary = models.DecimalField(max_digits=100, decimal_places=2)
-    applicants = models.ManyToManyField(User, blank=True)
+    occupation = models.CharField(max_length=200)
+    resume = models.FileField(upload_to='resumes')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        ordering = ['category']
-
     def __str__(self):
-        return self.job_title
+        return f'{self.user.username}'    
     
 
 class Message(models.Model):

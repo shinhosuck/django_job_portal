@@ -3,15 +3,15 @@ from .views import (
     landing_page_view,
     contact_view,
     about_view,
-    jobs_view
+    jobs_view,
 )
 
-app_name = 'job_portal' 
+app_name = 'candidates' 
 
 
 urlpatterns = [
     path('', landing_page_view, name='landing-page'),
     path('jobs/', jobs_view, name='jobs' ),
     path('contact/', contact_view, name='contact'),
-    path('about/', about_view, name='about')
+    path('about/', about_view, name='about'),
 ]

@@ -12,7 +12,7 @@ def register_view(request):
 
     if request.user.is_authenticated:
         messages.warning(request, "You are already registered and logged in!")
-        return redirect('job_portal:jobs')
+        return redirect('candidates:jobs')
 
     form = RegisterForm(request.POST or None)
     context = {'form':form}
@@ -31,7 +31,7 @@ def login_view(request):
 
     if request.user.is_authenticated:
         messages.warning(request, "You are already logged in!")
-        return redirect('job_portal:jobs')
+        return redirect('candidates:jobs')
 
     next = request.GET.get('next') or None
     form = LoginForm(request.POST or None)
@@ -52,7 +52,7 @@ def login_view(request):
                 if next:
                     return redirect(next)
                 messages.success(request, 'Successfully logged in!')
-                return redirect('job_portal:jobs')
+                return redirect('candidates:jobs')
             
         context['error'] = 'Username or password did not match.'
 
@@ -63,10 +63,10 @@ def logout_view(request):
 
     if not request.user.is_authenticated:
         messages.error(request, "You haven't logged in yet!")
-        return redirect('job_portal:jobs')
+        return redirect('candidates:jobs')
 
     if request.method == 'POST':
         logout(request)
         messages.success(request, 'Successfully logged out!')
-        return redirect('job_portal:jobs')
+        return redirect('candidates:jobs')
     return render(request, 'accounts/logout.html')

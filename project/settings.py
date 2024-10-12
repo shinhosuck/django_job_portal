@@ -25,8 +25,9 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'social_django',
     # my app
-    'job_portal.apps.JobPortalConfig',
-    'accounts.apps.AccountsConfig'
+    'candidates.apps.CandidatesConfig',
+    'employers.apps.EmployersConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [

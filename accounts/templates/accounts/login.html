@@ -14,7 +14,7 @@
 {% block content %}
     <div class="login-form-row">
         <div class="login-form-container">
-            <a  href='{% url "job_portal:landing-page" %}' class="login-logo-container">
+            <a  href='{% url "candidates:landing-page" %}' class="login-logo-container">
                 <img src="{% static 'imgs/brand-logo.png' %}" alt="">
             </a>
             {% if error %} <p class='errorlist'>{{ error }}</p> {% endif %}

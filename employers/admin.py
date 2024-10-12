@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Company, Job, Message
+from .models import Employer, Job
 
 
-@admin.register(Company)
+@admin.register(Employer)
 class CompanyAdmin(admin.ModelAdmin):
     list_display = [
         'representative',
@@ -21,14 +21,4 @@ class JobAdmin(admin.ModelAdmin):
         'salary',
         'created',
         'updated'
-    ]
-
-@admin.register(Message)
-class MessageAdmin(admin.ModelAdmin):
-    list_display = [
-        'id',
-        'first_name',
-        'last_name',
-        'email',
-        'created'
     ]

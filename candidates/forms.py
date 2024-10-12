@@ -1,5 +1,5 @@
 from django import forms 
-from job_portal.models import Message 
+from .models import Message 
 
 
 class MessageForm(forms.ModelForm):

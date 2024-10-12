@@ -4,18 +4,25 @@
 
     <nav class="lg-nav-bar">
         <div class="brand-container">
-            <a href="{% url 'job_portal:landing-page' %}" class="brand-logo">HireSpot</a>
+            <a href="{% url 'candidates:landing-page' %}" class="brand-logo">HireSpot</a>
         </div>
         {% with request.resolver_match.url_name as url_name %}
             <div class="navlinks">
                 {% if not request.user.is_authenticated %}
-                    <a class='{% if url_name == "home" %}active-link{% endif %} navlink' href="{% url 'job_portal:landing-page' %}">Home</a>
+                    <a class='{% if url_name == "home" %}active-link{% endif %} navlink' href="{% url 'candidates:landing-page' %}">Home</a>
                 {% endif %}
-                <a class='{% if url_name == "jobs" %}active-link{% endif %} navlink' href="{% url 'job_portal:jobs' %}">Jobs</a>
-                <a class='{% if url_name == "about" %}active-link{% endif %} navlink' href="{% url 'job_portal:about' %}">About</a>
-                <a class='{% if url_name == "contact" %}active-link{% endif %} navlink' href="{% url 'job_portal:contact' %}">Contact</a>
+                <a class='{% if url_name == "jobs" %}active-link{% endif %} navlink' href="{% url 'candidates:jobs' %}">Jobs</a>
+
+                {% for app_name in request.resolver_match.app_names %}
+                    {% if app_name == 'employers' %}
+                        <a href="{% url 'accounts:login' %}" class="navlink">Job Seeker</a>
+                    {% elif app_name == 'candidates' %}
+                        <a href="{% url 'employers:employer' %}" class="navlink">Employer</a>
+                    {% endif %}
+                {% endfor %}
+                <a class='{% if url_name == "about" %}active-link{% endif %} navlink' href="{% url 'candidates:about' %}">About</a>
+                <a class='{% if url_name == "contact" %}active-link{% endif %} navlink' href="{% url 'candidates:contact' %}">Contact</a>
                 {% if request.user.is_authenticated %}
-                    {% comment %} <a class='navlink' href="{% url 'accounts:logout' %}">Logout</a> {% endcomment %}
                     <button class='navlink logout-btn'>Logout</button>
                 {% else %}
                     <a class='navlink' href="{% url 'accounts:login' %}">Login</a>
@@ -29,7 +36,7 @@
 
     <nav class="mobile-nav-bar">
         <div class="mobile-brand-container">
-            <a href="{% url 'job_portal:landing-page' %}" class="mobile-brand-logo">HireSpot</a>
+            <a href="{% url 'candidates:landing-page' %}" class="mobile-brand-logo">HireSpot</a>
         </div>
         <div class="mobile-navlinks-toggle-btns-container">
             <button type="button" class="mobile-navlinks-open-btn">
@@ -42,13 +49,12 @@
         {% with request.resolver_match.url_name as url_name %}
             <div class="mobile-navlinks">
                 {% if not request.user.is_authenticated %}
-                    <a class='mobile-navlink' href="{% url 'job_portal:landing-page' %}">Home</a>
+                    <a class='mobile-navlink' href="{% url 'candidates:landing-page' %}">Home</a>
                 {% endif %}
-                <a class='{% if url_name == "jobs" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'job_portal:jobs' %}">Jobs</a>
-                <a class='{% if url_name == "about" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'job_portal:about' %}">About</a>
-                <a class='{% if url_name == "contact" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'job_portal:contact' %}">Contact</a>
+                <a class='{% if url_name == "jobs" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'candidates:jobs' %}">Jobs</a>
+                <a class='{% if url_name == "about" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'candidates:about' %}">About</a>
+                <a class='{% if url_name == "contact" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'candidates:contact' %}">Contact</a>
                 {% if request.user.is_authenticated %}
-                    {% comment %} <a class='mobile-navlink' href="{% url 'accounts:logout' %}">Logout</a> {% endcomment %}
                     <button class="mobile-navlink mobile-logout-btn">Logout</button>
                 {% else %}
                     <a class='mobile-navlink' href="{% url 'accounts:login' %}">Login</a>
