@@ -9,7 +9,6 @@ from django.contrib.auth import (
 
 
 def register_view(request):
-
     if request.user.is_authenticated:
         messages.warning(request, "You are already registered and logged in!")
         return redirect('candidates:jobs')
@@ -27,15 +26,16 @@ def register_view(request):
     return render(request, 'accounts/register.html', context)
 
 
-def login_view(request):
-
-    if request.user.is_authenticated:
-        messages.warning(request, "You are already logged in!")
-        return redirect('candidates:jobs')
-
+def login_view(request):    
+    origin = request.GET.get('origin') or None
     next = request.GET.get('next') or None
     form = LoginForm(request.POST or None)
     context = {'form': form}
+
+    if request.user.is_authenticated:
+        if not origin or origin != 'employer':
+            messages.warning(request, "You are already logged in!")
+        return redirect('candidates:jobs')
 
     if request.method == 'POST':
         if form.is_valid():

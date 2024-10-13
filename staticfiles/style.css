@@ -310,29 +310,15 @@ button {
     color: var(--green-30)
 }
 
-.hero-buttons {
-    display: grid;
-    gap: 0.5rem;
+.find-your-dream-job-btn {
+    font-weight: 500;
     margin-top: 1rem;
-}
-
-.hero-buttons > a {
     color: var(--black-90);
     font-size: 1.2rem;
-    font-weight: 500;
-}
-
-.find-your-dream-job-btn {
     justify-self: center;
     padding: 1.2rem 2rem;
     border-radius: 5px;
     background: rgb(0, 157, 0);
-}
-
-.post-a-job-btn {
-    background: var(--black-10);
-    border-radius: 5px;
-    padding: 1rem;
 }
 
 @media screen and (min-width: 700px) {
@@ -368,17 +354,8 @@ button {
         color: var(--green-35)
     }
     
-    .hero-buttons {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-        margin-top: 2rem;
-    }
-     
-    .post-a-job-btn {
-        background: white;
-        color: var(--black-20) !important;
+    .find-your-dream-job-btn {
+        margin-top: 1.5rem;
     }
 }
 

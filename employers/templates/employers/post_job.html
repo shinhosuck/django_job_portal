@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}
+    New job post
+{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'employers/employers.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <div class="post-job-form-row">
+        <div class="post-job-form-container">
+            <a href='{% url "candidates:landing-page" %}' class="post-job-form-logo-container">
+                <img src="{% static 'imgs/brand-logo.png' %}" alt="">
+            </a>
+            <form class="post-job-form" action="" method="POST">
+                <H2 class="post-job-form-name">Post a Job</H2>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="post-job-form-submit-job-btn">Submit Job</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'employers/employers.js' %}"></script>
+{% endblock js %}

@@ -79,6 +79,7 @@
     letter-spacing: 0.03rem;
     font-size: 1.1rem;
     cursor: pointer;
+    font-weight: 500;
     transition: background 100ms linear;
 }
 

@@ -20,7 +20,8 @@ User = get_user_model()
     
 
 class RegisterForm(forms.Form):
-    username = forms.CharField(required=True, max_length=50)
+    username = forms.CharField(widget=forms.TextInput(attrs={'autofocus':True}),
+                               required=True, max_length=50)
     email = forms.EmailField(required=True)
     password = forms.CharField(
             widget=forms.PasswordInput(attrs={'required':True})
@@ -73,7 +74,7 @@ class RegisterForm(forms.Form):
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(required=True)
+    username = forms.CharField(widget=forms.TextInput(attrs={'autofocus':True}), required=True)
     password = forms.CharField(widget=forms.PasswordInput, required=True)
 
     def clean(self):

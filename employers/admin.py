@@ -15,7 +15,6 @@ class CompanyAdmin(admin.ModelAdmin):
 @admin.register(Job)
 class JobAdmin(admin.ModelAdmin):
     list_display = [
-        'category',
         'company',
         'job_title',
         'salary',
