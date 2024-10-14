@@ -21,18 +21,6 @@
     row-gap: 1rem;
 }
 
-.register-logo-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-}
-
-.register-logo-container > img {
-    width: 60%;
-    aspect-ratio: 6 / 2;
-    display: block;
-}
-
 .register-form-name {
     margin-bottom: 0.5rem;
     color: var(--black-20)
@@ -122,18 +110,6 @@
     display: grid;
     align-content: start;
     row-gap: 1rem;
-}
-
-.login-logo-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-}
-
-.login-logo-container > img {
-    width: 60%;
-    aspect-ratio: 6 / 2;
-    display: block;
 }
 
 .login-form-name {
@@ -252,88 +228,86 @@
     letter-spacing: 0.03rem;
 }
 
-/* LOGOUT */
-.logout-form-row {
-    min-height: 100svh;
-    padding: 5rem 0;
-}
-
-.logout-form-container {
+/* LOGOUT MODAL */
+.logout-modal-container {
+    position: absolute;
+    z-index: 100;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
     width: 90%;
-    max-width: 500px;
-    margin: 0 auto;
-
-    display: grid;
-    align-content: start;
-    row-gap: 1rem;
+    max-width: 400px;
+    padding: 1.2rem;
+    border-radius: 5px;
+    opacity: 0;
+    box-shadow: 3px 3px 20px -3px var(--black-70);
+    transition: opacity 100ms linear;
+    background: var(--black-90)
 }
 
-.logout-form {
-    display: grid;
-    align-content: start;
-    gap: 0.5rem;
+.show-logout-modal {
+    opacity: 1;
+    top: 100px
 }
 
-.logout-logo-container {
+.logout-modal-close-btn-container {
     display: flex;
-    justify-content: center;
-    margin-bottom: 1.5rem;
+    align-items: center;
+    justify-content: end;
+    margin-bottom: 0.5rem;
 }
 
-.logout-logo-container > img {
-    width: 60%;
-    aspect-ratio: 6 / 2;
-    display: block;
+.logout-modal-close-btn {
+  background: none;
+  border: none;
+  color: var(--black-90);
+  font-size: 1.1rem;
+  width: 27px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  border: 1px solid var(--black-70);
+  background: var(--black-20)
 }
 
-.logout-form-logout-warning {
+.logout-modal-close-btn > i {
+    margin-top: 0.2rem;
+}
+
+.lobout-modal-form {
+    display: grid;
+    align-content: start;
+    gap: 2rem;
+}
+
+.lobout-modal-form-message {
     text-align: center;
-    font-size: 1.2rem;
-    letter-spacing: 0.03rem;
-    color: var(--error)
+    text-wrap: pretty;
+    letter-spacing: 0.04rem;
+    line-height: 1.3;
+    font-size: 1.6rem;
+    color: var(--black-20)
 }
 
-.logout-form-continue-browsing-btn {
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-    padding: 0.9rem 1rem;
-    border: none;
+.lobout-modal-form-btns {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem
+}
+
+.lobout-modal-form-logout-btn,
+.lobout-modal-form-continue-browsing {
+    color: var(--black-90);
     background: var(--green-30);
-    color: var(--black-90);
-    border-radius: 5px;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
     letter-spacing: 0.03rem;
-    font-size: 1.1rem;
+    border-radius: 5px;
     text-align: center;
-    margin-top: 2rem;
-    transition: background 100ms linear;
-}
-
-.logout-form-logout-btn {
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-    padding: 0.9rem 1rem;
-    border: none;
-    background: var(--black-50);
-    color: var(--black-90);
-    border-radius: 5px;
-    letter-spacing: 0.03rem;
+    font-weight: 500;
     font-size: 1.1rem;
+}
+
+.lobout-modal-form-logout-btn {
     cursor: pointer;
-    transition: background 100ms linear;
-}
-
-@media (hover) {
-    .logout-form-continue-browsing-btn:hover {
-        background: var(--green-40)
-    }
-
-    .logout-form-logout-btn:hover {
-        background: var(--black-40)
-    }
-}
-
-.login-form-user-logged-in-already {
-    
+    background: var(--black-30)
 }

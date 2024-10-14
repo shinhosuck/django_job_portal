@@ -147,6 +147,32 @@ button {
     color: var(--black-30)
 }
 
+/* FORM LOGO */
+.logo-container {
+    display: grid;
+    justify-content: center;
+    gap: 0.3rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.logo-container > 
+.logo-header {
+    font-size: 3.2rem;
+    color: var(--green-35);
+    font-weight: 600;
+
+}
+
+.logo-container > 
+.logo-slogan {
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    color: var(--black-10);
+    font-weight: 500;
+    font-size: 0.95;
+}
+
 /* LANDING PAGE NAVBAR */
 .landing-page-nav-row {
     padding: 1rem 0;
@@ -504,90 +530,6 @@ button {
     }
 }
 
-/* LOGOUT MODAL */
-.logout-modal-container {
-    position: absolute;
-    z-index: 100;
-    top: -100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 400px;
-    padding: 1.2rem;
-    border-radius: 5px;
-    opacity: 0;
-    box-shadow: 3px 3px 20px -3px var(--black-70);
-    transition: opacity 100ms linear;
-    background: var(--black-90)
-}
-
-.show-logout-modal {
-    opacity: 1;
-    top: 100px
-}
-
-.logout-modal-close-btn-container {
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    margin-bottom: 0.5rem;
-}
-
-.logout-modal-close-btn {
-  background: none;
-  border: none;
-  color: var(--black-90);
-  font-size: 1.1rem;
-  width: 27px;
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-  border: 1px solid var(--black-70);
-  background: var(--black-20)
-}
-
-.logout-modal-close-btn > i {
-    margin-top: 0.2rem;
-}
-
-.lobout-modal-form {
-    display: grid;
-    align-content: start;
-    gap: 2rem;
-}
-
-.lobout-modal-form-message {
-    text-align: center;
-    text-wrap: pretty;
-    letter-spacing: 0.04rem;
-    line-height: 1.3;
-    font-size: 1.6rem;
-    color: var(--black-20)
-}
-
-.lobout-modal-form-btns {
-    display: grid;
-    align-content: start;
-    gap: 0.5rem
-}
-
-.lobout-modal-form-logout-btn,
-.lobout-modal-form-continue-browsing {
-    color: var(--black-90);
-    background: var(--green-30);
-    padding: 0.8rem 1rem;
-    font-size: 1rem;
-    letter-spacing: 0.03rem;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: 500;
-    font-size: 1.1rem;
-}
-
-.lobout-modal-form-logout-btn {
-    cursor: pointer;
-    background: var(--black-30)
-}
-
 /* ABOUT */
 .about-container {
     width: 90%;
@@ -881,3 +823,4 @@ button {
         justify-content: center;
     }
 }
+
