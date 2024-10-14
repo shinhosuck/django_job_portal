@@ -1,4 +1,10 @@
 
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "accounts/accounts.css" %}">
+{% endblock css %}
+
 <div class="logout-modal-container">
     <div class="logout-modal-close-btn-container">
         <button class="logout-modal-close-btn">
@@ -14,3 +20,4 @@
         </div>
     </form>
 </div>
+

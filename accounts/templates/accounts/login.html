@@ -14,8 +14,9 @@
 {% block content %}
     <div class="login-form-row">
         <div class="login-form-container">
-            <a  href='{% url "candidates:landing-page" %}' class="login-logo-container">
-                <img src="{% static 'imgs/brand-logo.png' %}" alt="">
+            <a href="{% url 'candidates:jobs' %}" class="logo-container">
+                <span class="logo-header">HireSpot</span>
+                <span class="logo-slogan">future starts here</span>
             </a>
             {% if error %} <p class='errorlist'>{{ error }}</p> {% endif %}
             <form class="login-from" action="" method='POST'>

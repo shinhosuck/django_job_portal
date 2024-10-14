@@ -9,18 +9,30 @@
     <link rel="stylesheet" href="{% static 'employers/employers.css' %}">
 {% endblock css %}
 
+{% block nav %}{% endblock nav %}
+
 {% block content %}
     <div class="post-job-form-row">
         <div class="post-job-form-container">
-            <a href='{% url "candidates:landing-page" %}' class="post-job-form-logo-container">
-                <img src="{% static 'imgs/brand-logo.png' %}" alt="">
+            <a href="{% url 'employers:employer' %}" class="logo-container">
+                <span class="logo-header">HireSpot</span>
+                <span class="logo-slogan">future starts here</span>
             </a>
             <form class="post-job-form" action="" method="POST">
-                <H2 class="post-job-form-name">Post a Job</H2>
+                <div class="post-job-form-text-container">
+                    <H2 class="post-job-form-name">Start Your Recruitment Journey Here!</H2>
+                    <span>Ready to find your next great hire? Complete the form below with the job details
+                         and let us help you connect with talented professionals.
+                    </span>
+                </div>
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button class="post-job-form-submit-job-btn">Submit Job</button>
             </form>
+            <a href="{% url 'employers:employer' %}" class="post-job-form-post-job-later">
+                <span>Post Job later</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
         </div>
     </div>
 {% endblock content %}
@@ -30,3 +42,4 @@
 {% block js %}
     <script type="text/javascript" src="{% static 'employers/employers.js' %}"></script>
 {% endblock js %}
+

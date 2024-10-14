@@ -59,7 +59,7 @@
 }
 .employer-register-form-container {
     width: 90%;
-    max-width: 500px;
+    max-width: 600px;
     margin: 0 auto;
 
     display: grid;
@@ -67,31 +67,37 @@
     row-gap: 1rem;
 }
 
-.employer-register-form-logo-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-    border: 1px solid red;
-}
-
-.employer-register-form-logo-container > img {
-    width: 60%;
-    aspect-ratio: 6 / 2;
-    display: block;
-}
-
 .employer-register-form {
     display: grid;
     align-content: start;
-    gap: 1rem;
-    padding: 1.2rem;
-    border-radius: 8px;
-    border: 1px solid var(--black-80)
+    gap: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+.employer-register-form-text-container {
+    display: grid;
+    align-content: start;
+    gap: 0.8rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
 }
 
 .employer-register-form-name {
-    margin-bottom: 0.5rem;
-    color: var(--black-20)
+    color: var(--black-30);
+    text-wrap: pretty;
+    font-size: 1.7rem;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.employer-register-form-text-container > span {
+    color: var(--black-40);
+    letter-spacing: 0.05rem;
+    line-height: 1.3;
+    font-size: 1rem;
+    max-width: 400px;
+    margin: 0 auto;
+    text-wrap: pretty;
 }
 
 /* .register-from > *:nth-child(6) {
@@ -106,7 +112,8 @@
 
 .employer-register-form > p > label {
     letter-spacing: 0.03rem;
-    color: var(--black-10)
+    color: var(--black-10);
+    font-weight: 500;
 }
 
 .employer-register-form > p > textarea,
@@ -119,12 +126,13 @@
 }
 
 .employer-register-form > p > textarea {
+    min-height: 80px;
     height: 80px;
     max-height: 200px;
 }
 
 .employer-register-form-btn {
-    padding: 0.9rem 1rem;
+    padding: 0.9rem 1.5rem;
     border: none;
     background: var(--green-30);
     color: var(--black-90);
@@ -133,31 +141,28 @@
     font-size: 1.1rem;
     cursor: pointer;
     font-weight: 500;
-    transition: background 100ms linear;
+    transition: background 200ms linear;
+}
+
+.employer-register-form-create-later {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    margin-top: 1.5rem;
+    color: var(--black-50);
+    letter-spacing: 0.03rem;
+    font-weight: 500;
 }
 
 @media (hover) {
     .employer-register-form-btn:hover {
         background: var(--green-40)
     }
-}
 
-/* .register-form-already-registered {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 0.2rem;
+    .employer-register-form-create-later:hover {
+        color: var(--black-20);
+    }
 }
-
-.register-form-already-registered > p {
-    color: var(--black-20);
-    letter-spacing: 0.03rem;
-}
-
-.register-form-already-registered > a {
-    color: var(--green-35);
-    letter-spacing: 0.03rem;
-} */
 
 /* POST JOB */
 .post-job-form-row {
@@ -168,7 +173,7 @@
 }
 .post-job-form-container {
     width: 90%;
-    max-width: 500px;
+    max-width: 600px;
     margin: 0 auto;
 
     display: grid;
@@ -176,30 +181,38 @@
     row-gap: 1rem;
 }
 
-.post-job-form-logo-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-}
-
-.post-job-form-logo-container > img {
-    width: 60%;
-    aspect-ratio: 6 / 2;
-    display: block;
-}
-
 .post-job-form {
     display: grid;
     align-content: start;
-    gap: 1rem;
-    padding: 1.2rem;
-    border-radius: 8px;
-    border: 1px solid var(--black-80)
+    gap: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+.post-job-form-text-container {
+    display: grid;
+    align-content: start;
+    gap: 0.8rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
 }
 
 .post-job-form-name {
-    margin-bottom: 0.5rem;
-    color: var(--black-20)
+    color: var(--black-30);
+    text-wrap: balance;
+    font-size: 1.7rem;
+    max-width: 400px;
+    margin: 0 auto;
+    text-wrap: pretty;
+}
+
+.post-job-form-text-container > span {
+    color: var(--black-40);
+    letter-spacing: 0.05rem;
+    line-height: 1.3;
+    font-size: 1rem;
+    max-width: 400px;
+    margin: 0 auto;
+    text-wrap: pretty;
 }
 
 /* .register-from > *:nth-child(6) {
@@ -214,7 +227,8 @@
 
 .post-job-form > p > label {
     letter-spacing: 0.03rem;
-    color: var(--black-10)
+    color: var(--black-10);
+    font-weight: 500;
 }
 
 .post-job-form > p > textarea,
@@ -227,6 +241,7 @@
 }
 
 .post-job-form > p > textarea {
+    min-height: 80px;
     height: 80px;
     max-height: 200px;
 }
@@ -241,11 +256,25 @@
     font-size: 1.1rem;
     cursor: pointer;
     font-weight: 500;
-    transition: background 100ms linear;
+    transition: background 200ms linear;
+}
+
+.post-job-form-post-job-later {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    margin-top: 1.5rem;
+    color: var(--black-50);
+    letter-spacing: 0.03rem;
+    font-weight: 500;
 }
 
 @media (hover) {
     .post-job-form-submit-job-btn:hover {
         background: var(--green-40)
+    }
+
+    .post-job-form-post-job-later:hover {
+        color: var(--black-20);
     }
 }

@@ -14,8 +14,9 @@
 {% block content %}
     <div class="register-form-row">
         <div class="register-form-container">
-            <a href='{% url "candidates:landing-page" %}' class="register-logo-container">
-                <img src="{% static 'imgs/brand-logo.png' %}" alt="">
+            <a href="{% url 'candidates:jobs' %}" class="logo-container">
+                <span class="logo-header">HireSpot</span>
+                <span class="logo-slogan">future starts here</span>
             </a>
             <form class="register-from" action="" method='POST'>
                 <h2 class="register-form-name">

@@ -9,26 +9,42 @@
     <link rel="stylesheet" href="{% static 'employers/employers.css' %}">
 {% endblock css %}
 
+{% block nav %}
+    {% comment %} {% include "employer_nav.html" %} {% endcomment %}
+{% endblock nav %}
+
 {% block content %}
     <div class="employer-register-form-row">
         <div class="employer-register-form-container">
-            <a href='{% url "candidates:landing-page" %}' class="employer-register-form-logo-container">
-                <img src="{% static 'imgs/brand-logo.png' %}" alt="">
+            <a href="{% url 'employers:employer' %}" class="logo-container">
+                <span class="logo-header">HireSpot</span>
+                <span class="logo-slogan">future starts here</span>
             </a>
             <form class="employer-register-form" action="" method="POST">
-                <h2 class="employer-register-form-name">
-                    Company Register
-                </h2>
+                <div class="employer-register-form-text-container">
+                    <h2 class="employer-register-form-name">
+                        Create an Employer Account!
+                    </h2>
+                    <span>
+                        You haven't posted a job before, 
+                        so you'll need to create an employer account.
+                    </span>
+                </div>
+               
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button class="employer-register-form-btn">Register</button>
+                <button class="employer-register-form-btn">Create Account</button>
             </form>
+            <a href="{% url 'employers:employer' %}" class="employer-register-form-create-later">
+                <span>Register employer account later</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
         </div>
     </div>
 {% endblock content %}
 
-{% block footer %}{% endblock footer %}
-
 {% block js %}
     <script type="text/javascript" src="{% static 'employers/employers.js' %}"></script>
 {% endblock js %}
+
+{% block footer %}{% endblock footer %}
