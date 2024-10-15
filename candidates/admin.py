@@ -1,12 +1,12 @@
 from django.contrib import admin
 from .models import (
     Message, 
-    JobSeeker
+    Candidate
 )
 
 
-@admin.register(JobSeeker)
-class JobSeekerAdmin(admin.ModelAdmin):
+@admin.register(Candidate)
+class CandidateAdmin(admin.ModelAdmin):
     list_display = [
         'id',
         'first_name',

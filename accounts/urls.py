@@ -5,6 +5,7 @@ from .views import (
     logout_view 
 )
 
+from django.contrib.auth import views as auth_views
 
 app_name = 'accounts'
 

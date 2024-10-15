@@ -5,7 +5,7 @@ import uuid
 User = settings.AUTH_USER_MODEL
 
 
-class JobSeeker(models.Model):
+class Candidate(models.Model):
     id = models.UUIDField(
         primary_key=True, 
         editable=False, 
@@ -16,7 +16,7 @@ class JobSeeker(models.Model):
     last_name = models.CharField(max_length=150)
     job_title = models.CharField(max_length=200)
     occupation = models.CharField(max_length=200)
-    resume = models.FileField(upload_to='resumes')
+    resume = models.FileField(upload_to='resumes', null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

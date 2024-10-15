@@ -1,0 +1,49 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}
+    Candidate Register
+{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'candidates/candidates.css' %}">
+{% endblock css %}
+
+{% block nav %}{% endblock nav %}
+
+{% block content %}
+    <div class="candidate-register-form-row">
+        <div class="candidate-register-form-container">
+            <a href="{% url 'candidates:landing-page' %}" class="logo-container">
+                <span class="logo-header">HireSpot</span>
+                <span class="logo-slogan">future starts here</span>
+            </a>
+            <form class="candidate-register-form" action="" method="POST">
+                <div class="candidate-register-form-text-container">
+                    <h2 class="candidate-register-form-name">
+                        Start Your Job Search Today!
+                    </h2>
+                    <span>
+                        Create your profile to explore job opportunities, 
+                        and showcase your skills to top employers. 
+                        It only takes a few minutes to set up and get noticed by recruiters.
+                    </span>
+                </div>
+               
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="candidate-register-form-btn">Create Account</button>
+            </form>
+            <a href="{% url 'candidates:jobs' %}" class="candidate-register-form-create-later">
+                <span>Add skills later</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'candidates/candidates.js' %}"></script>
+{% endblock js %}
+
+{% block footer %}{% endblock footer %}

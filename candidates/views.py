@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from accounts.models import Profile
 from django.contrib.auth import get_user_model 
 from django.contrib.auth.decorators import login_required
-from .forms import MessageForm
+from .forms import MessageForm, CandidateForm
 from django.contrib import messages
 
 User = get_user_model()
@@ -49,3 +49,12 @@ def about_view(request):
     return render(request, 'about.html')
 
 
+def candidate_register_view(request):
+    form = CandidateForm(request.POST or None)
+    context = {'form':form}
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save(commit=False)
+    
+    return render(request, 'candidates/candidate_register.html', context)

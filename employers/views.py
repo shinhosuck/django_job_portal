@@ -15,9 +15,9 @@ def employer_register(request):
     form = EmployerForm(request.POST or None)
     context = {'form':form}
 
-    # if not request.user.is_authenticated:
-    #     messages.error(request, 'Please log in to preceed to requested page.')
-    #     return redirect('/login/?next=/employers/register/')
+    if not request.user.is_authenticated:
+        messages.error(request, 'Please log in to preceed to requested page.')
+        return redirect('/login/?next=/employers/register/')
 
     if request.method == 'POST':
         if form.is_valid():
@@ -31,18 +31,18 @@ def post_job_view(request):
     form = JobsForm(request.POST or None)
     context = {'form':form}
 
-    # if not request.user.is_authenticated:
-    #     messages.error(request, 'Please log in to preceed to requested page.')
-    #     return redirect('/login/?next=/post/job/')
+    if not request.user.is_authenticated:
+        messages.error(request, 'Please log in to preceed to requested page.')
+        return redirect('/login/?next=/post/job/')
    
-    # try:
-    #     employer = Employer.objects.get(representative=request.user)
-    # except Employer.DoesNotExist:
-    #     employer = None 
+    try:
+        employer = Employer.objects.get(representative=request.user)
+    except Employer.DoesNotExist:
+        employer = None 
     
-    # if not employer:
-    #     messages.error(request, 'Please register your company first to post a job.')
-    #     return redirect('employers:employer-register')
+    if not employer:
+        messages.error(request, 'Please register your company first to post a job.')
+        return redirect('employers:employer-register')
     
     if request.method == 'POST':
         if form.is_valid():
