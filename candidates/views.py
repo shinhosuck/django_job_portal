@@ -55,6 +55,8 @@ def candidate_register_view(request):
 
     if request.method == 'POST':
         if form.is_valid():
-            form.save(commit=False)
-    
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+            
     return render(request, 'candidates/candidate_register.html', context)

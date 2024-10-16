@@ -272,7 +272,7 @@ button {
     .landing-page-navlinks {
         display: flex;
         align-items: center;
-        gap: 1.5rem;
+        gap: 1rem;
     }
 
     .landing-page-navlink {
@@ -467,7 +467,7 @@ button {
     display: none;
 }
 
-@media screen and (min-width:700px) {
+@media screen and (min-width:850px) {
     .mobile-nav-bar {
         display: none;
     }

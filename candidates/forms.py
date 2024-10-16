@@ -19,4 +19,8 @@ class CandidateForm(forms.ModelForm):
             'last_name',
             'job_title',
             'occupation',
+            'resume',
         ]
+
+
+
