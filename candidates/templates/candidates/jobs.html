@@ -10,7 +10,14 @@
 {% endblock title %}
 
 {% block content %}
-    <h1>{{ message }}</h1>
+    <h1>Jobs</h1>
+
+    <div>
+        {% for candidate in candidates %}
+            <a href="{{ candidate.get_resume_url }}" download>{{ candidate.resume.url }}</a>
+        {% endfor %}
+    </div>
+
 {% endblock content %}
 
 {% block js %}

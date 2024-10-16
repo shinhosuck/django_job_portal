@@ -11,17 +11,27 @@ class Candidate(models.Model):
         editable=False, 
         default=uuid.uuid4
     )
+    avatar = models.ImageField(upload_to='avatars', default='avatars/default.png')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=150)
     job_title = models.CharField(max_length=200)
-    occupation = models.CharField(max_length=200)
     resume = models.FileField(upload_to='resumes', null=True, blank=True)
+    social_link = models.URLField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.user.username}'    
+        return f'{self.user.username}'  
+
+    # def get_absolute_url(self):
+    #     return reverse("model_detail", kwargs={"pk": self.pk})
+
+    def get_resume_url(self, request=None):
+        if request:
+            return request.build_absolute_uri(self.resume.url)
+        return self.resume.url
+      
     
 
 class Message(models.Model):

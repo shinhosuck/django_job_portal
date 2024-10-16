@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
-from accounts.models import Profile
 from django.contrib.auth import get_user_model 
-from django.contrib.auth.decorators import login_required
 from .forms import MessageForm, CandidateForm
 from django.contrib import messages
+from .models import Candidate
 
 User = get_user_model()
 
@@ -15,10 +14,7 @@ def landing_page_view(request):
 
 
 def jobs_view(request):
-    context = {
-        'message': 'Jobs page'
-    }
-    return render(request, 'candidates/jobs.html', context)
+    return render(request, 'candidates/jobs.html')
 
 
 def contact_view(request):
@@ -50,9 +46,9 @@ def about_view(request):
 
 
 def candidate_register_view(request):
-    form = CandidateForm(request.POST or None)
+    form = CandidateForm(request.POST or None, request.FILES or None)
     context = {'form':form}
-
+   
     if request.method == 'POST':
         if form.is_valid():
             instance = form.save(commit=False)
