@@ -42,7 +42,7 @@
 }
 
 body {
-    font-family: "Roboto", sans-serif;
+    font-family: "Inter", sans-serif;
 }
 
 main {
@@ -61,13 +61,13 @@ input {
     width: 100%;
     box-sizing: border-box;
     font-size: 1rem !important;
-    font-family: "Roboto", sans-serif;;
+    font-family: "Inter", sans-serif;
 }
 
 textarea {
     resize: vertical;
     font-size: 1rem;
-    font-family: "Roboto", sans-serif;
+    font-family: "Inter", sans-serif;
 }
 
 input:focus,
@@ -77,7 +77,7 @@ textarea:focus {
 
 button {
     font-size: 1rem;
-    font-family: "Roboto", sans-serif;
+    font-family: "Inter", sans-serif;
 }
 
 /* MESSAGES (message from backend:warning, error, success, info) */
@@ -246,7 +246,7 @@ button {
     display: none;
 }
 
-@media screen and (min-width:700px) {
+@media screen and (min-width:850px) {
     .landing-page-mobile-nav-bar {
         display: none;
     }

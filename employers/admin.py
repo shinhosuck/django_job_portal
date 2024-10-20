@@ -7,6 +7,7 @@ class CompanyAdmin(admin.ModelAdmin):
     list_display = [
         'representative',
         'company',
+        'slug',
         'created',
         'updated'
     ]
@@ -17,6 +18,7 @@ class JobAdmin(admin.ModelAdmin):
     list_display = [
         'company',
         'job_title',
+        'slug',
         'salary',
         'created',
         'updated'

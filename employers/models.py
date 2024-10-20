@@ -2,6 +2,9 @@ from typing import Iterable
 from django.db import models
 from django.conf import settings
 from django.utils.text import slugify
+from django.urls import reverse
+from datetime import datetime
+import re
 
 
 User = settings.AUTH_USER_MODEL
@@ -28,11 +31,15 @@ class Employer(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.company)
+            self.slug = f'{slugify(self.company)}'
         if self.logo:
             self.logo = 'company_logos/default.png'
 
         return super().save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return reverse("employers:employer-detail", kwargs={"slug": self.slug})
+    
 
     def __str__(self):
         return self.company
@@ -41,6 +48,7 @@ class Employer(models.Model):
 class Job(models.Model):
     company = models.ForeignKey(Employer, on_delete=models.CASCADE)
     job_title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200)
     salary = models.DecimalField(max_digits=100, decimal_places=2)
     qualification = models.TextField()
     applicants = models.ManyToManyField(User, blank=True)
@@ -49,6 +57,15 @@ class Job(models.Model):
 
     class Meta:
         ordering = ['-created']
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = f'{slugify(self.job_title)}-'+''.join(re.findall('\d', str(datetime.now())))
+        return super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("employers:job-detail", kwargs={"slug": self.slug})
+    
 
     def __str__(self):
         return self.job_title

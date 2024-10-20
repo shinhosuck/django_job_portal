@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Employer Dashboard
+    Job Detail
 {% endblock title %}
 
 {% block css %}
@@ -14,12 +14,9 @@
 {% endblock nav %}
 
 {% block content %}
-    <h1>Employer Dashboard</h1>
-    {% for employer in employers %}
-        <a href="{{ employer.get_absolute_url }}">
-            {{ employer.company }}
-        </a>
-    {% endfor %}
+    <h1>Job Detail</h1>
+    <h3>Employer-{{ employer.company }}</h3>
+    <h4>Job title-{{ job.job_title}}</h4>
 {% endblock content %}
 
 {% block js %}

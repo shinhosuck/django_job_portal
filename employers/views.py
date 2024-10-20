@@ -5,8 +5,7 @@ from django.contrib import messages
 from utils.decorators import user_login_required
 
 
-
-def employer_view(request):
+def employer_landing_page_view(request):
     return render(request, 'employers/employers_landing_page.html')
 
 
@@ -39,11 +38,14 @@ def post_job_view(request):
     else:
         context['employers'] = employers
     
+
+
     if request.method == 'POST':
         employer_name = request.POST.get('employers')
+
         try:
-            employer = employers.get(employer=employer_name)
-        except Employer.DoesNotExist:
+            employer = employers.get(company=employer_name)
+        except Exception as e:
             messages.error(request, "Employer does not exists.")
 
         if employer:
@@ -51,6 +53,7 @@ def post_job_view(request):
                 instance = form.save(commit=False)
                 instance.company = employer
                 instance.save()
+                messages.success(request, 'New job posted successfully.')
                 return redirect('employers:employer-dashboard')
             else:
                 messages.error(request, 'There was an unknown error. Please try again')
@@ -66,6 +69,35 @@ def employer_dashboard_view(request):
     return render(request, 'employers/employer_dashboard.html', context)
 
 
-def employer_detail_view(request, id):
-    print('ID:', id)
-    return render(request, 'employers/employer_detail.html')
+def employer_detail_view(request, slug):
+    context = {}
+
+    try:
+        employer = Employer.objects.get(slug=slug)
+    except Employer.DoesNotExist:
+        messages.error(request, 'Employer does not exit. Please try again.')
+        return redirect('employers:employer-detail', slug=slug)
+    
+    if employer:
+        jobs = employer.job_set.all()
+        context.update({'employer':employer, 'jobs':jobs})
+
+    return render(request, 'employers/employer_detail.html', context)
+
+
+def employer_job_detail(request, slug):
+    employer_slug = request.GET.get('employer') or None
+
+    try:
+        employer = Employer.objects.get(slug=employer_slug)
+    except Employer.DoesNotExist:
+        employer = None
+
+    try:
+        job = Job.objects.get(slug=slug)
+    except Job.DoesNotExist:
+        return redirect('employers:employer-detail', slug=employer_slug)
+    
+    context = {'employer': employer, 'job': job}
+    
+    return render(request, 'employers/job_detail.html', context)

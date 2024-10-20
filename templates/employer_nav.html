@@ -8,16 +8,19 @@
         </div>
         {% with request.resolver_match.url_name as url_name %}
             <div class="navlinks">
-                <a href="{% url 'employers:post-job' %}" class="{% if url_name == 'employer-dashboard' %}active-link{% endif %} navlink">Post a Job</a>
-                <a href="{% url 'employers:employer-register' %}" class="navlink">Register Employer</a>
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'employers:post-job' %}" class="navlink">Post a Job</a>
+                    <a href="{% url 'employers:employer-dashboard' %}" class="{% if url_name == 'employer-dashboard'%}active-link{% endif %} navlink">Dashboard</a>
+                    <a href="{% url 'employers:employer-register' %}" class="navlink">Register Employer</a>
+                {% endif %}
                 <a href="{% url 'candidates:jobs' %}" class="navlink">Job Seeker</a>
                 <a class='{% if url_name == "about" %}active-link{% endif %} navlink' href="{% url 'candidates:about' %}">About</a>
                 <a class='{% if url_name == "contact" %}active-link{% endif %} navlink' href="{% url 'candidates:contact' %}">Contact</a>
                 {% if request.user.is_authenticated %}
                     <button class='navlink logout-btn'>Logout</button>
                 {% else %}
-                    <a class='navlink' href="{% url 'accounts:login' %}?next=/recruit/">Login</a>
-                    <a class='navlink register-link' href="{% url 'accounts:register' %}?next=/recruit/">Register</a>
+                    <a class='navlink' href="{% url 'accounts:login' %}?next=/employers/recruit/">Login</a>
+                    <a class='navlink register-link' href="{% url 'accounts:register' %}?next=/employers/recruit/">Register</a>
                 {% endif %}
             </div>
         {% endwith %}
@@ -39,16 +42,19 @@
         </div>
         {% with request.resolver_match.url_name as url_name %}
             <div class="mobile-navlinks">
-                <a href="{% url 'employers:post-job' %}" class="{% if url_name == 'employer-dashboard' %}active-mobile-navlink{% endif %} mobile-navlink">Post a Job</a>
-                <a href="{% url 'employers:employer-register' %}" class="mobile-navlink">Register Employer</a>
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'employers:post-job' %}" class="mobile-navlink">Post a Job</a>
+                    <a href="{% url 'employers:employer-dashboard' %}" class="{% if url_name == 'employer-dashboard'%}active-mobile-navlink{% endif %} mobile-navlink">Dashboard</a>
+                    <a href="{% url 'employers:employer-register' %}" class="mobile-navlink">Register Employer</a>
+                {% endif %}
                 <a href="{% url 'candidates:jobs' %}" class="mobile-navlink">Job Seeker</a>
                 <a class='{% if url_name == "about" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'candidates:about' %}">About</a>
                 <a class='{% if url_name == "contact" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'candidates:contact' %}">Contact</a>
                 {% if request.user.is_authenticated %}
                     <button class="mobile-navlink mobile-logout-btn">Logout</button>
                 {% else %}
-                    <a class='mobile-navlink' href="{% url 'accounts:login' %}">Login</a>
-                    <a class='mobile-navlink' href="{% url 'accounts:register' %}">Register</a>
+                    <a class='mobile-navlink' href="{% url 'accounts:login' %}?next=/employers/recruit/">Login</a>
+                    <a class='mobile-navlink' href="{% url 'accounts:register' %}?next=/employers/recruit/">Register</a>
                 {% endif %}
             </div>
         {% endwith %}

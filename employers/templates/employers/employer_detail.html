@@ -15,6 +15,12 @@
 
 {% block content %}
     <h1>Employer Detail</h1>
+    <h3>{{ employer.company}}</h3>
+    {% if jobs %}
+        {% for job in jobs %}
+            <a href="{{ job.get_absolute_url }}?employer={{employer.slug}}">Job-{{ job.job_title }}</a>
+        {% endfor %}
+    {% endif %}
 {% endblock content %}
 
 {% block js %}

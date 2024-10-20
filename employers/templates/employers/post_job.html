@@ -26,9 +26,9 @@
                     </span>
                 </div>
                 {% csrf_token %}
-                <p>
-                    <label for="employers">Choose a employer:</label>
-                    <select name="employers" id="employers" required>
+                <p class="post-job-form-select-container">
+                    <label for="employers">Employer:</label>
+                    <select name="employers" id="employers" required autofocus>
                         <option value="">-----</option>
                         {% for employer in employers %}
                             <option value="{{ employer.company }}">
