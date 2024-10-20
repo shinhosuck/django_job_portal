@@ -100,6 +100,19 @@
     text-wrap: pretty;
 }
 
+.post-job-form-select-container > select {
+    border: 1px solid var(--black-80);
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    background: transparent;
+    font-size: 1rem;
+    color: var(--black-20);
+}
+
+.post-job-form-select-container > select:focus {
+    outline: 3px solid var(--green-60);
+}
+
 /* .register-from > *:nth-child(6) {
     display: none;
 } */
