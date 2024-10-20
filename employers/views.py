@@ -2,54 +2,70 @@ from django.shortcuts import render, redirect
 from .models import Employer, Job
 from .forms import EmployerForm, JobsForm
 from django.contrib import messages
-from django.urls import reverse
+from utils.decorators import user_login_required
+
 
 
 def employer_view(request):
-    # if request.user.is_authenticated:
-    #     return redirect('employers:employer-dashboard')
     return render(request, 'employers/employers_landing_page.html')
 
 
+@user_login_required
 def employer_register(request):
     form = EmployerForm(request.POST or None)
     context = {'form':form}
 
-    if not request.user.is_authenticated:
-        messages.error(request, 'Please log in to preceed to requested page.')
-        return redirect('/login/?next=/employers/register/')
-
     if request.method == 'POST':
         if form.is_valid():
-            form.save(commit=False)
+            instance = form.save(commit=False)
+            instance.representative = request.user
+            instance.save()
+
             return redirect('employers:post-job')
 
     return render(request, 'employers/employer_register.html', context)
 
 
+@user_login_required
 def post_job_view(request):
     form = JobsForm(request.POST or None)
     context = {'form':form}
 
-    if not request.user.is_authenticated:
-        messages.error(request, 'Please log in to preceed to requested page.')
-        return redirect('/login/?next=/post/job/')
-   
-    try:
-        employer = Employer.objects.get(representative=request.user)
-    except Employer.DoesNotExist:
-        employer = None 
-    
-    if not employer:
+    employers = request.user.employer_set.all()
+
+    if not employers.exists():
         messages.error(request, 'Please register your company first to post a job.')
         return redirect('employers:employer-register')
+    else:
+        context['employers'] = employers
     
     if request.method == 'POST':
-        if form.is_valid():
-            form.save(commit=False)
+        employer_name = request.POST.get('employers')
+        try:
+            employer = employers.get(employer=employer_name)
+        except Employer.DoesNotExist:
+            messages.error(request, "Employer does not exists.")
+
+        if employer:
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.company = employer
+                instance.save()
+                return redirect('employers:employer-dashboard')
+            else:
+                messages.error(request, 'There was an unknown error. Please try again')
 
     return render(request, 'employers/post_job.html', context)
 
 
+@user_login_required
 def employer_dashboard_view(request):
-    return render(request, 'employers/employer_dashboard.html')
+    employers = request.user.employer_set.all()
+    context = {'employers':employers}
+
+    return render(request, 'employers/employer_dashboard.html', context)
+
+
+def employer_detail_view(request, id):
+    print('ID:', id)
+    return render(request, 'employers/employer_detail.html')

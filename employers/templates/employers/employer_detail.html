@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Employer Dashboard
+    Employer Detail
 {% endblock title %}
 
 {% block css %}
@@ -14,12 +14,7 @@
 {% endblock nav %}
 
 {% block content %}
-    <h1>Employer Dashboard</h1>
-    {% for employer in employers %}
-        <a href="{% url 'employers:employer-detail' employer.id %}">
-            {{ employer.company }}
-        </a>
-    {% endfor %}
+    <h1>Employer Detail</h1>
 {% endblock content %}
 
 {% block js %}

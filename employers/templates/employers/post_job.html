@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    New job post
+    Post Job
 {% endblock title %}
 
 {% block css %}
@@ -26,6 +26,17 @@
                     </span>
                 </div>
                 {% csrf_token %}
+                <p>
+                    <label for="employers">Choose a employer:</label>
+                    <select name="employers" id="employers" required>
+                        <option value="">-----</option>
+                        {% for employer in employers %}
+                            <option value="{{ employer.company }}">
+                                {{ employer.company }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </p>
                 {{ form.as_p }}
                 <button class="post-job-form-submit-job-btn">Submit Job</button>
             </form>
