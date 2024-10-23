@@ -17,7 +17,7 @@
     <h1>Employer Dashboard</h1>
     {% for employer in employers %}
         <a href="{{ employer.get_absolute_url }}">
-            {{ employer.company }}
+            {{ employer.employer_name }}
         </a>
     {% endfor %}
 {% endblock content %}

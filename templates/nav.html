@@ -8,19 +8,53 @@
         </div>
         {% with request.resolver_match.url_name as url_name %}
             <div class="navlinks">
-                {% if not request.user.is_authenticated %}
-                    <a class='{% if url_name == "home" %}active-link{% endif %} navlink' href="{% url 'candidates:landing-page' %}">Home</a>
-                {% endif %}
                 <a class='{% if url_name == "jobs" %}active-link{% endif %} navlink' href="{% url 'candidates:jobs' %}">Jobs</a>
-                <a href="{% url 'candidates:candidate-register' %}" class="navlink">Add Skill</a>
                 <a href="{% url 'employers:employer' %}" class="navlink">Employer</a>
-                <a class='{% if url_name == "about" %}active-link{% endif %} navlink' href="{% url 'candidates:about' %}">About</a>
-                <a class='{% if url_name == "contact" %}active-link{% endif %} navlink' href="{% url 'candidates:contact' %}">Contact</a>
+                <div class="navlink-user-container">
+                    <div href="" class="navlink-user">
+                        <div class="navlink-img-container">
+                            {% if request.user.is_authenticated %}
+                                <img src="{{ request.user.profile.get_avatar_url }}" alt="">
+                            {% else %}
+                                <img src="{% static 'imgs/default.png' %}" alt="">
+                            {% endif %}
+                        </div>
+                        <span 
+                            class="navlink-username" 
+                            title="
+                                {% if not request.user.is_authenticated %}
+                                    Annonymous
+                                {% else %}
+                                    {{ request.user.username }}
+                                 {% endif %}
+                                "
+                        >
+                            {% if not request.user.is_authenticated %}
+                                Annonymous
+                            {% else %}
+                                {{ request.user.username }}
+                            {% endif %}
+                        </span>
+                        <span class="navlink-chevron-down">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </div>
+                    <div class="navlink-drop-down-link">
+                        {% with request.resolver_match.url_name as url_name %}
+                            <a href="{% url 'candidates:candidate-register' %}" class="navlink">Add Skill</a>
+                            <a href="{% url 'candidates:about' %}" class="{% if url_name == "about" %}active-link{% endif %} navlink">About</a>
+                            <a href="{% url 'candidates:contact' %}" class="{% if url_name == "contact" %}active-link{% endif %} navlink">Contact</a>
+                            {% if not request.user.is_authenticated %}
+                                <a href="{% url 'accounts:login' %}" class="navlink">Login</a>
+                            {% else %}
+                                <a href="" class="navlink">Profile</a>
+                                <button class='navlink logout-btn'>Logout</button>
+                            {% endif %}
+                        {% endwith%}
+                    </div>
+                </div>
                 {% if not request.user.is_authenticated %}
-                    <a href="{% url 'accounts:login' %}" class="navlink">Login</a>
                     <a href="{% url 'accounts:register' %}" class="navlink register-link">Register</a>
-                {% else %}
-                    <button class='navlink logout-btn'>Logout</button>
                 {% endif %}
         {% endwith %}
     </nav>
@@ -41,10 +75,32 @@
         </div>
         {% with request.resolver_match.url_name as url_name %}
             <div class="mobile-navlinks">
-                {% if not request.user.is_authenticated %}
-                    <a class='mobile-navlink' href="{% url 'candidates:landing-page' %}">Home</a>
-                {% endif %}
 
+                <div href="" class="mobile-navlink-user">
+                    <div class="mobile-navlink-img-container">
+                        {% if request.user.is_authenticated %}
+                            <img src="{{ request.user.profile.get_avatar_url }}" alt="">
+                        {% else %}
+                            <img src="{% static 'imgs/default.png' %}" alt="">
+                        {% endif %}
+                    </div>
+                    <span 
+                        class="mobile-navlink-username" 
+                        title="
+                            {% if not request.user.is_authenticated %}
+                                Annonymous
+                            {% else %}
+                                {{ request.user.username }}
+                             {% endif %}
+                            "
+                    >
+                        {% if not request.user.is_authenticated %}
+                            Annonymous
+                        {% else %}
+                            {{ request.user.username }}
+                        {% endif %}
+                    </span>
+                </div>
                 <a class='{% if url_name == "jobs" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'candidates:jobs' %}">Jobs</a>
                 <a href="{% url 'candidates:candidate-register' %}" class="mobile-navlink">Add Skill</a>
                 <a href="{% url 'employers:employer' %}" class='mobile-navlink'>Employer</a>
@@ -54,6 +110,7 @@
                     <a href="{% url 'accounts:login' %}" class="mobile-navlink">Login</a>
                     <a href="{% url 'accounts:register' %}" class="mobile-navlink">Register</a>
                 {% else %}
+                    <a href="" class="mobile-navlink">Profile</a>
                     <button class="mobile-navlink mobile-logout-btn">Logout</button>
                 {% endif %}
             </div>

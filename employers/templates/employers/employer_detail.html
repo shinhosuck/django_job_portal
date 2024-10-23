@@ -18,7 +18,7 @@
     <h3>{{ employer.company}}</h3>
     {% if jobs %}
         {% for job in jobs %}
-            <a href="{{ job.get_absolute_url }}?employer={{employer.slug}}">Job-{{ job.job_title }}</a>
+            <a href="{{ job.get_absolute_url }}?employer={{ job.employer.slug }}">Job-{{ job.job_title }}</a>
         {% endfor %}
     {% endif %}
 {% endblock content %}

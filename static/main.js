@@ -38,6 +38,46 @@ toggleBtns && toggleBtns.forEach((btn) => {
     })
 })
 
+// Nabar user drop down menu
+const navlinkUser = document.querySelector('.navlink-user')
+const navlinkDropDownMenu = document.querySelector('.navlink-drop-down-link')
+const navlinkChevronDown = document.querySelector('.navlink-chevron-down > i')
+
+navlinkUser && navlinkUser.addEventListener('click', ()=> {
+    navlinkDropDownMenu.classList.toggle('show-navlink-drop-down-link')
+
+    if(navlinkDropDownMenu.classList.contains('show-navlink-drop-down-link'))
+        navlinkChevronDown.style.transform = 'rotate(180deg)'
+    else{
+        navlinkChevronDown.style.transform = 'rotate(0deg)'
+    }
+})
+
+
+// Remove drop down nav menu 
+const navlinkUserContainer = document.querySelector('.navlink-user-container')
+let navlinks = [...document.querySelectorAll('.navlink')]
+const landingPagenavlink = [...document.querySelectorAll('.landing-page-navlink')]
+navlinks = [...navlinks, ...landingPagenavlink]
+
+navlinks.forEach((link) => {
+    link.addEventListener('click', (e)=> {
+        navlinkDropDownMenu.classList.remove('show-navlink-drop-down-link')
+        navlinkChevronDown.style.transform = 'rotate(0deg)'
+    })
+})
+
+// Remove drop down nav menu when clicked outside of the navlinkUserContainer
+navlinkUserContainer && window.addEventListener('click', (e)=> {
+    if (!navlinkUserContainer.contains(e.target)) {
+        navlinkDropDownMenu.classList.remove('show-navlink-drop-down-link')
+        navlinkChevronDown.style.transform = 'rotate(0deg)'
+    }
+    
+})
+
+
+
 
 // Navbar logout button
 const logoutModalContainer = document.querySelector('.logout-modal-container')

@@ -11,7 +11,7 @@ def employer_landing_page_view(request):
 
 @user_login_required
 def employer_register(request):
-    form = EmployerForm(request.POST or None)
+    form = EmployerForm(request.POST or None, request.FILES or None)
     context = {'form':form}
 
     if request.method == 'POST':
@@ -31,14 +31,12 @@ def post_job_view(request):
     context = {'form':form}
 
     employers = request.user.employer_set.all()
-
+    
     if not employers.exists():
         messages.error(request, 'Please register your company first to post a job.')
         return redirect('employers:employer-register')
     else:
         context['employers'] = employers
-    
-
 
     if request.method == 'POST':
         employer_name = request.POST.get('employers')
@@ -87,6 +85,7 @@ def employer_detail_view(request, slug):
 
 def employer_job_detail(request, slug):
     employer_slug = request.GET.get('employer') or None
+    redirect_url = request.META['HTTP_REFERER']
 
     try:
         employer = Employer.objects.get(slug=employer_slug)
@@ -98,6 +97,6 @@ def employer_job_detail(request, slug):
     except Job.DoesNotExist:
         return redirect('employers:employer-detail', slug=employer_slug)
     
-    context = {'employer': employer, 'job': job}
+    context = {'redirect_url': redirect_url, 'job': job}
     
     return render(request, 'employers/job_detail.html', context)

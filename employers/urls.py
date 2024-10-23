@@ -17,5 +17,5 @@ urlpatterns = [
     path('employers/post/job/', post_job_view, name='post-job'),
     path('employers/dashboard/', employer_dashboard_view, name='employer-dashboard'),
     path('employers/<str:slug>/detail', employer_detail_view, name='employer-detail'),
-    path('employers/jobs/<str:slug>/detail/', employer_job_detail, name='job-detail')
+    path('employers/jobs/<str:slug>/', employer_job_detail, name='job-detail')
 ]

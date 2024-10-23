@@ -13,8 +13,13 @@
     <h1>Jobs</h1>
 
     <div>
-        {% for candidate in candidates %}
-            <a href="{{ candidate.get_resume_url }}" download>{{ candidate.resume.url }}</a>
+        {% for job in jobs %}
+            <div>
+                <p>Company: {{ job.employer.employer_name }}</p>
+                <h3>Job Title: {{ job.job_title }}</h3>
+                <p>Salary: {{ job.salary }}/month</p>
+                <a href="{{ job.get_absolute_url }}?employer={{ job.employer.slug }}">See Job Detail</a>
+            </div>
         {% endfor %}
     </div>
 

@@ -6,7 +6,8 @@ from django.contrib.auth import (
     authenticate, 
     logout
 )
-
+from .models import Profile
+import os
 
 def register_view(request):
     next = request.GET.get('next') or None
@@ -67,3 +68,7 @@ def logout_view(request):
         messages.success(request, 'Successfully logged out!')
         return redirect('candidates:landing-page')
     return render(request, 'accounts/logout.html')
+
+
+def user_profile_view(request):
+    return render(request, 'accounts/profile.html')

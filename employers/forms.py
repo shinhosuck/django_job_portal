@@ -3,18 +3,18 @@ from .models import Employer, Job
 
 
 class EmployerForm(forms.ModelForm):
-    company = forms.CharField(widget=forms.TextInput(attrs={'autofocus':True}))
+    employer_name = forms.CharField(widget=forms.TextInput(attrs={'autofocus':True}))
     class Meta:
         model = Employer
         fields = [
-            'company',
-            'description', 
+            'employer_name',
+            'about_employer', 
             'website',
             'logo'
         ]
 
     def clean_company(self):
-        company = self.cleaned_data.get('company')
+        company = self.cleaned_data.get('employer_name')
 
         try:
             instance = Employer.objects.get(company__iexact=company)
@@ -22,7 +22,7 @@ class EmployerForm(forms.ModelForm):
             instance = None 
         
         if instance:
-            raise forms.ValidationError(f'Company name is taken.')
+            raise forms.ValidationError(f'Employer name is taken.')
         
         return company
 

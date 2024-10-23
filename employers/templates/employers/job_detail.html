@@ -15,8 +15,15 @@
 
 {% block content %}
     <h1>Job Detail</h1>
-    <h3>Employer-{{ employer.company }}</h3>
+    <br>
+    <a href="{{ redirect_url }}">Back to previous page</a>
+    <br><br>
+    <h3>Employer-{{ job.employer.employer_name }}</h3>
     <h4>Job title-{{ job.job_title}}</h4>
+    <br>
+    {% if 'jobs' in redirect_url %}
+        <a href="">Apply</a>
+    {% endif %}
 {% endblock content %}
 
 {% block js %}

@@ -6,7 +6,7 @@ from .models import Employer, Job
 class CompanyAdmin(admin.ModelAdmin):
     list_display = [
         'representative',
-        'company',
+        'employer_name',
         'slug',
         'created',
         'updated'
@@ -16,7 +16,7 @@ class CompanyAdmin(admin.ModelAdmin):
 @admin.register(Job)
 class JobAdmin(admin.ModelAdmin):
     list_display = [
-        'company',
+        'employer',
         'job_title',
         'slug',
         'salary',

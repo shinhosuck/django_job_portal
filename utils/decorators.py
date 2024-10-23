@@ -5,7 +5,7 @@ from django.contrib import messages
 
 def user_login_required(fn):
 
-    def wrapper( request, *args, **kwargs):
+    def wrapper(request, *args, **kwargs):
         path = request.path
         redirect_url = f'{reverse("accounts:login")}?next={path}'
 

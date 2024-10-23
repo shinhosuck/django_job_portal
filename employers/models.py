@@ -15,38 +15,28 @@ class Employer(models.Model):
         on_delete=models.SET_NULL,
         null=True
     )
-    company = models.CharField(max_length=200)
+    employer_name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200)
-    description = models.TextField()
+    about_employer = models.TextField()
     website = models.URLField(max_length=300)
     logo = models.ImageField(
         upload_to='company_logos', 
-        default='company_logos/default.png',
-        null=True, blank=True)
+        default='company_logos/default.png')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['company']
+        ordering = ['employer_name']
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = f'{slugify(self.company)}'
-        if self.logo:
-            self.logo = 'company_logos/default.png'
-
-        return super().save(*args, **kwargs)
-    
     def get_absolute_url(self):
         return reverse("employers:employer-detail", kwargs={"slug": self.slug})
     
-
     def __str__(self):
-        return self.company
+        return self.employer_name
     
     
 class Job(models.Model):
-    company = models.ForeignKey(Employer, on_delete=models.CASCADE)
+    employer = models.ForeignKey(Employer, on_delete=models.CASCADE)
     job_title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200)
     salary = models.DecimalField(max_digits=100, decimal_places=2)

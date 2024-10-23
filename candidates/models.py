@@ -1,20 +1,18 @@
+from typing import Any
 from django.db import models
 from django.conf import settings
-import uuid
+from django.urls import reverse
 
 User = settings.AUTH_USER_MODEL
 
 
 class Candidate(models.Model):
-    id = models.UUIDField(
-        primary_key=True, 
-        editable=False, 
-        default=uuid.uuid4
-    )
-    avatar = models.ImageField(upload_to='avatars', default='avatars/default.png')
+    avatar = models.ImageField(upload_to='candidate_avatars', 
+            default='candidate_avatars/default.png')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=150)
+    slug = models.SlugField(max_length=200)
     job_title = models.CharField(max_length=200)
     resume = models.FileField(upload_to='resumes', null=True, blank=True)
     social_link = models.URLField()
@@ -24,22 +22,16 @@ class Candidate(models.Model):
     def __str__(self):
         return f'{self.user.username}'  
 
-    # def get_absolute_url(self):
-    #     return reverse("model_detail", kwargs={"pk": self.pk})
+    def get_absolute_url(self):
+        return reverse('candidates:candidate-detail', kwargs={'slug': self.slug})
 
     def get_resume_url(self, request=None):
         if request:
             return request.build_absolute_uri(self.resume.url)
         return self.resume.url
-      
     
 
 class Message(models.Model):
-    id = models.UUIDField(
-        primary_key=True, 
-        editable=False, 
-        default=uuid.uuid4
-    )
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     first_name = models.CharField(max_length=100, null=True, blank=True)
     last_name = models.CharField(max_length=100, null=True, blank=True)
