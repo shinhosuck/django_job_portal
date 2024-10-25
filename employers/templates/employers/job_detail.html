@@ -14,16 +14,41 @@
 {% endblock nav %}
 
 {% block content %}
-    <h1>Job Detail</h1>
-    <br>
-    <a href="{{ redirect_url }}">Back to previous page</a>
-    <br><br>
-    <h3>Employer-{{ job.employer.employer_name }}</h3>
-    <h4>Job title-{{ job.job_title}}</h4>
-    <br>
-    {% if 'jobs' in redirect_url %}
-        <a href="">Apply</a>
-    {% endif %}
+<div class="job-detail-container">
+    <div class="job-detail-row">
+        <a href="{{ redirect_url }}">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back to previous page</span>
+        </a>
+        <div class="job-detail">
+            <h2 class="job-detail-job-title">{{ job.job_title}}</h2>
+            <div class="job-detail-job-info-container">
+                <div class="job-detail-employer-logo-name">
+                    <div class="job-detail-employer-logo">
+                        <img src="{{ job.employer.get_logo_url }}" alt="">
+                    </div>
+                    <p class="job-detail-employer-name">{{ job.employer.employer_name }}</p>
+                </div>
+                <p class="job-detail-employer-address">
+                    <span>{{ job.employer.city }},</span>
+                    <span>{{ job.employer.state_or_province }}</span>
+                </p>
+                <p class="job-detail-employer-country">{{ job.employer.country }}</p>
+            </div>
+            <p class="job-detail-salary">${{ job.salary|floatformat:0 }}/month</p>
+
+            <div class="job-qualification-container">
+                <h3 class="job-qualification-header">Qualification:</h3>
+                <p class="job-qualification">{{ job.qualification }}</p>
+            </div>
+
+            {% if 'jobs' in redirect_url %}
+                <a class="job-detail-apply-btn" href="{% url 'candidates:candidate-apply' job.slug %}">Apply</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+    
 {% endblock content %}
 
 {% block js %}

@@ -1,17 +1,17 @@
 
 // Messages from backend: success, error, warning, info, and etc.
 const messages = document.querySelector('.messages')
-const message = document.querySelector('.message')
+// const message = document.querySelector('.message')
 
 
 function closeMessageBtn() {
     messages.classList.add('close-messages')
 }
 
-if (messages) {
-    const messageWidth = message.clientWidth 
-    message.style.width = `${messageWidth}px`
-}
+// if (messages) {
+//     const messageWidth = message.clientWidth 
+//     message.style.width = `${messageWidth}px`
+// }
 
 
 // Toggle mobile navlinks

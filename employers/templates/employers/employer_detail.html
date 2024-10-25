@@ -14,13 +14,19 @@
 {% endblock nav %}
 
 {% block content %}
-    <h1>Employer Detail</h1>
-    <h3>{{ employer.company}}</h3>
-    {% if jobs %}
-        {% for job in jobs %}
-            <a href="{{ job.get_absolute_url }}?employer={{ job.employer.slug }}">Job-{{ job.job_title }}</a>
-        {% endfor %}
-    {% endif %}
+<div class="employer-detail-container">
+    <div class="employer-detail-row">
+        <h1>Employer Detail</h1>
+        <h3>{{ employer.company}}</h3>
+        {% if jobs %}
+            {% for job in jobs %}
+                <a href="{{ job.get_absolute_url }}?redirect={{ job.employer.get_absolute_url }}">
+                    Job-{{ job.job_title }}
+                </a>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
 {% endblock content %}
 
 {% block js %}

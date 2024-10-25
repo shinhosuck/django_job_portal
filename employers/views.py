@@ -3,6 +3,7 @@ from .models import Employer, Job
 from .forms import EmployerForm, JobsForm
 from django.contrib import messages
 from utils.decorators import user_login_required
+from django.http import Http404
 
 
 def employer_landing_page_view(request):
@@ -84,19 +85,21 @@ def employer_detail_view(request, slug):
 
 
 def employer_job_detail(request, slug):
-    employer_slug = request.GET.get('employer') or None
-    redirect_url = request.META['HTTP_REFERER']
+    redirect_url = request.GET.get('redirect') or None
 
-    try:
-        employer = Employer.objects.get(slug=employer_slug)
-    except Employer.DoesNotExist:
-        employer = None
-
+    if not redirect_url:
+        raise Http404('Page Does Not Exist.')
+    
     try:
         job = Job.objects.get(slug=slug)
     except Job.DoesNotExist:
-        return redirect('employers:employer-detail', slug=employer_slug)
+        messages.error(request, 'Job does not exist.')
+        return redirect(redirect_url)
     
-    context = {'redirect_url': redirect_url, 'job': job}
+    
+    context = {
+        'redirect_url': redirect_url, 
+        'job': job
+    }
     
     return render(request, 'employers/job_detail.html', context)

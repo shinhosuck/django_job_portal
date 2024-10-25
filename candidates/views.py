@@ -46,9 +46,23 @@ def contact_view(request):
 def candidate_register_view(request):
     form = CandidateForm(request.POST or None, request.FILES or None)
     context = {'form':form}
-   
+
+    try:
+        candidate = Candidate.objects.get(user=request.user)
+    except Candidate.DoesNotExist:
+        pass 
+
     if request.method == 'POST':
         if form.is_valid():
+
+            if candidate:
+                messages.error(
+                    request, 
+                    f'''Profile with username {request.user.username} already exists. 
+                    Please logout and register with new username.'''
+                )
+                return redirect('candidates:jobs')
+
             instance = form.save(commit=False)
             instance.user = request.user
             instance.save()
@@ -79,11 +93,36 @@ def candidate_detail_view(request, slug):
 
 def jobs_view(request):
     jobs = Job.objects.select_related('employer')
-    
     context = {'jobs': jobs}
+
+    if request.user.is_authenticated:
+        context.update({'candidate': request.user.candidate})
 
     return render(request, 'candidates/jobs.html', context)
 
 
 def apply_to_a_job_view(request, slug):
-    return redirect('employers:job-detail', slug=slug)
+    user = request.user
+    
+    try:
+        job = Job.objects.get(slug=slug)
+    except Job.DoesNotExist:
+        messages.error(request, f'Job does not exist. Pleas try again.')
+        return redirect('candidates:jobs')
+    
+    try:
+        candidate = Candidate.objects.get(user=user)
+    except Candidate.DoesNotExist:
+        messages.error(request, 'You must create your profile first.')
+        return redirect('candidates:candidate-register')
+    
+    job.applicants.add(candidate)
+
+    messages.success(request, f'Successfully applied to {job.job_title}.')
+    return redirect('candidates:jobs')
+
+
+def job_search_view(request):
+    search = request.GET.get('q') or None
+
+    return render(request, 'candidates/search_results.html')

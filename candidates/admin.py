@@ -8,7 +8,7 @@ from .models import (
 @admin.register(Candidate)
 class CandidateAdmin(admin.ModelAdmin):
     list_display = [
-        'id',
+        'slug',
         'first_name',
         'last_name',
         'job_title'

@@ -9,7 +9,7 @@ User = settings.AUTH_USER_MODEL
 class Candidate(models.Model):
     avatar = models.ImageField(upload_to='candidate_avatars', 
             default='candidate_avatars/default.png')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=150)
     slug = models.SlugField(max_length=200)

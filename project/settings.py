@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     # 3rd party
     'debug_toolbar',
     'social_django',
+    'django_countries',
     # my app
     'candidates.apps.CandidatesConfig',
     'employers.apps.EmployersConfig',

@@ -1,3 +1,4 @@
+from typing import Any
 from django import forms 
 from .models import Message, Candidate
 
@@ -24,6 +25,5 @@ class CandidateForm(forms.ModelForm):
             'resume',
             'social_link'
         ]
-
 
 

@@ -1,3 +1,80 @@
+/* JOB SEARCH FORM */
+.job-search-form-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.job-search-form {
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    background: white;
+    border: 1px solid var(--black-80)
+}
+
+.search-form-search-icon {
+    margin: 0 0.5rem;
+    font-size: 1.1rem;
+    color: var(--black-10)
+}
+
+.job-search-form > input {
+    padding: 0.7rem 0rem;
+    color: var(--black-20);
+    letter-spacing: 0.03rem;
+    border: none;
+    background: transparent
+}
+
+.search-form-close-icon {
+    margin: 0 0.5rem;
+    font-size: 1.1rem;
+    color: var(--black-50);
+    display: none;
+}
+
+.job-search-form > input:focus {
+    outline: none !important;
+}
+
+.job-search-form > button {
+    border: none;
+    background: var(--green-30);
+    color: var(--black-90);
+    padding: 0.7rem;
+    border-radius: 5px;
+    text-wrap: nowrap;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+@media screen and (min-width: 500px) {
+    .search-form-search-icon {
+        margin-right: 1rem;
+    }
+
+    .search-form-close-icon {
+        margin: 0 1rem;
+    }
+
+    .job-search-form > button {
+        padding: 0.7rem 1rem;
+        font-size: 1rem;
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .search-form-close-icon {
+        margin: 0 2rem;
+    }
+
+    .job-search-form > button {
+        padding: 0.7rem 1.5rem;
+    }
+}
+
 /* CANDIDATE REGISTER */
 .candidate-register-form-row {
     min-height: 100svh;
@@ -111,3 +188,123 @@
         color: var(--black-20);
     }
 }
+
+
+/* JOBS */
+.jobs-container {
+    padding: 2rem 0;
+    /* padding-top: 0; */
+}
+
+/* .jobs-hero-container {
+    min-height: 50svh;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.300), 
+    rgba(0, 0, 0, 0.300)), url('./imgs/jobs-hero-img.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: start;
+} */
+
+.jobs-row {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    display: grid;
+    align-content: start;
+    gap: 2rem;
+}
+
+.jobs {
+    display: grid;
+    align-content: start;
+    align-items: start;
+    gap: 1rem;
+}
+
+.job {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+    padding: 1.2rem;
+    border-radius: 8px;
+    border: 1px solid var(--black-80);
+}
+
+.job-title {
+    color: var(--black-10);
+    letter-spacing: 0.03rem;
+    font-size: 1.5rem;
+}
+
+.job-employer-address {
+    display: grid;
+    align-content: start;
+    gap: 0.2rem;
+    font-size: 0.9rem;
+    color: var(--black-20);
+    letter-spacing: 0.03rem;
+}
+
+.job-salary {
+    justify-self: start;
+    padding: 0.4rem 0.5rem;
+    border-radius: 5px;
+    font-weight: 500;
+    background: var(--black-90)
+}
+
+.job-user-not-authenticated,
+.job-applied-btn {
+    margin-top: 1rem;
+    justify-self: start;
+    padding: 0.7rem 1rem;
+    border: none;
+    background: var(--black-80);
+    color: var(--black-50);
+    border-radius: 5px;
+    letter-spacing: 0.03rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.see-job-detail-btn {
+    margin-top: 1rem;
+    justify-self: start;
+    padding: 0.7rem 1rem;
+    border: none;
+    background: var(--green-30);
+    color: var(--black-90);
+    border-radius: 5px;
+    letter-spacing: 0.03rem;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background 100ms linear;
+}
+
+@media (hover) {
+    .see-job-detail-btn:hover {
+        background: var(--green-40)
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .jobs-container {
+        padding: 3rem 0;
+    }
+
+    .jobs-row {
+        gap: 3rem;
+    }
+
+    .jobs {
+        display: grid;
+        align-items: stretch;
+        row-gap: 2rem;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+

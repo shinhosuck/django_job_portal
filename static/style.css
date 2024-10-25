@@ -84,7 +84,7 @@ button {
 .messages {
     position:absolute;
     width: 90%;
-    max-width: 500px;
+    max-width: 1400px;
     top:70px;
     left: 50%;
     transform: translateX(-50%);
@@ -101,9 +101,8 @@ button {
     align-items: center;
     justify-content: space-between;
     column-gap: 2rem;
-    padding: 0.8rem 1rem;
+    padding: 0.8rem 1.5rem;
     border-radius: 5px;
-    overflow: hidden;
     box-shadow: 3px 3px 10px -3px var(--black-50);
 }
 
@@ -123,9 +122,6 @@ button {
     text-align: center;
     letter-spacing: 0.04rem;
     color: var(--black-90);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     font-size: 1.1rem;
 }
 

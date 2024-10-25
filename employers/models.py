@@ -1,9 +1,10 @@
-from typing import Iterable
 from django.db import models
 from django.conf import settings
 from django.utils.text import slugify
 from django.urls import reverse
 from datetime import datetime
+from django_countries.fields import CountryField
+from candidates.models import Candidate
 import re
 
 
@@ -17,6 +18,9 @@ class Employer(models.Model):
     )
     employer_name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200)
+    city = models.CharField(max_length=200)
+    state_or_province = models.CharField(max_length=200)
+    country = CountryField()
     about_employer = models.TextField()
     website = models.URLField(max_length=300)
     logo = models.ImageField(
@@ -27,6 +31,9 @@ class Employer(models.Model):
 
     class Meta:
         ordering = ['employer_name']
+
+    def get_logo_url(self):
+        return self.logo.url
 
     def get_absolute_url(self):
         return reverse("employers:employer-detail", kwargs={"slug": self.slug})
@@ -41,7 +48,7 @@ class Job(models.Model):
     slug = models.SlugField(max_length=200)
     salary = models.DecimalField(max_digits=100, decimal_places=2)
     qualification = models.TextField()
-    applicants = models.ManyToManyField(User, blank=True)
+    applicants = models.ManyToManyField(Candidate, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

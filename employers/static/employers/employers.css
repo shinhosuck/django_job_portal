@@ -291,3 +291,107 @@
         color: var(--black-20);
     }
 }
+
+
+/* JOB DETAIL */
+.job-detail-container {
+    padding: 2rem 0;
+}
+
+.job-detail-row {
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+
+    display: grid;
+    align-content: start;
+    gap: 2rem;
+}
+
+.job-detail {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+}
+
+.job-detail-job-title {
+    letter-spacing: 0.03rem;
+    color: var(--black-10);
+    font-size: 2.2rem;
+    font-size: clamp(1.5rem, 1svw + 1.4rem, 2.2rem);
+}
+
+.job-detail-job-info-container {
+    display: grid;
+    align-content: start;
+    gap: 0.3rem;
+    font-size: 0.9rem;
+    color: var(--black-20)
+}
+
+.job-detail-employer-logo-name {
+    justify-self: start;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.job-detail-employer-logo {
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+}
+
+.job-detail-employer-logo > img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.job-detail-salary {
+    justify-self: start;
+    padding: 0.4rem 0.5rem;
+    border-radius: 5px;
+    font-weight: 500;
+    background: var(--black-90)
+}
+
+.job-qualification-container {
+    margin-top: 1rem;
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+}
+
+.job-qualification-header {
+    color: var(--black-10);
+    letter-spacing: 0.03rem;
+    font-size: 1rem;
+}
+
+.job-qualification {
+    letter-spacing: 0.04rem;
+    line-height: 1.4;
+    color: var(--black-30);
+}
+
+.job-detail-apply-btn {
+    margin-top: 1rem;
+    justify-self: start;
+    padding: 0.7rem 1.5rem;
+    border: none;
+    background: var(--green-30);
+    color: var(--black-90);
+    border-radius: 5px;
+    letter-spacing: 0.03rem;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background 100ms linear;
+}
+
+@media (hover) {
+    .job-detail-apply-btn:hover {
+        background: var(--green-40)
+    }
+}

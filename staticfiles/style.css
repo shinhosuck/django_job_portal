@@ -84,7 +84,7 @@ button {
 .messages {
     position:absolute;
     width: 90%;
-    max-width: 500px;
+    max-width: 1400px;
     top:70px;
     left: 50%;
     transform: translateX(-50%);
@@ -101,9 +101,8 @@ button {
     align-items: center;
     justify-content: space-between;
     column-gap: 2rem;
-    padding: 0.8rem 1rem;
+    padding: 0.8rem 1.5rem;
     border-radius: 5px;
-    overflow: hidden;
     box-shadow: 3px 3px 10px -3px var(--black-50);
 }
 
@@ -123,9 +122,6 @@ button {
     text-align: center;
     letter-spacing: 0.04rem;
     color: var(--black-90);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     font-size: 1.1rem;
 }
 
@@ -246,7 +242,7 @@ button {
     display: none;
 }
 
-@media screen and (min-width:850px) {
+@media screen and (min-width:750px) {
     .landing-page-mobile-nav-bar {
         display: none;
     }
@@ -272,7 +268,7 @@ button {
     .landing-page-navlinks {
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 1.5rem;
     }
 
     .landing-page-navlink {
@@ -440,6 +436,31 @@ button {
     opacity: 1
 }
 
+.mobile-navlink-user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    cursor: pointer;
+    color: var(--black-90);
+    letter-spacing: 0.03rem;
+}
+
+.mobile-navlink-img-container {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 0.3rem;
+    background: white;
+}
+
+.mobile-navlink-img-container > img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
 .mobile-navlink {
     color: var(--black-90);
     letter-spacing: 0.03rem;
@@ -467,7 +488,7 @@ button {
     display: none;
 }
 
-@media screen and (min-width:850px) {
+@media screen and (min-width:750px) {
     .mobile-nav-bar {
         display: none;
     }
@@ -496,6 +517,79 @@ button {
         gap: 1.5rem;
     }
 
+    /* navlink user container */
+    .navlink-user-container {
+        position: relative;
+    }
+
+    .navlink-user {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        color: var(--black-90);
+        letter-spacing: 0.03rem;
+    }
+
+    .navlink-img-container {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        padding: 0.3rem;
+        background: white;
+    }
+
+    .navlink-img-container > img {
+        width: 100%;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+    }
+
+    .navlink-username {
+        max-width: 90px;
+        overflow: hidden;
+        text-wrap: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .navlink-chevron-down {
+        font-size: 0.85rem;
+    }
+
+    .navlink-drop-down-link {
+        position: absolute;
+        z-index: 2;
+        top: -2000%;
+        right: 0;
+        min-width: 150px;
+
+        display: grid;
+        align-content: start;
+        gap: 1.3rem;
+        padding: 1.2rem;
+        border-radius: 8px;
+        opacity: 0;
+        transition: opacity 200ms linear;
+    }
+
+    .show-navlink-drop-down-link {
+        top: 55px;
+        opacity: 1;
+        text-wrap: nowrap;
+        background: var(--green-20);
+    }
+
+    .navlink-drop-down-link > .navlink {
+        color: var(--black-90);
+    }
+
+    .navlink-drop-down-link > .active-link {
+        font-weight: 600;
+        color: var(--green-40);
+    }
+    /* end */
+
+
     .navlink {
         color: var(--black-90);
         letter-spacing: 0.03rem;
@@ -504,11 +598,12 @@ button {
     .logout-btn {
         background: none;
         border: none;
+        text-align: start;
     }
 
     .active-link {
         font-weight: 600;
-        color: var(--green-40)
+        color: var(--green-40);
     }
 
     .register-link {
@@ -519,6 +614,7 @@ button {
     }
 
     @media (hover) {
+        .navlink-user:hover,
         .navlink:hover {
             color: var(--green-40)
         }
@@ -549,9 +645,10 @@ button {
 
 .about-img-container > img {
     width: 100%;
-    aspect-ratio: 4 / 2;
+    aspect-ratio: 3 / 2;
     object-fit: cover;
     display: block;
+    border-radius: 8px;
 }
 
 .about-text {
