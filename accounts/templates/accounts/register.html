@@ -1,27 +1,54 @@
-{% extends "index.html" %}
+{% extends "candidates/candidates_index.html" %}
 {% load static %}
-
-{% block css %}
-    <link rel="stylesheet" href="{% static "accounts/accounts.css" %}">
-{% endblock css %}
 
 {% block title %}
     Register
 {% endblock title %}
 
-{% block nav %}{% endblock nav %}
+{% block navbar %}{% endblock navbar %}
 
 {% block content %}
     <div class="register-form-row">
         <div class="register-form-container">
-            <a href="{% url 'candidates:jobs' %}" class="logo-container">
-                <span class="logo-header">HireSpot</span>
-                <span class="logo-slogan">future starts here</span>
-            </a>
+            <div class="form-navbar">
+                <a href="
+                    {% if next %}
+                        {{ next }}
+                    {% else %}
+                        {% url 'candidates:jobs' %}
+                    {% endif %}" 
+                    class="logo-container"
+                >
+                    <span class="logo-header">HireSpot</span>
+                </a>
+                <button class="form-navlinks-toggle-btn">
+                    <i class="fas fa-bars form-show-navlinks"></i>
+                    <i class="fas fa-times form-remove-navlinks remove-form-navlinks-toggle-btn-child"></i>
+                </button>
+                {% with request.resolver_match.url_name as url_name %}
+                    <div class="form-navlinks">
+                        <a 
+                            class='navlink'
+                            href="{% if next %}{{ next }}{% else %}{% url 'candidates:landing-page' %}{% endif %}"
+                        >
+                            Home
+                        </a>
+                        <a class='navlink' href="{% url 'accounts:login' %}">Login</a>
+                        <a class="{% if url_name == 'register' %}active-link{% endif %} navlink" href="{% url 'accounts:register' %}">Register</a>
+                    </div>
+                {% endwith %}
+            </div>
+            <div class="register-form-header-text-container">
+                <h3 class="register-form-name">
+                    Register Your Account
+                </h3>
+                <p class="register-form-text">
+                    Ready to take the next step in your career or 
+                    find top talent for your team? 
+                    Create an account to get started!
+                </p>
+            </div>
             <form class="register-from" action="" method='POST'>
-                <h2 class="register-form-name">
-                    Register
-                </h2>
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit" class="register-form-sign-up-btn">
@@ -30,7 +57,10 @@
             </form>
             <div class="register-form-already-registered">
                 <p class="">Already registered?</p>
-                <a class="" href="{% url 'accounts:login' %}">Login</a>
+                <a class="" href="{% url 'accounts:login' %}">
+                    <span>Login</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </div>

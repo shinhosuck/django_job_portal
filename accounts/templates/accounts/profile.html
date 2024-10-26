@@ -1,17 +1,17 @@
 {% extends "index.html" %}
 {% load static %}
 
-{% block css %}
+{% comment %} {% block css %}
     <link rel="stylesheet" href="{% static "accounts/accounts.css" %}">
-{% endblock css %}
+{% endblock css %} {% endcomment %}
 
 {% block title %}
     Profile
 {% endblock title %}
 
-{% block nav %}
+{% comment %} {% block nav %}
     {% include "nav.html" %}
-{% endblock nav %}
+{% endblock nav %} {% endcomment %}
 
 {% block content %}
     <h1>Profile</h1>

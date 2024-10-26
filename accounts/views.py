@@ -17,7 +17,10 @@ def register_view(request):
         return redirect('candidates:jobs')
 
     form = RegisterForm(request.POST or None)
-    context = {'form':form}
+    context = {
+        'form':form,
+        'next':next
+    }
 
     if request.method == 'POST':
         if form.is_valid():

@@ -376,6 +376,20 @@
     color: var(--black-30);
 }
 
+.job-detail-not-authenticated-btn,
+.job-detail-applied-btn {
+    margin-top: 1rem;
+    justify-self: start;
+    padding: 0.7rem 1.5rem;
+    border: none;
+    background: var(--black-70);
+    color: var(--black-40);
+    border-radius: 5px;
+    letter-spacing: 0.03rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
 .job-detail-apply-btn {
     margin-top: 1rem;
     justify-self: start;

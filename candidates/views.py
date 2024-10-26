@@ -12,7 +12,7 @@ User = get_user_model()
 def landing_page_view(request):
     if request.user.is_authenticated:
         return redirect('candidates:jobs')
-    return render(request, 'landing_page.html')
+    return render(request, 'candidates/candidates_landing_page.html')
 
 
 def about_view(request):
@@ -67,7 +67,7 @@ def candidate_register_view(request):
             instance.user = request.user
             instance.save()
             
-    return render(request, 'candidates/candidate_register.html', context)
+    return render(request, 'candidates/candidates_register.html', context)
 
 
 def candidates_view(request):
@@ -88,17 +88,14 @@ def candidate_detail_view(request, slug):
     
     context.update({'candidate': candidate})
 
-    return render(request, 'candidates/candidate_detail.html', context)
+    return render(request, 'candidates/candidates_detail.html', context)
 
 
 def jobs_view(request):
     jobs = Job.objects.select_related('employer')
     context = {'jobs': jobs}
 
-    if request.user.is_authenticated:
-        context.update({'candidate': request.user.candidate})
-
-    return render(request, 'candidates/jobs.html', context)
+    return render(request, 'candidates/candidates_jobs.html', context)
 
 
 def apply_to_a_job_view(request, slug):
@@ -124,5 +121,5 @@ def apply_to_a_job_view(request, slug):
 
 def job_search_view(request):
     search = request.GET.get('q') or None
-
-    return render(request, 'candidates/search_results.html')
+    
+    return render(request, 'candidates/candidates_search_results.html')

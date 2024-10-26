@@ -28,12 +28,6 @@
                 {% endif %}
                 <a href="{% url 'candidates:contact' %}" class="{% if url_name == 'contact' %}active-footer-link{% endif %} footer-quick-link">Contact</a>
                 <a href="{% url 'candidates:about' %}" class="{% if url_name == 'about' %}active-footer-link{% endif %} footer-quick-link">About</a>
-                {% if not request.user.is_authenticated %}
-                    <a href="{% url 'accounts:login' %}" class="{% if url_name == 'login' %}active-footer-link{% endif %} footer-quick-link">Login</a>
-                    <a href="{% url 'accounts:register' %}" class="{% if url_name == 'register' %}active-footer-link{% endif %} footer-quick-link">Register</a>
-                {% else %}
-                    <a href="{% url 'accounts:logout' %}" class="{% if url_name == 'logout' %}active-footer-link{% endif %} footer-quick-link">Logout</a>
-                {% endif %}
             </div>
         {% endwith %}
         <div class="footer-content footer-contact-form-container">

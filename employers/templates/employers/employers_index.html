@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'fa-6/css/all.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static "style.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "employers/employers.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "accounts/accounts.css" %}">
+    
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+    <header>
+        {% block navbar %}
+            {% include "employers/employers_navbar.html" %}
+        {% endblock navbar %}
+    </header>
+    <main>
+
+        {% block content %}
+            
+        {% endblock content %}
+
+        {% include "accounts/logout_modal.html" %}
+
+    </main>
+    <footer>
+        {% block footer %}
+            {% include "footer.html" %}
+        {% endblock footer %}
+    </footer>
+    
+    <script type="text/javascript" src="{% static "main.js" %}"></script>
+    <script type="text/javascript" src="{% static "employers/employers.js" %}"></script>
+    <script type="text/javascript" src="{% static "accounts/accounts.js" %}"></script>
+</body>
+</html>

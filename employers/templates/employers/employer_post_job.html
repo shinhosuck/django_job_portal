@@ -1,15 +1,11 @@
-{% extends "index.html" %}
+{% extends "employers/employers_index.html" %}
 {% load static %}
 
 {% block title %}
     Post Job
 {% endblock title %}
 
-{% block css %}
-    <link rel="stylesheet" href="{% static 'employers/employers.css' %}">
-{% endblock css %}
-
-{% block nav %}{% endblock nav %}
+{% block navbar %}{% endblock navbar %}
 
 {% block content %}
     <div class="post-job-form-row">
@@ -50,7 +46,4 @@
 
 {% block footer %}{% endblock footer %}
 
-{% block js %}
-    <script type="text/javascript" src="{% static 'employers/employers.js' %}"></script>
-{% endblock js %}
 

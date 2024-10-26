@@ -1,4 +1,4 @@
-{% extends "index.html" %}
+{% extends "candidates/candidates_index.html" %}
 {% load static %}
 
 {% block title %}
@@ -6,14 +6,14 @@
 {% endblock title %}
 
 {% block nav %}
-    {% include "landing_page_nav.html" %}
+    {% include "candidates/candidates_landing_page_navbar.html" %}
 {% endblock nav %}
 
 {% block content %}
     <div class="hero-row">
         <div class="hero-content-container">
             <div class="mobile-landing-page-hero-img-container">
-                <img src="{% static 'imgs/hero.webp' %}" alt="">
+                <img src="{% static 'candidates/imgs/hero.webp' %}" alt="">
                 <div class="mobile-landing-page-hero-img-background-overlay"></div>
             </div>
             <div class="hero-text-container">

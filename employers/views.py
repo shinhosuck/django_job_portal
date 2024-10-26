@@ -57,7 +57,7 @@ def post_job_view(request):
             else:
                 messages.error(request, 'There was an unknown error. Please try again')
 
-    return render(request, 'employers/post_job.html', context)
+    return render(request, 'employers/employer_post_job.html', context)
 
 
 @user_login_required
@@ -86,6 +86,12 @@ def employer_detail_view(request, slug):
 
 def employer_job_detail(request, slug):
     redirect_url = request.GET.get('redirect') or None
+    user = request.user
+
+    context = {
+        'redirect_url': redirect_url, 
+        'applied': False
+    }
 
     if not redirect_url:
         raise Http404('Page Does Not Exist.')
@@ -96,10 +102,9 @@ def employer_job_detail(request, slug):
         messages.error(request, 'Job does not exist.')
         return redirect(redirect_url)
     
-    
-    context = {
-        'redirect_url': redirect_url, 
-        'job': job
-    }
-    
-    return render(request, 'employers/job_detail.html', context)
+    context.update({'job': job})
+
+    if user.is_authenticated and user.candidate in job.applicants.all():
+        context.update({'applied': True})
+
+    return render(request, 'employers/employer_job_detail.html', context)

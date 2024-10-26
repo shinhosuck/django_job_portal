@@ -1,28 +1,55 @@
-{% extends "index.html" %}
+{% extends "candidates/candidates_index.html" %}
 {% load static %}
-
-{% block css %}
-    <link rel="stylesheet" href="{% static "accounts/accounts.css" %}">
-{% endblock css %}
 
 {% block title %}
     Login
 {% endblock title %}
 
-{% block nav %}{% endblock nav %}
+{% block navbar %}{% endblock navbar %}
 
 {% block content %}
     <div class="login-form-row">
         <div class="login-form-container">
-            <a href="{% url 'candidates:jobs' %}" class="logo-container">
-                <span class="logo-header">HireSpot</span>
-                <span class="logo-slogan">future starts here</span>
-            </a>
+            <div class="form-navbar">
+                <a href="
+                    {% if next %}
+                        {{ next }}
+                    {% else %}
+                        {% url 'candidates:jobs' %}
+                    {% endif %}" 
+                    class="logo-container"
+                >
+                    <span class="logo-header">HireSpot</span>
+                </a>
+                <button class="form-navlinks-toggle-btn">
+                    <i class="fas fa-bars form-show-navlinks"></i>
+                    <i class="fas fa-times form-remove-navlinks remove-form-navlinks-toggle-btn-child"></i>
+                </button>
+                {% with request.resolver_match.url_name as url_name %}
+                    <div class="form-navlinks">
+                        <a 
+                            class='navlink'
+                            href="{% if next %}{{ next }}{% else %}{% url 'candidates:landing-page' %}{% endif %}"
+                        >
+                            Home
+                        </a>
+                        <a class="{% if url_name == 'login' %}active-link{% endif %} navlink" href="{% url 'accounts:login' %}">Login</a>
+                        <a class="navlink" href="{% url 'accounts:register' %}">Register</a>
+                    </div>
+                {% endwith %}
+            </div>
+            <div class="login-form-header-text-container">
+                <h3 class="login-form-name">
+                    Welcome Back!
+                </h3>
+                <p class="login-form-text">
+                    Log in to access your account, connect with opportunities, 
+                    and manage your journey, whether you’re seeking a 
+                    role or hiring talent. Let’s get started!
+                </p>
+            </div>
             {% if error %} <p class='errorlist'>{{ error }}</p> {% endif %}
             <form class="login-from" action="" method='POST'>
-                <h2 class="login-form-name">
-                    Login
-                </h2>
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit" class="login-form-login-btn">
@@ -31,7 +58,10 @@
             </form>
             <div class="login-form-not-yet-registered">
                 <p class="">Not yet registered?</p>
-                <a class="" href="{% url 'accounts:register' %}">Register</a>
+                <a class="" href="{% url 'accounts:register' %}">
+                    <span>Register</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
             <div class="login-form-underline">
                 <div></div>

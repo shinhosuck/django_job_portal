@@ -1,17 +1,11 @@
-{% extends "index.html" %}
+{% extends "employers/employers_index.html" %}
 {% load static %}
 
 {% block title %}
     Employer Register
 {% endblock title %}
 
-{% block css %}
-    <link rel="stylesheet" href="{% static 'employers/employers.css' %}">
-{% endblock css %}
-
-{% block nav %}
-    {% comment %} {% include "employer_nav.html" %} {% endcomment %}
-{% endblock nav %}
+{% block nav %}{% endblock nav %}
 
 {% block content %}
     <div class="employer-register-form-row">
@@ -42,9 +36,5 @@
         </div>
     </div>
 {% endblock content %}
-
-{% block js %}
-    <script type="text/javascript" src="{% static 'employers/employers.js' %}"></script>
-{% endblock js %}
 
 {% block footer %}{% endblock footer %}

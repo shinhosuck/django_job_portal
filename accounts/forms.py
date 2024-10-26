@@ -6,10 +6,31 @@ from django import forms
 User = get_user_model()
 
 
-# class RegisterForm(UserCreationForm):
-#     class Meta:
-#         model = User 
-#         fields = ['username', 'email', 'password1', 'password2']
+USER_TYPE_CHOICES = (
+    ('', ''),
+    ('job_seeker', 'Job Seeker'),
+    ( 'employer', 'Employer'),
+)
+
+class RegisterForm(UserCreationForm):
+    user_type = forms.ChoiceField(choices=USER_TYPE_CHOICES, label='User Type',
+                widget=forms.Select(attrs={'autofocus':True, 'required':True}))
+
+    class Meta:
+        model = User 
+        fields = [
+            'user_type',
+            'username', 
+            'email', 
+            'password1', 
+            'password2'
+        ]
+
+        widgets = {
+            'email': forms.EmailInput(attrs={'required':True}),
+            'password1': forms.PasswordInput(attrs={'required':True}),
+            'password2': forms.PasswordInput(attrs={'required':True}),
+        }
 
 #     def clean_email(self):
 #         email = self.cleaned_data['email']
@@ -19,56 +40,56 @@ User = get_user_model()
 #         return email
     
 
-class RegisterForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(attrs={'autofocus':True}),
-                               required=True, max_length=50)
-    email = forms.EmailField(required=True)
-    password = forms.CharField(
-            widget=forms.PasswordInput(attrs={'required':True})
-        )
-    password_confirmation = forms.CharField(
-            widget=forms.PasswordInput(attrs={'required':True})
-        )
+# class RegisterForm(forms.Form):
+#     username = forms.CharField(widget=forms.TextInput(attrs={'autofocus':True}),
+#                                required=True, max_length=50)
+#     email = forms.EmailField(required=True)
+#     password = forms.CharField(
+#             widget=forms.PasswordInput(attrs={'required':True})
+#         )
+#     password_confirmation = forms.CharField(
+#             widget=forms.PasswordInput(attrs={'required':True})
+#         )
 
 
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
+#     def clean_username(self):
+#         username = self.cleaned_data.get('username')
 
-        user = User.objects.filter(username=username)
+#         user = User.objects.filter(username=username)
 
-        if user.exists():
-            raise forms.ValidationError('Username is taken.')
+#         if user.exists():
+#             raise forms.ValidationError('Username is taken.')
 
-        return username
+#         return username
 
-    def clean_email(self):
-        email = self.cleaned_data.get('email')
+#     def clean_email(self):
+#         email = self.cleaned_data.get('email')
         
-        user = User.objects.filter(email=email)
+#         user = User.objects.filter(email=email)
 
-        if user.exists():
-            raise forms.ValidationError('Email is taken.')
+#         if user.exists():
+#             raise forms.ValidationError('Email is taken.')
         
-        return email
+#         return email
 
-    def clean(self):
-        cleaned_data = super().clean()
-        password = cleaned_data['password']
-        password_confirmation = cleaned_data['password_confirmation']
+#     def clean(self):
+#         cleaned_data = super().clean()
+#         password = cleaned_data['password']
+#         password_confirmation = cleaned_data['password_confirmation']
         
-        if password != password_confirmation:
-            self.add_error('password', 'Passwords did not match.')
+#         if password != password_confirmation:
+#             self.add_error('password', 'Passwords did not match.')
     
-    def save(self):
-        username = self.cleaned_data.get('username')
-        email = self.cleaned_data.get('email')
-        password = self.cleaned_data.get('password')
+#     def save(self):
+#         username = self.cleaned_data.get('username')
+#         email = self.cleaned_data.get('email')
+#         password = self.cleaned_data.get('password')
 
-        return User.objects.create_user(
-            username=username,
-            email=email,
-            password=password
-        )
+#         return User.objects.create_user(
+#             username=username,
+#             email=email,
+#             password=password
+#         )
 
        
 

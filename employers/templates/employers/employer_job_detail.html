@@ -1,17 +1,9 @@
-{% extends "index.html" %}
+{% extends "employers/employers_index.html" %}
 {% load static %}
 
 {% block title %}
     Job Detail
 {% endblock title %}
-
-{% block css %}
-    <link rel="stylesheet" href="{% static 'employers/employers.css' %}">
-{% endblock css %}
-
-{% block nav %}
-    {% include "employer_nav.html" %}
-{% endblock nav %}
 
 {% block content %}
 <div class="job-detail-container">
@@ -43,14 +35,17 @@
             </div>
 
             {% if 'jobs' in redirect_url %}
-                <a class="job-detail-apply-btn" href="{% url 'candidates:candidate-apply' job.slug %}">Apply</a>
+                {% if not request.user.is_authenticated %}
+                    <button class='job-detail-not-authenticated-btn' type='button'>Apply</button>
+                {% else %}
+                    {% if applied %}
+                        <button class='job-detail-applied-btn' type='button'>Applied</button>
+                    {% else %}
+                        <a class="job-detail-apply-btn" href="{% url 'candidates:candidate-apply' job.slug %}">Apply</a>
+                    {% endif %}
+                {% endif %}
             {% endif %}
         </div>
     </div>
 </div>
-    
 {% endblock content %}
-
-{% block js %}
-    <script type="text/javascript" src="{% static 'employers/employers.js' %}"></script>
-{% endblock js %}

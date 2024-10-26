@@ -12,8 +12,8 @@ app_name = 'accounts'
 
 
 urlpatterns = [
-    path('register/', register_view, name='register'),
-    path('login/', login_view, name='login'),
-    path('logout/', logout_view, name='logout'),
-    path('profile/', user_profile_view, name='profile')
+    path('hire-spot/register/', register_view, name='register'),
+    path('hire-spot/login/', login_view, name='login'),
+    path('hire-spot/logout/', logout_view, name='logout'),
+    path('hire-spot/user/profile/', user_profile_view, name='profile')
 ]

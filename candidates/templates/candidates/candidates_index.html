@@ -4,31 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" type="text/css" href="{% static 'fa-6/css/all.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static "style.css" %}">
-    {% block css %}{% endblock css %}
+    <link rel="stylesheet" type="text/css" href="{% static "candidates/candidates.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "accounts/accounts.css" %}">
+    
     <title>{% block title %}{% endblock title %}</title>
 </head>
 <body>
     <header>
-        {% block nav %}
-            {% include "nav.html" %}
-        {% endblock nav %}
+        {% block navbar %}
+            {% include "candidates/candidates_navbar.html" %}
+        {% endblock navbar %}
     </header>
     <main>
 
         {% if messages %}
-            {% include "messages.html" %}
+            {% include "candidates/candidates_messages.html" %}
         {% endif %}
+
 
         {% block content %}
             {% block search_form %}
             {% endblock search_form %}
             
         {% endblock content %}
+
 
         {% include "accounts/logout_modal.html" %}
 
@@ -39,6 +45,7 @@
         {% endblock footer %}
     </footer>
     <script type="text/javascript" src="{% static "main.js" %}"></script>
-    {% block js %}{% endblock js %}
+    <script type="text/javascript" src="{% static "candidates/candidates.js" %}"></script>
+    <script type="text/javascript" src="{% static "accounts/accounts.js" %}"></script>
 </body>
 </html>

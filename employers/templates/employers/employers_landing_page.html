@@ -1,17 +1,9 @@
-{% extends "index.html" %}
+{% extends "employers/employers_index.html" %}
 {% load static %}
 
 {% block title %}
     Post a job
 {% endblock title %}
-
-{% block css %}
-    <link rel="stylesheet" href="{% static 'employers/employers.css' %}">
-{% endblock css %}
-
-{% block nav %}
-    {% include "employer_nav.html" %}
-{% endblock nav %}
 
 {% block content %}
     <div class="employers-landing-page-content-row">
@@ -29,9 +21,5 @@
         </div>
     </div>
 {% endblock content %}
-
-{% block js %}
-    <script type="text/javascript" src="{% static 'employers/employers.js' %}"></script>
-{% endblock js %}
 
 {% block footer %}{% endblock footer %}

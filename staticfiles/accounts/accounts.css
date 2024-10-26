@@ -8,49 +8,91 @@
     min-height: 100svh;
     display: grid;
     align-content: center;
-    padding: 3rem 0;
+    padding: 2rem 0;
 }
 
 .register-form-container {
     width: 90%;
-    max-width: 500px;
+    max-width: 700px;
     margin: 0 auto;
 
     display: grid;
     align-content: start;
-    row-gap: 1rem;
+    row-gap: 2rem;
+}
+
+.register-form-header-text-container {
+    display: grid;
+    gap: 0.8rem
 }
 
 .register-form-name {
-    margin-bottom: 0.5rem;
-    color: var(--black-20)
+    color: var(--black-20);
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.register-form-text {
+    letter-spacing: 0.04rem;
+    line-height: 1.4;
+    color: var(--black-30);
+    max-width: 550px;
+    text-wrap: balance;
 }
 
 .register-from {
     display: grid;
     align-content: start;
-    gap: 1rem;
+    gap: 1.2rem;
     padding: 1.2rem;
     border-radius: 8px;
     border: 1px solid var(--black-80)
 }
 
-/* .register-from > *:nth-child(6) {
-    display: none;
-} */
+.empty-input-row {
+    display: none !important;
+}
 
-.register-from > p {
+.register-input-row {
     display: grid;
     align-content: start;
     gap: 0.5rem;
 }
 
-.register-from > p > label {
+.helptext,
+.help-text-list {
+    font-size: 0.9rem;
+    color: var(--black-30);
     letter-spacing: 0.03rem;
-    color: var(--black-10)
+    line-height: 1.4;
 }
 
-.register-from > p > input {
+.help-text-list > li {
+    list-style-type: disc;
+    margin-left: 1rem;
+}
+
+.register-input-row > label {
+    letter-spacing: 0.03rem;
+    color: var(--black-10);
+    font-weight: 500;
+}
+
+.register-input-row > select {
+    border: 1px solid var(--black-80);
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    color: var(--black-20);
+    letter-spacing: 0.03rem;
+    background: none;
+    font-size: 1rem;
+}
+
+.register-input-row > select:focus {
+    outline: 3px solid var(--green-60);
+}
+
+.register-input-row > input {
     border: 1px solid var(--black-80);
     padding: 0.8rem 1rem;
     border-radius: 5px;
@@ -81,7 +123,6 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-top: 0.2rem;
 }
 
 .register-form-already-registered > p {
@@ -90,37 +131,65 @@
 }
 
 .register-form-already-registered > a {
-    color: var(--green-35);
+    color: var(--green-30);
     letter-spacing: 0.03rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
 }
+
+.register-form-already-registered > a > i {
+    font-size: 0.9rem;
+}
+
+@media (hover) {
+    .register-form-already-registered > a:hover {
+        color: var(--green-40)
+    }
+}
+
 
 /* LOGIN*/
 .login-form-row {
     min-height: 100svh;
     display: grid;
-    align-content: center;
-    padding: 3rem 0;
+    align-content: start;
+    padding: 2rem 0;
 }
 
 .login-form-container {
     width: 90%;
-    max-width: 500px;
+    max-width: 600px;
     margin: 0 auto;
 
     display: grid;
     align-content: start;
-    row-gap: 1rem;
+    row-gap: 2rem;
+}
+
+.login-form-header-text-container {
+    display: grid;
+    gap: 0.8rem
 }
 
 .login-form-name {
-    margin-bottom: 0.5rem;
-    color: var(--black-20)
+    color: var(--black-20);
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.login-form-text {
+    letter-spacing: 0.04rem;
+    line-height: 1.4;
+    color: var(--black-30);
+    max-width: 550px;
+    text-wrap: balance;
 }
 
 .login-from {
     display: grid;
     align-content: start;
-    gap: 1rem;
+    gap: 1.2rem;
     padding: 1.2rem;
     border-radius: 8px;
     border: 1px solid var(--black-80)
@@ -138,7 +207,8 @@
 
 .login-from > p > label {
     letter-spacing: 0.03rem;
-    color: var(--black-10)
+    color: var(--black-10);
+    font-weight: 500;
 }
 
 .login-from > p > input {
@@ -147,6 +217,7 @@
     border-radius: 5px;
     color: var(--black-20);
     letter-spacing: 0.03rem;
+    font-size: 1rem;
 }
 
 .login-form-login-btn {
@@ -171,7 +242,6 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-top: 0.2rem;
 }
 
 .login-form-not-yet-registered > p {
@@ -180,8 +250,15 @@
 }
 
 .login-form-not-yet-registered > a {
-    color: var(--green-35);
+    color: var(--green-30);
     letter-spacing: 0.03rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.login-form-not-yet-registered > a > i {
+    font-size: 0.9rem;
 }
 
 .login-form-underline {
