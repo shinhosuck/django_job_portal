@@ -1,18 +1,21 @@
+const navbarRow = document.querySelector('.nav-row')
 
 // Messages from backend: success, error, warning, info, and etc.
 const messages = document.querySelector('.messages')
-// const message = document.querySelector('.message')
+const messageCloseBtn = document.querySelector('.message-close-btn')
 
+if (messages) {
 
-function closeMessageBtn() {
-    messages.classList.add('close-messages')
+    if (!navbarRow) {
+        messages.style.top = '10px'
+    }
+    
+    function closeMessageBtn() {
+        messages.classList.add('close-messages')
+    }
+    
+    messageCloseBtn.addEventListener('click',closeMessageBtn)
 }
-
-// if (messages) {
-//     const messageWidth = message.clientWidth 
-//     message.style.width = `${messageWidth}px`
-// }
-
 
 // Toggle mobile navlinks
 const mobileNavlinks = document.querySelector('.mobile-navlinks')

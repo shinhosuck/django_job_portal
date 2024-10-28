@@ -83,6 +83,7 @@ button {
 /* MESSAGES (message from backend:warning, error, success, info) */
 .messages {
     position:absolute;
+    z-index: 2;
     width: 90%;
     max-width: 1400px;
     top:70px;
@@ -98,12 +99,12 @@ button {
 .message-container {
     flex: 1;
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: space-between;
     column-gap: 2rem;
     padding: 0.8rem 1.5rem;
     border-radius: 5px;
-    box-shadow: 3px 3px 10px -3px var(--black-50);
+    box-shadow: 3px 3px 20px -13px var(--black-10);
 }
 
 .success {
@@ -119,28 +120,23 @@ button {
 }
 
 .message-container > p {
-    text-align: center;
     letter-spacing: 0.04rem;
     color: var(--black-90);
     font-size: 1.1rem;
+    text-wrap: pretty;
 }
 
 .message-container > button {
-    width: 25px;
-    aspect-ratio: 1/1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: var(--black-90);
+    background: none;
     border: none;
+    cursor: pointer;
 }
 
 .message-container > button > i {
     line-height: 1;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     margin-top: 0.2rem;
-    color: var(--black-30)
+    color: var(--black-90)
 }
 
 /* FORM NAVBAR */
@@ -192,10 +188,12 @@ button {
 }
 
 .form-navlinks > .navlink {
-    color: var(--black-10)
+    color: var(--black-10);
+    letter-spacing: 0.03rem;
 }
 
 .form-navlinks > .active-link {
+    font-weight: 600;
     color: var(--green-40);
 }
 
@@ -222,6 +220,7 @@ button {
         opacity: 1;
         border-radius: 0;
         transition: initial;
+        background: none;
     }
 }
 
