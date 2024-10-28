@@ -15,7 +15,7 @@
                     {% if next %}
                         {{ next }}
                     {% else %}
-                        {% url 'candidates:jobs' %}
+                        {% url 'candidates:landing-page' %}
                     {% endif %}" 
                     class="logo-container"
                 >
@@ -34,7 +34,12 @@
                             Home
                         </a>
                         <a class='navlink' href="{% url 'accounts:login' %}">Login</a>
-                        <a class="{% if url_name == 'register' %}active-link{% endif %} navlink" href="{% url 'accounts:register' %}">Register</a>
+                        <a class="
+                            {% if url_name == 'register' %}active-link{% endif %} navlink" 
+                            href="{% url 'accounts:register' %}"
+                        >
+                            Register
+                        </a>
                     </div>
                 {% endwith %}
             </div>

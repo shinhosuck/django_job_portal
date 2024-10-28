@@ -1,18 +1,18 @@
 from django.db.models.signals import post_delete, post_save
-from candidates.models import Candidate
+from candidates.models import CandidateJobProfile
 from django.dispatch import receiver
 from django.utils.text import slugify
 import os
 
 
-@receiver(post_save, sender=Candidate)
+@receiver(post_save, sender=CandidateJobProfile)
 def post_save_candidate(sender, instance, created, **kwargs):
     if created:
         instance.slug = slugify(instance.user.username)
         instance.save()
 
 
-@receiver(post_delete, sender=Candidate)
+@receiver(post_delete, sender=CandidateJobProfile)
 def post_delete_candidate(sender, instance, **kwargs):
 
     if instance.avatar and instance.avatar != 'avatars/default.png':

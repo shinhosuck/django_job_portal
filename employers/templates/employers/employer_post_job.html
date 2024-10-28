@@ -10,17 +10,44 @@
 {% block content %}
     <div class="post-job-form-row">
         <div class="post-job-form-container">
-            <a href="{% url 'employers:employer' %}" class="logo-container">
-                <span class="logo-header">HireSpot</span>
-                <span class="logo-slogan">future starts here</span>
-            </a>
+            <div class="form-navbar">
+                <a href="
+                    {% if next %}
+                        {{ next }}
+                    {% else %}
+                        {% url 'employers:employer' %}
+                    {% endif %}" 
+                    class="logo-container"
+                >
+                    <span class="logo-header">HireSpot</span>
+                </a>
+                <button class="form-navlinks-toggle-btn">
+                    <i class="fas fa-bars form-show-navlinks"></i>
+                    <i class="fas fa-times form-remove-navlinks remove-form-navlinks-toggle-btn-child"></i>
+                </button>
+                {% with request.resolver_match.url_name as url_name %}
+                    <div class="form-navlinks">
+                        <a class='navlink' href="{% url 'employers:employer' %}">Home</a>
+                        <a class="
+                            {% if url_name == 'post-job' %}active-link{% endif %} navlink" 
+                            href="{% url 'employers:post-job' %}"
+                        >
+                            Post Job
+                        </a>
+                    </div>
+                {% endwith %}
+            </div>
+            <div class="post-job-form-text-container">
+                <h3 class="post-job-form-name">
+                    Start Your Recruitment Journey Here!
+                </h3>
+                <p class="post-job-form-text">
+                    Ready to find your next great hire? Complete the form below
+                    with the job details and let us help you connect with talented 
+                    professionals.
+                </p>
+            </div>
             <form class="post-job-form" action="" method="POST">
-                <div class="post-job-form-text-container">
-                    <H2 class="post-job-form-name">Start Your Recruitment Journey Here!</H2>
-                    <span>Ready to find your next great hire? Complete the form below with the job details
-                         and let us help you connect with talented professionals.
-                    </span>
-                </div>
                 {% csrf_token %}
                 <p class="post-job-form-select-container">
                     <label for="employers">Employer:</label>
@@ -37,7 +64,7 @@
                 <button class="post-job-form-submit-job-btn">Submit Job</button>
             </form>
             <a href="{% url 'employers:employer' %}" class="post-job-form-post-job-later">
-                <span>Post Job later</span>
+                <span>Complete form later</span>
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>

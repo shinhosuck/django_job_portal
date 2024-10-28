@@ -1,6 +1,6 @@
 from typing import Any
 from django import forms 
-from .models import Message, Candidate
+from .models import Message, CandidateJobProfile
 
 
 class MessageForm(forms.ModelForm):
@@ -13,17 +13,23 @@ class MessageForm(forms.ModelForm):
         ]
 
 
-class CandidateForm(forms.ModelForm):
-    avatar = forms.ImageField(widget=forms.FileInput(attrs={'autofocus':True}))
+class CandidateJobProfileForm(forms.ModelForm):
+    skills = forms.CharField(
+            required=False,
+            widget=forms.TextInput(attrs={'placeholder':'e.g., skill 1, skill 2, skill 3'})
+        )
+
     class Meta:
-        model = Candidate 
+        model = CandidateJobProfile 
         fields = [
-            'avatar',
             'first_name',
             'last_name',
             'job_title',
+            'skills',
             'resume',
             'social_link'
         ]
 
 
+class IndustryForm(forms.Form):
+    industry = forms.CharField(max_length=200)

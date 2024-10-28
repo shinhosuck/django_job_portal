@@ -28,6 +28,7 @@ def employer_register(request):
 
 @user_login_required
 def post_job_view(request):
+    user = request.user
     form = JobsForm(request.POST or None)
     context = {'form':form}
 
@@ -50,7 +51,7 @@ def post_job_view(request):
         if employer:
             if form.is_valid():
                 instance = form.save(commit=False)
-                instance.company = employer
+                instance.employer = employer
                 instance.save()
                 messages.success(request, 'New job posted successfully.')
                 return redirect('employers:employer-dashboard')
@@ -69,6 +70,7 @@ def employer_dashboard_view(request):
 
 
 def employer_detail_view(request, slug):
+    redirect_url = request.GET.get('redirect')
     context = {}
 
     try:
@@ -79,12 +81,19 @@ def employer_detail_view(request, slug):
     
     if employer:
         jobs = employer.job_set.all()
-        context.update({'employer':employer, 'jobs':jobs})
+        context.update(
+            {
+                'employer':employer, 
+                'jobs':jobs,
+                'redirect_url':redirect_url
+            }
+        )
 
     return render(request, 'employers/employer_detail.html', context)
 
 
 def employer_job_detail(request, slug):
+
     redirect_url = request.GET.get('redirect') or None
     user = request.user
 

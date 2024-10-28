@@ -3,7 +3,11 @@ from .models import Employer, Job
 
 
 class EmployerForm(forms.ModelForm):
-    employer_name = forms.CharField(widget=forms.TextInput(attrs={'autofocus':True}))
+    employer_name = forms.CharField(
+        label='Employer Name',
+        widget=forms.TextInput(attrs={'autofocus':True})
+    )
+
     class Meta:
         model = Employer
         fields = [
@@ -12,6 +16,11 @@ class EmployerForm(forms.ModelForm):
             'website',
             'logo'
         ]
+
+        labels = {
+            'about_employer':'About Employer'
+        }
+
 
     def clean_company(self):
         company = self.cleaned_data.get('employer_name')

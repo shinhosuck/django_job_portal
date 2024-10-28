@@ -5,32 +5,54 @@
     Employer Register
 {% endblock title %}
 
-{% block nav %}{% endblock nav %}
+{% block navbar %}{% endblock navbar %}
 
 {% block content %}
     <div class="employer-register-form-row">
         <div class="employer-register-form-container">
-            <a href="{% url 'employers:employer' %}" class="logo-container">
-                <span class="logo-header">HireSpot</span>
-                <span class="logo-slogan">future starts here</span>
-            </a>
+            <div class="form-navbar">
+                <a href="
+                    {% if next %}
+                        {{ next }}
+                    {% else %}
+                        {% url 'employers:employer' %}
+                    {% endif %}" 
+                    class="logo-container"
+                >
+                    <span class="logo-header">HireSpot</span>
+                </a>
+                <button class="form-navlinks-toggle-btn">
+                    <i class="fas fa-bars form-show-navlinks"></i>
+                    <i class="fas fa-times form-remove-navlinks remove-form-navlinks-toggle-btn-child"></i>
+                </button>
+                {% with request.resolver_match.url_name as url_name %}
+                    <div class="form-navlinks">
+                        <a class='navlink' href="{% url 'employers:employer' %}">Home</a>
+                        <a class="
+                            {% if url_name == 'employer-register' %}active-link{% endif %} navlink" 
+                            href="{% url 'employers:employer-register' %}"
+                        >
+                            Register Employer
+                        </a>
+                    </div>
+                {% endwith %}
+            </div>
+            <div class="employer-register-form-text-container">
+                <h3 class="employer-register-form-name">
+                    Create an Employer Account!
+                </h3>
+                <p class="employer-register-form-text">
+                    You haven't posted a job before, 
+                    so you'll need to create an employer account.
+                </p>
+            </div>
             <form class="employer-register-form" action="" method="POST" enctype="multipart/form-data">
-                <div class="employer-register-form-text-container">
-                    <h2 class="employer-register-form-name">
-                        Create an Employer Account!
-                    </h2>
-                    <span>
-                        You haven't posted a job before, 
-                        so you'll need to create an employer account.
-                    </span>
-                </div>
-               
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button class="employer-register-form-btn">Create Account</button>
             </form>
             <a href="{% url 'employers:employer' %}" class="employer-register-form-create-later">
-                <span>Register employer account later</span>
+                <span>Complete form later</span>
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>

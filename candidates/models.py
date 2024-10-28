@@ -6,18 +6,20 @@ from django.urls import reverse
 User = settings.AUTH_USER_MODEL
 
 
-class Candidate(models.Model):
-    avatar = models.ImageField(upload_to='candidate_avatars', 
-            default='candidate_avatars/default.png')
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class CandidateJobProfile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=150)
     slug = models.SlugField(max_length=200)
     job_title = models.CharField(max_length=200)
+    skills = models.CharField(max_length=300, blank=True, null=True)
     resume = models.FileField(upload_to='resumes', null=True, blank=True)
-    social_link = models.URLField()
+    social_link = models.URLField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = 'Candidate Job Profiles'
 
     def __str__(self):
         return f'{self.user.username}'  
@@ -29,7 +31,23 @@ class Candidate(models.Model):
         if request:
             return request.build_absolute_uri(self.resume.url)
         return self.resume.url
-    
+
+
+class Industry(models.Model):
+    candidate = models.ForeignKey(
+            CandidateJobProfile, 
+            on_delete=models.CASCADE,
+            null=True, 
+            blank=True
+        )
+    name = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name_plural = 'Industries'
+
+    def __str__(self):
+        return self.name
+
 
 class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)

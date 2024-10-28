@@ -12,7 +12,7 @@ app_name = 'employers'
 
 
 urlpatterns = [
-    path('employers/recruit/', employer_landing_page_view, name='employer'),
+    path('employers/', employer_landing_page_view, name='employer'),
     path('employers/register/', employer_register, name='employer-register'),
     path('employers/post/job/', post_job_view, name='post-job'),
     path('employers/dashboard/', employer_dashboard_view, name='employer-dashboard'),

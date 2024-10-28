@@ -1,49 +1,72 @@
-{% extends "index.html" %}
+{% extends "candidates/candidates_index.html" %}
 {% load static %}
 
 {% block title %}
     Candidate Register
 {% endblock title %}
 
-{% block css %}
-    <link rel="stylesheet" href="{% static 'candidates/candidates.css' %}">
-{% endblock css %}
-
-{% block nav %}{% endblock nav %}
+{% block navbar %}{% endblock navbar %}
 
 {% block content %}
     <div class="candidate-register-form-row">
         <div class="candidate-register-form-container">
-            <a href="{% url 'candidates:landing-page' %}" class="logo-container">
-                <span class="logo-header">HireSpot</span>
-                <span class="logo-slogan">future starts here</span>
-            </a>
+            <div class="form-navbar">
+                <a href="
+                    {% if next %}
+                        {{ next }}
+                    {% else %}
+                        {% url 'candidates:landing-page' %}
+                    {% endif %}" 
+                    class="logo-container"
+                >
+                    <span class="logo-header">HireSpot</span>
+                </a>
+                <button class="form-navlinks-toggle-btn">
+                    <i class="fas fa-bars form-show-navlinks"></i>
+                    <i class="fas fa-times form-remove-navlinks remove-form-navlinks-toggle-btn-child"></i>
+                </button>
+                {% with request.resolver_match.url_name as url_name %}
+                    <div class="form-navlinks">
+                        <a class='navlink' href="{% url 'candidates:landing-page' %}">Home</a>
+                        <a class="
+                            {% if url_name == 'candidate-register' %}active-link{% endif %} navlink" 
+                            href="{% url 'candidates:candidate-register' %}"
+                        >
+                            Add Skill
+                        </a>
+                    </div>
+                {% endwith %}
+            </div>
+            <div class="candidate-register-form-text-container">
+                <h3 class="candidate-register-form-name">
+                    Start Your Job Search Today!
+                </h3>
+                <p class="candidate-register-form-text">
+                    Create your profile to explore job opportunities, 
+                    and showcase your skills to top employers. 
+                    It only takes a few minutes to set up and get noticed by recruiters.
+                </p>
+            </div>
             <form class="candidate-register-form" action="" method="POST" enctype='multipart/form-data'>
-                <div class="candidate-register-form-text-container">
-                    <h2 class="candidate-register-form-name">
-                        Start Your Job Search Today!
-                    </h2>
-                    <span>
-                        Create your profile to explore job opportunities, 
-                        and showcase your skills to top employers. 
-                        It only takes a few minutes to set up and get noticed by recruiters.
-                    </span>
-                </div>
-               
                 {% csrf_token %}
-                {{ form.as_p }}
+                <p>
+                    <label for="industries">Industry</label>
+                    <select name="industry" id="industries" required>
+                        <option value="">Please select an item in the list</option>
+                        {% for industry in industries %}
+                            <option value="{{ industry.name }}">{{ industry.name }}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+                {{ candidate_form.as_p }}
                 <button class="candidate-register-form-btn">Create Account</button>
             </form>
             <a href="{% url 'candidates:jobs' %}" class="candidate-register-form-create-later">
-                <span>Add skills later</span>
+                <span>Complete form later</span>
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>
     </div>
 {% endblock content %}
-
-{% block js %}
-    <script type="text/javascript" src="{% static 'candidates/candidates.js' %}"></script>
-{% endblock js %}
 
 {% block footer %}{% endblock footer %}

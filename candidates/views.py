@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model 
-from .forms import MessageForm, CandidateForm
+from .forms import MessageForm, CandidateJobProfileForm, IndustryForm
 from django.contrib import messages
-from .models import Candidate
+from .models import CandidateJobProfile, Industry
 from employers.models import Job 
+from utils.decorators import user_login_required
 
 
 User = get_user_model()
@@ -43,35 +44,52 @@ def contact_view(request):
     return render(request, 'contact.html', context)
 
 
+@user_login_required
 def candidate_register_view(request):
-    form = CandidateForm(request.POST or None, request.FILES or None)
-    context = {'form':form}
-
-    try:
-        candidate = Candidate.objects.get(user=request.user)
-    except Candidate.DoesNotExist:
-        pass 
-
+    industries = Industry.objects.all()
+    industry_form = IndustryForm(
+        request.POST or None, 
+        request.FILES or None
+        )
+    candidate_form = CandidateJobProfileForm(
+            request.POST or None, 
+            request.FILES or None
+        )
+    
+    context = {
+            'candidate_form':candidate_form,
+            'industries': industries
+        }
+    
     if request.method == 'POST':
-        if form.is_valid():
+        if candidate_form.is_valid() and industry_form.is_valid():
+            candidate_instance = candidate_form.save(commit=False)
+            candidate_instance.user = request.user
+            # candidate_instance.save()
 
-            if candidate:
-                messages.error(
-                    request, 
-                    f'''Profile with username {request.user.username} already exists. 
-                    Please logout and register with new username.'''
-                )
-                return redirect('candidates:jobs')
+            print(candidate_form.changed_data)
 
-            instance = form.save(commit=False)
-            instance.user = request.user
-            instance.save()
+            industry_name = industry_form.cleaned_data.get('industry')
+
+            try:
+                industry = Industry.objects.get(name=industry_name)
+            except Industry.DoesNotExist:
+                messages.error(request, 'Industry does not exists.')
+                return render(request, 'candidates/candidates_register.html', context)
             
+            # industry.candidate = candidate_instance
+            # industry.save()
+
+            messages.success(request, 'Profile successfully created.')
+            return redirect('candidates:jobs')
+        else:
+            messages.error(request, 'Something went wrong. Please try again.')
+       
     return render(request, 'candidates/candidates_register.html', context)
 
 
 def candidates_view(request):
-    candidates = Candidate.objects.all()
+    candidates = CandidateJobProfile.objects.all()
 
     context = {'candidates': candidates}
 
@@ -82,8 +100,8 @@ def candidate_detail_view(request, slug):
     context = {}
 
     try:
-        candidate = Candidate.objects.get(slug=slug)
-    except Candidate.DoesNotExist:
+        candidate = CandidateJobProfile.objects.get(slug=slug)
+    except CandidateJobProfile.DoesNotExist:
         return redirect('candidates:candidates')
     
     context.update({'candidate': candidate})
@@ -98,6 +116,7 @@ def jobs_view(request):
     return render(request, 'candidates/candidates_jobs.html', context)
 
 
+@user_login_required
 def apply_to_a_job_view(request, slug):
     user = request.user
     
@@ -108,8 +127,8 @@ def apply_to_a_job_view(request, slug):
         return redirect('candidates:jobs')
     
     try:
-        candidate = Candidate.objects.get(user=user)
-    except Candidate.DoesNotExist:
+        candidate = CandidateJobProfile.objects.get(user=user)
+    except CandidateJobProfile.DoesNotExist:
         messages.error(request, 'You must create your profile first.')
         return redirect('candidates:candidate-register')
     

@@ -19,7 +19,6 @@ def register_view(request):
     form = RegisterForm(request.POST or None)
     context = {
         'form':form,
-        'next':next
     }
 
     if request.method == 'POST':

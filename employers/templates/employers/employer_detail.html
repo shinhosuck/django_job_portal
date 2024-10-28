@@ -8,13 +8,17 @@
 {% block content %}
 <div class="employer-detail-container">
     <div class="employer-detail-row">
+        <a href="{{ redirect_url }}">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back to previous page</span>
+        </a>
         <h1>Employer Detail</h1>
         <h3>{{ employer.company}}</h3>
         {% if jobs %}
             {% for job in jobs %}
                 <a href="{{ job.get_absolute_url }}?redirect={{ job.employer.get_absolute_url }}">
                     Job-{{ job.job_title }}
-                </a>
+                </a> 
             {% endfor %}
         {% endif %}
     </div>

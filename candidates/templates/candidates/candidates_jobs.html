@@ -24,8 +24,8 @@
                             <p class="job-employer-country">{{ job.employer.country }}</p>
                         </div>
                         <p class="job-salary">${{ job.salary|floatformat:0 }}/month</p>
-                        {% with request.resolver_match.url_name as url_name %}
-                            <a class="see-job-detail-btn" href="{{ job.get_absolute_url }}?redirect=/{{ url_name }}/">See Detail</a>
+                        {% with request.resolver_match.route as route %}
+                            <a class="see-job-detail-btn" href="{{ job.get_absolute_url }}?redirect=/{{ route }}">See Detail</a>
                         {% endwith %}
                     </div>
                 {% endfor %}

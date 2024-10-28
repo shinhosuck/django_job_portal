@@ -8,7 +8,7 @@
 {% block content %}
     <h1>Employer Dashboard</h1>
     {% for employer in employers %}
-        <a href="{{ employer.get_absolute_url }}">
+        <a href="{{ employer.get_absolute_url }}?redirect={{ request.path }}">
             {{ employer.employer_name }}
         </a>
     {% endfor %}

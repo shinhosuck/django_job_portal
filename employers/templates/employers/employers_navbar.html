@@ -55,8 +55,8 @@
                     </div>
                 </div>
                 {% if not request.user.is_authenticated %}
-                    <a href="{% url 'accounts:login' %}?next=/employers/recruit/" class="navlink">Login</a>
-                    <a class='navlink register-link' href="{% url 'accounts:register' %}?next=/employers/recruit/">Register</a>
+                    <a href="{% url 'accounts:login' %}" class="navlink">Login</a>
+                    <a class='navlink register-link' href="{% url 'accounts:register' %}">Register</a>
                 {% endif %}
             </div>
            
@@ -116,8 +116,8 @@
                     <a href="" class="mobile-navlink">Profile</a>
                     <button class="mobile-navlink mobile-logout-btn">Logout</button>
                 {% else %}
-                    <a class='mobile-navlink' href="{% url 'accounts:login' %}?next=/employers/recruit/">Login</a>
-                    <a class='mobile-navlink' href="{% url 'accounts:register' %}?next=/employers/recruit/">Register</a>
+                    <a class='mobile-navlink' href="{% url 'accounts:login' %}">Login</a>
+                    <a class='mobile-navlink' href="{% url 'accounts:register' %}">Register</a>
                 {% endif %}
             </div>
         {% endwith %}

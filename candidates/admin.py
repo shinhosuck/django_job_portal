@@ -1,12 +1,13 @@
 from django.contrib import admin
 from .models import (
     Message, 
-    Candidate
+    CandidateJobProfile,
+    Industry
 )
 
 
-@admin.register(Candidate)
-class CandidateAdmin(admin.ModelAdmin):
+@admin.register(CandidateJobProfile)
+class CandidateJobProfileAdmin(admin.ModelAdmin):
     list_display = [
         'slug',
         'first_name',
@@ -22,4 +23,12 @@ class MessageAdmin(admin.ModelAdmin):
         'last_name',
         'email',
         'created'
+    ]
+
+@admin.register(Industry)
+class IndustryAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'name',
+        'candidate',
     ]

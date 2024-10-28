@@ -317,14 +317,14 @@
     padding: 1.2rem;
     border-radius: 5px;
     opacity: 0;
-    box-shadow: 3px 3px 20px -3px var(--black-70);
     transition: opacity 100ms linear;
-    background: var(--black-90)
 }
 
 .show-logout-modal {
     opacity: 1;
-    top: 100px
+    top: 80px;
+    background: white;
+    box-shadow: 3px 3px 20px -13px var(--black-10);
 }
 
 .logout-modal-close-btn-container {

@@ -4,7 +4,7 @@ from django.utils.text import slugify
 from django.urls import reverse
 from datetime import datetime
 from django_countries.fields import CountryField
-from candidates.models import Candidate
+from candidates.models import CandidateJobProfile
 import re
 
 
@@ -48,7 +48,7 @@ class Job(models.Model):
     slug = models.SlugField(max_length=200)
     salary = models.DecimalField(max_digits=100, decimal_places=2)
     qualification = models.TextField()
-    applicants = models.ManyToManyField(Candidate, blank=True)
+    applicants = models.ManyToManyField(CandidateJobProfile, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
