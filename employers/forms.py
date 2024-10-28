@@ -35,7 +35,7 @@ class EmployerForm(forms.ModelForm):
         
         return company
 
-class JobsForm(forms.ModelForm):
+class JobForm(forms.ModelForm):
     job_title = forms.CharField(widget=forms.TextInput(attrs={'autofocus':True}))
     class Meta:
         model = Job

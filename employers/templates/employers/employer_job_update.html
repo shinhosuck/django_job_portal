@@ -1,0 +1,62 @@
+{% extends "employers/employers_index.html" %}
+{% load static %}
+
+{% block title %}
+    Update Job
+{% endblock title %}
+
+{% block navbar %}{% endblock navbar %}
+
+{% block content %}
+    <div class="post-job-form-row">
+        <div class="post-job-form-container">
+            <div class="form-navbar">
+                <a href="
+                    {% if next %}
+                        {{ next }}
+                    {% else %}
+                        {% url 'employers:employer' %}
+                    {% endif %}" 
+                    class="logo-container"
+                >
+                    <span class="logo-header">HireSpot</span>
+                </a>
+                <button class="form-navlinks-toggle-btn">
+                    <i class="fas fa-bars form-show-navlinks"></i>
+                    <i class="fas fa-times form-remove-navlinks remove-form-navlinks-toggle-btn-child"></i>
+                </button>
+                {% with request.resolver_match.url_name as url_name %}
+                    <div class="form-navlinks">
+                        <a class='navlink' href="{% url 'employers:employer' %}">Home</a>
+                        <a class="
+                            {% if url_name == 'job-update' %}active-link{% endif %} navlink" 
+                            href="{% url 'employers:job-update' job.slug %}"
+                        >
+                        Job Update
+                        </a>
+                    </div>
+                {% endwith %}
+            </div>
+            <div class="post-job-form-text-container">
+                <h3 class="post-job-form-name">
+                    Update Job "{{ job.job_title }}"
+                </h3>
+            </div>
+            <form class="post-job-form" action="" method="POST">
+                {% csrf_token %}
+                <p class="post-job-form-select-container">
+                    <label for="employer">Employer:</label>
+                    <input type="text" id='employer' value="{{ employer }}" readonly>
+                </p>
+                {{ form.as_p }}
+                <button class="post-job-form-submit-job-btn">Update Job</button>
+            </form>
+            <a href="{% url 'employers:job-detail' job.slug %}?redirect={{job.employer.get_absolute_url}}" class="post-job-form-post-job-later">
+                <span>Cancel update</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}

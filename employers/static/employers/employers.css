@@ -174,7 +174,7 @@
 .post-job-form-row {
     min-height: 100svh;
     display: grid;
-    align-content: center;
+    align-content: start;
     padding: 2rem 0;
 }
 .post-job-form-container {

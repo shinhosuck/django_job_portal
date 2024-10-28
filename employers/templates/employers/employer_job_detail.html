@@ -44,6 +44,9 @@
                         <a class="job-detail-apply-btn" href="{% url 'candidates:candidate-apply' job.slug %}">Apply</a>
                     {% endif %}
                 {% endif %}
+
+            {% else %}
+                <a class="job-detail-apply-btn" href="{% url 'employers:job-update' job.slug %}">Update</a>
             {% endif %}
         </div>
     </div>

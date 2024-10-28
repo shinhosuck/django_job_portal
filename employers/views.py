@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Employer, Job
-from .forms import EmployerForm, JobsForm
+from .forms import EmployerForm, JobForm
 from django.contrib import messages
 from utils.decorators import user_login_required
 from django.http import Http404
@@ -29,7 +29,7 @@ def employer_register(request):
 @user_login_required
 def post_job_view(request):
     user = request.user
-    form = JobsForm(request.POST or None)
+    form = JobForm(request.POST or None)
     context = {'form':form}
 
     employers = request.user.employer_set.all()
@@ -93,7 +93,6 @@ def employer_detail_view(request, slug):
 
 
 def employer_job_detail(request, slug):
-
     redirect_url = request.GET.get('redirect') or None
     user = request.user
 
@@ -113,7 +112,34 @@ def employer_job_detail(request, slug):
     
     context.update({'job': job})
 
-    if user.is_authenticated and user.candidate in job.applicants.all():
+    if user.is_authenticated and job.applicants.filter(user=user):
         context.update({'applied': True})
 
     return render(request, 'employers/employer_job_detail.html', context)
+
+
+def employer_job_update_view(request, slug):
+    user = request.user
+    context = {}
+
+    try:
+        job = Job.objects.get(slug=slug, employer__representative=user)
+    except Job.DoesNotExist:
+        messages.error(request, 'Job does not exist')
+        return redirect('employers:employer-dashboard')
+    
+    form = JobForm(request.POST or None, instance=job)
+
+    context.update(
+            {
+                'form':form, 
+                'job':job,
+                'employer':job.employer.employer_name
+            }
+        )
+    
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+
+    return render(request, 'employers/employer_job_update.html', context)
