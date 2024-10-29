@@ -6,10 +6,92 @@
 {% endblock title %}
 
 {% block content %}
-    <h1>Employer Dashboard</h1>
-    {% for employer in employers %}
-        <a href="{{ employer.get_absolute_url }}?redirect={{ request.path }}">
-            {{ employer.employer_name }}
-        </a>
-    {% endfor %}
+    <div class="employer-dashboard-container">
+        <div class="employer-dashboard-row">
+            <div class="employer-dashboard-employers-container">
+                <h2 class="employer-dashboard-employers-header">
+                    {{ request.user.username }}'s Employer{{employers|pluralize:'s'}}
+                </h2>
+                {% for employer in employers %}
+                    <div class="employer-dashboard-employer">
+                        <div class="employer-dashboard-logo-address-container">
+                            <div class="employer-dashboard-logo-container">
+                                <img src="{{ employer.get_logo_url }}" alt="">
+                            </div>
+                            <div class="employer-dashboard-address-container">
+                                <a class="employer-dashboard-logo-name" 
+                                    href="{{ employer.get_absolute_url }}?redirect={{ request.path }}"
+                                >
+                                    {{ employer.employer_name }}
+                                </a>
+                                <p class="employer-dashboard-city">{{ employer.city }}</p>
+                                <p class="employer-dashboard-country">
+                                    <span>{{ employer.state_or_province }},<span>
+                                    <span>{{ employer.country }}</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="employer-dashboard-employer-about">
+                            <h4 class="employer-dashboard-employer-about-header">
+                                About
+                            </h4>
+                            <p class="employer-dashboard-employer-about-text">
+                                {{ employer.about_employer}}
+                            </p>
+                        </div>
+                        <div class="employer-dashboard-jobs-container">
+                            <h4 class="employer-dashboard-jobs-header">
+                                {% if employer.jobs.count > 1 %}
+                                    Posted Jobs
+                                {% else %}
+                                    Posted Job
+                                {% endif %}
+                            </h4>
+                            <div class="employer-dashboard-employer-jobs">
+                                {% for job in employer.jobs.all %}
+                                    <div class="employer-dashboard-employer-job">
+                                        <div class="employer-dashboard-employer-job-title-date">
+                                            <a href="{{ job.get_absolute_url }}?redirect={{ request.path }}" 
+                                                class="employer-dashboard-employer-job-title">
+                                                {{ job.job_title }}
+                                            </a>
+                                            <p class="employer-dashboard-employer-job-date">
+                                                Posted on {{ job.created|date:"M d Y"}}
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="employer-dashboard-employer-job-applicants-container">
+                                            <p class="employer-dashboard-employer-job-applicants-header">
+                                                {% if not job.applicants.count %}
+                                                    <span>No applicant</span>
+                                                {% else %}
+                                                    {% if job.applicants.count == 1 %}
+                                                        <span>See applicant</span>
+                                                    {% else %}
+                                                        <span>See applicants</span>
+                                                    {% endif %}
+                                                    <i class="fas fa-chevron-down"></i>
+                                                {% endif %}
+                                            </p>
+                                            {% if job.applicants.count %}
+                                                <div class="employer-dashboard-employer-job-applicants">
+                                                    {% for applicant in job.applicants.all %}
+                                                        <a class="employer-dashboard-employer-job-applicant" 
+                                                            target="_blank"
+                                                            href="{{ applicant.get_absolute_url }}?redirect={{ request.path }}">
+                                                            {{ applicant.user.username }}
+                                                        </a>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock content %}

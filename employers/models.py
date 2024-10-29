@@ -12,7 +12,7 @@ User = settings.AUTH_USER_MODEL
 
 class Employer(models.Model):
     representative = models.ForeignKey(
-        User, 
+        User, related_name='employers',
         on_delete=models.SET_NULL,
         null=True
     )
@@ -43,7 +43,11 @@ class Employer(models.Model):
     
     
 class Job(models.Model):
-    employer = models.ForeignKey(Employer, on_delete=models.CASCADE)
+    employer = models.ForeignKey(
+        Employer, 
+        on_delete=models.CASCADE, 
+        related_name='jobs'
+    )
     job_title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200)
     salary = models.DecimalField(max_digits=100, decimal_places=2)

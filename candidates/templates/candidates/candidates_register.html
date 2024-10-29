@@ -49,15 +49,6 @@
             </div>
             <form class="candidate-register-form" action="" method="POST" enctype='multipart/form-data'>
                 {% csrf_token %}
-                <p>
-                    <label for="industries">Industry</label>
-                    <select name="industry" id="industries" required>
-                        <option value="">Please select an item in the list</option>
-                        {% for industry in industries %}
-                            <option value="{{ industry.name }}">{{ industry.name }}</option>
-                        {% endfor %}
-                    </select>
-                </p>
                 {{ candidate_form.as_p }}
                 <button class="candidate-register-form-btn">Create Account</button>
             </form>

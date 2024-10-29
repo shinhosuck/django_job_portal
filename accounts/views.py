@@ -24,11 +24,15 @@ def register_view(request):
     if request.method == 'POST':
         if form.is_valid():
             instance = form.save()
-            if instance:
-                messages.success(request, 'Successfully registered!')
-                if next:
-                    return redirect(f'/login/?next={next}')
-                return redirect('accounts:login')
+
+            user_type = form.cleaned_data.get('user_type')
+            instance.profile.user_type = user_type
+            instance.profile.save()
+
+            messages.success(request, 'Successfully registered!')
+            if next:
+                return redirect(f'/login/?next={next}')
+            return redirect('accounts:login')
             
     return render(request, 'accounts/register.html', context)
 
@@ -52,11 +56,13 @@ def login_view(request):
                 login(request, user)
                 if next:
                     return redirect(next)
+                
                 messages.success(request, 'Successfully logged in!')
-                return redirect('candidates:jobs')
-            
-        context['error'] = 'Username or password did not match.'
 
+                if user.profile.user_type == 'job seeker':
+                    return redirect('candidates:jobs')
+                return redirect('employers:employer')
+            
     return render(request, 'accounts/login.html', context)
             
 

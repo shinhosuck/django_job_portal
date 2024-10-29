@@ -8,19 +8,71 @@
 {% block content %}
 <div class="employer-detail-container">
     <div class="employer-detail-row">
-        <a href="{{ redirect_url }}">
+        <a class="employer-detail-redirect"
+            href="
+            {% if not redirect_url %}
+                {% url 'employers:employer-dashboard' %}
+            {% else %}
+                {{ redirect_url }}
+            {% endif %}"
+        >
             <i class="fas fa-arrow-left"></i>
             <span>Back to previous page</span>
         </a>
-        <h1>Employer Detail</h1>
-        <h3>{{ employer.company}}</h3>
-        {% if jobs %}
-            {% for job in jobs %}
-                <a href="{{ job.get_absolute_url }}?redirect={{ job.employer.get_absolute_url }}">
-                    Job-{{ job.job_title }}
-                </a> 
-            {% endfor %}
-        {% endif %}
+        <h1 class="employer-detail-header">
+            {{ employer.employer_name}}
+        </h1>
+        <div class="employer-detail-employer">
+            <div class="employer-detail-employer-info">
+                <div class="employer-detail-employer-logo-container">
+                    <img src="{{ employer.get_logo_url }}" alt="">
+                </div>
+                <div class="employer-detail-employer-name-address">
+                    <p class="employer-detail-employer-name">
+                        {{ employer.employer_name }}
+                    </p>
+                    <p class="employer-detail-employer-address">
+                        {{ employer.city }}
+                        
+                    </p>
+                    <p class="employer-detail-employer-country">
+                        <span>{{ employer.state_or_province }}</span>,
+                        <span>{{ employer.country }}</span>
+                    </p>
+                </div>
+            </div>
+            <div class="employer-detail-employer-about">
+                <h4 class="employer-detail-employer-about-header">
+                    About
+                </h4>
+                <p class="employer-detail-employer-about-text">
+                    {{ employer.about_employer}}
+                </p>
+            </div>
+            <div class="employer-detail-employer-posted-job-container">
+                <h4 class="employer-detail-employer-posted-job-header">
+                    Posted Job{{ jobs|pluralize:'s'}}
+                </h4>
+                {% if jobs %}
+                    <div class="employer-detail-jobs-container">
+                        {% for job in jobs %}
+                            <div class="employer-detail-job">
+                                <a  class="employer-detail-job-title"
+                                    href="{{ job.get_absolute_url }}?redirect={{ job.employer.get_absolute_url }}"
+                                >
+                                    {{ job.job_title }}
+                                </a> 
+                                <p class="employer-detail-job-date">
+                                    Posted on {{ job.created|date:"M d Y"}}
+                                </p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <h4>No Posted Job</h4>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </div>
 {% endblock content %}

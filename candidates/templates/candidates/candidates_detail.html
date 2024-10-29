@@ -1,0 +1,20 @@
+{% extends "candidates/candidates_index.html" %}
+{% load static %}
+
+{% block title %}
+    Candidate Detail
+{% endblock title %}
+
+{% block content %}
+    <div class="candidate-row">
+        {% block search_form %}
+            {% include "candidates/candidates_job_search_form.html" %}
+        {% endblock search_form %}
+        <div class="candidate-container">
+            <h1>Candidate</h1>
+            <div class="candidate">
+                
+            </div>
+        </div>
+    </div>
+{% endblock content %}

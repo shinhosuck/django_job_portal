@@ -22,6 +22,7 @@ class CandidateJobProfileForm(forms.ModelForm):
     class Meta:
         model = CandidateJobProfile 
         fields = [
+            'industry',
             'first_name',
             'last_name',
             'job_title',
@@ -29,7 +30,3 @@ class CandidateJobProfileForm(forms.ModelForm):
             'resume',
             'social_link'
         ]
-
-
-class IndustryForm(forms.Form):
-    industry = forms.CharField(max_length=200)

@@ -1,8 +1,7 @@
 from django.contrib import admin
 from .models import (
     Message, 
-    CandidateJobProfile,
-    Industry
+    CandidateJobProfile
 )
 
 
@@ -10,6 +9,7 @@ from .models import (
 class CandidateJobProfileAdmin(admin.ModelAdmin):
     list_display = [
         'slug',
+        'industry',
         'first_name',
         'last_name',
         'job_title'
@@ -23,12 +23,4 @@ class MessageAdmin(admin.ModelAdmin):
         'last_name',
         'email',
         'created'
-    ]
-
-@admin.register(Industry)
-class IndustryAdmin(admin.ModelAdmin):
-    list_display = [
-        'id',
-        'name',
-        'candidate',
     ]

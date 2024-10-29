@@ -23,6 +23,7 @@ def save_profile(sender, instance, **kwargs):
 
 @receiver(post_delete, sender=Profile)
 def post_delete_user(sender, instance, **kwargs):
-    if instance.avatar and instance.avatar != 'avatars/default.png':
-        if os.path.exists(instance.avatar.path):
-            os.remove(instance.avatar.path)
+    if instance.profile_image and \
+        instance.profile_image != 'profile_images/default.png':
+        if os.path.exists(instance.profile_image.path):
+            os.remove(instance.profile_image.path)

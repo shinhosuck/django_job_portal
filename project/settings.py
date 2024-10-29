@@ -147,3 +147,4 @@ os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 
  # client secret
 os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+

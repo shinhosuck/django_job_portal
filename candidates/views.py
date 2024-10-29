@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model 
-from .forms import MessageForm, CandidateJobProfileForm, IndustryForm
+from .forms import MessageForm, CandidateJobProfileForm
 from django.contrib import messages
 from .models import CandidateJobProfile, Industry
 from employers.models import Job 
@@ -47,10 +47,8 @@ def contact_view(request):
 @user_login_required
 def candidate_register_view(request):
     industries = Industry.objects.all()
-    industry_form = IndustryForm(
-        request.POST or None, 
-        request.FILES or None
-        )
+    user = request.user
+
     candidate_form = CandidateJobProfileForm(
             request.POST or None, 
             request.FILES or None
@@ -62,23 +60,12 @@ def candidate_register_view(request):
         }
     
     if request.method == 'POST':
-        if candidate_form.is_valid() and industry_form.is_valid():
+        if candidate_form.is_valid():
             candidate_instance = candidate_form.save(commit=False)
             candidate_instance.user = request.user
-            # candidate_instance.save()
-
-            print(candidate_form.changed_data)
-
-            industry_name = industry_form.cleaned_data.get('industry')
-
-            try:
-                industry = Industry.objects.get(name=industry_name)
-            except Industry.DoesNotExist:
-                messages.error(request, 'Industry does not exists.')
-                return render(request, 'candidates/candidates_register.html', context)
+            candidate_instance.save()
             
-            # industry.candidate = candidate_instance
-            # industry.save()
+            user.profile.job_profiles.add(candidate_instance)
 
             messages.success(request, 'Profile successfully created.')
             return redirect('candidates:jobs')

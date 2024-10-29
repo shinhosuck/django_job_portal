@@ -9,6 +9,7 @@ class ProfileAdmin(admin.ModelAdmin):
         'slug',
         'first_name', 
         'last_name', 
+        'user_type',
         'email', 
         'created', 
         'updated'

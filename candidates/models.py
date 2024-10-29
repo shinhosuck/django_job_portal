@@ -6,8 +6,19 @@ from django.urls import reverse
 User = settings.AUTH_USER_MODEL
 
 
+class Industry(models.Model):
+    name = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name_plural = 'Industries'
+
+    def __str__(self):
+        return self.name
+
+
 class CandidateJobProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    industry = models.ForeignKey(Industry, on_delete=models.SET_NULL, null=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=150)
     slug = models.SlugField(max_length=200)
@@ -31,22 +42,6 @@ class CandidateJobProfile(models.Model):
         if request:
             return request.build_absolute_uri(self.resume.url)
         return self.resume.url
-
-
-class Industry(models.Model):
-    candidate = models.ForeignKey(
-            CandidateJobProfile, 
-            on_delete=models.CASCADE,
-            null=True, 
-            blank=True
-        )
-    name = models.CharField(max_length=100)
-
-    class Meta:
-        verbose_name_plural = 'Industries'
-
-    def __str__(self):
-        return self.name
 
 
 class Message(models.Model):

@@ -174,7 +174,7 @@
 .post-job-form-row {
     min-height: 100svh;
     display: grid;
-    align-content: center;
+    align-content: start;
     padding: 2rem 0;
 }
 .post-job-form-container {
@@ -392,4 +392,341 @@
     .job-detail-apply-btn:hover {
         background: var(--green-40)
     }
+}
+
+/* EMPLOYER DASHBOARD */
+.employer-dashboard-container {
+    padding: 3rem 0;
+}
+.employer-dashboard-row {
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+
+    display: grid;
+    align-items: start;
+    align-content: start;
+    gap: 2rem;
+}
+
+.employer-dashboard-header {
+    text-align: center;
+    color: var(--black-10)
+}
+
+.employer-dashboard-employers-container {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+}
+
+.employer-dashboard-employer {
+    display: grid;
+    align-content: start;
+    gap: 1.8rem;
+    padding: 1.2rem;
+    border-radius: 8px;
+    border: 1px solid var(--black-80)
+}
+
+.employer-dashboard-logo-address-container {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.employer-dashboard-logo-container {
+    width: 60px;
+    height: 60px;
+}
+
+.employer-dashboard-logo-container > img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.employer-dashboard-address-container {
+    display: grid;
+    align-content: start;
+    gap: 0.1rem
+}
+
+.employer-dashboard-logo-name {
+    color: var(--black-10);
+    font-weight: 500;
+}
+
+.employer-dashboard-city,
+.employer-dashboard-country {
+    font-size: 0.85rem;
+    color: var(--black-20)
+}
+
+.employer-dashboard-employer-about {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+}
+
+.employer-dashboard-employer-about-header {
+    color: var(--black-10);
+    letter-spacing: 0.03rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.employer-dashboard-employer-about-text {
+    color: var(--black-30);
+    letter-spacing: 0.04rem;
+    line-height: 1.4;
+    text-wrap: balance;
+}
+
+.employer-dashboard-jobs-container {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+}
+
+.employer-dashboard-jobs-header {
+    color: var(--black-10);
+    letter-spacing: 0.03rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.employer-dashboard-employer-jobs {
+    display: grid;
+    align-content: start;
+    align-items: start;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.employer-dashboard-employer-job {
+    display: grid;
+    align-content: start;
+    gap: 0.8rem;
+    border-radius: 8px;
+    padding: 0.8rem;
+    border: 1px solid var(--black-80)
+}
+
+.employer-dashboard-employer-job-title-date {
+    display: grid;
+    align-content: center;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+}
+
+.employer-dashboard-employer-job-title {
+    color: var(--green-30);
+    text-wrap: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    text-decoration: underline;
+}
+
+.employer-dashboard-employer-job-date {
+    font-size: 0.85rem;
+    color: var(--black-30)
+}
+
+.employer-dashboard-employer-job-applicants-container {
+    position: relative;
+    justify-self: start;
+    display: grid;
+    align-content: start;
+    gap: 0.3rem;
+}
+
+.employer-dashboard-employer-job-applicants-header {
+    font-size: 0.9rem;
+    color: var(--black-20);
+    font-weight: 500;
+    cursor: pointer;
+}
+
+@media (hover) {
+    .employer-dashboard-employer-job-applicants-header:hover {
+        color: var(--green-30)
+    }
+}
+
+.employer-dashboard-employer-job-applicants-header > i {
+    font-size: 0.85rem;
+    margin-left: 0.2rem;
+}
+
+.employer-dashboard-employer-job-applicants {
+    position: absolute;
+    z-index: 2;
+    top: 25px;
+    left: 0;
+    width: 115px;
+    height: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    opacity: 0;
+
+    display: grid;
+    align-self: start;
+    gap: 0.5rem;
+    transition: opacity 200ms linear
+}
+
+.show-employer-dashboard-employer-job-applicants {
+    opacity: 1;
+    height: auto;
+    padding: 0.8rem;
+    border-radius: 5px;
+    background: white;
+    text-decoration: underline;
+    box-shadow: 2px 2px 10px -3px var(--black-30);
+}
+
+.employer-dashboard-employer-job-applicant {
+    font-size: 0.9rem;
+    color: var(--green-30);
+    text-wrap: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+
+/* EMPLOYER DETAIL */
+.employer-detail-container {
+    padding: 3rem 0;
+}
+
+.employer-detail-row {
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+
+    display: grid;
+    align-content: start;
+    gap: 2rem;
+}
+
+.employer-detail-redirect {
+    color: var(--black-30);
+    letter-spacing: 0.03rem;
+}
+
+.employer-detail-header {
+    color: var(--black-10);
+    margin-top: 1rem;
+}
+
+.employer-detail-employer {
+    display: grid;
+    align-content: start;
+    gap: 1.8rem;
+    padding: 1.2rem;
+    border-radius: 8px;
+    border: 1px solid var(--black-80)
+}
+
+.employer-detail-employer-info {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.employer-detail-employer-logo-container {
+    width: 60px;
+    height: 60px
+}
+
+.employer-detail-employer-logo-container > img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.employer-detail-employer-name-address {
+    display: grid;
+    align-content: start;
+    gap: 0.1rem
+}
+
+.employer-detail-employer-name {
+    color: var(--black-10);
+    font-weight: 500;
+}
+
+.employer-detail-employer-address,
+.employer-detail-employer-country {
+    font-size: 0.85rem;
+    color: var(--black-20)
+}
+
+.employer-detail-employer-about {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+}
+
+.employer-detail-employer-about-header {
+    color: var(--black-10);
+    letter-spacing: 0.03rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.employer-detail-employer-about-text {
+    color: var(--black-30);
+    letter-spacing: 0.04rem;
+    line-height: 1.4;
+    text-wrap: balance;
+}
+
+.employer-detail-employer-posted-job-container {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+}
+
+.employer-detail-employer-posted-job-header {
+    color: var(--black-10);
+    letter-spacing: 0.03rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.employer-detail-jobs-container {
+    display: grid;
+    align-content: start;
+    align-items: start;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.employer-detail-job {
+    display: grid;
+    align-content: start;
+    gap: 0.8rem;
+    border-radius: 8px;
+    padding: 0.8rem;
+    border: 1px solid var(--black-80)
+}
+
+.employer-detail-job-title {
+    color: var(--green-30);
+    text-wrap: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    text-decoration: underline;
+}
+
+.employer-detail-job-date {
+    font-size: 0.85rem;
+    color: var(--black-30)
 }

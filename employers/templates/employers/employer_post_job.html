@@ -50,11 +50,11 @@
             <form class="post-job-form" action="" method="POST">
                 {% csrf_token %}
                 <p class="post-job-form-select-container">
-                    <label for="employers">Employer:</label>
-                    <select name="employers" id="employers" required autofocus>
+                    <label for="employer">Employer:</label>
+                    <select name="employer" id="employer" required autofocus>
                         <option value="">-----</option>
                         {% for employer in employers %}
-                            <option value="{{ employer.company }}">
+                            <option value="{{ employer.employer_name }}">
                                 {{ employer.employer_name }}
                             </option>
                         {% endfor %}

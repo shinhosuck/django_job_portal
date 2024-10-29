@@ -32,7 +32,7 @@ def post_job_view(request):
     form = JobForm(request.POST or None)
     context = {'form':form}
 
-    employers = request.user.employer_set.all()
+    employers = request.user.employers.all()
     
     if not employers.exists():
         messages.error(request, 'Please register your company first to post a job.')
@@ -41,29 +41,35 @@ def post_job_view(request):
         context['employers'] = employers
 
     if request.method == 'POST':
-        employer_name = request.POST.get('employers')
+        employer_name = request.POST.get('employer')
 
         try:
-            employer = employers.get(company=employer_name)
+            employer = employers.get(employer_name=employer_name)
         except Exception as e:
             messages.error(request, "Employer does not exists.")
-
-        if employer:
-            if form.is_valid():
-                instance = form.save(commit=False)
-                instance.employer = employer
-                instance.save()
-                messages.success(request, 'New job posted successfully.')
-                return redirect('employers:employer-dashboard')
-            else:
-                messages.error(request, 'There was an unknown error. Please try again')
-
+            return render(request, 'employers/employer_post_job.html', context)
+        
+        
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.employer = employer
+            instance.save()
+            messages.success(request, 'New job posted successfully.')
+            return redirect('employers:employer-dashboard')
+        
     return render(request, 'employers/employer_post_job.html', context)
 
 
 @user_login_required
 def employer_dashboard_view(request):
-    employers = request.user.employer_set.all()
+    
+    if request.user.profile.user_type == 'job seeker':
+        messages.warning(request, 'You do not have employer account.')
+        return redirect('candidates:jobs')
+
+
+    employers = request.user.employers \
+        .prefetch_related('jobs')
     context = {'employers':employers}
 
     return render(request, 'employers/employer_dashboard.html', context)
@@ -80,7 +86,7 @@ def employer_detail_view(request, slug):
         return redirect('employers:employer-detail', slug=slug)
     
     if employer:
-        jobs = employer.job_set.all()
+        jobs = employer.jobs.all()
         context.update(
             {
                 'employer':employer, 

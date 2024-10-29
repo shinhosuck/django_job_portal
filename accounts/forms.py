@@ -8,8 +8,8 @@ User = get_user_model()
 
 USER_TYPE_CHOICES = (
     ('', ''),
-    ('job_seeker', 'Job Seeker'),
-    ( 'employer', 'Employer'),
+    ('job seeker', 'Job Seeker'),
+    ('employer', 'Employer'),
 )
 
 class RegisterForm(UserCreationForm):
