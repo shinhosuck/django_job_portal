@@ -2,9 +2,17 @@
 
 <div class="job-search-form-container">
     <form class="job-search-form" action="{% url 'candidates:job-search' %}" method="GET">
-        <i class="fas fa-search search-form-search-icon"></i>
-        <input class="search-input" type="text" name="q" placeholder="Job title, keywords or company">
-        <i class="fas fa-times search-form-close-icon"></i>
+        <div class="job-search-form-input-container">
+            <i class="fas fa-search search-form-search-icon"></i>
+            <input class="search-input" type="text" name="q" placeholder="Job title, keywords or company">
+            <i class="fas fa-times search-form-close-icon"></i>
+        </div>
+        <div class="job-search-form-location-container">
+            <i class="fas fa-location"></i>
+            <span class="job-search-form-location-country">
+                Loading...
+            </span>
+        </div>
         <button type="submit">Find Jobs</button>
     </form>
 </div>

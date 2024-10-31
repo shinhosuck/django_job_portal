@@ -8,6 +8,7 @@ from .views import (
     candidate_detail_view,
     apply_to_a_job_view,
     job_search_view,
+    get_user_ip
 )
 
 app_name = 'candidates' 
@@ -20,6 +21,7 @@ urlpatterns = [
     path('candidates/register/', candidate_register_view, name='candidate-register'),
     path('candidates/<str:slug>/detail/', candidate_detail_view, name='candidate-detail'),
     path('candidates/apply/to/<str:slug>/', apply_to_a_job_view, name='candidate-apply'),
+    path('candidates/ip/', get_user_ip, name='candidate-ip'),
     path('hire-spot/contact/', contact_view, name='contact'),
     path('hire-spot/about/', about_view, name='about'),
 ]

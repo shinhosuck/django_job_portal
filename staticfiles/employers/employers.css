@@ -284,7 +284,7 @@
 
 .job-detail-row {
     width: 90%;
-    max-width: 600px;
+    max-width: 900px;
     margin: 0 auto;
 
     display: grid;
@@ -292,45 +292,70 @@
     gap: 2rem;
 }
 
+.job-detail-redirect {
+    color: var(--black-30);
+    letter-spacing: 0.03rem;
+}
+
 .job-detail {
     display: grid;
     align-content: start;
-    gap: 1rem;
+    gap: 1.8rem;
+    border: 1px solid var(--black-80);
+    padding: 1.2rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.job-detail-header-container {
+    display: grid;
+    align-content: start;
+    gap: 0.3rem;
 }
 
 .job-detail-job-title {
     letter-spacing: 0.03rem;
     color: var(--black-10);
-    font-size: 2.2rem;
-    font-size: clamp(1.5rem, 1svw + 1.4rem, 2.2rem);
+    font-size: 1.5rem;
+}
+
+.job-detail-job-posted {
+    font-size: 0.9rem;
+    color: var(--black-30)
 }
 
 .job-detail-job-info-container {
-    display: grid;
-    align-content: start;
-    gap: 0.3rem;
-    font-size: 0.9rem;
-    color: var(--black-20)
-}
-
-.job-detail-employer-logo-name {
-    justify-self: start;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.8rem;
 }
 
-.job-detail-employer-logo {
-    width: 25px;
-    height: 25px;
-    border-radius: 5px;
+.job-detail-employer-logo-container {
+    width: 65px;
+    height: 65px;
 }
 
-.job-detail-employer-logo > img {
+.job-detail-employer-logo-container > img {
     width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
-    border-radius: 5px;
+}
+
+.job-detail-address {
+    display: grid;
+    align-content: start;
+    gap: 0.1rem
+}
+
+.job-detail-employer-name {
+    color: var(--black-10);
+    font-weight: 500;
+}
+
+.job-detail-employer-address,
+.job-detail-employer-state-country {
+    font-size: 0.85rem;
+    color: var(--black-20)
 }
 
 .job-detail-salary {
@@ -338,11 +363,11 @@
     padding: 0.4rem 0.5rem;
     border-radius: 5px;
     font-weight: 500;
+    font-size: 1rem;
     background: var(--black-90)
 }
 
 .job-qualification-container {
-    margin-top: 1rem;
     display: grid;
     align-content: start;
     gap: 0.5rem;
@@ -358,6 +383,29 @@
     letter-spacing: 0.04rem;
     line-height: 1.4;
     color: var(--black-30);
+}
+
+.job-detail-job-applicant-container {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+}
+
+.job-detail-job-applicants {
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+}
+
+.job-detail-job-applicant {
+    display: grid;
+    align-content: start;
+}
+
+.job-detail-job-applicant-name {
+    color: var(--green-30);
+    text-decoration: underline;
+    font-size: 0.9rem;
 }
 
 .job-detail-not-authenticated-btn,

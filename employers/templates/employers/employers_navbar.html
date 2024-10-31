@@ -8,8 +8,8 @@
         </div>
         {% with request.resolver_match.url_name as url_name %}
             <div class="navlinks">
-                <a href="{% url 'employers:post-job' %}" class="navlink">Post a Job</a>
-                <a href="{% url 'candidates:jobs' %}" class="navlink">Job Seeker</a>
+                <a href="{% url 'employers:post-job' %}" class="navlink">Post Job</a>
+                <a href="{% url 'candidates:jobs' %}" class="navlink">Job Seeker Site</a>
                 <div class="navlink-user-container">
                     <div href="" class="navlink-user">
                         <div class="navlink-img-container">
@@ -104,8 +104,8 @@
                         {% endif %}
                     </span>
                 </div>
-                <a href="{% url 'candidates:jobs' %}" class="mobile-navlink">Job Seeker</a>
-                <a href="{% url 'employers:post-job' %}" class="mobile-navlink">Post a Job</a>
+                <a href="{% url 'candidates:jobs' %}" class="mobile-navlink">Job Seeker Site</a>
+                <a href="{% url 'employers:post-job' %}" class="mobile-navlink">Post Job</a>
                 {% if request.user.is_authenticated %}
                     <a href="{% url 'employers:employer-dashboard' %}" class="{% if url_name == 'employer-dashboard'%}active-mobile-navlink{% endif %} mobile-navlink">Dashboard</a>
                     <a href="{% url 'employers:employer-register' %}" class="mobile-navlink">Register Employer</a>

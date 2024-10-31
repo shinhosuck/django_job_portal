@@ -1,3 +1,55 @@
+// Get user location
+const jobSearchLocationCountry = document.querySelector(
+    '.job-search-form-location-country'
+)
+const jobSearchFrom = document.querySelector('.job-search-form')
+
+async function get_user_ip() {
+    const url = `${window.location.origin}/candidates/ip/`
+
+    try {
+        const resp = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const data = await resp.json()
+        get_user_location(data)
+    } 
+    catch (error) {
+        console.log(error.message)
+    }
+}
+get_user_ip()
+
+
+async function get_user_location(data) {
+    const check_ip_key = '?apiKey=at_BTSKL0mBFBjYJycWgicgoHnmLgFFm&ipAddress='
+    const check_ip_url = `https://geo.ipify.org/api/v2/country${check_ip_key}${data.ip}`
+
+    try {
+        const resp = await fetch(check_ip_url)
+        const data = await resp.json()
+        const { country, region } = data.location
+
+        if (jobSearchLocationCountry) {
+            if (country === 'ZZ'){
+                jobSearchLocationCountry.textContent = 'PH'
+            }
+            else {
+                jobSearchLocationCountry.textContent = country
+            }
+        }
+    } 
+    catch (error) {
+        console.log(error.message)
+    }
+}
+
+
+
+
 const navbarRow = document.querySelector('.nav-row')
 
 // Messages from backend: success, error, warning, info, and etc.

@@ -5,9 +5,24 @@ from django.contrib import messages
 from .models import CandidateJobProfile, Industry
 from employers.models import Job 
 from utils.decorators import user_login_required
-
+from django.http import JsonResponse
+import json
 
 User = get_user_model()
+
+
+def get_user_ip(request):
+    remote_addr = request.META.get('REMOTE_ADDR')
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+
+    ip = ''
+
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0].strip()
+    else:
+        ip = remote_addr
+
+    return JsonResponse({'ip':ip}, status=200)
 
 
 def landing_page_view(request):
