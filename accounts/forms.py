@@ -2,15 +2,10 @@ from typing import Any
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model 
 from django import forms
+from utils.choices import USER_TYPE_CHOICES
 
 User = get_user_model()
 
-
-USER_TYPE_CHOICES = (
-    ('', ''),
-    ('job seeker', 'Job Seeker'),
-    ('employer', 'Employer'),
-)
 
 class RegisterForm(UserCreationForm):
     user_type = forms.ChoiceField(choices=USER_TYPE_CHOICES, label='User Type',

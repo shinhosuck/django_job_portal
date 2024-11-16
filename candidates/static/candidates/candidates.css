@@ -96,110 +96,158 @@
     }
 }
 
-/* JOB SEARCH FORM */
-.job-search-form-container {
+
+/* Job Search Form */
+
+.search-form {
+    display: grid;
     width: 100%;
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
-}
-
-.job-search-form {
-    display: flex;
-    align-items: stretch;
     border-radius: 8px;
-    background: white;
-    border: 1px solid var(--black-80)
+    gap: 0.5rem;
 }
 
-.job-search-form-input-container {
-    flex: 5;
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.search-form-search-icon {
-    font-size: 1.1rem;
-    color: var(--black-10)
-}
-
-.job-search-form-input-container >
-input {
-    color: var(--black-20);
-    letter-spacing: 0.03rem;
-    border: none;
-    background: transparent
-}
-
-.search-form-close-icon {
-    margin: 0 0.5rem;
-    font-size: 1.1rem;
-    color: var(--black-50);
-    display: none;
-}
-
-.job-search-form-location-container {
+.search-form-input-row {
+    position: relative;
     flex: 1;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 1rem;
-    border-left: 1px solid var(--black-80);
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    border: 1px solid var(--black-80)
 }
 
-.job-search-form-location-container > i {
-    font-size: 1.4rem;
-    color: var(--black-40)
+.row-focus {
+    border-radius: 8px;
+    outline: 3px solid var(--green-60);
 }
 
-.job-search-form-location-container > span {
+.search-form-input-row > label {
+    color: var(--black-40);
+    font-size: 1.25rem;
+    line-height: 0;
+}
+
+.search-form-input-row > input {
+    flex: 1;
     color: var(--black-20);
-    font-size: 0.9rem;
-}
-
-.job-search-form-input-container > 
-input:focus {
-    outline: none !important;
-}
-
-.job-search-form > button {
+    letter-spacing: 0.03rem;
+    padding: 0 1rem;
     border: none;
-    background: var(--green-30);
-    color: var(--black-90);
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.search-form-input-row > input:focus {
+    outline: none;
+}
+
+.search-form-clear-btn {
+    display: none;
+}
+
+.search-form-input-divider {
+    display: none;
+    align-self: center;
+    width: 1px;
+    height: 30px;
+    background: var(--black-80)
+}
+
+.search-form-button-container {
+    margin-top: 0.5rem;
+}
+
+.search-form-submit-btn {
+    width: 100%;
     padding: 1rem;
+    color: white;
+    background: var(--green-30);
+    letter-spacing: 0.03rem;
     border-radius: 5px;
-    text-wrap: nowrap;
     font-weight: 500;
-    font-size: 0.9rem;
-    margin: 0.5rem;
+    border: none;
 }
 
-@media screen and (min-width: 500px) {
-    .search-form-search-icon {
-        margin-right: 1rem;
-    }
-
-    .search-form-close-icon {
-        margin: 0 1rem;
-    }
-
-    .job-search-form > button {
-        /* padding: 0.7rem 1rem; */
-        font-size: 1rem;
-    }
+.searches-suggestions-container,
+.cities-suggestions-container {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    height: 0;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
-@media screen and (min-width: 500px) {
-    .search-form-close-icon {
-        margin: 0 2rem;
+.show-suggestions {
+    opacity: 1;
+    top: 55px;
+    height: auto;
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid hsl(0, 0%, 80%);
+    background: white;
+}
+
+.search-form-clear-btn {
+    color: var(--black-40);
+    font-size: 1.25rem;
+}
+
+.suggestion {
+    color: hsl(0, 0%, 20%);
+    cursor: pointer;
+}
+
+.close-suggestions {
+    background: none;
+    color: var(--black-40);
+    border: none;
+    font-size: 1.2rem;
+    justify-self: end;
+    height: 1;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 600px) {
+    .search-form {
+        display: flex;
+        border: 1px solid var(--black-80);
     }
 
-    .job-search-form > button {
-        /* padding: 0.7rem 1.5rem; */
+    .search-form-input-divider {
+        display: flex;
     }
+    
+    .search-form-input-row {
+        padding: 0.8rem 1.2rem;
+        border: none
+    }
+
+    .search-form-button-container {
+        padding: 0.4rem;
+        margin-top: 0;
+    }
+
+    .search-form-submit-btn {
+        width: auto;
+        padding: 0.8rem 1rem;
+    }
+
+    .show-suggestions {
+        top: 70px;
+    }
+
 }
+ 
+/* End */
 
 /* CANDIDATE REGISTER */
 .candidate-register-form-row {

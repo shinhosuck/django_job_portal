@@ -45,6 +45,9 @@ class JobForm(forms.ModelForm):
         model = Job
         fields = [
             'job_title',
+            'job_type',
+            'experience_level',
+            'work_location',
             'salary',
             'qualification'
         ]

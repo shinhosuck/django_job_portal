@@ -332,7 +332,7 @@ button {
     display: none;
 }
 
-@media screen and (min-width:780px) {
+@media screen and (min-width:830px) {
     .mobile-nav-bar {
         display: none;
     }
@@ -358,7 +358,7 @@ button {
     .navlinks {
         display: flex;
         align-items: center;
-        gap: 1.5rem;
+        gap: 1.8rem;
     }
 
     /* navlink user container */

@@ -2,6 +2,8 @@ from typing import Any
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
+from django_countries.fields import CountryField
+from utils.choices import INDUSTRY_CHOICES
 
 User = settings.AUTH_USER_MODEL
 
@@ -18,10 +20,13 @@ class Industry(models.Model):
 
 class CandidateJobProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    industry = models.ForeignKey(Industry, on_delete=models.SET_NULL, null=True)
+    industry = models.CharField(choices=INDUSTRY_CHOICES, max_length=200)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=150)
-    slug = models.SlugField(max_length=200)
+    city = models.CharField(max_length=100)
+    state_or_province = models.CharField(max_length=100)
+    country = CountryField()
+    slug = models.SlugField(max_length=200, null=True, blank=True)
     job_title = models.CharField(max_length=200)
     skills = models.CharField(max_length=300, blank=True, null=True)
     resume = models.FileField(upload_to='resumes', null=True, blank=True)

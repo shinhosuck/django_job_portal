@@ -25,29 +25,38 @@ get_user_ip()
 
 
 async function get_user_location(data) {
+    const alternate_ip = '175.176.7.144'
     const check_ip_key = '?apiKey=at_BTSKL0mBFBjYJycWgicgoHnmLgFFm&ipAddress='
-    const check_ip_url = `https://geo.ipify.org/api/v2/country${check_ip_key}${data.ip}`
+    const check_ip_url = (data && data.ip!=='127.0.0.1' && `http://ip-api.com/json/${data.ip}` 
+                        || `http://ip-api.com/json/${alternate_ip}`)
 
     try {
         const resp = await fetch(check_ip_url)
         const data = await resp.json()
-        const { country, region } = data.location
-
-        if (jobSearchLocationCountry) {
-            if (country === 'ZZ'){
-                jobSearchLocationCountry.textContent = 'PH'
-            }
-            else {
-                jobSearchLocationCountry.textContent = country
-            }
+        
+        if (data.status === 'fail') {
+            console.log('ip verification failed')
         }
+        else {
+            console.log(data)
+            const { country, city, countryCode } = data
+            console.log(`${city}, ${country}`)
+        }
+            
+
+        // if (jobSearchLocationCountry) {
+        //     if (country === 'ZZ'){
+        //         jobSearchLocationCountry.textContent = 'PH'
+        //     }
+        //     else {
+        //         jobSearchLocationCountry.textContent = country
+        //     }
+        // }
     } 
     catch (error) {
         console.log(error.message)
     }
 }
-
-
 
 
 const navbarRow = document.querySelector('.nav-row')
@@ -70,6 +79,7 @@ if (messages) {
 }
 
 // Toggle mobile navlinks
+const mobileNavBar = document.querySelector('.mobile-nav-bar')
 const mobileNavlinks = document.querySelector('.mobile-navlinks')
 const toggleBtnsContainer = document.querySelector('.mobile-navlinks-toggle-btns-container')
 const toggleBtns = toggleBtnsContainer && 
@@ -132,8 +142,6 @@ navlinkUserContainer && window.addEventListener('click', (e)=> {
 })
 
 
-
-
 // Navbar logout button
 const logoutModalContainer = document.querySelector('.logout-modal-container')
 const logoutBtn = document.querySelector('.logout-btn')
@@ -189,4 +197,13 @@ navLinksToggleBtns && navLinksToggleBtns.forEach((btn) => {
             openBtn.classList.remove('landing-page-hide-mobile-navlinks-toggle-btn')
         }
     })
+})
+
+
+window.addEventListener('click', (e) => {
+    if (mobileNavBar && !mobileNavBar.contains(e.target)) {
+        mobileNavlinks.classList.remove('show-mobile-navlinks')
+        mobileOpenBtn.classList.remove('hide-mobile-navlinks-toggle-btn')
+        mobileCloseBtn.classList.add('hide-mobile-navlinks-toggle-btn')
+    }
 })

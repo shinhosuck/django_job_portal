@@ -5,6 +5,12 @@ from django.urls import reverse
 from datetime import datetime
 from django_countries.fields import CountryField
 from candidates.models import CandidateJobProfile
+from utils.choices import (
+    JOB_TYPE_CHOICES, 
+    EXPERIENCE_LEVEL_CHOICES, 
+    WORK_LOCATION_CHOICES,
+    INDUSTRY_CHOICES
+)
 import re
 
 
@@ -16,16 +22,17 @@ class Employer(models.Model):
         on_delete=models.SET_NULL,
         null=True
     )
-    employer_name = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200)
-    city = models.CharField(max_length=200)
-    state_or_province = models.CharField(max_length=200)
-    country = CountryField()
-    about_employer = models.TextField()
-    website = models.URLField(max_length=300)
     logo = models.ImageField(
         upload_to='company_logos', 
         default='company_logos/default.png')
+    employer_name = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200, null=True, blank=True)
+    city = models.CharField(max_length=200)
+    state_or_province = models.CharField(max_length=200)
+    country = CountryField()
+    zip_code = models.CharField(max_length=50)
+    about_employer = models.TextField()
+    website = models.URLField(max_length=300)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -48,16 +55,20 @@ class Job(models.Model):
         on_delete=models.CASCADE, 
         related_name='jobs'
     )
+    industry = models.CharField(choices=INDUSTRY_CHOICES ,max_length=100)
     job_title = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200)
+    job_type = models.CharField(choices=JOB_TYPE_CHOICES,
+            null=True, blank=True, max_length=100)
+    experience_level = models.CharField(choices=EXPERIENCE_LEVEL_CHOICES, 
+            null=True, blank=True, max_length=100)
+    work_location = models.CharField(choices=WORK_LOCATION_CHOICES,
+            null=True, blank=True, max_length=100)
+    slug = models.SlugField(max_length=200, null=True, blank=True)
     salary = models.DecimalField(max_digits=100, decimal_places=2)
     qualification = models.TextField()
     applicants = models.ManyToManyField(CandidateJobProfile, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ['-created']
 
     def save(self, *args, **kwargs):
         if not self.slug:

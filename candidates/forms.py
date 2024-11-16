@@ -18,13 +18,16 @@ class CandidateJobProfileForm(forms.ModelForm):
             required=False,
             widget=forms.TextInput(attrs={'placeholder':'e.g., skill 1, skill 2, skill 3'})
         )
-
+    
     class Meta:
         model = CandidateJobProfile 
         fields = [
             'industry',
             'first_name',
             'last_name',
+            'city',
+            'state_or_province',
+            'country',
             'job_title',
             'skills',
             'resume',

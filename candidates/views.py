@@ -1,28 +1,37 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model 
-from .forms import MessageForm, CandidateJobProfileForm
 from django.contrib import messages
+from django.http import JsonResponse
+from django.db.models import Q
+
+from .forms import MessageForm, CandidateJobProfileForm
+
 from .models import CandidateJobProfile, Industry
 from employers.models import Job 
+
 from utils.decorators import user_login_required
-from django.http import JsonResponse
-import json
+from utils.geo_location import get_user_ip
+from utils.handle_suggestions import generate_suggestions
 
 User = get_user_model()
 
 
-def get_user_ip(request):
-    remote_addr = request.META.get('REMOTE_ADDR')
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+def fetch_user_location(request):
+    location = get_user_ip(request)
+    return JsonResponse(location, status=200)
 
-    ip = ''
 
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0].strip()
-    else:
-        ip = remote_addr
+def get_search_form_suggestions(request):
+    search = request.GET.get('q')
+    city = request.GET.get('city')
+    country =  get_user_ip(request)['country']
 
-    return JsonResponse({'ip':ip}, status=200)
+    values = Job.objects.filter(employer__country=country).\
+        values('job_title','industry','job_type','employer__city')
+    
+    suggestions = generate_suggestions(values, search, city)
+    
+    return JsonResponse(suggestions, status=200)
 
 
 def landing_page_view(request):
@@ -112,8 +121,52 @@ def candidate_detail_view(request, slug):
 
 
 def jobs_view(request):
+    data = get_user_ip(request)
     jobs = Job.objects.select_related('employer')
-    context = {'jobs': jobs}
+    user = request.user
+    context = {}
+
+    country = data['country']
+    city = data['city']
+
+    if request.user.is_authenticated:
+        candidate_job_titles = CandidateJobProfile.objects.\
+            filter(user=user).values_list('job_title', flat=True)
+        
+        filtered = ''
+        
+        if candidate_job_titles:
+            for job_title in candidate_job_titles:
+                for title in job_title.split(' '):
+                    if not filtered:
+                        if not city:
+                            filtered = jobs.filter(Q(
+                                job_title__icontains=title, 
+                                employer__country=country
+                            ))
+                        else:
+                             filtered = jobs.filter(Q(
+                                job_title__icontains=title, 
+                                employer__country=country, 
+                                employer__city=city
+                            ))
+                    else:
+                        if not city:
+                            filtered = filtered.union(jobs.filter(Q(
+                                job_title__icontains=title,
+                                employer__country=country
+                            )))
+                        else:
+                             filtered = filtered.union(jobs.filter(Q(
+                                job_title__icontains=title,
+                                employer__country=country,
+                                employer__city=city
+                            )))
+                             
+            if filtered:
+                context['jobs'] = filtered
+    else:
+        context['jobs'] = jobs.filter(employer__country=country)
 
     return render(request, 'candidates/candidates_jobs.html', context)
 

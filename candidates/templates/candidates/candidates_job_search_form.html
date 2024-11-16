@@ -1,18 +1,25 @@
 
-
-<div class="job-search-form-container">
-    <form class="job-search-form" action="{% url 'candidates:job-search' %}" method="GET">
-        <div class="job-search-form-input-container">
-            <i class="fas fa-search search-form-search-icon"></i>
-            <input class="search-input" type="text" name="q" placeholder="Job title, keywords or company">
-            <i class="fas fa-times search-form-close-icon"></i>
+<div class="search-form-container">
+    <form class="search-form" action="" method="GET">
+        <div class="search-form-input-row search-input-row">
+            <label for="query">
+                <i class="fas fa-search"></i>
+            </label>
+            <input class="search-form-input" id="query" type="text" name="q" placeholder="Job title, keywords, or company">
+            <i class="fas fa-close search-form-clear-btn"></i>
         </div>
-        <div class="job-search-form-location-container">
-            <i class="fas fa-location"></i>
-            <span class="job-search-form-location-country">
-                Loading...
-            </span>
+        <div class="search-form-input-divider"></div>
+        <div class="search-form-input-row cities-input-row">
+            <label for="city">
+                <i class="fas fa-location"></i>
+            </label>
+            <input class="search-form-input" id="city" type="text" name="city" placeholder="City, province, or zip code">
+            <i class="fas fa-close search-form-clear-btn"></i>
         </div>
-        <button type="submit">Find Jobs</button>
+        <div class="search-form-button-container">
+            <button class="search-form-submit-btn" type="submit">
+                Search Jobs
+            </button>
+        </div>
     </form>
 </div>
