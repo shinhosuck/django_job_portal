@@ -1,10 +1,13 @@
-from typing import Any
 from django import forms 
-from .models import Message, CandidateJobProfile
+from .models import (
+    Message, 
+    Candidate,
+    Education,
+    Experience,
+)
 
 
 class MessageForm(forms.ModelForm):
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'autofocus':True}))
     class Meta:
         model = Message 
         fields = [
@@ -12,24 +15,60 @@ class MessageForm(forms.ModelForm):
             'message'
         ]
 
+        widgets = {
+            'email':forms.EmailInput(attrs={'autofocus':True})
+        }
 
-class CandidateJobProfileForm(forms.ModelForm):
-    skills = forms.CharField(
-            required=False,
-            widget=forms.TextInput(attrs={'placeholder':'e.g., skill 1, skill 2, skill 3'})
-        )
-    
+
+class CandidateForm(forms.ModelForm):
     class Meta:
-        model = CandidateJobProfile 
+        model = Candidate
         fields = [
             'industry',
-            'first_name',
-            'last_name',
+            'job_title',
+            'resume',
+            'skills',
             'city',
             'state_or_province',
             'country',
-            'job_title',
-            'skills',
-            'resume',
             'social_link'
         ]
+
+        labels = {
+            'state_or_province':'State/province'
+        }
+
+        widgets = {
+            'industry':forms.Select(attrs={'autofocus':True}),
+            'resume': forms.FileInput(attrs={'accept':'img/*', 'required':False})
+        }
+
+
+class EducationForm(forms.ModelForm):
+    class Meta:
+        model = Education 
+        fields = [
+            'major',
+            'degree', 
+            'institution', 
+            'completion_date',
+        ]
+
+        widgets = {
+            'completion_date':forms.DateInput(attrs={'type':'date'})
+        }
+
+class ExperienceForm(forms.ModelForm):
+    class Meta:
+        model = Experience 
+        fields = [
+            'company_name', 
+            'position', 
+            'start_date',
+            'end_date'
+        ]
+
+        widgets = {
+            'start_date':forms.DateInput(attrs={'type':'date'}),
+            'end_date':forms.DateInput(attrs={'type':'date'})
+        }

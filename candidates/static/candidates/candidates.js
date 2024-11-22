@@ -10,8 +10,9 @@ async function get_user_ip() {
             }
         })
         const data = await resp.json()
+        console.log(data)
         if (resp.ok) {
-            window.sessionStorage.setItem('location', JSON.stringify(data))
+            sessionStorage.setItem('location', JSON.stringify(data))
         }
     } 
     catch (error) {
@@ -42,8 +43,10 @@ window.addEventListener('DOMContentLoaded', getSuggestions)
 
 
 async function getSuggestions(params) {
-    searchSubmitBtn.disabled = true
-    const origin = window.location.origin
+    if (searchSubmitBtn) {
+        searchSubmitBtn.disabled = true
+    }
+
     let path = '/candidates/search-form/suggestions/'
 
     if (params.type == 'query') {
@@ -51,10 +54,8 @@ async function getSuggestions(params) {
         path = `${path}${data}`
     }
 
-    const url = `${origin}${path}`
-
     try {
-        const resp = await fetch(url)
+        const resp = await fetch(path)
         const data = await resp.json()
 
         if (resp.ok) {

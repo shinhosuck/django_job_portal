@@ -38,9 +38,9 @@
                 {% endwith %}
             </div>
             <div class="candidate-register-form-text-container">
-                <h3 class="candidate-register-form-name">
+                <h2 class="candidate-register-form-name">
                     Start Your Job Search Today!
-                </h3>
+                </h2>
                 <p class="candidate-register-form-text">
                     Create your profile to explore job opportunities, 
                     and showcase your skills to top employers. 
@@ -49,8 +49,44 @@
             </div>
             <form class="candidate-register-form" action="" method="POST" enctype='multipart/form-data'>
                 {% csrf_token %}
-                {{ candidate_form.as_p }}
-                <button class="candidate-register-form-btn">Create Account</button>
+                <div class="candidate-info-input-row">
+                    <div class="candidate-register-form-warning">
+                    </div>
+                    <h2>Personal Information</h2>
+                    <div data-form-count='1' class="candidate-info-form candidate-form">
+                        {% for field in candidate_form %}
+                            {% with forloop.counter as count %}
+                                <p>
+                                    <span data-input-index="{{ count }}" class="candidate-input-error-field">
+                                        This field is required.
+                                    </span>
+                                    {{ field.label_tag }}
+                                    {{ field}}
+                                </p>
+                            {% endwith %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="candidate-education-input-row">
+                    <h2>Education</h2>
+                    <div class="education-form-container">
+                    </div>
+                    <button type="button" class="add-more education">
+                        Add more education
+                    </button>
+                </div>
+                <div class="candidate-experience-input-row">
+                    <h2>Experience</h2>
+                    <div class="experience-form-container">
+                    </div>
+                    <button type="button" class="add-more experience">
+                        Add more experience
+                    </button>
+                </div>
+                <button type='submit' class="candidate-register-form-btn">
+                    <span class="candidate-profile-button-text">Create Profile</span>
+                    <span class="candidate-form-button-spinner hide-form-btn-content"></span>
+                </button>
             </form>
             <a href="{% url 'candidates:jobs' %}" class="candidate-register-form-create-later">
                 <span>Complete form later</span>
@@ -58,6 +94,34 @@
             </a>
         </div>
     </div>
+
+    <script>
+
+        const inputContainer = Array.from(document.querySelector('.candidate-info-form').children)[2]
+        const input = inputContainer.querySelector('input')
+
+        inputContainer.setAttribute('class', 'resume-input-container')
+        input.setAttribute('class', 'resume-input')
+
+        const resume_url = "{{ file }}".split('/').slice(-1)[0]
+
+        const div = document.createElement('div')
+
+        const elements = `
+            <p>Current:</p>
+            <p>${resume_url}</p>`
+
+        div.innerHTML = elements
+        div.setAttribute('class', 'current-resume')
+
+        inputContainer.insertBefore(div, input)
+
+    </script>
+
 {% endblock content %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'candidates/candidate_register.js' %}"></script>
+{% endblock js %}
 
 {% block footer %}{% endblock footer %}

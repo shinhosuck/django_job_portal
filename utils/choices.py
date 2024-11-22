@@ -19,7 +19,6 @@ WORK_LOCATION_CHOICES = [
 ]
 
 USER_TYPE_CHOICES = (
-    ('', ''),
     ('job seeker', 'Job Seeker'),
     ('employer', 'Employer'),
 )

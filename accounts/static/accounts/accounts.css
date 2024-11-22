@@ -15,7 +15,6 @@
     width: 90%;
     max-width: 700px;
     margin: 0 auto;
-
     display: grid;
     align-content: start;
     row-gap: 2rem;
@@ -23,30 +22,37 @@
 
 .register-form-header-text-container {
     display: grid;
+    align-content: start;
+    text-align: center;
     gap: 0.8rem
 }
 
 .register-form-name {
     color: var(--black-20);
-    font-size: 1.4rem;
-    font-weight: 600;
+    font-size: 1.7rem;
 }
 
 .register-form-text {
-    letter-spacing: 0.04rem;
+    letter-spacing: 0.03rem;
     line-height: 1.4;
     color: var(--black-30);
     max-width: 550px;
+    font-size: 1.1rem;
+    margin: 0 auto;
     text-wrap: balance;
 }
 
 .register-from {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
     display: grid;
     align-content: start;
     gap: 1.2rem;
-    padding: 1.2rem;
+    padding: 1.5rem;
     border-radius: 8px;
-    border: 1px solid var(--black-80)
+    background: white;
+    border: 1px solid var(--black-85)
 }
 
 .empty-input-row {
@@ -59,12 +65,25 @@
     gap: 0.5rem;
 }
 
+.toggle-password-requirements {
+    color: var(--green-30);
+    font-size: 0.9rem;
+}
+
+.toggle-password-requirements > h4 {
+    font-weight: 500;
+}
+
 .helptext,
 .help-text-list {
-    font-size: 0.9rem;
-    color: var(--black-30);
+    font-size: 1rem;
+    color: var(--black-40);
     letter-spacing: 0.03rem;
     line-height: 1.4;
+}
+
+.password-help-text-list {
+    display: none;
 }
 
 .help-text-list > li {
@@ -78,30 +97,16 @@
     font-weight: 500;
 }
 
-.register-input-row > select {
-    border: 1px solid var(--black-80);
-    padding: 0.8rem 1rem;
-    border-radius: 5px;
-    color: var(--black-20);
-    letter-spacing: 0.03rem;
-    background: none;
-    font-size: 1rem;
-}
-
-.register-input-row > select:focus {
-    outline: 3px solid var(--green-60);
-}
-
 .register-input-row > input {
-    border: 1px solid var(--black-80);
-    padding: 0.8rem 1rem;
+    border: 1px solid var(--black-85);
+    padding: 1rem;
     border-radius: 5px;
     color: var(--black-20);
     letter-spacing: 0.03rem;
 }
 
 .register-form-sign-up-btn {
-    padding: 0.9rem 1rem;
+    padding: 1rem;
     border: none;
     background: var(--green-30);
     color: var(--black-90);
@@ -120,6 +125,9 @@
 }
 
 .register-form-already-registered {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -145,6 +153,16 @@
 @media (hover) {
     .register-form-already-registered > a:hover {
         color: var(--green-40)
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .register-form-row {
+        padding: 3rem 0;
+    }
+
+    .register-form-header-text-container {
+       margin-top: 2rem;
     }
 }
 
@@ -388,3 +406,157 @@
     cursor: pointer;
     background: var(--black-30)
 }
+
+/* PROFILE FORM */
+.profile-form-row {
+    min-height: 100svh;
+    display: grid;
+    align-content: center;
+    padding: 2rem 0;
+}
+
+.profile-form-container {
+    width: 90%;
+    max-width: 700px;
+    margin: 0 auto;
+    display: grid;
+    align-content: start;
+    row-gap: 2rem;
+}
+
+.profile-form-header-text-container {
+    display: grid;
+    align-content: start;
+    text-align: center;
+    gap: 0.8rem
+}
+
+.profile-form-name {
+    color: var(--black-20);
+    font-size: 1.7rem;
+}
+
+.profile-form-text {
+    letter-spacing: 0.03rem;
+    line-height: 1.4;
+    color: var(--black-30);
+    max-width: 550px;
+    font-size: 1.1rem;
+    margin: 0 auto;
+    text-wrap: balance;
+}
+
+.profile-form {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    display: grid;
+    align-content: start;
+    gap: 1.2rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    background: white;
+    border: 1px solid var(--black-85)
+}
+
+.profile-form > .warning {
+    color: white;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.profile-form > .warning > p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.profile-form > .warning > i {
+    font-size: 1.1rem;
+    margin-top: 0.2rem;
+    cursor: pointer
+}
+
+.profile-input-container {
+    display: grid;
+    align-content: start;
+    gap: 1.2rem;
+} 
+
+.profile-input-row {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+}
+
+.profile-input-row > label {
+    letter-spacing: 0.03rem;
+    color: var(--black-10);
+    font-weight: 500;
+}
+
+.profile-input-row > select,
+.profile-input-row > input {
+    border: 1px solid var(--black-85);
+    padding: 1rem;
+    border-radius: 5px;
+    color: var(--black-20);
+    letter-spacing: 0.03rem;
+}
+
+.profile-input-row > select {
+    background: none;
+    font-size: 1rem;
+    font-family: "Inter", sans-serif;
+}
+
+
+.profile-input-row > select:focus {
+    outline: 3px solid var(--green-70);
+}
+
+.profile-form-update-btn {
+    padding: 1rem;
+    border: none;
+    background: var(--green-30);
+    color: var(--black-90);
+    border-radius: 5px;
+    letter-spacing: 0.03rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 100ms linear;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    text-align: center;
+}
+
+.profile-form-update-btn > i {
+    font-size: 1rem;
+}
+
+@media (hover) {
+    .profile-form-update-btn:hover {
+        background: var(--green-40)
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .profile-form-row {
+        padding: 3rem 0;
+    }
+
+    .profile-form-header-text-container {
+       margin-top: 2rem;
+    }
+}
+

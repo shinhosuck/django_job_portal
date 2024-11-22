@@ -2,14 +2,14 @@
 {% load static %}
 
 {% block title %}
-    Register
+    Profile Update
 {% endblock title %}
 
 {% block navbar %}{% endblock navbar %}
 
 {% block content %}
-    <div class="register-form-row">
-        <div class="register-form-container">
+    <div class="profile-form-row">
+        <div class="profile-form-container">
             <div class="form-navbar">
                 <a href="
                     {% if next %}
@@ -27,48 +27,52 @@
                 </button>
                 {% with request.resolver_match.url_name as url_name %}
                     <div class="form-navlinks">
-                        <a 
-                            class='navlink'
-                            href="{% if next %}{{ next }}{% else %}{% url 'candidates:landing-page' %}{% endif %}"
-                        >
-                            Home
+                        <a class='navlink'href="{% url 'candidates:jobs' %}">
+                            Jobs
                         </a>
-                        <a class='navlink' href="{% url 'accounts:login' %}">Login</a>
                         <a class="
-                            {% if url_name == 'register' %}active-link{% endif %} navlink" 
-                            href="{% url 'accounts:register' %}"
+                            {% if url_name == 'profile-update' %}active-link{% endif %} navlink" 
+                            href="{% url 'accounts:profile-update' %}"
                         >
-                            Register
+                            Profile Update
                         </a>
                     </div>
                 {% endwith %}
             </div>
-            <div class="register-form-header-text-container">
-                <h2 class="register-form-name">
+            <div class="profile-form-header-text-container">
+                <h2 class="profile-form-name">
                     Register Your Account
                 </h2>
-                <p class="register-form-text">
+                <p class="profile-form-text">
                     Ready to take the next step in your career or 
                     find top talent for your team? 
                     Create an account to get started!
                 </p>
             </div>
-            <form class="register-from" action="" method='POST'>
+            <form class="profile-form" action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="register-form-sign-up-btn">
-                    Register
+                {% if message %}
+                    <div class="warning">
+                        <p>{{ message }}</p>
+                        <i class="fas fa-close profile-update-close-message"></i>
+                    </div>
+                {% endif %}
+                <div class="profile-input-container">
+                    {% for field in form %}
+                        <div class="profile-input-row">
+                            {{ field.label_tag }}
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="profile-form-update-btn" type="submit">
+                    <span>Next</span>
+                    <i class="fas fa-arrow-right"></i>
                 </button>
             </form>
-            <div class="register-form-already-registered">
-                <p class="">Already registered?</p>
-                <a class="" href="{% url 'accounts:login' %}">
-                    <span>Login</span>
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
         </div>
     </div>
+
 {% endblock content %}
 
 {% block footer %}{% endblock footer %}

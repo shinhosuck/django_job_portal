@@ -1,18 +1,34 @@
-{% extends "index.html" %}
+{% extends "candidates/candidates_index.html" %}
 {% load static %}
-
-{% comment %} {% block css %}
-    <link rel="stylesheet" href="{% static "accounts/accounts.css" %}">
-{% endblock css %} {% endcomment %}
 
 {% block title %}
     Profile
 {% endblock title %}
 
-{% comment %} {% block nav %}
-    {% include "nav.html" %}
-{% endblock nav %} {% endcomment %}
+{% block navbar %}{% endblock navbar %}
 
 {% block content %}
-    <h1>Profile</h1>
+    <div class='profile-container'>
+        <h1>{{ request.user.username }}'s Profile</h1>
+
+        <div class="profile-user-info-container">
+            <div>
+                <div>
+                    <img src="{{ profile.get_profile_image_url }}" alt="">
+                </div>
+                <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
+            </div>
+            <div>
+                <i class="fa-solid fa-envelope"></i>
+                <p>{{ profile.email }}</p>
+            </div>
+            <div>
+                <i class="fa-solid fa-phone"></i>
+                <p>{{ profile.phone }}</p>
+            </div>
+        </div>
+        
+    </div>
 {% endblock content %}
+
+{% block footer %}{% endblock footer %}

@@ -1,5 +1,10 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm, LoginForm
+from django.urls import reverse
+from .forms import (
+    RegisterForm, 
+    LoginForm, 
+    ProfileUpdateForm
+)
 from django.contrib import messages
 from django.contrib.auth import (
     login, 
@@ -7,7 +12,7 @@ from django.contrib.auth import (
     logout
 )
 from .models import Profile
-import os
+from utils.decorators import user_login_required
 
 def register_view(request):
     next = request.GET.get('next') or None
@@ -23,13 +28,9 @@ def register_view(request):
 
     if request.method == 'POST':
         if form.is_valid():
-            instance = form.save()
-
-            user_type = form.cleaned_data.get('user_type')
-            instance.profile.user_type = user_type
-            instance.profile.save()
-
+            form.save()
             messages.success(request, 'Successfully registered!')
+
             if next:
                 return redirect(f'/login/?next={next}')
             return redirect('accounts:login')
@@ -54,15 +55,20 @@ def login_view(request):
 
             if user:
                 login(request, user)
-                if next:
-                    return redirect(next)
-                
                 messages.success(request, 'Successfully logged in!')
 
-                if user.profile.user_type == 'job seeker':
-                    return redirect('candidates:jobs')
-                return redirect('employers:employer')
-            
+                if next:
+                    return redirect(next)
+                else:
+                    if user.profile.user_type:
+                        return redirect('accounts:profile')
+                    else:
+                        path = reverse('accounts:profile-update')
+                        redir_url = f'{path}?message=Candidate profile is not set yet. Please complete the following forms.'
+                        return redirect(redir_url)
+            else:
+                messages.error(request, 'Username or password did not match.')
+
     return render(request, 'accounts/login.html', context)
             
 
@@ -78,5 +84,47 @@ def logout_view(request):
     return render(request, 'accounts/logout.html')
 
 
-def user_profile_view(request):
-    return render(request, 'accounts/profile.html')
+@user_login_required
+def profile_update_form_view(request):
+    user = request.user
+    message = request.GET.get('message')
+    
+    if not user.is_authenticated:
+        messages.error(request, 'Please login to preceed.')
+        return redirect('accounts:login')
+
+    try:
+        profile = Profile.objects.get(user__id=user.id)
+    except Profile.DoesNotExist:
+        messages.error(request, 'There was a unknown error. Please try again.')
+        return redirect('candidates:jobs')
+
+    form = ProfileUpdateForm(request.POST or None, 
+                       request.FILES or None, instance=profile)
+    
+    if request.method == 'POST':
+        if form.is_valid():
+            profile_form = form.save()
+
+            user_type = profile_form.user_type
+            
+            if user_type == 'job seeker':
+                return redirect('candidates:candidate-register')
+            else:
+                return redirect('employers:employer-register')
+
+    context = {
+            'form': form,
+            'message': message or None
+        }
+
+    return render(request, 'accounts/profile_update_form.html', context)
+
+
+@user_login_required
+def profile_view(request):
+    profile = request.user.profile
+    context = {
+        'profile': profile
+    }
+    return render(request, 'accounts/profile.html', context)

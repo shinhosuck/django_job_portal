@@ -7,19 +7,8 @@ from utils.choices import INDUSTRY_CHOICES
 
 User = settings.AUTH_USER_MODEL
 
-
-class Industry(models.Model):
-    name = models.CharField(max_length=100)
-
-    class Meta:
-        verbose_name_plural = 'Industries'
-
-    def __str__(self):
-        return self.name
-
-
-class CandidateJobProfile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+class Candidate(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     industry = models.CharField(choices=INDUSTRY_CHOICES, max_length=200)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=150)
@@ -28,14 +17,11 @@ class CandidateJobProfile(models.Model):
     country = CountryField()
     slug = models.SlugField(max_length=200, null=True, blank=True)
     job_title = models.CharField(max_length=200)
-    skills = models.CharField(max_length=300, blank=True, null=True)
     resume = models.FileField(upload_to='resumes', null=True, blank=True)
+    skills = models.CharField(max_length=200, null=True, blank=True)
     social_link = models.URLField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name_plural = 'Candidate Job Profiles'
 
     def __str__(self):
         return f'{self.user.username}'  
@@ -44,9 +30,32 @@ class CandidateJobProfile(models.Model):
         return reverse('candidates:candidate-detail', kwargs={'slug': self.slug})
 
     def get_resume_url(self, request=None):
-        if request:
-            return request.build_absolute_uri(self.resume.url)
-        return self.resume.url
+        if self.resume:
+            if request:
+                return request.build_absolute_uri(self.resume.url)
+            return self.resume.url
+
+
+class Education(models.Model):
+    candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)
+    major = models.CharField(max_length=255, null=True, blank=True)
+    degree = models.CharField(max_length=255, null=True, blank=True)
+    institution = models.CharField(max_length=255, null=True, blank=True)
+    completion_date = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return self.degree
+
+
+class Experience(models.Model):
+    candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)
+    company_name = models.CharField(max_length=255, null=True, blank=True)
+    position = models.CharField(max_length=255, null=True, blank=True)
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return self.company_name
 
 
 class Message(models.Model):

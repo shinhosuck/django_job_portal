@@ -3,15 +3,34 @@ from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Q
+import json
 
-from .forms import MessageForm, CandidateJobProfileForm
+from .forms import (
+    MessageForm, 
+    CandidateForm,
+    EducationForm,
+    ExperienceForm
+)
 
-from .models import CandidateJobProfile, Industry
+from .models import (
+    Candidate,
+    Education,
+    Experience
+)
 from employers.models import Job 
 
+# Utils
 from utils.decorators import user_login_required
 from utils.geo_location import get_user_ip
 from utils.handle_suggestions import generate_suggestions
+from utils.create_candiate_profile import (
+    create_or_update_candidate_info, 
+    create_or_update_candidate_education,
+    create_or_update_candidate_experience,
+    fetch_previous_form_data,
+    prefetch_form_data
+)
+
 
 User = get_user_model()
 
@@ -70,37 +89,77 @@ def contact_view(request):
 
 @user_login_required
 def candidate_register_view(request):
-    industries = Industry.objects.all()
     user = request.user
+    data_type = request.GET.get('type')
 
-    candidate_form = CandidateJobProfileForm(
-            request.POST or None, 
-            request.FILES or None
-        )
+    try:
+        candidate = Candidate.objects.get(user=user)
+    except Candidate.DoesNotExist:
+        candidate = None
+
+    candidate_form = candidate and \
+          CandidateForm(instance=candidate) or CandidateForm()
+    file = candidate and  candidate.get_resume_url()
+
+    print(file)
+    
+    
+    if request.method == 'POST':
+        if data_type == 'candidate_info':
+            data = request.POST
+            resume = request.FILES.get('resume')
+            profile = user.profile
+
+            context = create_or_update_candidate_info(
+                data, resume, user, profile, 'candidate_info')
+           
+            return JsonResponse(context)
+    
+        if data_type == 'education':
+            data = request.POST
+            context = create_or_update_candidate_education(data, request, 'education')
+
+            return JsonResponse(context)
+        
+        if data_type == 'experience':
+            data = request.POST
+            context = create_or_update_candidate_experience(data, request, 'experience')
+
+            return JsonResponse(context)
     
     context = {
             'candidate_form':candidate_form,
-            'industries': industries
+            'file': file
         }
-    
-    if request.method == 'POST':
-        if candidate_form.is_valid():
-            candidate_instance = candidate_form.save(commit=False)
-            candidate_instance.user = request.user
-            candidate_instance.save()
-            
-            user.profile.job_profiles.add(candidate_instance)
-
-            messages.success(request, 'Profile successfully created.')
-            return redirect('candidates:jobs')
-        else:
-            messages.error(request, 'Something went wrong. Please try again.')
        
     return render(request, 'candidates/candidates_register.html', context)
 
 
+def get_form_data_view(request):
+    data = json.loads(request.body.decode('utf-8'))
+
+    education = data.get('education')
+    experience = data.get('experience')
+
+    context = fetch_previous_form_data(education, experience)
+
+    return JsonResponse(context)
+
+
+def prefetch_form_data_view(request):
+    user = request.user
+
+    if user.is_authenticated:
+        context = prefetch_form_data(user)
+        return JsonResponse(context)
+    
+    context = {
+        {'error':'You must login first.'}
+    }
+    return JsonResponse
+
 def candidates_view(request):
-    candidates = CandidateJobProfile.objects.all()
+    candidates = Candidate.objects.all()
 
     context = {'candidates': candidates}
 
@@ -111,8 +170,8 @@ def candidate_detail_view(request, slug):
     context = {}
 
     try:
-        candidate = CandidateJobProfile.objects.get(slug=slug)
-    except CandidateJobProfile.DoesNotExist:
+        candidate = Candidate.objects.get(slug=slug)
+    except Candidate.DoesNotExist:
         return redirect('candidates:candidates')
     
     context.update({'candidate': candidate})
@@ -130,7 +189,7 @@ def jobs_view(request):
     city = data['city']
 
     if request.user.is_authenticated:
-        candidate_job_titles = CandidateJobProfile.objects.\
+        candidate_job_titles = Candidate.objects.\
             filter(user=user).values_list('job_title', flat=True)
         
         filtered = ''
@@ -182,8 +241,8 @@ def apply_to_a_job_view(request, slug):
         return redirect('candidates:jobs')
     
     try:
-        candidate = CandidateJobProfile.objects.get(user=user)
-    except CandidateJobProfile.DoesNotExist:
+        candidate = Candidate.objects.get(user=user)
+    except Candidate.DoesNotExist:
         messages.error(request, 'You must create your profile first.')
         return redirect('candidates:candidate-register')
     
@@ -197,3 +256,5 @@ def job_search_view(request):
     search = request.GET.get('q') or None
     
     return render(request, 'candidates/candidates_search_results.html')
+
+

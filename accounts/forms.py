@@ -1,20 +1,16 @@
-from typing import Any
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model 
+from .models import Profile
 from django import forms
-from utils.choices import USER_TYPE_CHOICES
 
 User = get_user_model()
 
 
 class RegisterForm(UserCreationForm):
-    user_type = forms.ChoiceField(choices=USER_TYPE_CHOICES, label='User Type',
-                widget=forms.Select(attrs={'autofocus':True, 'required':True}))
-
+    email = forms.EmailField(label='Email')
     class Meta:
-        model = User 
+        model = User
         fields = [
-            'user_type',
             'username', 
             'email', 
             'password1', 
@@ -22,18 +18,31 @@ class RegisterForm(UserCreationForm):
         ]
 
         widgets = {
+            'username': forms.TextInput(attrs={'required':True, 'autofocus':True}),
             'email': forms.EmailInput(attrs={'required':True}),
             'password1': forms.PasswordInput(attrs={'required':True}),
             'password2': forms.PasswordInput(attrs={'required':True}),
         }
 
-#     def clean_email(self):
-#         email = self.cleaned_data['email']
-#         user = User.objects.filter(email=email)
-#         if user.exists():
-#             raise forms.ValidationError('Email is already taken.')
-#         return email
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        user = User.objects.filter(email=email)
+        if user.exists():
+            raise forms.ValidationError('Email is already taken.')
+        return email
     
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = [
+            'profile_image',
+            'first_name',
+            'last_name',
+            'email',
+            'phone',
+            'user_type'
+        ]
 
 # class RegisterForm(forms.Form):
 #     username = forms.CharField(widget=forms.TextInput(attrs={'autofocus':True}),

@@ -9,7 +9,9 @@ from .views import (
     apply_to_a_job_view,
     job_search_view,
     fetch_user_location,
-    get_search_form_suggestions
+    get_search_form_suggestions,
+    get_form_data_view,
+    prefetch_form_data_view
 )
 
 app_name = 'candidates' 
@@ -25,5 +27,7 @@ urlpatterns = [
     path('candidates/location/', fetch_user_location, name='candidate-location'),
     path('hire-spot/contact/', contact_view, name='contact'),
     path('hire-spot/about/', about_view, name='about'),
-    path('candidates/search-form/suggestions/', get_search_form_suggestions, name='suggestions')
+    path('candidates/search-form/suggestions/', get_search_form_suggestions, name='suggestions'),
+    path('fetch/form-data/', get_form_data_view, name='form-data'),
+    path('prefetch/formdata/', prefetch_form_data_view, name="prefech-form-data")
 ]
