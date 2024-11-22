@@ -27,6 +27,7 @@
     --black-70:hsl(0, 0%, 70%);
     --black-75:hsl(0, 0%, 77%);
     --black-80:hsl(0, 0%, 80%);
+    --black-85:hsl(0, 0%, 85%);
     --black-90:hsl(0, 0%, 90%);
     /* success, warning, info, error messages */
     --success: var(--green-30);
@@ -44,6 +45,7 @@
 
 body {
     font-family: "Inter", sans-serif;
+    background: hsl(122, 100%, 98%);
 }
 
 main {
@@ -73,7 +75,7 @@ textarea {
 
 input:focus,
 textarea:focus {
-    outline: 3px solid var(--green-60);
+    outline: 3px solid var(--green-70);
 }
 
 button {
@@ -153,7 +155,7 @@ button {
 .logo-header {
     font-size: 2rem;
     color: var(--green-35);
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .form-navlinks-toggle-btn {
@@ -202,7 +204,7 @@ button {
     color: var(--green-40)
 }
 
-@media screen and (min-width: 400px) {
+@media screen and (min-width: 500px) {
     .form-navlinks-toggle-btn {
         display: none;
     }

@@ -1,6 +1,29 @@
+// Get user location
+async function get_user_ip() {
+    const url = `${window.location.origin}/candidates/location/`
 
-window.addEventListener('DOMContentLoaded', getSuggestions)
+    try {
+        const resp = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const data = await resp.json()
+        console.log(data)
+        if (resp.ok) {
+            sessionStorage.setItem('location', JSON.stringify(data))
+        }
+    } 
+    catch (error) {
+        console.log(error.message)
+    }
+}
+get_user_ip()
 
+
+const searchSubmitBtn = document.querySelector('.search-form-submit-btn')
+const searchContainerForm = document.querySelector('.search-form-container')
 const searchForm = document.querySelector('.search-form')
 const searchInputRow = document.querySelector('.search-input-row')
 const citiesInputRow = document.querySelector('.cities-input-row')
@@ -16,22 +39,50 @@ const inputs = Array.from(
 
 const events = ['click', 'keyup']
 
+window.addEventListener('DOMContentLoaded', getSuggestions)
+
+
+async function getSuggestions(params) {
+    if (searchSubmitBtn) {
+        searchSubmitBtn.disabled = true
+    }
+
+    let path = '/candidates/search-form/suggestions/'
+
+    if (params.type == 'query') {
+        const data = `?${params.name}=${params.value}`
+        path = `${path}${data}`
+    }
+
+    try {
+        const resp = await fetch(path)
+        const data = await resp.json()
+
+        if (resp.ok) {
+            createSuggestionElements(data)
+        }
+    } 
+    catch (error) {
+        console.log(error.message, error.type)
+    }
+}
+
 inputs.forEach((input) => {
-    events.forEach((event) => {
-        if (event === 'click') {
-            input.addEventListener(event, (e) => {
+    events.forEach((eventType) => {
+        if (eventType === 'click') {
+            input.addEventListener(eventType, (e) => {
 
                 inputRows.forEach((row) => {
                     row.classList.remove('row-focus')
                     row.lastElementChild.classList.remove('show-suggestions')
                 })
-        
+
                 const currentItem = e.currentTarget
                 currentItem.parentElement.classList.add('row-focus')
                 currentItem.nextElementSibling.nextElementSibling.classList.add('show-suggestions')
             })
         }else {
-            handleKeyUpEvent(event)
+            handleKeyUpEvent(eventType)
         }
     })
 })
@@ -43,6 +94,7 @@ clearTextBtns.forEach((btn) => {
         previousSibling.value = ''
         e.currentTarget.style.display = 'none'
         e.currentTarget.nextElementSibling.classList.remove('show-suggestions')
+        searchSubmitBtn.disabled = true
     })
 })
 
@@ -57,28 +109,6 @@ window.addEventListener('click', (e) => {
 })
 
 
-async function getSuggestions(params) {
-    
-    let path = '/candidates/search-form/suggestions/'
-
-    if (params && params.type == 'query') {
-        const data = `?${params.name}=${params.value}`
-        path = `${path}${data}`
-    }
-
-    const url = `${window.location.origin}${path}`
-
-    try {
-        const resp = await fetch(url)
-        const data = await resp.json()
-        createSuggestionElements(data)
-    } 
-    catch (error) {
-        console.log(error.message)
-    }
-}
-
-
 function createSuggestionElements(data) {
     const { cities_suggestions, search_suggestions} = data
 
@@ -91,9 +121,9 @@ function createSuggestionElements(data) {
         createCitiesSuggestion(cities_suggestions)
     
     if (citiesSuggestion || searchSuggestion) {
-
         const closeSuggestionBtns = document.querySelectorAll('.close-suggestions')
         const suggestions = Array.from(document.querySelectorAll('.suggestion'))
+
         handleSuggestionClickEvent(suggestions)
         handleCloseSuggestionsBtn(closeSuggestionBtns)
 
@@ -127,7 +157,7 @@ function createSearchSuggestion(search_suggestions) {
     const searchSuggestionContainer = searchInputRow.querySelector(
         '.searches-suggestions-container'
     )
-    
+
     if (searchSuggestionContainer) {
         searchSuggestionContainer.remove()
         keywordsSuggestion.classList.add('show-suggestions')
@@ -182,8 +212,6 @@ function handleSuggestionClickEvent(suggestions) {
     suggestions.forEach((suggestion) => {
         suggestion.addEventListener('click', (e) => {
             
-            const dataSearchSuggestion = e.currentTarget.getAttribute('data-search-suggestion')
-
             const parent = e.currentTarget.parentElement
             const previousSibling = parent.previousElementSibling.previousElementSibling
 
@@ -191,6 +219,7 @@ function handleSuggestionClickEvent(suggestions) {
 
             parent.classList.remove('show-suggestions')
             parent.previousElementSibling.style.display = 'flex'
+            searchSubmitBtn.disabled = false
         })
     })
 }
@@ -205,7 +234,7 @@ function handleCloseSuggestionsBtn(closeSuggestionBtns) {
 }
 
 
-function handleKeyUpEvent(event) {
+function handleKeyUpEvent(eventType) {
 
     function getSearchFormInputData() {
         let timeoutID;
@@ -217,10 +246,11 @@ function handleKeyUpEvent(event) {
 
                 if (value) {
                     getSuggestions({name:name, value:value, type:'query'})
+                    searchSubmitBtn.disabled = false
                 }
 
             }, 200);
-
+            
             if (e.target.value) {
                 e.target.nextElementSibling.style.display = 'flex'
             }
@@ -231,7 +261,7 @@ function handleKeyUpEvent(event) {
     }
 
     inputs.forEach((input) => {
-        input.addEventListener(event, getSearchFormInputData())
+        input.addEventListener(eventType, getSearchFormInputData())
     })
 }
 

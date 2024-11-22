@@ -258,32 +258,23 @@
 }
 .candidate-register-form-container {
     width: 90%;
-    max-width: 700px;
+    max-width: 900px;
     margin: 0 auto;
-
     display: grid;
     align-content: start;
     row-gap: 2rem;
 }
 
-.candidate-register-form {
-    display: grid;
-    align-content: start;
-    gap: 1.2rem;
-    padding: 1.2rem;
-    border-radius: 8px;
-    border: 1px solid var(--black-80)
-}
-
 .candidate-register-form-text-container {
     display: grid;
-    gap: 0.8rem
+    align-content: start;
+    gap: 0.8rem;
+    text-align: center;
 }
 
 .candidate-register-form-name {
     color: var(--black-20);
-    font-size: 1.4rem;
-    font-weight: 600;
+    font-size: 1.7rem;
 }
 
 .candidate-register-form-text {
@@ -291,35 +282,121 @@
     line-height: 1.4;
     color: var(--black-30);
     max-width: 550px;
+    margin: 0 auto;
     text-wrap: balance;
 }
 
-/* .register-from > *:nth-child(6) {
-    display: none;
+.candidate-register-form {
+    display: grid;
+    align-content: start;
+    align-items: end;
+    gap: 1.5rem;
+}
+
+.candidate-info-input-row,
+.candidate-education-input-row,
+.candidate-experience-input-row {
+    display: grid;
+    align-content: start;
+    gap: 1.5rem;
+    /* padding: 1.5rem;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid var(--black-80) */
+}
+
+/* .candidate-info-input-row {
+    position: relative;
 } */
 
-.candidate-register-form > p {
+.education-form-container,
+.experience-form-container {
+    display: grid;
+    align-content: start;
+    gap: 2rem;
+}
+
+.experience-form,
+.education-form,
+.candidate-info-form {
+    display: grid;
+    align-content: center;
+    gap: 1.5rem;
+    background: hsl(122, 100%, 95%);
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.experience-form > p,
+.education-form > p,
+.candidate-info-form > p {
     display: grid;
     align-content: start;
     gap: 0.5rem;
+    position: relative;
 }
 
-.candidate-register-form > p > label {
+.experience-form > p > label,
+.education-form > p > label,
+.candidate-info-form > p > label {
     letter-spacing: 0.03rem;
-    color: var(--black-10);
+    color: var(--black-30);
     font-weight: 500;
 }
 
-.candidate-register-form > p > input {
+.experience-form > p > select,
+.experience-form > p > input,
+.education-form > p > select,
+.education-form > p > input,
+.candidate-info-form > p > select,
+.candidate-info-form > p > input {
     border: 1px solid var(--black-80);
-    padding: 0.8rem 1rem;
+    padding: 1rem;
     border-radius: 5px;
     color: var(--black-20);
     letter-spacing: 0.03rem;
+    background: white;
+}
+
+.candidate-input-error-field {
+    position: absolute;
+    z-index: 2;
+    top: -17px;
+    left: 0;
+    display: none;
+    color: red;
+    font-size: 0.9rem;
+    letter-spacing: 0.03rem;
+}
+
+.experience-form > p > select,
+.education-form > p > select,
+.candidate-info-form > p > select {
+    width: 100%;
+    box-sizing: border-box;
+    background: none;
+    background: white;
+    font-size: 1rem;
+}
+
+.experience-form > p > select:focus,
+.education-form > p > select:focus,
+.candidate-info-form > p > select:focus {
+    outline: 3px solid var(--green-60)
+}
+
+.add-more {
+    justify-self: start; 
+    font-size:0.9rem; 
+    background:var(--black-10); 
+    color: white;
+    padding:0.5rem;
+    border-radius:3px;
+    border:none;
 }
 
 .candidate-register-form-btn {
-    padding: 0.9rem 1.5rem;
+    padding: 1rem 1.5rem;
     border: none;
     background: var(--green-30);
     color: var(--black-90);
@@ -329,6 +406,10 @@
     cursor: pointer;
     font-weight: 500;
     transition: background 200ms linear;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .candidate-register-form-create-later {
@@ -337,6 +418,74 @@
     gap: 0.2rem;
     color: var(--black-30);
     letter-spacing: 0.03rem;
+}
+
+.candidate-form-button-spinner {
+    display: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 4px solid white;
+    border-top: 4px solid black;
+    animation: spinner 400ms linear infinite;
+}
+
+.candidate-register-form-warning {
+    display: none;
+    color: var(--black-10);
+    letter-spacing: 0.03rem;
+    padding: 0.6rem 1rem;
+    font-weight: 500;
+    border-radius: 5px;
+    background: #f0e964;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.candidate-register-form-error {
+    background: #ffb1a7;
+}
+
+.candidate-register-form-warning > i {
+    font-size: 1.1rem;
+}
+
+.resume-input-container {
+    position: relative;
+}
+
+.current-resume {
+    position: absolute;
+    top: 2.4rem;
+    right: 1.1rem;
+    font-size: 0.9rem;
+    color: var(--black-30);
+    overflow: hidden;
+    width: 145px;
+}
+
+.current-resume > p:first-child {
+    font-weight: 500;
+}
+
+.current-resume > p:last-child {
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+}
+
+.resume-input {
+    font-size: 0.9rem !important;
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg); 
+    }
+    100% {
+        transform: rotate(360deg); 
+    }
 }
 
 @media (hover) {
@@ -349,6 +498,21 @@
     }
 }
 
+@media screen and (min-width: 700px) {
+    .candidate-register-form-row {
+        padding: 3rem 0;
+    }
+
+    /* .experience-form,
+    .education-form,
+    .candidate-info-form {
+        grid-template-columns: repeat(2, 1fr);
+    } */
+
+    .candidate-register-form-text-container {
+        margin-top: 2rem;
+    }
+}
 
 /* JOBS */
 .jobs-container {
