@@ -1,30 +1,23 @@
-from typing import Any
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
-from django_countries.fields import CountryField
 from utils.choices import INDUSTRY_CHOICES
+from accounts.models import Profile
 
 User = settings.AUTH_USER_MODEL
 
-class Candidate(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class CandidateQualification(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
     industry = models.CharField(choices=INDUSTRY_CHOICES, max_length=200)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=150)
-    city = models.CharField(max_length=100)
-    state_or_province = models.CharField(max_length=100)
-    country = CountryField()
     slug = models.SlugField(max_length=200, null=True, blank=True)
     job_title = models.CharField(max_length=200)
     resume = models.FileField(upload_to='resumes', null=True, blank=True)
     skills = models.CharField(max_length=200, null=True, blank=True)
-    social_link = models.URLField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.user.username}'  
+        return f'{self.profile.user.username}'  
 
     def get_absolute_url(self):
         return reverse('candidates:candidate-detail', kwargs={'slug': self.slug})
@@ -37,10 +30,11 @@ class Candidate(models.Model):
 
 
 class Education(models.Model):
-    candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)
+    qualification = models.ForeignKey(CandidateQualification, on_delete=models.CASCADE)
     major = models.CharField(max_length=255, null=True, blank=True)
     degree = models.CharField(max_length=255, null=True, blank=True)
     institution = models.CharField(max_length=255, null=True, blank=True)
+    start_date = models.DateField(null=True, blank=True)
     completion_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
@@ -48,7 +42,7 @@ class Education(models.Model):
 
 
 class Experience(models.Model):
-    candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)
+    qualification = models.ForeignKey(CandidateQualification, on_delete=models.CASCADE)
     company_name = models.CharField(max_length=255, null=True, blank=True)
     position = models.CharField(max_length=255, null=True, blank=True)
     start_date = models.DateField(null=True, blank=True)

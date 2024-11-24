@@ -50,6 +50,7 @@
                 </p>
             </div>
             <form class="profile-form" action="" method="POST" enctype="multipart/form-data">
+                <h2>Update Profile</h2>
                 {% csrf_token %}
                 {% if message %}
                     <div class="warning">
@@ -72,6 +73,43 @@
             </form>
         </div>
     </div>
+
+    <script>
+
+        // CREATE CUSTOM FILE/IMAGE INPUT
+
+        const profileInputRows = Array.from(document.querySelectorAll('.profile-input-row'))[0]
+
+        const div = document.createElement('div')
+        const newLabel = document.createElement('label')
+        
+        const label = profileInputRows.querySelector('label')
+        const input = profileInputRows.querySelector('input')
+        const anchor = profileInputRows.querySelector('a')
+
+        div.setAttribute('class', 'profile-image-input-container')
+        newLabel.textContent = 'Profile image:'
+        newLabel.setAttribute('for', 'id_profile_image')
+        
+        label.textContent = 'Upload image'
+        input.style.display = 'none'
+
+        profileInputRows.innerHTML = ''
+
+        anchor.textContent = `Current: ${anchor.textContent.split('/').slice(-1)}`
+
+        label.classList.add('label-image-input-wrapper')
+        label.removeAttribute('for')
+        anchor.classList.add('current-image-url')
+
+        label.append(input)
+        div.append(label)
+        div.append(anchor)
+
+        profileInputRows.append(newLabel)
+        profileInputRows.append(div)
+
+    </script>
 
 {% endblock content %}
 

@@ -10,15 +10,17 @@ import os
 def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(
-            user=instance, 
+            user=instance
         )
+
 
 @receiver(post_save, sender=User)
 def save_profile(sender, instance, **kwargs):
-    instance.profile.username = instance.username
-    instance.profile.email = instance.email
-    instance.profile.slug = slugify(instance.username)
-    instance.profile.save()
+    profile = instance.profile
+    profile.username = instance.username
+    profile.email = instance.email
+    profile.slug = slugify(instance.username)
+    profile.save()
 
 
 @receiver(post_delete, sender=Profile)

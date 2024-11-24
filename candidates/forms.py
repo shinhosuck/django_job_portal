@@ -1,7 +1,7 @@
 from django import forms 
 from .models import (
     Message, 
-    Candidate,
+    CandidateQualification,
     Education,
     Experience,
 )
@@ -20,23 +20,15 @@ class MessageForm(forms.ModelForm):
         }
 
 
-class CandidateForm(forms.ModelForm):
+class CandidateQualificationForm(forms.ModelForm):
     class Meta:
-        model = Candidate
+        model = CandidateQualification
         fields = [
             'industry',
             'job_title',
             'resume',
             'skills',
-            'city',
-            'state_or_province',
-            'country',
-            'social_link'
         ]
-
-        labels = {
-            'state_or_province':'State/province'
-        }
 
         widgets = {
             'industry':forms.Select(attrs={'autofocus':True}),
@@ -51,6 +43,7 @@ class EducationForm(forms.ModelForm):
             'major',
             'degree', 
             'institution', 
+            'start_date',
             'completion_date',
         ]
 

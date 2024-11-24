@@ -19,16 +19,23 @@ def get_user_ip(request):
     if ip in exclude:
         ip = default
 
-    return get_user_location(ip)
+    return get_user_location(request, ip)
     
 
-def get_user_location(ip):
+def get_user_location(request, ip):
+    host = request.get_host()
+    path = None 
 
-    reader = database.Reader('geolite2-city/GeoLite2-City.mmdb')
+    if host == 'djjobportal.pythonanywhere.com':
+        path = '/home/djjobportal/django_job_portal/geolite2-city/GeoLite2-City.mmdb'
+    else:
+        path = 'geolite2-city/GeoLite2-City.mmdb'
 
+    reader = database.Reader(path)
     response = reader.city(ip)
 
     location = {
+        'user': request.user.username,
         'country': response.country.iso_code,
         'city': response.city.name,
         'state': response.subdivisions.most_specific.iso_code

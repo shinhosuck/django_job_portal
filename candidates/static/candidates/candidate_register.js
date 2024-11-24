@@ -1,65 +1,122 @@
+const qualificationElements = `
+        <p>
+            <span class="candidate-input-error-field">
+                This field is required.
+            </span>
+            <label for="id_industry">Industry:</label>
+            <select name="industry" autofocus="" required="" id="id_industry">
+                <option value="" selected="">---------</option>
+                <option value="technology">Technology</option>
+                <option value="finance">Finance</option>
+                <option value="healthcare">Healthcare</option>
+                <option value="education">Education</option>
+                <option value="marketing &amp; advertising">Marketing &amp; Advertising</option>
+                <option value="engineering">Engineering</option>
+                <option value="manufacturing">Manufacturing</option>
+                <option value="retail &amp; sales">Retail &amp; Sales</option>
+                <option value="hospitality">Hospitality</option>
+                <option value="construction">Construction</option>
+                <option value="telecommunications">Telecommunications</option>
+                <option value="real estate">Real Estate</option>
+                <option value="nonprofit">Nonprofit</option>
+                <option value="food and beverage">Food and Beverage</option>
+                <option value="government">Government</option>
+                <option value="arts &amp; entertainment">Arts &amp; Entertainment</option>
+                <option value="other">Other</option>
+            </select>
+        </p>
+        <p>
+            <span class="candidate-input-error-field">
+                This field is required.
+            </span>
+            <label for="id_job_title">Job title:</label>
+            <input type="text" name="job_title" maxlength="200" required="" id="id_job_title">
+        </p>
+        <p>
+            <span class="candidate-input-error-field">
+                This field is required.
+            </span>
+            <label for="id_resume">Resume:</label>
+            <input type="file" name="resume" accept="img/*" id="id_resume">
+        </p>
+        <p>
+            <span class="candidate-input-error-field">
+                This field is required.
+            </span>
+            <label for="id_skills">Skills:</label>
+            <input type="text" name="skills" maxlength="200" id="id_skills">
+        </p>`
+
 const educationElements = `
-    <p>
-         <span class="candidate-input-error-field">
-            This field is required.
-        </span>
-        <label for="id_major">Major:</label>
-        <input type="text" name="major" maxlength="255" id="id_major">
-    </p>
-    <p>
-         <span class="candidate-input-error-field">
-            This field is required.
-        </span>
-        <label for="id_degree">Degree:</label>
-        <input type="text" name="degree" maxlength="255" id="id_degree">
-    </p>
-    <p>
-         <span class="candidate-input-error-field">
-            This field is required.
-        </span>
-        <label for="id_institution">Institution:</label>
-        <input type="text" name="institution" maxlength="255" id="id_institution">
-    </p>
-    <p>
-         <span class="candidate-input-error-field">
-            This field is required.
-        </span>
-        <label for="id_completion_date">Completion date:</label>
-        <input type="date" name="completion_date" id="id_completion_date">
-    </p>`
+        <p>
+            <span class="candidate-input-error-field">
+                This field is required.
+            </span>
+            <label for="id_major">Major:</label>
+            <input type="text" name="major" maxlength="255" id="id_major">
+        </p>
+        <p>
+            <span class="candidate-input-error-field">
+                This field is required.
+            </span>
+            <label for="id_degree">Degree:</label>
+            <input type="text" name="degree" maxlength="255" id="id_degree">
+        </p>
+        <p>
+            <span class="candidate-input-error-field">
+                This field is required.
+            </span>
+            <label for="id_institution">Institution:</label>
+            <input type="text" name="institution" maxlength="255" id="id_institution">
+        </p>
+         <p>
+            <span class="candidate-input-error-field">
+                This field is required.
+            </span>
+            <label for="id_start_date">Start date:</label>
+            <input type="date" name="start_date" id="id_start_date">
+        </p>
+        <p>
+            <span class="candidate-input-error-field">
+                This field is required.
+            </span>
+            <label for="id_completion_date">Completion date:</label>
+            <input type="date" name="completion_date" id="id_completion_date">
+        </p>`
 
 const experienceElements = `
-    <p>
-        <span class="candidate-input-error-field">
-            This field is required.
-        </span>
-        <label for="id_company_name">Company name:</label>
-        <input type="text" name="company_name" maxlength="255" id="id_company_name">
-    </p>
-    <p>
-        <span class="candidate-input-error-field">
-            This field is required.
-        </span>
-        <label for="id_position">Position:</label>
-        <input type="text" name="position" maxlength="255" id="id_position">
-    </p>
-    <p>
-        <span class="candidate-input-error-field">
-            This field is required.
-        </span>
-        <label for="id_start_date">Start date:</label>
-        <input type="date" name="start_date" id="id_start_date"> 
-    </p>
-    <p>
-        <span class="candidate-input-error-field">
-            This field is required.
-        </span>
-        <label for="id_end_date">End date:</label>
-        <input type="date" name="end_date" id="id_end_date">
-    </p>`
+        <p>
+            <span class="candidate-input-error-field">
+                This field is required.
+            </span>
+            <label for="id_company_name">Company name:</label>
+            <input type="text" name="company_name" maxlength="255" id="id_company_name">
+        </p>
+        <p>
+            <span class="candidate-input-error-field">
+                This field is required.
+            </span>
+            <label for="id_position">Position:</label>
+            <input type="text" name="position" maxlength="255" id="id_position">
+        </p>
+        <p>
+            <span class="candidate-input-error-field">
+                This field is required.
+            </span>
+            <label for="id_start_date">Start date:</label>
+            <input type="date" name="start_date" id="id_start_date"> 
+        </p>
+        <p>
+            <span class="candidate-input-error-field">
+                This field is required.
+            </span>
+            <label for="id_end_date">End date:</label>
+            <input type="date" name="end_date" id="id_end_date">
+        </p>`
 
 const candidateRegisterForm = document.querySelector('.candidate-register-form')
 
+const qualificationFormContainer = document.querySelector('.qualification-form-container')
 const educationFormContainer = document.querySelector('.education-form-container')
 const experienceFormContainer = document.querySelector('.experience-form-container')
 
@@ -76,55 +133,70 @@ const candidateFormButtonSpinner = document.querySelector('.candidate-form-butto
 const candidateRegisterFormError = document.querySelector('.candidate-register-form-warning')
 
 // Froms count
-let formsCount = parseInt(
-    Array.from(
-        document.querySelectorAll('.candidate-form')
-    ).length)
-
-const formsSent = {1:false}
+let formsCount = 0
+const formsSent = {}
 
 window.addEventListener('DOMContentLoaded', createInputElements)
 
 // Append input elements (on page load)
 async function createInputElements(e) {
     const session = JSON.parse(sessionStorage.getItem('form_ids'))
-   
-    if (!session || !session.education.length 
-        && !session.experience.length) {
-        
-        sessionStorage.setItem(
-            'form_ids', JSON.stringify({education:[], experience:[]}))
 
+    if (!session || !session.qualification.length && !session.education.length 
+        && !session.experience.length) {
+
+        window.sessionStorage.setItem(
+            'form_ids', 
+            JSON.stringify({
+                qualification:[], 
+                education:[], 
+                experience:[]
+            })
+        )
+
+        const qualificationInputContainer = document.createElement('div')
         const educationInputContainer = document.createElement('div')
         const experienceInputContainer = document.createElement('div')
 
-        const {education, experience} = await preFillFormData()
+        const {qualification, education, experience} = await preFillFormData()
+
+        if (!qualification || !qualification.length) {
+            formsCount++
+            qualificationInputContainer.setAttribute('class', 'qualification-form candidate-form')
+            qualificationInputContainer.setAttribute('data-form-count', `${formsCount}`)
+            formsSent[formsCount] = false
+            qualificationInputContainer.innerHTML = qualificationElements
+            qualificationFormContainer.append(qualificationInputContainer)
+        }
 
         if (!education || !education.length) {
+            formsCount++
             educationInputContainer.setAttribute('class', 'education-form candidate-form')
-            educationInputContainer.setAttribute('data-form-count', `${formsCount+1}`)
-            formsCount ++
+            educationInputContainer.setAttribute('data-form-count', `${formsCount}`)
             formsSent[formsCount] = false
             educationInputContainer.innerHTML = educationElements
             educationFormContainer.append(educationInputContainer)
         }
         if (!experience || !experience.length) {
+            formsCount++
             experienceInputContainer.setAttribute('class', 'experience-form candidate-form')
-            experienceInputContainer.setAttribute('data-form-count', `${formsCount+1}`)
-            formsCount ++
+            experienceInputContainer.setAttribute('data-form-count', `${formsCount}`)
             formsSent[formsCount] = false
             experienceInputContainer.innerHTML = experienceElements
             experienceFormContainer.append(experienceInputContainer)
         }
-
-        if (education?.length && experience?.length) {
+       
+        if (qualification?.length && education?.length && experience?.length) {
             const data = {education:education, experience:experience}
             renderPreviousFormInputs(data)
         }
-        if (education?.length && !experience?.length) {
+        if (qualification?.length && !experience?.length && !education?.length) {
+            formatQualificationInputTemplate(qualification)
+        }
+        if (education?.length && !qualification?.length && !experience?.length) {
             formatEducationInputTemplate(education)
         }
-        if (experience?.length && !education?.length) {
+        if (experience?.length && !qualification?.length && !education?.length) {
             formatExperienceInputTemplate(experience)
         }
     }
@@ -133,9 +205,8 @@ async function createInputElements(e) {
     }
 }
 
-
 async function preFillFormData() {
-    const url = `${window.location.origin}/prefetch/formdata/`
+    const url = `${window.location.origin}/candidates/prefetch/formdata/`
 
     try {
         const resp = await fetch(url, {
@@ -145,7 +216,7 @@ async function preFillFormData() {
             }
         });
         const data = await resp.json()
-        
+    
         if (data?.error) {
             console.log(data.error)
         }
@@ -156,6 +227,10 @@ async function preFillFormData() {
     }
 }
 
+
+
+
+
 // Listen for addMoreBtns click event
 candidateRegisterForm && addMoreBtns.forEach((btn) => {
     btn.addEventListener('click', addExtraFormElement)
@@ -164,23 +239,32 @@ candidateRegisterForm && addMoreBtns.forEach((btn) => {
 // Add Extra forms
 function addExtraFormElement(e) {
     e.preventDefault()
+    const div = document.createElement('div')
 
-    if (e.currentTarget.classList.contains('education')) {
-        const div = document.createElement('div')
-        div.setAttribute('class', 'education-form')
-        div.setAttribute('data-form-count', `${formsCount + 1}`)
+    if (e.currentTarget.classList.contains('qualification')) {
         formsCount ++
+        div.setAttribute('class', 'qualification-form')
+        div.setAttribute('data-form-count', `${formsCount}`)
+        
+        formsSent[formsCount] = false
 
+        div.innerHTML = qualificationElements
+        qualificationFormContainer.append(div)
+    }
+    else if (e.currentTarget.classList.contains('education')) {
+        formsCount ++
+        div.setAttribute('class', 'education-form')
+        div.setAttribute('data-form-count', `${formsCount}`)
+       
         formsSent[formsCount] = false
 
         div.innerHTML = educationElements
         educationFormContainer.append(div)
     }
     else if (e.currentTarget.classList.contains('experience')){
-        const div = document.createElement('div')
-        div.setAttribute('class', 'experience-form')
-        div.setAttribute('data-form-count', `${formsCount + 1}`)
         formsCount ++
+        div.setAttribute('class', 'experience-form')
+        div.setAttribute('data-form-count', `${formsCount}`)
         
         formsSent[formsCount] = false
 
@@ -196,9 +280,8 @@ candidateRegisterFormBtn.addEventListener('click', (e) => {
     candidateProfileButtonText.style.display = 'none'
     candidateFormButtonSpinner.style.display = 'block'
 
-    const candidateFormChildren = Array.from(candidateForm.querySelectorAll('p > *'))
-    .filter((ele) => ele.type !== undefined)
-    handlecandidateFormData(candidateFormChildren)
+    const qualificationFormChildren = Array.from(qualificationFormContainer.querySelectorAll('.qualification-form'))
+    handleQualificationFormData(qualificationFormChildren)
 
     const educationFormChildren = Array.from(educationFormContainer.querySelectorAll('.education-form'))
     handleEducationFormData(educationFormChildren)
@@ -208,50 +291,58 @@ candidateRegisterFormBtn.addEventListener('click', (e) => {
 })
 
 // Candidate info form
-function handlecandidateFormData(data) {
+function handleQualificationFormData(data) {
     let formData = new FormData()
     let allFieldsValid = true
 
-    const formIndex = parseInt(candidateForm.getAttribute('data-form-count'))
-       
     data.forEach((item) => {
-        const fieldError = item.previousElementSibling
-        .previousElementSibling
 
-        if (!item.value && item.name !== 'resume') {
-            fieldError.style.display = 'grid'
-            allFieldsValid = false
+        const formIndex = parseInt(item.getAttribute('data-form-count'))
+        const formID = parseInt(item.getAttribute('id'))
+
+        const dataInputs = Array.from(item.querySelectorAll('p > *'))
+        .filter((ele) => ele.name)
+
+        dataInputs.forEach((input) => {
+            const fieldError = input.previousElementSibling
+            .previousElementSibling
+
+            if (!input.value && input.name !== 'resume') {
+                fieldError.style.display = 'grid'
+                allFieldsValid = false
+                formData = new FormData()
+
+                candidateProfileButtonText.style.display = 'flex'
+                candidateFormButtonSpinner.style.display = 'none'
+            }
+            else {
+                fieldError.style.display = 'none'
+            }
+
+            if (input.name === 'resume') {
+                formData.append(input.name, input.files[0])
+            }
+            else {
+                formData.append(input.name, input.value)
+            }
+        })
+
+        if (allFieldsValid) {
+            if (formID) {
+                formData.append('id', formID)
+            }
+            registerCandidate(formData, 'qualification', item, formIndex)
             formData = new FormData()
-
-            candidateProfileButtonText.style.display = 'flex'
-            candidateFormButtonSpinner.style.display = 'none'
         }
-        else {
-            fieldError.style.display = 'none'
-        }
-
-        if (item.name === 'resume') {
-            formData.append(item.name, item.files[0])
-        }
-        else {
-            formData.append(item.name, item.value)
-        }
-       
     })
-
-    if (allFieldsValid) {
-        registerCandidate(formData, 'candidate_info', candidateForm, formIndex)
-        formData = new FormData()
-    }
 }
 
 // Candidate Education
 function handleEducationFormData(data) {
-    const dataContainer = Array.from(data)
     let formData = new FormData()
     let allFieldsValid = true
 
-    dataContainer.forEach((item) => {
+    data.forEach((item) => {
 
         const formIndex = parseInt(item.getAttribute('data-form-count'))
         const formID = parseInt(item.getAttribute('id'))
@@ -276,7 +367,6 @@ function handleEducationFormData(data) {
             else {
                 fieldError.style.display = 'none'
             }
-
             formData.append(input.name, input.value)
         })
 
@@ -292,11 +382,10 @@ function handleEducationFormData(data) {
 
 // Candidate Experience
 function handleExperienceFormData(data) {
-    const dataContainer = Array.from(data)
     let formData = new FormData()
     let allFieldsValid = true
 
-    dataContainer.forEach((item) => {
+    data.forEach((item) => {
         
         const formIndex = parseInt(item.getAttribute('data-form-count'))
         const formID = parseInt(item.getAttribute('id'))
@@ -348,15 +437,12 @@ async function registerCandidate(formData, type, item, formIndex) {
             body: formData
         })
         const data = await resp.json()
-
+        
         if (data?.warning || data?.error) {
             handleFormErrorAndWarning(data)
         }
         else {
             saveObjectIDs(data, item)
-
-            console.log(item)
-            console.log(data)
 
             if (!formsSent[formIndex]) {
                 formsSent[formIndex] = true
@@ -364,16 +450,14 @@ async function registerCandidate(formData, type, item, formIndex) {
         }
 
         const allSubmitted = checkAllFormsSubmitted()
-        console.log('LAST FROM:', allSubmitted)
         
         if (allSubmitted) {
-            window.location.href = `${window.location.origin}/candidates/jobs/`
+            window.location.href = `${window.location.origin}/profile/`
         }
     } 
     catch (error) {
         console.log(error.message, error.type)
     }
-
 }
 
 
@@ -403,8 +487,11 @@ function saveObjectIDs(data, item) {
 
     form_ids = JSON.parse(sessionStorage.getItem('form_ids'))
 
-    if (data?.candidate_id) {
-        sessionStorage.setItem('candidate_id', JSON.stringify(data))
+    if (data?.qualification_id) {
+        if(!form_ids.qualification.includes(parseInt(data.qualification_id))) {
+            form_ids.qualification.push(data.qualification_id)
+        }
+        item.setAttribute('id', data.qualification_id)
     }
     if (data?.education_id) {
         if(!form_ids.education.includes(parseInt(data.education_id))) {
@@ -456,7 +543,7 @@ THIS SECTION OF FUNCTIONS WILL BE CALLED IF THERE IS A DATA IN THE SESSION STORA
 
 async function fetchPreviousFormData() {
     const {education, experience} = JSON.parse(sessionStorage.getItem('form_ids'))
-    const url = `${window.location.origin}/fetch/form-data/`
+    const url = `${window.location.origin}/candidates/fetch/form-data/`
     const csrfToken = getCsrfToken('csrftoken')
 
     const body = {
@@ -478,13 +565,93 @@ async function fetchPreviousFormData() {
 
 
 function renderPreviousFormInputs(data) {
-    const {education, experience} = data 
+    const {qualification, education, experience} = data 
+
+    if (qualification) {
+        formatQualificationInputTemplate(qualification)
+    }
 
     if (education) {
         formatEducationInputTemplate(education)
     }
     if (experience) {
         formatExperienceInputTemplate(experience)
+    }
+}
+
+
+function formatQualificationInputTemplate(qualification) {
+    if (!Boolean(qualification.length)) {
+        handleEmptyArray('education')
+    }
+    else {
+        qualification.forEach((qua) => {
+            formsCount ++
+            formsSent[formsCount] = false
+            const qualificationInputContainer = document.createElement('div')
+
+            qualificationInputContainer.setAttribute('class', 'qualification-form candidate-form')
+            qualificationInputContainer.setAttribute('data-form-count', `${formsCount}`)
+            qualificationInputContainer.setAttribute('id', `${qua.id}`)
+
+            const qualification = `
+                <p>
+                    <span class="candidate-input-error-field">
+                        This field is required.
+                    </span>
+                    <label for="id_industry">Industry:</label>
+                    <select name="industry" autofocus="" required=true id="id_industry">
+                        <option value="" selected="">-------</option>
+                        <option value="technology">Technology</option>
+                        <option value="finance">Finance</option>
+                        <option value="healthcare">Healthcare</option>
+                        <option value="education">Education</option>
+                        <option value="marketing &amp; advertising">Marketing &amp; Advertising</option>
+                        <option value="engineering">Engineering</option>
+                        <option value="manufacturing">Manufacturing</option>
+                        <option value="retail &amp; sales">Retail &amp; Sales</option>
+                        <option value="hospitality">Hospitality</option>
+                        <option value="construction">Construction</option>
+                        <option value="telecommunications">Telecommunications</option>
+                        <option value="real estate">Real Estate</option>
+                        <option value="nonprofit">Nonprofit</option>
+                        <option value="food and beverage">Food and Beverage</option>
+                        <option value="government">Government</option>
+                        <option value="arts &amp; entertainment">Arts &amp; Entertainment</option>
+                        <option value="other">Other</option>
+                    </select>
+                </p>
+                <p>
+                    <span class="candidate-input-error-field">
+                        This field is required.
+                    </span>
+                    <label for="id_job_title">Job title:</label>
+                    <input type="text" name="job_title" maxlength="200" value="${qua.job_title}" required="" id="id_job_title">
+                </p>
+                <p>
+                    <span class="candidate-input-error-field">
+                        This field is required.
+                    </span>
+                    <label for="id_resume">Resume:</label>
+                    <input type="file" name="resume" accept="img/*" id="id_resume">
+                </p>
+                <p>
+                    <span class="candidate-input-error-field">
+                        This field is required.
+                    </span>
+                    <label for="id_skills">Skills:</label>
+                    <input type="text" name="skills" value="${qua.skills}" maxlength="200" id="id_skills">
+                </p>`
+
+            qualificationInputContainer.innerHTML = qualification
+            qualificationFormContainer.append(qualificationInputContainer)
+
+            const option = Array.from(qualificationFormContainer.querySelectorAll('.qualification-form > p > select > option'))
+            .find((element) => element.value == qua.industry.toLowerCase())
+
+            option.removeAttribute('value')
+            option.setAttribute('selected', 'selected')
+        })
     }
 }
 
@@ -523,7 +690,14 @@ function formatEducationInputTemplate(education) {
                         This field is required.
                     </span>
                     <label for="id_institution">Institution:</label>
-                    <input type="text" name="institution"value='${edu.institution}' maxlength="255" id="id_institution">
+                    <input type="text" name="institution" value='${edu.institution}' maxlength="255" id="id_institution">
+                </p>
+                 <p>
+                    <span class="candidate-input-error-field">
+                        This field is required.
+                    </span>
+                    <label for="id_start_date">Start date:</label>
+                    <input type="date" name="start_date" value='${edu.start_date}' id="id_start_date">
                 </p>
                 <p>
                     <span class="candidate-input-error-field">

@@ -417,7 +417,7 @@
 
 .profile-form-container {
     width: 90%;
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto;
     display: grid;
     align-content: start;
@@ -447,16 +447,58 @@
 }
 
 .profile-form {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
     display: grid;
     align-content: start;
-    gap: 1.2rem;
+    gap: 1.5rem;
     padding: 1.5rem;
     border-radius: 8px;
     background: white;
     border: 1px solid var(--black-85)
+}
+
+.profile-image-input-container {
+    display: flex !important;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 2rem !important;
+    row-gap: 0.5rem;
+    border: 1px solid var(--black-85);
+    border-radius: 5px;
+    padding: 0.6rem 1rem;
+    overflow: hidden;
+}
+
+.label-image-input-wrapper {
+    justify-self: start;
+    padding: 0.6rem 1rem;
+    border-radius: 5px;
+    background: var(--black-40);
+    color: white !important;
+    overflow: hidden;
+    text-wrap: nowrap;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    transition: background 100ms linear;
+}
+
+@media (hover) {
+    .label-image-input-wrapper:hover{
+        background: var(--black-10);
+    }
+}
+
+.current-image-url {
+    font-size: 0.95rem;
+    overflow: hidden;
+    text-wrap: nowrap;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--green-30)
+}
+
+br {
+    display: none;
 }
 
 .profile-form > .warning {
@@ -486,7 +528,7 @@
 .profile-input-container {
     display: grid;
     align-content: start;
-    gap: 1.2rem;
+    gap: 1.5rem;
 } 
 
 .profile-input-row {
@@ -496,9 +538,7 @@
 }
 
 .profile-input-row > label {
-    letter-spacing: 0.03rem;
-    color: var(--black-10);
-    font-weight: 500;
+    color: var(--black-30);
 }
 
 .profile-input-row > select,
@@ -506,14 +546,12 @@
     border: 1px solid var(--black-85);
     padding: 1rem;
     border-radius: 5px;
-    color: var(--black-20);
+    color: var(--black-10);
     letter-spacing: 0.03rem;
 }
 
 .profile-input-row > select {
     background: none;
-    font-size: 1rem;
-    font-family: "Inter", sans-serif;
 }
 
 

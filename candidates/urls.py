@@ -25,9 +25,9 @@ urlpatterns = [
     path('candidates/<str:slug>/detail/', candidate_detail_view, name='candidate-detail'),
     path('candidates/apply/to/<str:slug>/', apply_to_a_job_view, name='candidate-apply'),
     path('candidates/location/', fetch_user_location, name='candidate-location'),
+    path('candidates/search-form/suggestions/', get_search_form_suggestions, name='suggestions'),
+    path('candidates/fetch/form-data/', get_form_data_view, name='form-data'),
+    path('candidates/prefetch/formdata/', prefetch_form_data_view, name="prefech-form-data"),
     path('hire-spot/contact/', contact_view, name='contact'),
     path('hire-spot/about/', about_view, name='about'),
-    path('candidates/search-form/suggestions/', get_search_form_suggestions, name='suggestions'),
-    path('fetch/form-data/', get_form_data_view, name='form-data'),
-    path('prefetch/formdata/', prefetch_form_data_view, name="prefech-form-data")
 ]

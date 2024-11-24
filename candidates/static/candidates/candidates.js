@@ -1,6 +1,9 @@
 // Get user location
 async function get_user_ip() {
+    sessionStorage.clear()
+    
     const url = `${window.location.origin}/candidates/location/`
+    const location = JSON.parse(sessionStorage.getItem('location'))
 
     try {
         const resp = await fetch(url, {
@@ -10,9 +13,10 @@ async function get_user_ip() {
             }
         })
         const data = await resp.json()
-        console.log(data)
         if (resp.ok) {
-            sessionStorage.setItem('location', JSON.stringify(data))
+            if (data?.user !== location?.user || !location) {
+                sessionStorage.setItem('location', JSON.stringify(data))
+            }
         }
     } 
     catch (error) {

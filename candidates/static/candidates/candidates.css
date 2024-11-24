@@ -293,22 +293,19 @@
     gap: 1.5rem;
 }
 
-.candidate-info-input-row,
+.candidate-qualification-input-row,
 .candidate-education-input-row,
 .candidate-experience-input-row {
     display: grid;
     align-content: start;
-    gap: 1.5rem;
-    /* padding: 1.5rem;
+    gap: 1rem;
     background: white;
+    padding: 1.5rem;
     border-radius: 8px;
-    border: 1px solid var(--black-80) */
+    border: 1px solid var(--black-80);
 }
 
-/* .candidate-info-input-row {
-    position: relative;
-} */
-
+.qualification-form-container,
 .education-form-container,
 .experience-form-container {
     display: grid;
@@ -316,20 +313,21 @@
     gap: 2rem;
 }
 
-.experience-form,
+.qualification-form,
 .education-form,
-.candidate-info-form {
+.experience-form {
     display: grid;
     align-content: center;
     gap: 1.5rem;
-    background: hsl(122, 100%, 95%);
+    background: white;
     padding: 1.5rem;
     border-radius: 8px;
+    border: 1px solid var(--black-80);
 }
 
-.experience-form > p,
+.qualification-form > p,
 .education-form > p,
-.candidate-info-form > p {
+.experience-form > p {
     display: grid;
     align-content: start;
     gap: 0.5rem;
@@ -338,7 +336,7 @@
 
 .experience-form > p > label,
 .education-form > p > label,
-.candidate-info-form > p > label {
+.qualification-form > p > label {
     letter-spacing: 0.03rem;
     color: var(--black-30);
     font-weight: 500;
@@ -348,8 +346,8 @@
 .experience-form > p > input,
 .education-form > p > select,
 .education-form > p > input,
-.candidate-info-form > p > select,
-.candidate-info-form > p > input {
+.qualification-form > p > select,
+.qualification-form > p > input {
     border: 1px solid var(--black-80);
     padding: 1rem;
     border-radius: 5px;
@@ -371,7 +369,7 @@
 
 .experience-form > p > select,
 .education-form > p > select,
-.candidate-info-form > p > select {
+.qualification-form > p > select {
     width: 100%;
     box-sizing: border-box;
     background: none;
@@ -381,17 +379,17 @@
 
 .experience-form > p > select:focus,
 .education-form > p > select:focus,
-.candidate-info-form > p > select:focus {
+.qualification-form > p > select:focus {
     outline: 3px solid var(--green-60)
 }
 
 .add-more {
-    justify-self: start; 
+    justify-self: end; 
     font-size:0.9rem; 
-    background:var(--black-10); 
+    background:var(--black-20); 
     color: white;
-    padding:0.5rem;
-    border-radius:3px;
+    padding:0.5rem 1rem;
+    border-radius:5px;
     border:none;
 }
 

@@ -13,6 +13,7 @@ Django==5.1.1
 django-autoslug==1.9.9
 django-countries==7.6.1
 django-debug-toolbar==4.4.6
+django-phonenumber-field==8.0.0
 frozenlist==1.5.0
 geoip2==4.8.0
 idna==3.10
@@ -20,6 +21,7 @@ MarkupSafe==2.1.5
 maxminddb==2.6.2
 multidict==6.1.0
 oauthlib==3.2.2
+phonenumbers==8.13.50
 pillow==10.4.0
 progressbar2==4.5.0
 propcache==0.2.0

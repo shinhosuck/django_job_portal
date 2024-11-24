@@ -39,10 +39,20 @@ class ProfileUpdateForm(forms.ModelForm):
             'profile_image',
             'first_name',
             'last_name',
+            'address',
+            'city',
+            'state_or_province',
+            'country',
             'email',
-            'phone',
+            'phone_number',
+            'social_link',
+            'portfolio_or_personal_website',
             'user_type'
         ]
+
+        labels = {
+            'portfolio_or_personal_website': 'Portfolio/personal website'
+        }
 
 # class RegisterForm(forms.Form):
 #     username = forms.CharField(widget=forms.TextInput(attrs={'autofocus':True}),

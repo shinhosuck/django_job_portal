@@ -1,19 +1,18 @@
 from django.contrib import admin
 from .models import (
     Message, 
-    Candidate,
+    CandidateQualification,
     Education,
     Experience
 )
 
 
-@admin.register(Candidate)
-class CandidateAdmin(admin.ModelAdmin):
+@admin.register(CandidateQualification)
+class CandidateQualificationAdmin(admin.ModelAdmin):
     list_display = [
+        'profile',
         'slug',
         'industry',
-        'first_name',
-        'last_name',
         'job_title'
     ]
 
@@ -21,7 +20,7 @@ class CandidateAdmin(admin.ModelAdmin):
 @admin.register(Education)
 class EducationAdmin(admin.ModelAdmin):
     list_display = [
-        'candidate',
+        'qualification',
         'major',
         'degree',
         'institution',
@@ -32,7 +31,7 @@ class EducationAdmin(admin.ModelAdmin):
 @admin.register(Experience)
 class ExperienceAdmin(admin.ModelAdmin):
     list_display = [
-        'candidate',
+        'qualification',
         'company_name',
         'position',
         'start_date',

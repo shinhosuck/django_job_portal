@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'social_django',
     'django_countries',
+    'phonenumber_field',
     # my app
     'candidates.apps.CandidatesConfig',
     'employers.apps.EmployersConfig',
@@ -135,7 +136,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # client id
-os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 
  # client secret
-os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')

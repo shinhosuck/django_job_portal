@@ -1,94 +1,90 @@
 from candidates.models import (
-    Candidate,
+    CandidateQualification,
     Education,
     Experience
 )
 
 
-def create_or_update_candidate_info(data, resume, user, profile, data_type):
+def create_or_update_qualification(data, resume, user, data_type):
+    id = data.get('id')
     industry = data['industry']
-    first_name = profile.first_name
-    last_name = profile.last_name
-    city = data['city']
-    state_or_province = data['state_or_province']
-    country = data['country']
     job_title = data['job_title']
     skills = data['skills']
-    social_link = data['social_link']
+
+    print(data_type)
+    print(data)
+    print(resume)
+
 
     try:
-        candidate = Candidate.objects.get(user=user)
-    except Candidate.DoesNotExist:
-        candidate = None
+        qualification = CandidateQualification.\
+            objects.get(profile__user=user, id=id)
+    except CandidateQualification.DoesNotExist:
+        qualification = None
     
-    if candidate:
-        candidate.industry = industry
-        candidate.first_name = first_name
-        candidate.last_name = last_name
-        candidate.city = city
-        candidate.state_or_province = state_or_province
-        candidate.country = country 
-        candidate.job_title = job_title
-        candidate.skills = skills
-        candidate.social_link = social_link
-        candidate.save()
+    if qualification:
+        qualification.industry = industry
+        qualification.job_title = job_title
+        qualification.skills = skills
+        qualification.save()
 
-    if not candidate:
-        candidate = Candidate.objects.create(
-            user = user,
+        if resume:
+            qualification.resume = resume
+            qualification.save()
+
+    elif not qualification:
+        qualification = CandidateQualification.objects.create(
+            profile = user.profile,
             industry = industry,
-            first_name = first_name,
-            last_name = last_name,
-            city = city,
-            state_or_province = state_or_province,
-            country = country,
             job_title = job_title,
             resume = resume,
             skills = skills,
-            social_link = social_link
         )
     
     context = {
-        'candidate_id': candidate.id,
+        'qualification_id': qualification.id,
         'data_type': data_type,
-        'resume': candidate.resume and candidate.get_resume_url(),
+        'resume': qualification.resume and qualification.get_resume_url(),
         'message': 'success'
     }
 
     return context
 
 
-def create_or_update_candidate_education(data, request, data_type):
+def create_or_update_education(data, user, data_type):
     id = data.get('id')
-    candidate = request.user.candidate
+    qualification = user.profile.candidate_qualification
     major = data['major']
     degree = data['degree']
     institution = data['institution']
+    start_date = data['start_date']
     completion_date = data['completion_date']
 
     try:
-        instance = Education.objects.get(id=id)
+        education = Education.objects.get(id=id)
     except Education.DoesNotExist:
-        instance = None
+        education = None
     
-    if instance:
-        instance.major = major
-        instance.degree = degree
-        instance.institution = institution
-        instance.completion_date = completion_date 
-        instance.save()
+    if education:
+        education.major = major
+        education.degree = degree
+        education.institution = institution
+        education.completion_date = completion_date
+        education.start_date = start_date 
+        education.save()
 
     else:
-        instance = Education.objects.create(
-            candidate = candidate,
+        education = Education.objects.create(
+            qualification = qualification,
             major = major,
             degree = degree,
             institution = institution,
+            start_date = start_date, 
             completion_date = completion_date
         )
 
     context = {
-        'education_id':instance.id, 
+        'education_id':education.id, 
         'data_type': data_type, 
         'message': 'success'
     }
@@ -96,29 +92,29 @@ def create_or_update_candidate_education(data, request, data_type):
     return context
 
 
-def create_or_update_candidate_experience(data, request, data_type):
+def create_or_update_experience(data, user, data_type):
     id = data.get('id')
-    candidate = request.user.candidate
+    qualification = user.profile.candidate_qualification
     company_name = data['company_name']
     position = data['position']
     start_date = data['start_date']
     end_date = data['end_date']
 
     try:
-        instance = Experience.objects.get(id=id)
+        experience = Experience.objects.get(id=id)
     except Experience.DoesNotExist:
-        instance = None 
+        experience = None 
 
 
-    if instance:
-        instance.company_name = company_name
-        instance.position = position
-        instance.start_date = start_date
-        instance.end_date = end_date 
+    if experience:
+        experience.company_name = company_name
+        experience.position = position
+        experience.start_date = start_date
+        experience.end_date = end_date 
     
     else:
-        instance = Experience.objects.create(
-            candidate = candidate,
+        experience = Experience.objects.create(
+            qualification = qualification,
             company_name = company_name,
             position = position,
             start_date = start_date,
@@ -126,7 +122,7 @@ def create_or_update_candidate_experience(data, request, data_type):
         )
 
     context = {
-        'experience_id': instance.id,
+        'experience_id': experience.id,
         'data_type': data_type,
         'message': 'success'
     }
@@ -181,19 +177,27 @@ def fetch_previous_form_data(education, experience):
 
 def prefetch_form_data(user):
     context = {
+        'qualification': [],
         'education': [],
         'experience': []
     }
 
-    try:
-        candidate = user.candidate
-    except Candidate.DoesNotExist:
-        candidate = None
-    
-    if candidate:
-        education = Education.objects.filter(candidate=candidate)
-        experience = Experience.objects.filter(candidate=candidate)
+    qualification = user.profile.candidatequalification
+    education = Education.objects.filter(qualification=qualification)
+    experience = Experience.objects.filter(qualification=qualification)
 
+    if qualification:
+        obj = {
+            'id': qualification.id,
+            'industry': qualification.industry,
+            'job_title': qualification.job_title,
+            'resume': qualification.get_resume_url(),
+            'skills': qualification.skills
+        }
+
+        context['qualification'].append(obj)
+
+    if education:
         for edu in education:
             obj = {
                 'id': edu.id,
@@ -204,6 +208,7 @@ def prefetch_form_data(user):
             }
             context['education'].append(obj)
 
+    if experience:
         for exp in experience:
             obj = {
                 'id': exp.id,

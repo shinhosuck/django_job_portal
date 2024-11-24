@@ -49,23 +49,9 @@
             </div>
             <form class="candidate-register-form" action="" method="POST" enctype='multipart/form-data'>
                 {% csrf_token %}
-                <div class="candidate-info-input-row">
-                    <div class="candidate-register-form-warning">
-                    </div>
-                    <h2>Personal Information</h2>
-                    <div data-form-count='1' class="candidate-info-form candidate-form">
-                        {% for field in candidate_form %}
-                            {% with forloop.counter as count %}
-                                <p>
-                                    <span data-input-index="{{ count }}" class="candidate-input-error-field">
-                                        This field is required.
-                                    </span>
-                                    {{ field.label_tag }}
-                                    {{ field}}
-                                </p>
-                            {% endwith %}
-                        {% endfor %}
-                    </div>
+                <div class="candidate-qualification-input-row">
+                    <h2>Qualification</h2>
+                    <div class="qualification-form-container"></div>
                 </div>
                 <div class="candidate-education-input-row">
                     <h2>Education</h2>
@@ -97,31 +83,45 @@
 
     <script>
 
-        const inputContainer = Array.from(document.querySelector('.candidate-info-form').children)[2]
-        const input = inputContainer.querySelector('input')
+        const resume_url = '{{ resume }}'
+        localStorage.setItem('resume', JSON.stringify({resume:resume_url}))
+        
+        {% comment %} const div = document.createElement('div')
+        const newLabel = document.createElement('label')
+        
+        const label = profileInputRows.querySelector('label')
+        const input = profileInputRows.querySelector('input')
+        const anchor = profileInputRows.querySelector('a')
 
-        inputContainer.setAttribute('class', 'resume-input-container')
-        input.setAttribute('class', 'resume-input')
+        div.setAttribute('class', 'profile-image-input-container')
+        newLabel.textContent = 'Profile image:'
+        newLabel.setAttribute('for', 'id_profile_image')
+        
+        label.textContent = 'Upload image'
+        input.style.display = 'none'
 
-        const resume_url = "{{ file }}".split('/').slice(-1)[0]
+        profileInputRows.innerHTML = ''
 
-        const div = document.createElement('div')
+        anchor.textContent = `Current: ${anchor.textContent.split('/').slice(-1)}`
 
-        const elements = `
-            <p>Current:</p>
-            <p>${resume_url}</p>`
+        label.classList.add('label-image-input-wrapper')
+        label.removeAttribute('for')
+        anchor.classList.add('current-image-url')
 
-        div.innerHTML = elements
-        div.setAttribute('class', 'current-resume')
+        label.append(input)
+        div.append(label)
+        div.append(anchor)
 
-        inputContainer.insertBefore(div, input)
+        profileInputRows.append(newLabel)
+        profileInputRows.append(div) {% endcomment %}
+
 
     </script>
 
 {% endblock content %}
 
 {% block js %}
-<script type="text/javascript" src="{% static 'candidates/candidate_register.js' %}"></script>
+    <script type="text/javascript" src="{% static 'candidates/candidate_register.js' %}"></script>
 {% endblock js %}
 
 {% block footer %}{% endblock footer %}

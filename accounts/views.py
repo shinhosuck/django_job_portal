@@ -22,6 +22,7 @@ def register_view(request):
         return redirect('candidates:jobs')
 
     form = RegisterForm(request.POST or None)
+
     context = {
         'form':form,
     }
@@ -88,19 +89,18 @@ def logout_view(request):
 def profile_update_form_view(request):
     user = request.user
     message = request.GET.get('message')
-    
-    if not user.is_authenticated:
-        messages.error(request, 'Please login to preceed.')
-        return redirect('accounts:login')
 
     try:
-        profile = Profile.objects.get(user__id=user.id)
+        profile = Profile.objects.get(user=user)
     except Profile.DoesNotExist:
-        messages.error(request, 'There was a unknown error. Please try again.')
+        messages.error(request, 'There was a unknown server error. Please try again.')
         return redirect('candidates:jobs')
 
-    form = ProfileUpdateForm(request.POST or None, 
-                       request.FILES or None, instance=profile)
+    form = ProfileUpdateForm(
+        request.POST or None, 
+        request.FILES or None, 
+        instance=profile
+    )
     
     if request.method == 'POST':
         if form.is_valid():
