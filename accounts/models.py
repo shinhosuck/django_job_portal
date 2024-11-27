@@ -3,7 +3,7 @@ from django.conf import settings
 from utils.choices import USER_TYPE_CHOICES
 from django.urls import reverse
 from django_countries.fields import CountryField
-from phonenumber_field.modelfields import PhoneNumberField
+# from phonenumber_field.modelfields import PhoneNumberField
 
 User = settings.AUTH_USER_MODEL 
 
@@ -20,9 +20,18 @@ class Profile(models.Model):
     state_or_province = models.CharField(max_length=50)
     country = CountryField()
     email = models.EmailField()
-    phone_number = PhoneNumberField(blank=True, null=True)
-    social_link = models.URLField(null=True, blank=True)
-    portfolio_or_personal_website = models.URLField(blank=True, null=True)
+    phone_number = models.CharField(
+            max_length=15, blank=True, null=True,
+            help_text='Max digits 15, must start with + follow by country code.'
+        )
+    social_link = models.URLField(
+            null=True, blank=True,
+            help_text='Must start with https://'
+        )
+    portfolio_or_personal_website = models.URLField(
+            blank=True, null=True,
+            help_text='Must start with https://'
+        )
     user_type = models.CharField(max_length=100, choices=USER_TYPE_CHOICES)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

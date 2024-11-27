@@ -449,33 +449,44 @@
     font-size: 1.1rem;
 }
 
-.resume-input-container {
-    position: relative;
+/* resume */
+#id_resume {
+    display: none;
 }
 
-.current-resume {
-    position: absolute;
-    top: 2.4rem;
-    right: 1.1rem;
-    font-size: 0.9rem;
-    color: var(--black-30);
+.resume-input-wrapper-label {
+    padding: 0.6rem 1rem;
+    border-radius: 5px;
+    justify-self: start;
+    background: var(--black-30);
+    color: white;
+    font-size: 0.9rem
+}
+
+.resume-input-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 2rem;
+    row-gap: 0.5rem;
+    border: 1px solid var(--black-80);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
     overflow: hidden;
-    width: 145px;
 }
 
-.current-resume > p:first-child {
-    font-weight: 500;
-}
-
-.current-resume > p:last-child {
+.resume-url {
+    color: var(--green-30);
+    white-space: nowrap;
     overflow: hidden;
-    text-wrap: nowrap;
     text-overflow: ellipsis;
 }
 
-.resume-input {
-    font-size: 0.9rem !important;
+.candidate-register-form-help-text {
+    font-size: 0.9rem;
+    color: var(--black-30);
 }
+
 
 @keyframes spinner {
     0% {

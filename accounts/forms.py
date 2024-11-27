@@ -1,10 +1,10 @@
+from typing import Any
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model 
 from .models import Profile
 from django import forms
 
 User = get_user_model()
-
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(label='Email')
@@ -50,9 +50,47 @@ class ProfileUpdateForm(forms.ModelForm):
             'user_type'
         ]
 
+        widgets = {
+            'phone_number': forms.TextInput(attrs={'placeholder': '+999999999999999'}),
+            'social_link': forms.URLInput(
+                attrs={'placeholder': 'https://www.sociallink.com', 'required':False}
+            ),
+            'portfolio_or_personal_website':forms.URLInput(
+                attrs={'placeholder': 'https://www.personalsite.com', 'required':False}
+            )
+        }
+
         labels = {
             'portfolio_or_personal_website': 'Portfolio/personal website'
         }
+
+    def clean_phone_number(self):
+        nums = [str(num) for num in list(range(0, 10))]
+        index = 0
+
+        phone_number = self.cleaned_data.get('phone_number')
+
+        if phone_number:
+            for item in phone_number:
+                if index == 0 and item != '+':
+                    raise forms.ValidationError('Phone number must start with +')
+                elif index != 0 and item not in nums:
+                    raise forms.ValidationError('Invalid phone number')
+                elif len(phone_number) > 15:
+                    raise forms.ValidationError('Too many digits.')
+                index += 1
+
+            return phone_number
+        
+        return None
+    
+    # def clean_social_link(self):
+    #     social_link = self.cleaned_data.get('social_link')
+
+
+    #     url = 'https://www.mysite.com'
+    
+
 
 # class RegisterForm(forms.Form):
 #     username = forms.CharField(widget=forms.TextInput(attrs={'autofocus':True}),

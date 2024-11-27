@@ -52,7 +52,7 @@
     padding: 1.5rem;
     border-radius: 8px;
     background: white;
-    border: 1px solid var(--black-85)
+    border: 1px solid var(--black-80)
 }
 
 .empty-input-row {
@@ -76,8 +76,8 @@
 
 .helptext,
 .help-text-list {
-    font-size: 1rem;
-    color: var(--black-40);
+    font-size: 0.9rem;
+    color: var(--black-50);
     letter-spacing: 0.03rem;
     line-height: 1.4;
 }
@@ -98,7 +98,7 @@
 }
 
 .register-input-row > input {
-    border: 1px solid var(--black-85);
+    border: 1px solid var(--black-80);
     padding: 1rem;
     border-radius: 5px;
     color: var(--black-20);
@@ -177,7 +177,7 @@
 
 .login-form-container {
     width: 90%;
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
 
     display: grid;
@@ -187,12 +187,13 @@
 
 .login-form-header-text-container {
     display: grid;
-    gap: 0.8rem
+    gap: 0.8rem;
+    text-align: center;
 }
 
 .login-form-name {
     color: var(--black-20);
-    font-size: 1.4rem;
+    font-size: 1.7rem;
     font-weight: 600;
 }
 
@@ -201,21 +202,22 @@
     line-height: 1.4;
     color: var(--black-30);
     max-width: 550px;
+    margin: 0 auto;
+    font-size: 1.1rem;
     text-wrap: balance;
 }
 
 .login-from {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
     display: grid;
     align-content: start;
     gap: 1.2rem;
-    padding: 1.2rem;
+    padding: 1.5rem;
     border-radius: 8px;
     border: 1px solid var(--black-80)
 }
-
-/* .register-from > *:nth-child(6) {
-    display: none;
-} */
 
 .login-from > p {
     display: grid;
@@ -231,7 +233,7 @@
 
 .login-from > p > input {
     border: 1px solid var(--black-80);
-    padding: 0.8rem 1rem;
+    padding: 1rem;
     border-radius: 5px;
     color: var(--black-20);
     letter-spacing: 0.03rem;
@@ -257,6 +259,9 @@
 }
 
 .login-form-not-yet-registered {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -280,6 +285,9 @@
 }
 
 .login-form-underline {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
     display: grid;
     align-items: center;
     gap: 1rem;
@@ -296,6 +304,9 @@
 }
 
 .login-form-google-link {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -417,7 +428,7 @@
 
 .profile-form-container {
     width: 90%;
-    max-width: 800px;
+    max-width: 700px;
     margin: 0 auto;
     display: grid;
     align-content: start;
@@ -482,6 +493,10 @@
     transition: background 100ms linear;
 }
 
+#id_profile_image {
+    display: none;
+}
+
 @media (hover) {
     .label-image-input-wrapper:hover{
         background: var(--black-10);
@@ -501,30 +516,6 @@ br {
     display: none;
 }
 
-.profile-form > .warning {
-    color: white;
-    font-size: 0.9rem;
-    padding: 0.5rem 1rem;
-    border-radius: 0.3rem;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    overflow: hidden;
-}
-
-.profile-form > .warning > p {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.profile-form > .warning > i {
-    font-size: 1.1rem;
-    margin-top: 0.2rem;
-    cursor: pointer
-}
-
 .profile-input-container {
     display: grid;
     align-content: start;
@@ -538,20 +529,24 @@ br {
 }
 
 .profile-input-row > label {
-    color: var(--black-30);
+    color: var(--black-10);
+    font-weight: 500;
+    letter-spacing: 0.03rem;
 }
 
 .profile-input-row > select,
 .profile-input-row > input {
-    border: 1px solid var(--black-85);
+    border: 1px solid var(--black-80);
     padding: 1rem;
     border-radius: 5px;
-    color: var(--black-10);
+    color: var(--black-20);
     letter-spacing: 0.03rem;
 }
 
 .profile-input-row > select {
     background: none;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 

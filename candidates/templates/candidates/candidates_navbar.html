@@ -27,7 +27,7 @@
                             </span>
                         </div>
                         <div class="navlink-drop-down-link">
-                            <a href="{% url 'candidates:candidate-register' %}" class="navlink">Add Skill</a>
+                            <a href="{% url 'candidates:candidate-add-career-detail' %}" class="navlink">Career Detail</a>
                             <a href="{% url 'accounts:profile' %}" class="navlink">Profile</a>
                             <a href="{% url 'candidates:about' %}" class="{% if url_name == "about" %}active-link{% endif %} navlink">About</a>
                             <a href="{% url 'candidates:contact' %}" class="{% if url_name == "contact" %}active-link{% endif %} navlink">Contact</a>
@@ -78,7 +78,7 @@
                     <a href="{% url 'accounts:login' %}" class="mobile-navlink">Login</a>
                     <a href="{% url 'accounts:register' %}" class="mobile-navlink">Register</a>
                 {% else %}
-                    <a href="{% url 'candidates:candidate-register' %}" class="mobile-navlink">Add Skill</a>
+                    <a href="{% url 'candidates:candidate-add-career-detail' %}" class="mobile-navlink">Career Detail</a>
                     <a href="{% url 'accounts:profile' %}" class="mobile-navlink">Profile</a>
                     <a class='{% if url_name == "about" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'candidates:about' %}">About</a>
                     <a class='{% if url_name == "contact" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'candidates:contact' %}">Contact</a>

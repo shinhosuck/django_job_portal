@@ -37,7 +37,7 @@ const qualificationElements = `
                 This field is required.
             </span>
             <label for="id_resume">Resume:</label>
-            <input type="file" name="resume" accept="img/*" id="id_resume">
+            <input type="file" name="resume" id="id_resume">
         </p>
         <p>
             <span class="candidate-input-error-field">
@@ -74,14 +74,14 @@ const educationElements = `
                 This field is required.
             </span>
             <label for="id_start_date">Start date:</label>
-            <input type="date" name="start_date" id="id_start_date">
+            <input type="date" name="start_date" onkeydown="return false" id="id_start_date">
         </p>
         <p>
             <span class="candidate-input-error-field">
                 This field is required.
             </span>
             <label for="id_completion_date">Completion date:</label>
-            <input type="date" name="completion_date" id="id_completion_date">
+            <input type="date" name="completion_date" onkeydown="return false" id="id_completion_date">
         </p>`
 
 const experienceElements = `
@@ -104,15 +104,20 @@ const experienceElements = `
                 This field is required.
             </span>
             <label for="id_start_date">Start date:</label>
-            <input type="date" name="start_date" id="id_start_date"> 
+            <input type="date" name="start_date" onkeydown="return false" id="id_start_date"> 
         </p>
         <p>
             <span class="candidate-input-error-field">
                 This field is required.
             </span>
             <label for="id_end_date">End date:</label>
-            <input type="date" name="end_date" id="id_end_date">
+            <input type="date" name="end_date" onkeydown="return false" id="id_end_date">
         </p>`
+
+const inputsNotRequired = [
+    'resume', 'skills', 'major', 'degree', 'institution', 'start_date',
+    'completion_date', 'company_name', 'position', 'start_date', 'end_date'
+]
 
 const candidateRegisterForm = document.querySelector('.candidate-register-form')
 
@@ -132,16 +137,20 @@ const candidateFormButtonSpinner = document.querySelector('.candidate-form-butto
 
 const candidateRegisterFormError = document.querySelector('.candidate-register-form-warning')
 
+let resumeInput = null
+let parentFormSubmited = false
+
 // Froms count
 let formsCount = 0
 const formsSent = {}
 
 window.addEventListener('DOMContentLoaded', createInputElements)
 
-// Append input elements (on page load)
+
+// APPEND FORM INPUT ELEMENTS -> THIS WILL RUN ON RELOAD, INITIAL LOAD
 async function createInputElements(e) {
     const session = JSON.parse(sessionStorage.getItem('form_ids'))
-
+    
     if (!session || !session.qualification.length && !session.education.length 
         && !session.experience.length) {
 
@@ -158,8 +167,11 @@ async function createInputElements(e) {
         const educationInputContainer = document.createElement('div')
         const experienceInputContainer = document.createElement('div')
 
-        const {qualification, education, experience} = await preFillFormData()
+        // Pre fetch form data on reload and session storage does not have form_ids: 
+        // form_ids = {"qualification": [],"education": [],"experience": []}
 
+        const {qualification, education, experience} = await preFillFormData()
+        
         if (!qualification || !qualification.length) {
             formsCount++
             qualificationInputContainer.setAttribute('class', 'qualification-form candidate-form')
@@ -167,6 +179,7 @@ async function createInputElements(e) {
             formsSent[formsCount] = false
             qualificationInputContainer.innerHTML = qualificationElements
             qualificationFormContainer.append(qualificationInputContainer)
+            createCustomFileUplodInput()
         }
 
         if (!education || !education.length) {
@@ -186,23 +199,26 @@ async function createInputElements(e) {
             experienceFormContainer.append(experienceInputContainer)
         }
        
-        if (qualification?.length && education?.length && experience?.length) {
-            const data = {education:education, experience:experience}
-            renderPreviousFormInputs(data)
-        }
-        if (qualification?.length && !experience?.length && !education?.length) {
-            formatQualificationInputTemplate(qualification)
-        }
-        if (education?.length && !qualification?.length && !experience?.length) {
-            formatEducationInputTemplate(education)
-        }
-        if (experience?.length && !qualification?.length && !education?.length) {
-            formatExperienceInputTemplate(experience)
+        if (qualification?.length || education?.length || experience?.length) {
+        
+            if (qualification?.length) {
+                formatQualificationInputTemplate(qualification)
+            }
+            if (education?.length) {
+                formatEducationInputTemplate(education)
+            }
+            if (experience?.length) {
+                formatExperienceInputTemplate(experience)
+            }
         }
     }
     else{
+        // If data in session storage: form_ids = {"qualification": [1],"education": [22, 33],"experience": [44]}
         fetchPreviousFormData()
     }
+
+    resumeInput = document.querySelector('#id_resume')
+    resumeInput.setAttribute('onchange', 'handleResumeFileInput()')
 }
 
 async function preFillFormData() {
@@ -228,9 +244,6 @@ async function preFillFormData() {
 }
 
 
-
-
-
 // Listen for addMoreBtns click event
 candidateRegisterForm && addMoreBtns.forEach((btn) => {
     btn.addEventListener('click', addExtraFormElement)
@@ -239,6 +252,7 @@ candidateRegisterForm && addMoreBtns.forEach((btn) => {
 // Add Extra forms
 function addExtraFormElement(e) {
     e.preventDefault()
+
     const div = document.createElement('div')
 
     if (e.currentTarget.classList.contains('qualification')) {
@@ -276,26 +290,38 @@ function addExtraFormElement(e) {
 // Trigger Functions
 candidateRegisterFormBtn.addEventListener('click', (e) => {
     e.preventDefault()
+    const location = JSON.parse(sessionStorage.getItem('location'))
 
     candidateProfileButtonText.style.display = 'none'
     candidateFormButtonSpinner.style.display = 'block'
 
-    const qualificationFormChildren = Array.from(qualificationFormContainer.querySelectorAll('.qualification-form'))
-    handleQualificationFormData(qualificationFormChildren)
+    const qualificationFormChildren = Array.from(
+        qualificationFormContainer.querySelectorAll('.qualification-form'))
 
-    const educationFormChildren = Array.from(educationFormContainer.querySelectorAll('.education-form'))
-    handleEducationFormData(educationFormChildren)
-
-    const experienceFormChildren = Array.from(experienceFormContainer.querySelectorAll('.experience-form'))
-    handleExperienceFormData(experienceFormChildren)
+    submitQualificationFormData(qualificationFormChildren, location.user)
 })
 
+
+function submitChildForms() {
+    const location = JSON.parse(sessionStorage.getItem('location'))
+
+    const educationFormChildren = Array.from(
+        educationFormContainer.querySelectorAll('.education-form'))
+
+    const experienceFormChildren = Array.from(
+        experienceFormContainer.querySelectorAll('.experience-form'))
+
+    submitEducationFormData(educationFormChildren, location.user)
+    submitExperienceFormData(experienceFormChildren, location.user)
+}
+
+
 // Candidate info form
-function handleQualificationFormData(data) {
+function submitQualificationFormData(data, user) {
     let formData = new FormData()
     let allFieldsValid = true
 
-    data.forEach((item) => {
+    data.forEach(async(item) => {
 
         const formIndex = parseInt(item.getAttribute('data-form-count'))
         const formID = parseInt(item.getAttribute('id'))
@@ -303,9 +329,14 @@ function handleQualificationFormData(data) {
         const dataInputs = Array.from(item.querySelectorAll('p > *'))
         .filter((ele) => ele.name)
 
+        dataInputs.push(resumeInput)
+
         dataInputs.forEach((input) => {
-            const fieldError = input.previousElementSibling
-            .previousElementSibling
+            let fieldError = null
+
+            if (input.name !== 'resume') {
+                fieldError = input.previousElementSibling.previousElementSibling
+            }
 
             if (!input.value && input.name !== 'resume') {
                 fieldError.style.display = 'grid'
@@ -316,9 +347,12 @@ function handleQualificationFormData(data) {
                 candidateFormButtonSpinner.style.display = 'none'
             }
             else {
-                fieldError.style.display = 'none'
+                if (fieldError) {
+                    fieldError.style.display = 'none'
+                }
             }
 
+            
             if (input.name === 'resume') {
                 formData.append(input.name, input.files[0])
             }
@@ -328,25 +362,29 @@ function handleQualificationFormData(data) {
         })
 
         if (allFieldsValid) {
+            formData.append('user', user)
+
             if (formID) {
                 formData.append('id', formID)
             }
-            registerCandidate(formData, 'qualification', item, formIndex)
+
+            const value = await registerCandidate(formData, 'qualification', item, formIndex)
             formData = new FormData()
         }
     })
 }
 
 // Candidate Education
-function handleEducationFormData(data) {
+function submitEducationFormData(data, user) {
     let formData = new FormData()
     let allFieldsValid = true
 
-    data.forEach((item) => {
-
+    data.forEach(async(item) => {
         const formIndex = parseInt(item.getAttribute('data-form-count'))
-        const formID = parseInt(item.getAttribute('id'))
+        const formID = item?.getAttribute('id') && parseInt(item.getAttribute('id')) || null
 
+        formData = new FormData()
+    
         const dataInputs = Array.from(item.querySelectorAll('p > *'))
         .filter((ele) => ele.name)
 
@@ -366,29 +404,31 @@ function handleEducationFormData(data) {
             }
             else {
                 fieldError.style.display = 'none'
+                formData.append(input.name, input.value)
             }
-            formData.append(input.name, input.value)
         })
 
+        if (formID) {
+            formData.append('id', formID)
+        }
+
         if (allFieldsValid) {
-            if (formID) {
-                formData.append('id', formID)
-            }
-            registerCandidate(formData, 'education', item, formIndex)
-            formData = new FormData()
+            formData.append('user', user)
+            const value = await registerCandidate(formData, 'education', item, formIndex)
         }
     })
 }
 
 // Candidate Experience
-function handleExperienceFormData(data) {
+function submitExperienceFormData(data, user) {
     let formData = new FormData()
     let allFieldsValid = true
-
-    data.forEach((item) => {
-        
+   
+    data.forEach(async(item) => {
         const formIndex = parseInt(item.getAttribute('data-form-count'))
         const formID = parseInt(item.getAttribute('id'))
+
+        formData = new FormData()
         
         const dataInputs = Array.from(item.querySelectorAll('p > *'))
         .filter((ele) => ele.name)
@@ -408,24 +448,24 @@ function handleExperienceFormData(data) {
             }
             else {
                 fieldError.style.display = 'none'
+                formData.append(input.name, input.value)
             }
-
-            formData.append(input.name, input.value)
         })
 
-        if (allFieldsValid) {
-            if (formID) {
-                formData.append('id', formID)
-            }
+        if (formID) {
+            formData.append('id', formID)
+        }
 
-            registerCandidate(formData, 'experience', item, formIndex)
-            formData = new FormData()
+        if (allFieldsValid) {
+            formData.append('user', user)
+            const value = await registerCandidate(formData, 'experience', item, formIndex)
         }
     })
 }
 
+
 async function registerCandidate(formData, type, item, formIndex) {
-    const url = `${window.location.origin}/candidates/register/?type=${type}`
+    const url = `${window.location.origin}/candidates/add/career/detail/?type=${type}`
     const csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value
 
     try {
@@ -437,6 +477,10 @@ async function registerCandidate(formData, type, item, formIndex) {
             body: formData
         })
         const data = await resp.json()
+        
+        if (data?.data_type === 'qualification') {
+            submitChildForms()
+        }
         
         if (data?.warning || data?.error) {
             handleFormErrorAndWarning(data)
@@ -451,9 +495,11 @@ async function registerCandidate(formData, type, item, formIndex) {
 
         const allSubmitted = checkAllFormsSubmitted()
         
-        if (allSubmitted) {
-            window.location.href = `${window.location.origin}/profile/`
-        }
+        // if (allSubmitted) {
+        //     window.location.href = `${window.location.origin}/profile/`
+        // }
+       
+        return data
     } 
     catch (error) {
         console.log(error.message, error.type)
@@ -480,6 +526,7 @@ function checkAllFormsSubmitted() {
 
     return isLastForm
 }
+
 
 function saveObjectIDs(data, item) {
     candidateProfileButtonText.style.display = 'flex'
@@ -510,45 +557,15 @@ function saveObjectIDs(data, item) {
 }
 
 
-function handleFormErrorAndWarning(data) {
-    window.scrollTo({top:0, left:0, behavior:"smooth"})
-
-    data?.error && candidateRegisterFormError.classList
-    .add('candidate-register-form-error')
-
-    candidateRegisterFormError.style.display = 'flex'
-    candidateRegisterFormError.innerHTML = `
-        <span>
-            ${data?.warning || data?.error}
-        </span>
-        <i 
-            class="
-                fas fa-close 
-                close-candidate-register-form-error
-            "
-        ></i>
-    `
-    // Close candidate register form warning
-    const closeCandidateRegisterFormError = document.querySelector(
-        '.close-candidate-register-form-error')
-
-    closeCandidateRegisterFormError.addEventListener('click', () => {
-        candidateRegisterFormError.style.display = 'none'
-    })
-}
-
-/* ===============================================================================
-THIS SECTION OF FUNCTIONS WILL BE CALLED IF THERE IS A DATA IN THE SESSION STORAGE
-================================================================================== */
-
 async function fetchPreviousFormData() {
-    const {education, experience} = JSON.parse(sessionStorage.getItem('form_ids'))
+    const {qualification, education, experience} = JSON.parse(sessionStorage.getItem('form_ids'))
     const url = `${window.location.origin}/candidates/fetch/form-data/`
     const csrfToken = getCsrfToken('csrftoken')
 
     const body = {
-        'education': Boolean(education.length) ? education : null,
-        'experience': Boolean(experience.length) ? experience : null
+        'qualification': qualification.length ? qualification : null,
+        'education': education.length ? education : null,
+        'experience': experience.length ? experience : null
     }
 
     const resp = await fetch(url, {
@@ -582,7 +599,7 @@ function renderPreviousFormInputs(data) {
 
 function formatQualificationInputTemplate(qualification) {
     if (!Boolean(qualification.length)) {
-        handleEmptyArray('education')
+        handleEmptyArray('qualification')
     }
     else {
         qualification.forEach((qua) => {
@@ -633,7 +650,7 @@ function formatQualificationInputTemplate(qualification) {
                         This field is required.
                     </span>
                     <label for="id_resume">Resume:</label>
-                    <input type="file" name="resume" accept="img/*" id="id_resume">
+                    <input type="file" name="resume" id="id_resume">
                 </p>
                 <p>
                     <span class="candidate-input-error-field">
@@ -649,8 +666,12 @@ function formatQualificationInputTemplate(qualification) {
             const option = Array.from(qualificationFormContainer.querySelectorAll('.qualification-form > p > select > option'))
             .find((element) => element.value == qua.industry.toLowerCase())
 
-            option.removeAttribute('value')
+            option.value = qua.industry.toLowerCase()
             option.setAttribute('selected', 'selected')
+
+            createCustomFileUplodInput()
+            resumeInput = document.querySelector('#id_resume')
+            resumeInput.setAttribute('onchange', 'handleResumeFileInput()')
         })
     }
 }
@@ -697,14 +718,14 @@ function formatEducationInputTemplate(education) {
                         This field is required.
                     </span>
                     <label for="id_start_date">Start date:</label>
-                    <input type="date" name="start_date" value='${edu.start_date}' id="id_start_date">
+                    <input type="date" name="start_date" onkeydown="return false" value='${edu.start_date}' id="id_start_date">
                 </p>
                 <p>
                     <span class="candidate-input-error-field">
                         This field is required.
                     </span>
                     <label for="id_completion_date">Completion date:</label>
-                    <input type="date" name="completion_date" value='${edu.completion_date}'id="id_completion_date">
+                    <input type="date" name="completion_date" onkeydown="return false" value='${edu.completion_date}' id="id_completion_date">
                 </p>`
             
             educationInputContainer.innerHTML = education
@@ -712,6 +733,7 @@ function formatEducationInputTemplate(education) {
         })
     }
 }
+
 
 function formatExperienceInputTemplate(experience) {
     if (!Boolean(experience.length)) {  
@@ -747,14 +769,14 @@ function formatExperienceInputTemplate(experience) {
                         This field is required.
                     </span>
                     <label for="id_start_date">Start date:</label>
-                    <input type="date" name="start_date" value='${ex.start_date}' id="id_start_date"> 
+                    <input type="date" name="start_date" onkeydown="return false" value='${ex.start_date}' id="id_start_date"> 
                 </p>
                 <p>
                     <span class="candidate-input-error-field">
                         This field is required.
                     </span>
                     <label for="id_end_date">End date:</label>
-                    <input type="date" name="end_date" value='${ex.end_date}' id="id_end_date">
+                    <input type="date" name="end_date" onkeydown="return false" value='${ex.end_date}' id="id_end_date">
                 </p>`
 
             experienceInputContainer.innerHTML = experience
@@ -769,7 +791,12 @@ function handleEmptyArray(dataType) {
     formsSent[formsCount] = false
     const div = document.createElement('div')
 
-    if (dataType === 'education') {
+    if (dataType === 'qualification') {
+        div.setAttribute('class', 'qualification-form candidate-form')
+        div.setAttribute('data-form-count', `${formsCount}`)
+    }
+
+    else if (dataType === 'education') {
         div.setAttribute('class', 'education-form candidate-form')
         div.setAttribute('data-form-count', `${formsCount}`)
     }
@@ -779,7 +806,11 @@ function handleEmptyArray(dataType) {
         div.setAttribute('data-form-count', `${formsCount}`)
     }
 
-    if (div.classList.contains('experience-form')) {
+    if (div.classList.contains('qualification-form')) {
+        div.innerHTML = qualificationElements
+        qualificationFormContainer.append(div)
+    }
+    else if (div.classList.contains('experience-form')) {
         div.innerHTML = experienceElements
         experienceFormContainer.append(div)
     }
@@ -787,6 +818,90 @@ function handleEmptyArray(dataType) {
         div.innerHTML = educationElements
         educationFormContainer.append(div)
     }
+
+    createCustomFileUplodInput()
+    resumeInput = document.querySelector('#id_resume')
+    resumeInput.setAttribute('onchange', 'handleResumeFileInput()')
+}
+
+
+function handleFormErrorAndWarning(data) {
+    window.scrollTo({top:0, left:0, behavior:"smooth"})
+
+    data?.error && candidateRegisterFormError.classList
+    .add('candidate-register-form-error')
+
+    candidateRegisterFormError.style.display = 'flex'
+    candidateRegisterFormError.innerHTML = `
+        <span>
+            ${data?.warning || data?.error}
+        </span>
+        <i 
+            class="
+                fas fa-close 
+                close-candidate-register-form-error
+            "
+        ></i>
+    `
+    // Close candidate register form warning
+    const closeCandidateRegisterFormError = document.querySelector(
+        '.close-candidate-register-form-error')
+
+    closeCandidateRegisterFormError.addEventListener('click', () => {
+        candidateRegisterFormError.style.display = 'none'
+    })
+}
+
+
+function createCustomFileUplodInput() {
+    const resumePath = JSON.parse(localStorage.getItem('resume'))
+
+    const div = document.createElement('div')
+    let a = null
+    const newLabel = document.createElement('label')
+
+    div.setAttribute('class', 'resume-input-wrapper')
+
+
+    if (resumePath?.resume) {
+        a = document.createElement('a')
+        a.setAttribute('href', resumePath.resume)
+        a.setAttribute('target', '_blank')
+        a.setAttribute('class', 'resume-url')
+        a.textContent = `Current: ${resumePath.resume.split('/').slice(-1)}`
+    }
+
+    newLabel.setAttribute('form', 'id_resume')
+    newLabel.textContent = 'Resume:'
+
+    const qualiForm = document.querySelector('.qualification-form')
+    const pTags = Array.from(qualiForm.querySelectorAll('p'))
+    const p2 = pTags[2]
+    const p3 = pTags[3]
+
+    const label = p2.querySelector('label')
+    const input = p2.querySelector('input')
+
+    label.textContent = 'Upload resume'
+    label.removeAttribute('for')
+    label.setAttribute('class', 'resume-input-wrapper-label')
+    label.append(input)
+    
+    div.append(label)
+    a && div.append(a)
+
+    p2.innerHTML = ''
+    p2.append(newLabel)
+    p2.append(div)
+
+    // candidate register form help text
+    const span = document.createElement('span')
+    const helpText = 'Skills must be separated by commas.'
+
+    span.setAttribute('class', 'candidate-register-form-help-text')
+   
+    span.innerHTML = helpText
+    p3.append(span)
 }
 
 
@@ -796,4 +911,56 @@ function getCsrfToken(csrftoken) {
     .split('=').slice(-1)[0].trim()
     
     return cookie || null
+}
+
+function handleResumeFileInput() {
+    const resumeInputWrapperLabel = document.querySelector('.resume-input-wrapper-label')
+    const resumeInputWrapper = document.querySelector('.resume-input-wrapper')
+    const resumeUrl = document.querySelector('.resume-url')
+    let selectedResume = document.querySelector('.selected-resume')
+
+    const p = document.createElement('p')
+    const value = resumeInput.value.split('\\').slice(-1)[0]
+
+    const elements = `
+        <span>Selected: ${value}</span>
+        <i class='fas fa-close remove-selected-resume'></i>`
+
+    p.style.overflow = 'hidden'
+    p.style.whiteSpace = 'nowrap'
+    p.style.textOverflow = 'ellipsis'
+    p.style.color = 'var(--black-30)'
+    p.style.display = 'flex'
+    p.style.gap = '1rem'
+    p.style.alignItems = 'center'
+
+    p.setAttribute('class', 'selected-resume')
+
+    if (value) {
+        
+        if (selectedResume) {
+            selectedResume.remove()
+        }
+        p.innerHTML = elements
+        resumeInputWrapper.insertBefore(p, resumeUrl)
+    }
+
+    const removeSelectedResume = document.querySelector('.remove-selected-resume')
+
+    
+    removeSelectedResume.addEventListener('click', (e) => {
+        selectedResume = document.querySelector('.selected-resume')
+        selectedResume.remove()
+        resumeInput.remove()
+
+        const input = document.createElement('input')
+        input.setAttribute('type', 'file')
+        input.setAttribute('name', 'resume')
+        input.setAttribute('accept', 'img/*')
+        input.setAttribute('id', 'id_resume')
+        input.setAttribute('onchange', 'handleResumeFileInput()')
+        
+        resumeInputWrapperLabel.append(input)
+        resumeInput = document.querySelector('#id_resume')
+    })
 }

@@ -85,17 +85,21 @@ def contact_view(request):
 
 
 @user_login_required
-def candidate_register_view(request):
+def candidate_add_career_detail_view(request):
     user = request.user
     data_type = request.GET.get('type')
     data = request.POST
-    resume = user.profile.candidatequalification.\
-        get_resume_url()
 
-    # if not request.user.profile.user_type:
-    #     message = '?message=Please complete your profile.'
-    #     return redirect(f'{reverse('accounts:profile-update')}{message}')
+    try:
+        resume = user.profile.candidatequalification\
+        .get_resume_url()
+    except CandidateQualification.DoesNotExist:
+        resume = None
 
+    if not request.user.profile.user_type:
+        message = '?message=Please complete your profile.'
+        return redirect(f'{reverse('accounts:profile-update')}{message}')
+    
     if request.method == 'POST':
         if data_type == 'qualification':
             resume = request.FILES.get('resume')
@@ -123,18 +127,19 @@ def candidate_register_view(request):
             )
             return JsonResponse(context)
         
-    context = {'resume': resume or None}
+    context = {'resume': resume or ''}
     
-    return render(request, 'candidates/candidates_register.html', context)
+    return render(request, 'candidates/candidates_add_career_detail.html', context)
 
 
 def get_form_data_view(request):
     data = json.loads(request.body.decode('utf-8'))
     
+    qualification = data.get('qualification')
     education = data.get('education')
     experience = data.get('experience')
 
-    context = fetch_previous_form_data(education, experience)
+    context = fetch_previous_form_data(qualification, education, experience)
     return JsonResponse(context)
 
 

@@ -75,7 +75,6 @@ inputs.forEach((input) => {
     events.forEach((eventType) => {
         if (eventType === 'click') {
             input.addEventListener(eventType, (e) => {
-
                 inputRows.forEach((row) => {
                     row.classList.remove('row-focus')
                     row.lastElementChild.classList.remove('show-suggestions')
@@ -83,7 +82,7 @@ inputs.forEach((input) => {
 
                 const currentItem = e.currentTarget
                 currentItem.parentElement.classList.add('row-focus')
-                currentItem.nextElementSibling.nextElementSibling.classList.add('show-suggestions')
+                currentItem.nextElementSibling.nextElementSibling?.classList.add('show-suggestions')
             })
         }else {
             handleKeyUpEvent(eventType)
@@ -97,7 +96,7 @@ clearTextBtns.forEach((btn) => {
         const previousSibling = e.currentTarget.previousElementSibling
         previousSibling.value = ''
         e.currentTarget.style.display = 'none'
-        e.currentTarget.nextElementSibling.classList.remove('show-suggestions')
+        e.currentTarget.nextElementSibling?.classList.remove('show-suggestions')
         searchSubmitBtn.disabled = true
     })
 })
@@ -244,6 +243,7 @@ function handleKeyUpEvent(eventType) {
         let timeoutID;
 
         return (e) => {
+            console.log(e.type)
             clearTimeout(timeoutID)
             timeoutID = setTimeout(() => {
                 const {name, value} = e.target

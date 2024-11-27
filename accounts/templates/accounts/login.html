@@ -43,9 +43,9 @@
                     Welcome Back!
                 </h3>
                 <p class="login-form-text">
-                    Log in to access your account, connect with opportunities, 
-                    and manage your journey, whether you’re seeking a 
-                    role or hiring talent. Let’s get started!
+                    Log in to access your account, 
+                    connect with opportunities, 
+                    and manage your journey.
                 </p>
             </div>
             {% if error %} <p class='errorlist'>{{ error }}</p> {% endif %}
@@ -75,5 +75,24 @@
         </div>
     </div>
 {% endblock content %}
+
+{% block js %}
+
+    <script>
+        
+        const loginForm = document.querySelector('.login-from')
+        const loginFormlabels = Array.from(loginForm.querySelectorAll('label'))
+
+        loginFormlabels.forEach((label) => {
+            const textValue = label.textContent.slice(0, -1)
+            label.innerHTML = `
+                <span>${textValue}</span>
+                <span style="color: red">*</span>
+            `
+        })
+
+    </script>
+
+{% endblock js %}
 
 {% block footer %}{% endblock footer %}

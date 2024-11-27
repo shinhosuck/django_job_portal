@@ -28,11 +28,14 @@
                 {% with request.resolver_match.url_name as url_name %}
                     <div class="form-navlinks">
                         <a class='navlink' href="{% url 'candidates:landing-page' %}">Home</a>
+                        <a class='navlink'href="{% url 'candidates:jobs' %}">
+                            Jobs
+                        </a>
                         <a class="
-                            {% if url_name == 'candidate-register' %}active-link{% endif %} navlink" 
-                            href="{% url 'candidates:candidate-register' %}"
+                            {% if url_name == 'candidate-add-career-detail' %}active-link{% endif %} navlink" 
+                            href="{% url 'candidates:candidate-add-career-detail' %}"
                         >
-                            Add Skill
+                            Career Detail
                         </a>
                     </div>
                 {% endwith %}
@@ -70,7 +73,7 @@
                     </button>
                 </div>
                 <button type='submit' class="candidate-register-form-btn">
-                    <span class="candidate-profile-button-text">Create Profile</span>
+                    <span class="candidate-profile-button-text">Save Application</span>
                     <span class="candidate-form-button-spinner hide-form-btn-content"></span>
                 </button>
             </form>
@@ -83,7 +86,8 @@
 
     <script>
 
-        const resume_url = '{{ resume }}'
+        let resume_url = '{{ resume }}'
+    
         localStorage.setItem('resume', JSON.stringify({resume:resume_url}))
         
         {% comment %} const div = document.createElement('div')

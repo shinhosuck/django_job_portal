@@ -119,17 +119,3 @@ function handleToggleEvent(helpTextList) {
         }
     })
 }
-
-// Profile Form
-const profileUpdateCloseMessageBtn = document.querySelector(
-    '.profile-update-close-message'
-    )
-const warningMessage = document.querySelector('.profile-form > .warning')
-
-
-profileUpdateCloseMessageBtn && profileUpdateCloseMessageBtn.addEventListener('click', () => {
-    warningMessage.style.display = 'none'
-
-    const url = window.location.href.split('?').slice(0, -1).join()
-    window.location.href = url
-})
