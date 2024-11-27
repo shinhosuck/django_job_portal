@@ -33,6 +33,7 @@
     --success: var(--green-30);
     --error: hsl(16, 100%, 50%);
     --warning: hsl(38, 80%, 49%);
+    --info: var(--black-40);
 }
 
 ::before,
@@ -63,6 +64,11 @@ li {
 input {
     width: 100%;
     box-sizing: border-box;
+    font-size: 1rem !important;
+    font-family: "Inter", sans-serif;
+}
+
+select {
     font-size: 1rem !important;
     font-family: "Inter", sans-serif;
 }
@@ -120,6 +126,10 @@ button {
 
 .error {
     background: var(--error)
+}
+
+.info {
+    background: var(--info);
 }
 
 .message-container > p {
