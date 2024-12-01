@@ -3,7 +3,6 @@ from django.conf import settings
 from utils.choices import USER_TYPE_CHOICES
 from django.urls import reverse
 from django_countries.fields import CountryField
-# from phonenumber_field.modelfields import PhoneNumberField
 
 User = settings.AUTH_USER_MODEL 
 

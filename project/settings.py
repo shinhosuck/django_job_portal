@@ -25,7 +25,6 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'social_django',
     'django_countries',
-    'phonenumber_field',
     # my app
     'candidates.apps.CandidatesConfig',
     'employers.apps.EmployersConfig',
