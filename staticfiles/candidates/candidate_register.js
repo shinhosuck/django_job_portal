@@ -219,6 +219,7 @@ async function createInputElements(e) {
 
     resumeInput = document.querySelector('#id_resume')
     resumeInput.setAttribute('onchange', 'handleResumeFileInput()')
+    scrollToElement()
 }
 
 async function preFillFormData() {
@@ -254,9 +255,15 @@ function addExtraFormElement(e) {
     e.preventDefault()
 
     const div = document.createElement('div')
-    div.addEventListener('click', (e)=> e.preventDefault())
-    const button = '<button type="button" class="remove-candidate-career-form">Remove</button>'
 
+    // prevent from scrolling to the top on mobile/prevent from input being focussed.
+    div.addEventListener('click', (e)=> e.preventDefault())
+    const button = `<button 
+                        type="button" 
+                        class="remove-candidate-career-form"
+                    >
+                        Remove
+                    </button>`
 
     if (e.currentTarget.classList.contains('qualification')) {
         formsCount ++
@@ -289,8 +296,8 @@ function addExtraFormElement(e) {
         experienceFormContainer.append(div)
     }
 
-    const removeCandidateCareerFormsBtns = Array.from(document.querySelectorAll(
-        '.remove-candidate-career-form'))
+    const removeCandidateCareerFormsBtns = Array.from(
+        document.querySelectorAll('.remove-candidate-career-form'))
     
     handleRemoveFormBtns(removeCandidateCareerFormsBtns)
 }
@@ -298,6 +305,7 @@ function addExtraFormElement(e) {
 
 function handleRemoveFormBtns(btns) {
     btns.forEach((btn) => {
+        console.log(btn)
         btn.addEventListener('click', (e) => {
             e.preventDefault()
             e.currentTarget.parentElement.remove()
@@ -390,6 +398,10 @@ function submitQualificationFormData(data, user) {
             const value = await registerCandidate(formData, 'qualification', item, formIndex)
             formData = new FormData()
         }
+        else {
+            const element = document.querySelector('#qualification')
+            element.scrollIntoView({behavior:'smooth'})
+        }
     })
 }
 
@@ -435,6 +447,10 @@ function submitEducationFormData(data, user) {
             formData.append('user', user)
             const value = await registerCandidate(formData, 'education', item, formIndex)
         }
+        else {
+            const element = document.querySelector('#education')
+            element.scrollIntoView({behavior:'smooth'})
+        }
     })
 }
 
@@ -478,6 +494,10 @@ function submitExperienceFormData(data, user) {
         if (allFieldsValid) {
             formData.append('user', user)
             const value = await registerCandidate(formData, 'experience', item, formIndex)
+        }
+        else {
+            const element = document.querySelector('#experience')
+            element.scrollIntoView({behavior:'smooth'})
         }
     })
 }
@@ -973,4 +993,22 @@ function handleResumeFileInput() {
         resumeInputWrapperLabel.append(input)
         resumeInput = document.querySelector('#id_resume')
     })
+}
+
+
+function scrollToElement() {
+    const scroll = JSON.parse(localStorage.getItem('scroll_to'))
+    const container = scroll?.dataType && document.querySelector(`#${scroll.dataType}`)
+    let newFocusInput = null
+
+    if (scroll?.dataType) {
+        if (scroll.dataType === 'qualification') {
+            newFocusInput = Array.from(container.querySelectorAll('select'))[0]
+        }
+        else {
+            newFocusInput = container && Array.from(container.querySelectorAll('input'))[0]
+        }
+        newFocusInput.focus()
+        container.scrollIntoView({behavior:"smooth"})
+    }
 }

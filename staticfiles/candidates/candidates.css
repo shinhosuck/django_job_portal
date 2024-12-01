@@ -332,8 +332,14 @@
     position: absolute;
     right: 1.5rem;
     top: 0.5rem;
+    z-index: 3;
     width: auto;
     height: auto;
+    background: var(--black-30);
+    color: white;
+    font-size: 0.9rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 0.3rem;
 }
 
 .qualification-form > p,
@@ -509,7 +515,7 @@
 
 .candidate-register-form-help-text {
     font-size: 0.9rem;
-    color: var(--black-30);
+    color: var(--black-50);
 }
 
 
@@ -740,7 +746,7 @@
 .image-input-wrapper {
 	padding: 0.6rem 1rem;
     color: white;
-    background: var(--green-30);
+    background: var(--black-30);
     border-radius: 5px;
     overflow: hidden;
     white-space: nowrap;

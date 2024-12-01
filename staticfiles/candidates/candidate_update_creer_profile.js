@@ -1,9 +1,9 @@
 const form = document.querySelector('.candidate-update-form')
 const formInputRows = Array.from(form.querySelectorAll('p'))
-const data = localStorage.getItem('data_type')
+const data = JSON.parse(localStorage.getItem('selectForm'))
 
-const loadFunction = data === 'profile' && updateCandidateProfile || 
-                    data === 'qualification' && updateCandidateQualification 
+const loadFunction = data?.dataType === 'profile' && updateCandidateProfile() || 
+                    data?.dataType === 'qualification' && updateCandidateQualification()
 
 window.addEventListener('DOMContentLoaded', hideFormInutUserType)
 
@@ -17,14 +17,13 @@ function hideFormInutUserType() {
         }
         element.setAttribute('class', 'form-input-row')
     })
-
-    loadFunction()
 }
 
 
 // PROFILE FORM
 // Profile form first input/profile image input
 function updateCandidateProfile() {
+    console.log('hello')
     const profileImageInputRow = formInputRows[0]
     const children = Array.from(profileImageInputRow.querySelectorAll('*'))
 
@@ -62,7 +61,7 @@ function updateCandidateProfile() {
             label.append(input)
             
             newDiv.append(label)
-            newDiv.append(anchor)
+            anchor && newDiv.append(anchor)
 
             newLabel.textContent = 'Profile image:'
 
@@ -116,7 +115,7 @@ function updateCandidateQualification() {
     newLabel.textContent = 'Resume:'
 
     newDiv.append(label)
-    newDiv.append(a)
+    a && newDiv.append(a)
     newDiv.setAttribute('class', 'new-input-container')
 
     resumeFormInputRow.innerHTML = ''
