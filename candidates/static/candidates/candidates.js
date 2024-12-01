@@ -3,7 +3,8 @@ async function get_user_ip() {
     sessionStorage.clear()
     
     const url = `${window.location.origin}/candidates/location/`
-    const location = JSON.parse(sessionStorage.getItem('location'))
+    let location = JSON.parse(sessionStorage.getItem('location'))
+    const locationFlags = Array.from(document.querySelectorAll('.location-flag'))
 
     try {
         const resp = await fetch(url, {
@@ -13,10 +14,30 @@ async function get_user_ip() {
             }
         })
         const data = await resp.json()
+
         if (resp.ok) {
             if (data?.user !== location?.user || !location) {
                 sessionStorage.setItem('location', JSON.stringify(data))
+                location = JSON.parse(sessionStorage.getItem('location'))
             }
+
+            console.log(location)
+
+            const offset = 127397
+
+            const flag = Array.from(location.country_code)
+            .map((char)=>String.fromCodePoint(char.charCodeAt(0)+offset)).join('')
+
+            locationFlags.forEach((item) => {
+                item.innerHTML = `
+                <span>Country:</span>
+                <span>${flag}</span>
+                <span style="font-size: 0.9rem">
+                    ${location.country_code}
+                </soan>`
+                item.style.color = 'white'
+                item.style.fontSize = '0.9rem'
+            })
         }
     } 
     catch (error) {

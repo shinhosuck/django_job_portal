@@ -48,7 +48,7 @@
     margin: 0 auto;
     display: grid;
     align-content: start;
-    gap: 1.2rem;
+    gap: 1.5rem;
     padding: 1.5rem;
     border-radius: 8px;
     background: white;
@@ -101,7 +101,7 @@
     border: 1px solid var(--black-80);
     padding: 1rem;
     border-radius: 5px;
-    color: var(--black-20);
+    color: var(--black-30);
     letter-spacing: 0.03rem;
 }
 
@@ -213,7 +213,7 @@
     margin: 0 auto;
     display: grid;
     align-content: start;
-    gap: 1.2rem;
+    gap: 1.5rem;
     padding: 1.5rem;
     border-radius: 8px;
     border: 1px solid var(--black-80)
@@ -235,9 +235,8 @@
     border: 1px solid var(--black-80);
     padding: 1rem;
     border-radius: 5px;
-    color: var(--black-20);
+    color: var(--black-30) !important;
     letter-spacing: 0.03rem;
-    font-size: 1rem;
 }
 
 .login-form-login-btn {
@@ -539,7 +538,7 @@ br {
     border: 1px solid var(--black-80);
     padding: 1rem;
     border-radius: 5px;
-    color: var(--black-20);
+    color: var(--black-30);
     letter-spacing: 0.03rem;
 }
 
@@ -548,7 +547,6 @@ br {
     box-sizing: border-box;
     width: 100%;
 }
-
 
 .profile-input-row > select:focus {
     outline: 3px solid var(--green-70);
@@ -593,3 +591,183 @@ br {
     }
 }
 
+/* CANDIDATE PROFILE INFO */
+.candidate-profile-info-container {
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 0;
+
+    display: grid;
+    align-content: start;
+    gap: 2rem;
+}
+
+.candidate-profile-row {
+    display: grid;
+    align-content: start;
+    gap: 3rem;
+}
+
+.user-profile-image-name {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.profile-image-container {
+    justify-self: center;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    padding: 1rem 1.1rem;
+    background: var(--black-90)
+}
+
+.profile-image-container > img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.profile-name {
+    text-align: center;
+}
+
+.profile-personal-info {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+}
+
+.candidate-profile-header {
+    color: var(--black-10);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 1.25rem;
+}
+
+.candidate-profile-header > a {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--green-25)
+}
+
+@media (hover) {
+    .candidate-profile-header > a:hover {
+        color: var(--green-35);
+    }
+}
+
+.profile-user-info-container {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--black-80)
+}
+
+
+.candidate-profile-experience-row,
+.candidate-profile-education-row {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+}
+
+.candidate-profile-experiences,
+.candidate-profile-educations {
+    display: grid;
+    align-content: start;
+    gap: 1.5rem;
+}
+
+.candidate-profile-experience,
+.candidate-profile-education {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--black-80);
+}
+
+.profile-user-info-row > a,
+.profile-user-info-row > p:last-child{
+    color: var(--black-10);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.profile-user-info-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    overflow: hidden;
+}
+
+.profile-user-info-row > i {
+    color: var(--black-60);
+    padding-right: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.profile-user-info-row > p:first-child {
+    color: var(--black-50);
+    font-weight: 500;
+    text-wrap: nowrap;
+}
+
+.profile-qualification-skill {
+    background: var(--black-90);
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: var(--black-10)
+}
+
+.candidate-profile-form-update-mobile {
+    padding: 0.6rem 1.5rem;
+    color: white;
+    border-radius: 5px;
+    justify-self: end;
+    background: var(--green-30);
+    color: white;
+}
+
+.candidate-profile-form-update {
+    justify-self: end;
+    color: var(--green-30);
+    display: none;
+}
+
+@media (hover) {
+    .candidate-profile-form-update:hover {
+        font-weight: 600;
+        color: var(--green-35);
+    }
+
+}
+
+@media screen and (min-width: 600px) {
+    .candidate-profile-form-update-mobile {
+        display: none;
+    }
+
+    .candidate-profile-form-update {
+        display: block;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .candidate-profile-info-container {
+        padding: 3rem 0;
+    }
+}

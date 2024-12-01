@@ -150,8 +150,32 @@ def logout_view(request):
 
 @user_login_required
 def profile_view(request):
+    scroll_to = request.GET.get('data_type')
     profile = request.user.profile
+    qualification = None
+    educations = None 
+    experiences = None 
+
+    try:
+        qualification = profile.candidatequalification
+    except CandidateQualification.DoesNotExist:
+        qualification = None 
+
+    if qualification:
+        educations = qualification.educations.all()
+        experiences = qualification.experiences.all()
+
+    resume = qualification and qualification.resume \
+            and qualification.resume.url or None
+    skills = qualification and qualification.skills or None
+
     context = {
-        'profile': profile
+        'skills':skills and skills.split(' '),
+        'resume': resume and resume.split('/')[-1],
+        'profile': profile,
+        'qualification': qualification,
+        'educations': educations,
+        'experiences': experiences,
+        'scroll_to': scroll_to or ''
     }
     return render(request, 'accounts/profile.html', context)

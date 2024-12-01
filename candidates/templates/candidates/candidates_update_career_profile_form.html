@@ -1,0 +1,72 @@
+{% extends "candidates/candidates_index.html" %}
+{% load static %}
+
+{% block title %}
+    Update {{ data_type }}
+{% endblock title %}
+
+{% block navbar %}{% endblock navbar %}
+
+{% block content %}
+    <div class="candidate-update-form-container">
+        <div class="form-navbar">
+            <a href="
+                {% if next %}
+                    {{ next }}
+                {% else %}
+                    {% url 'candidates:landing-page' %}
+                {% endif %}" 
+                class="logo-container"
+            >
+                <span class="logo-header">HireSpot</span>
+            </a>
+            <button class="form-navlinks-toggle-btn">
+                <i class="fas fa-bars form-show-navlinks"></i>
+                <i class="fas fa-times form-remove-navlinks remove-form-navlinks-toggle-btn-child"></i>
+            </button>
+            {% with request.resolver_match.url_name as url_name %}
+                <div class="form-navlinks">
+                    <a class='navlink' href="{% url 'candidates:landing-page' %}">Home</a>
+                    <a class='navlink'href="{% url 'candidates:jobs' %}">
+                        Jobs
+                    </a>
+                    <a class="
+                        {% if url_name == 'candidate-update-profile-info' %}active-link{% endif %} navlink" 
+                        href="{% url 'accounts:profile' %}"
+                    >
+                        Update {{ data_type|capfirst }}
+                    </a>
+                </div>
+            {% endwith %}
+        </div>
+        <div class="profile-form-header-text-container">
+            <h2 class="profile-form-name">
+                Enhance Your {{ data_type|capfirst }}
+            </h2>
+            <p class="profile-form-text">
+                Boost your job search. Update your {{ data_type }} for more accurate job matches.
+            </p>
+        </div>
+        <form 
+            action="{% url 'candidates:candidate-update-profile-info' slug %}?redirect_url={{ redirect_url }}&data_type={{data_type}}"
+            method="POST" enctype="multipart/form-data", class='candidate-update-form'
+        >
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="candidate-update-form-btn">Update</button>
+        </form>
+    </div>
+{% endblock content %}
+
+{% block js %}
+    <script type="text/javascript">
+        const dataType = '{{ data_type }}'
+        
+        localStorage.setItem('data_type', dataType)
+
+    </script>
+
+    <script type="text/javascript" src="{% static 'candidates/candidate_update_creer_profile.js' %}"></script>
+{% endblock js %}
+
+{% block footer %}{% endblock footer %}

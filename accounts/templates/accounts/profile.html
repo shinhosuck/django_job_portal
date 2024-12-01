@@ -8,27 +8,302 @@
 {% block navbar %}{% endblock navbar %}
 
 {% block content %}
-    <div class='profile-container'>
-        <h1>{{ request.user.username }}'s Profile</h1>
-
-        <div class="profile-user-info-container">
-            <div>
-                <div>
+    <div class='candidate-profile-info-container'>
+        <div class="form-navbar">
+            <a href="
+                {% if next %}
+                    {{ next }}
+                {% else %}
+                    {% url 'candidates:landing-page' %}
+                {% endif %}" 
+                class="logo-container"
+            >
+                <span class="logo-header">HireSpot</span>
+            </a>
+            <button class="form-navlinks-toggle-btn">
+                <i class="fas fa-bars form-show-navlinks"></i>
+                <i class="fas fa-times form-remove-navlinks remove-form-navlinks-toggle-btn-child"></i>
+            </button>
+            {% with request.resolver_match.url_name as url_name %}
+                <div class="form-navlinks">
+                    <a class='navlink' href="{% url 'candidates:landing-page' %}">Home</a>
+                    <a class='navlink'href="{% url 'candidates:jobs' %}">
+                        Jobs
+                    </a>
+                    <a class="
+                        {% if url_name == 'profile' %}active-link{% endif %} navlink" 
+                        href="{% url 'accounts:profile' %}"
+                    >
+                        Career Profile
+                    </a>
+                </div>
+            {% endwith %}
+        </div>
+        <div class="candidate-profile-row">
+            <div class="user-profile-image-name">
+                <div class="profile-image-container">
                     <img src="{{ profile.get_profile_image_url }}" alt="">
                 </div>
-                <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
+                <h2 class="profile-name">{{ profile.first_name }} {{ profile.last_name }}</h2>
             </div>
-            <div>
-                <i class="fa-solid fa-envelope"></i>
-                <p>{{ profile.email }}</p>
-            </div>
-            <div>
-                <i class="fa-solid fa-phone"></i>
-                <p>{{ profile.phone }}</p>
+            <div id="profile" class='profile-personal-info'>
+                <h3 class="candidate-profile-header">Personal Information</h3>
+                <div style="display: grid; gap: 0.5rem">
+                    <div class="profile-user-info-container">
+                        <div style="display:grid;align-content:start;gap:1rem;">
+                            <div class="profile-user-info-row">
+                                <p>Email:</p>
+                                <p>{{ profile.email }}</p>
+                            </div>
+                            <div class="profile-user-info-row">
+                                <p>Phone number:</p>
+                                {% if profile.phone_number %}
+                                    <p>{{ profile.phone_number }}</p>
+                                {% else %}
+                                    <p>N/A</p>
+                                {% endif %}
+                            </div>
+                            <div class="profile-user-info-row">
+                                <p>Address:</p>
+                                <p>{{ profile.address }} {{ profile.city }} {{ profile.country }}</p>
+                            </div>
+                            <div class="profile-user-info-row">
+                                <p>Social site:</p>
+                                {% if profile.social_link %}
+                                    <p>{{ profile.social_link }}</p>
+                                {% else %}
+                                    <p>N/A</p>
+                                {% endif %}
+                            </div>
+                            <div class="profile-user-info-row">
+                                <p>Personal/portfolio site:</p>
+                                {% if profile.portfolio_or_personal_website %}
+                                    <p>{{ profile.portfolio_or_personal_website }}</p>
+                                {% else %}
+                                    <p>N/A</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if request.user == profile.user %}
+                            <a href="
+                                {% url 'candidates:candidate-update-profile-info' profile.slug %}?data_type=profile"
+                                class="candidate-profile-form-update"
+                            >
+                                <span>Update</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                    {% comment %} Mobile {% endcomment %}
+                    {% if request.user == profile.user %}
+                        <a href="
+                            {% url 'candidates:candidate-update-profile-info' profile.slug %}?data_type=profile"
+                            class="candidate-profile-form-update-mobile"
+                        >
+                            <span>Update</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    {% endif %}
+                    {% comment %} End {% endcomment %}
+                </div>
             </div>
         </div>
+        <div id="qualification" class="profile-personal-info">
+            <h3 class="candidate-profile-header">
+                <span>Qualification</span>
+                {% if not qualification %}
+                    <a href="{% url 'candidates:candidate-add-career-detail' %}?scroll_to=qualification">
+                        <span>Add qualification</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                {% endif %}
+            </h3>
+            {% if qualification %}
+                <div style="display: grid; gap: 0.5rem">
+                    <div class="profile-user-info-container">
+                        <div style="display:grid;align-content:start;gap:1rem;">
+                            <div class="profile-user-info-row">
+                                <p>Industry:</p>
+                                <p>{{ qualification.industry|capfirst }}</p>
+                            </div>
+                            <div class="profile-user-info-row">
+                                <p>Job title:</p>
+                                <p>{{ qualification.job_title }}</p>
+                            </div>
+                            <div class="profile-user-info-row">
+                                <p>Resume:</p>
+                                {% if resume %}
+                                    <a href="{{ qualification.resume.url }}"  target="_blank">{{ resume|lower }}</a>
+                                {% else %}
+                                    <p>Not available</p>
+                                {% endif %}
+                            </div>
+                            <div class="profile-user-info-row">
+                                <p>Skills:</p>
+                                {% for skill in skills %}
+                                    <span class="profile-qualification-skill">{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% if request.user == qualification.profile.user %}
+                            <a href="
+                                {% url 'candidates:candidate-update-profile-info' qualification.slug %}?data_type=qualification"
+                                class="candidate-profile-form-update"
+                            >
+                                <span>Update</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                    {% comment %} Mobile {% endcomment %}
+                    {% if request.user == qualification.profile.user %}
+                        <a href="
+                            {% url 'candidates:candidate-update-profile-info' qualification.slug %}?data_type=qualification"
+                            class="candidate-profile-form-update-mobile"
+                        >
+                            <span>Update</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    {% endif %}
+                    {% comment %} End {% endcomment %}
+                </div>
+            {% endif %}
+        </div>
+        <div id="education" class="candidate-profile-education-row">
+            <h3 class="candidate-profile-header">
+                <span>Education</span>
+                {% if not educations%}
+                    <a href="{% url 'candidates:candidate-add-career-detail' %}?scroll_to=education">
+                        <span>Add education</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                {% endif %}
+            </h3>
+            {% if educations %}
+                <div class="candidate-profile-educations">
+                    {% for edu in educations %}
+                        <div style="display: grid; gap: 0.5rem">
+                            <div class="candidate-profile-education">
+                                <div style="display:grid;align-content:start;gap:1rem;">
+                                    <div class="profile-user-info-row">
+                                        <p>Major:</p>
+                                        <p>{{ edu.major }}</p>
+                                    </div>
+                                    <div class="profile-user-info-row">
+                                        <p>Degree:</p>
+                                        <p>{{ edu.degree }}</p>
+                                    </div>
+                                    <div class="profile-user-info-row">
+                                        <p>Institution:</p>
+                                        <p>{{ edu.institution }}</p>
+                                    </div>
+                                    <div class="profile-user-info-row">
+                                        <p>Start date:</p>
+                                        <p>{{ edu.start_date }}</p>
+                                    </div>
+                                    <div class="profile-user-info-row">
+                                        <p>End date:</p>
+                                        <p>{{ edu.completion_date }}</p>
+                                    </div>
+                                </div>
+                                {% if request.user == qualification.profile.user %}
+                                    <a 
+                                        href="{% url 'candidates:candidate-update-profile-info' edu.slug %}?data_type=education" 
+                                        class="candidate-profile-form-update"
+                                    >
+                                        <span>Update</span>
+                                        <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                            {% comment %} Mobile {% endcomment %}
+                            {% if request.user == qualification.profile.user %}
+                                <a 
+                                    href="{% url 'candidates:candidate-update-profile-info' edu.slug %}?data_type=education" 
+                                    class="candidate-profile-form-update-mobile"
+                                >
+                                    <span>Update</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            {% endif %}
+                            {% comment %} End {% endcomment %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
         
+        <div class="candidate-profile-experience-row">
+            <h3 class="candidate-profile-header">
+                <span>Experience</span>
+                {% if not experiences %}
+                    <a href="{% url 'candidates:candidate-add-career-detail' %}?scroll_to=experience">
+                        <span>Add experience</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                {% endif %}
+            </h3>
+            {% if experiences %}
+                <div id="experience" class="candidate-profile-experiences">
+                    {% for exp in experiences %}
+                        <div style="display: grid; gap: 0.5rem">
+                            <div class="candidate-profile-experience">
+                                <div style="display:grid;align-content:start;gap:1rem;">
+                                    <div class="profile-user-info-row">
+                                        <p>Company name:</p>
+                                        <p>{{ exp.company_name }}</p>
+                                    </div>
+                                    <div class="profile-user-info-row">
+                                        <p>Position:</p>
+                                        <p>{{ exp.position }}</p>
+                                    </div>
+                                    <div class="profile-user-info-row">
+                                        <p>Start date:</p>
+                                        <p>{{ exp.start_date }}</p>
+                                    </div>
+                                    <div class="profile-user-info-row">
+                                        <p>End date:</p>
+                                        <p>{{ exp.end_date }}</p>
+                                    </div>
+                                </div>
+                                {% if request.user == qualification.profile.user %}
+                                    <a 
+                                        href="{% url 'candidates:candidate-update-profile-info' exp.slug %}?data_type=experience" 
+                                        class="candidate-profile-form-update"
+                                    >
+                                        <span>Update</span>
+                                        <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                            {% comment %} Mobile {% endcomment %}
+                            {% if request.user == qualification.profile.user %}
+                                <a 
+                                    href="{% url 'candidates:candidate-update-profile-info' exp.slug %}?data_type=experience" 
+                                    class="candidate-profile-form-update-mobile"
+                                >
+                                    <span>Update</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            {% endif %}
+                            {% comment %} End {% endcomment %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
     </div>
 {% endblock content %}
+
+{% block js %}
+    <script>
+        const scrollTo = "{{ scroll_to }}"
+
+        if (scrollTo) {
+            window.location.href = `#${scrollTo}`
+        } 
+
+    </script>
+{% endblock js %}
 
 {% block footer %}{% endblock footer %}

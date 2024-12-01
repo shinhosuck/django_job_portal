@@ -178,7 +178,7 @@ async function createInputElements(e) {
             qualificationInputContainer.setAttribute('data-form-count', `${formsCount}`)
             formsSent[formsCount] = false
             qualificationInputContainer.innerHTML = qualificationElements
-            qualificationFormContainer.append(qualificationInputContainer)
+            qualificationFormContainer && qualificationFormContainer.append(qualificationInputContainer)
             createCustomFileUplodInput()
         }
 
@@ -254,6 +254,9 @@ function addExtraFormElement(e) {
     e.preventDefault()
 
     const div = document.createElement('div')
+    div.addEventListener('click', (e)=> e.preventDefault())
+    const button = '<button type="button" class="remove-candidate-career-form">Remove</button>'
+
 
     if (e.currentTarget.classList.contains('qualification')) {
         formsCount ++
@@ -272,7 +275,7 @@ function addExtraFormElement(e) {
        
         formsSent[formsCount] = false
 
-        div.innerHTML = educationElements
+        div.innerHTML = button + educationElements
         educationFormContainer.append(div)
     }
     else if (e.currentTarget.classList.contains('experience')){
@@ -282,13 +285,29 @@ function addExtraFormElement(e) {
         
         formsSent[formsCount] = false
 
-        div.innerHTML = experienceElements
+        div.innerHTML = button + experienceElements
         experienceFormContainer.append(div)
     }
+
+    const removeCandidateCareerFormsBtns = Array.from(document.querySelectorAll(
+        '.remove-candidate-career-form'))
+    
+    handleRemoveFormBtns(removeCandidateCareerFormsBtns)
 }
 
+
+function handleRemoveFormBtns(btns) {
+    btns.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault()
+            e.currentTarget.parentElement.remove()
+        })
+    })
+}
+
+
 // Trigger Functions
-candidateRegisterFormBtn.addEventListener('click', (e) => {
+candidateRegisterFormBtn && candidateRegisterFormBtn.addEventListener('click', (e) => {
     e.preventDefault()
     const location = JSON.parse(sessionStorage.getItem('location'))
 
@@ -495,9 +514,9 @@ async function registerCandidate(formData, type, item, formIndex) {
 
         const allSubmitted = checkAllFormsSubmitted()
         
-        // if (allSubmitted) {
-        //     window.location.href = `${window.location.origin}/profile/`
-        // }
+        if (allSubmitted) {
+            window.location.href = `${window.location.origin}/profile/`
+        }
        
         return data
     } 
@@ -661,7 +680,7 @@ function formatQualificationInputTemplate(qualification) {
                 </p>`
 
             qualificationInputContainer.innerHTML = qualification
-            qualificationFormContainer.append(qualificationInputContainer)
+            qualificationFormContainer && qualificationFormContainer.append(qualificationInputContainer)
 
             const option = Array.from(qualificationFormContainer.querySelectorAll('.qualification-form > p > select > option'))
             .find((element) => element.value == qua.industry.toLowerCase())
@@ -852,6 +871,14 @@ function handleFormErrorAndWarning(data) {
     })
 }
 
+function getCsrfToken(csrftoken) {
+    const cookie = document.cookie.split(';')
+    .find((item)=>item.startsWith(csrftoken))
+    .split('=').slice(-1)[0].trim()
+    
+    return cookie || null
+}
+
 
 function createCustomFileUplodInput() {
     const resumePath = JSON.parse(localStorage.getItem('resume'))
@@ -875,12 +902,12 @@ function createCustomFileUplodInput() {
     newLabel.textContent = 'Resume:'
 
     const qualiForm = document.querySelector('.qualification-form')
-    const pTags = Array.from(qualiForm.querySelectorAll('p'))
-    const p2 = pTags[2]
-    const p3 = pTags[3]
+    const pTags = qualiForm && Array.from(qualiForm.querySelectorAll('p'))
+    const p2 = pTags && pTags[2]
+    const p3 = pTags && pTags[3]
 
-    const label = p2.querySelector('label')
-    const input = p2.querySelector('input')
+    const label = p2 && p2.querySelector('label')
+    const input = p2 && p2.querySelector('input')
 
     label.textContent = 'Upload resume'
     label.removeAttribute('for')
@@ -904,15 +931,6 @@ function createCustomFileUplodInput() {
     p3.append(span)
 }
 
-
-function getCsrfToken(csrftoken) {
-    const cookie = document.cookie.split(';')
-    .find((item)=>item.startsWith(csrftoken))
-    .split('=').slice(-1)[0].trim()
-    
-    return cookie || null
-}
-
 function handleResumeFileInput() {
     const resumeInputWrapperLabel = document.querySelector('.resume-input-wrapper-label')
     const resumeInputWrapper = document.querySelector('.resume-input-wrapper')
@@ -925,14 +943,6 @@ function handleResumeFileInput() {
     const elements = `
         <span>Selected: ${value}</span>
         <i class='fas fa-close remove-selected-resume'></i>`
-
-    p.style.overflow = 'hidden'
-    p.style.whiteSpace = 'nowrap'
-    p.style.textOverflow = 'ellipsis'
-    p.style.color = 'var(--black-30)'
-    p.style.display = 'flex'
-    p.style.gap = '1rem'
-    p.style.alignItems = 'center'
 
     p.setAttribute('class', 'selected-resume')
 

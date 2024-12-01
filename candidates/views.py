@@ -1,20 +1,26 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model 
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.db.models import Q
 import json
 
 from accounts.models import Profile
 from django.urls import reverse
-
-from .forms import MessageForm
+from accounts.forms import ProfileUpdateForm
+from .forms import (
+    MessageForm,
+    CandidateQualificationForm,
+    EducationForm,
+    ExperienceForm
+)
 from .models import (
     CandidateQualification,
     Education,
     Experience
 )
 from employers.models import Job 
+
 
 # Utils
 from utils.decorators import user_login_required
@@ -32,6 +38,12 @@ from utils.create_candiate_profile import (
 User = get_user_model()
 
 
+def landing_page_view(request):
+    if request.user.is_authenticated:
+        return redirect('candidates:jobs')
+    return render(request, 'candidates/candidates_landing_page.html')
+
+
 def fetch_user_location(request):
     location = get_user_ip(request)
     return JsonResponse(location, status=200)
@@ -42,46 +54,18 @@ def get_search_form_suggestions(request):
     city = request.GET.get('city')
     location =  get_user_ip(request)
 
-    values = Job.objects.filter(employer__country=location['country']).\
+    values = Job.objects.filter(employer__country=location['country_code']).\
         values('job_title','industry','job_type','employer__city')
     
-    suggestions = generate_suggestions(values, search, city)
+    context = generate_suggestions(values, search, city)
+    return JsonResponse(context, status=200)
+
+
+def job_search_view(request):
+    search = request.GET.get('q') or None
     
-    return JsonResponse(suggestions, status=200)
+    return render(request, 'candidates/candidates_search_results.html')
 
-
-def landing_page_view(request):
-    if request.user.is_authenticated:
-        return redirect('candidates:jobs')
-    return render(request, 'candidates/candidates_landing_page.html')
-
-
-def about_view(request):
-    return render(request, 'about.html')
-
-
-def contact_view(request):
-    form = MessageForm(request.POST or None)
-    context = {'form':form}
-
-    if request.method == 'POST':
-        if form.is_valid():
-            message = form.save(commit=False)
-            
-            try:
-                user = User.objects.get(email=message.email)
-            except User.DoesNotExist:
-                user = None 
-            if user:
-                message.user = user
-
-            message.save()
-
-            messages.success(request, 'Message successfully submited.')
-            return redirect('candidates:home')
-
-        context['error'] = 'There was an error. Please try again.'
-    return render(request, 'contact.html', context)
 
 
 @user_login_required
@@ -151,9 +135,10 @@ def prefetch_form_data_view(request):
         return JsonResponse(context)
     
     context = {
-        {'error':'You must login first.'}
+        'error':'You must login first.'
     }
-    return JsonResponse
+    return JsonResponse(context)
+
 
 def candidates_view(request):
     candidates = CandidateQualification.objects.all()
@@ -248,9 +233,86 @@ def apply_to_a_job_view(request, slug):
     return redirect('candidates:jobs')
 
 
-def job_search_view(request):
-    search = request.GET.get('q') or None
+@user_login_required
+def update_candidate_profile_info_view(request, slug):
+    data_type = request.GET.get('data_type')
+    form = None
+    context = {}
+
+    print(request.FILES.get('profile_image'))
+
+    if not data_type:
+        return redirect('accounts:profile')
+
+    if data_type == 'profile':
+        form = ProfileUpdateForm(
+                request.POST or None, 
+                request.FILES or None, 
+                instance=Profile.objects.get(slug=slug)
+            )
+    elif data_type == 'qualification':
+        form = CandidateQualificationForm(
+                request.POST or None, 
+                request.FILES or None, 
+                instance=CandidateQualification.objects.get(slug=slug)
+            )
+    elif data_type == 'education':
+        form = EducationForm(
+                request.POST or None, 
+                request.FILES or None, 
+                instance=Education.objects.get(slug=slug)
+            )
+    elif data_type == 'experience':
+        form = ExperienceForm(
+                request.POST or None, 
+                request.FILES or None, 
+                instance=Experience.objects.get(slug=slug)
+            )
+        
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save(commit=False)
+
+            redirect_url = f'{request.GET.get('redirect_url')}?data_type={data_type}'
+            return redirect(redirect_url)
+        else:
+            print(form.errors)
     
-    return render(request, 'candidates/candidates_search_results.html')
+    context['form'] = form
+    context['data_type'] = data_type
+    context['slug'] = slug
+    context['redirect_url'] = reverse('accounts:profile')
+
+    return render(
+            request, 
+            'candidates/candidates_update_career_profile_form.html', 
+            context
+        )
 
 
+def about_view(request):
+    return render(request, 'about.html')
+
+
+def contact_view(request):
+    form = MessageForm(request.POST or None)
+    context = {'form':form}
+
+    if request.method == 'POST':
+        if form.is_valid():
+            message = form.save(commit=False)
+            
+            try:
+                user = User.objects.get(email=message.email)
+            except User.DoesNotExist:
+                user = None 
+            if user:
+                message.user = user
+
+            message.save()
+
+            messages.success(request, 'Message successfully submited.')
+            return redirect('candidates:home')
+
+        context['error'] = 'There was an error. Please try again.'
+    return render(request, 'contact.html', context)

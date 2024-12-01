@@ -11,7 +11,8 @@ from .views import (
     fetch_user_location,
     get_search_form_suggestions,
     get_form_data_view,
-    prefetch_form_data_view
+    prefetch_form_data_view,
+    update_candidate_profile_info_view
 )
 
 app_name = 'candidates' 
@@ -28,6 +29,7 @@ urlpatterns = [
     path('candidates/search-form/suggestions/', get_search_form_suggestions, name='suggestions'),
     path('candidates/fetch/form-data/', get_form_data_view, name='form-data'),
     path('candidates/prefetch/formdata/', prefetch_form_data_view, name="prefech-form-data"),
+    path('candidate/<str:slug>/update/profile/info/', update_candidate_profile_info_view, name='candidate-update-profile-info'),
     path('hire-spot/contact/', contact_view, name='contact'),
     path('hire-spot/about/', about_view, name='about'),
 ]

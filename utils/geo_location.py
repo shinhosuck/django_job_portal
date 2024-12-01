@@ -36,7 +36,8 @@ def get_user_location(request, ip):
 
     location = {
         'user': request.user.username,
-        'country': response.country.iso_code,
+        'country': response.country.name,
+        'country_code': response.country.iso_code,
         'city': response.city.name,
         'state': response.subdivisions.most_specific.iso_code
     }

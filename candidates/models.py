@@ -5,6 +5,8 @@ from django.urls import reverse
 from utils.choices import INDUSTRY_CHOICES
 from accounts.models import Profile
 
+from datetime import datetime 
+
 User = settings.AUTH_USER_MODEL
 
 class CandidateQualification(models.Model):
@@ -35,6 +37,7 @@ class Education(models.Model):
             CandidateQualification, on_delete=models.CASCADE, 
             related_name='educations', null=True, blank=True
         )
+    slug = models.SlugField(max_length=100, null=True, blank=True)
     major = models.CharField(max_length=255, null=True, blank=True)
     degree = models.CharField(max_length=255, null=True, blank=True)
     institution = models.CharField(max_length=255, null=True, blank=True)
@@ -47,12 +50,23 @@ class Education(models.Model):
     def __str__(self):
         return self.degree
     
+    def save(self, *args, **kwargs):
+        nums = [str(num) for num in range(0, 10)]
+        str_dt = ''.join([char for char in str(datetime.now()) if char in nums])
+        
+        if not self.slug:
+            user = self.qualification.profile.username
+            self.slug =f'{user}-education-{str_dt}'
+            
+        return super().save(*args, **kwargs)
+    
 
 class Experience(models.Model):
     qualification = models.ForeignKey(
             CandidateQualification, on_delete=models.CASCADE, 
             related_name='experiences', null=True, blank=True
         )
+    slug = models.SlugField(max_length=100, null=True, blank=True)
     company_name = models.CharField(max_length=255, null=True, blank=True)
     position = models.CharField(max_length=255, null=True, blank=True)
     start_date = models.DateField(null=True, blank=True)
@@ -63,6 +77,16 @@ class Experience(models.Model):
 
     def __str__(self):
         return self.company_name
+    
+    def save(self, *args, **kwargs):
+        nums = [str(num) for num in range(0, 10)]
+        str_dt = ''.join([char for char in str(datetime.now()) if char in nums])
+        
+        if not self.slug:
+            user = self.qualification.profile.username
+            self.slug =f'{user}-experience-{str_dt}'
+
+        return super().save(*args, **kwargs)
     
     
 class Message(models.Model):

@@ -27,7 +27,6 @@
                             </span>
                         </div>
                         <div class="navlink-drop-down-link">
-                            <a href="{% url 'candidates:candidate-add-career-detail' %}" class="navlink">Career Detail</a>
                             <a href="{% url 'accounts:profile' %}" class="navlink">Profile</a>
                             <a href="{% url 'candidates:about' %}" class="{% if url_name == "about" %}active-link{% endif %} navlink">About</a>
                             <a href="{% url 'candidates:contact' %}" class="{% if url_name == "contact" %}active-link{% endif %} navlink">Contact</a>
@@ -42,6 +41,9 @@
                     <a href="{% url 'accounts:register' %}" class="navlink register-link">Register</a>
                 {% endif %}
         {% endwith %}
+        {% if request.user.is_authenticated %}
+            <p class="location-flag"></p>
+        {% endif %}
     </nav>
 
     <!-- Mobile nav bar -->
@@ -61,6 +63,9 @@
         {% with request.resolver_match.url_name as url_name %}
             <div class="mobile-navlinks">
                 {% if request.user.is_authenticated %}
+                    <p class="location-flag" style="text-align: center"></p>
+                {% endif %}
+                {% if request.user.is_authenticated %}
                     <div href="" class="mobile-navlink-user">
                         <div class="mobile-navlink-img-container">
                             <img src="{{ request.user.profile.get_profile_image_url }}" alt="">
@@ -78,7 +83,6 @@
                     <a href="{% url 'accounts:login' %}" class="mobile-navlink">Login</a>
                     <a href="{% url 'accounts:register' %}" class="mobile-navlink">Register</a>
                 {% else %}
-                    <a href="{% url 'candidates:candidate-add-career-detail' %}" class="mobile-navlink">Career Detail</a>
                     <a href="{% url 'accounts:profile' %}" class="mobile-navlink">Profile</a>
                     <a class='{% if url_name == "about" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'candidates:about' %}">About</a>
                     <a class='{% if url_name == "contact" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'candidates:contact' %}">Contact</a>

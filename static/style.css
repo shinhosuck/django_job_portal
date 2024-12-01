@@ -44,9 +44,10 @@
     box-sizing: border-box;
 }
 
-body {
+html, body {
     font-family: "Inter", sans-serif;
     background: hsl(122, 100%, 98%);
+    scroll-behavior: smooth;
 }
 
 main {
@@ -79,6 +80,7 @@ textarea {
     font-family: "Inter", sans-serif;
 }
 
+select:focus,
 input:focus,
 textarea:focus {
     outline: 3px solid var(--green-70);

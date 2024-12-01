@@ -106,6 +106,7 @@
     margin: 0 auto;
     border-radius: 8px;
     gap: 0.5rem;
+    background: white
 }
 
 .search-form-input-row {
@@ -256,6 +257,7 @@
     align-content: center;
     padding: 2rem 0;
 }
+
 .candidate-register-form-container {
     width: 90%;
     max-width: 900px;
@@ -316,6 +318,7 @@
 .qualification-form,
 .education-form,
 .experience-form {
+    position: relative;
     display: grid;
     align-content: center;
     gap: 1.5rem;
@@ -323,6 +326,14 @@
     padding: 1.5rem;
     border-radius: 8px;
     border: 1px solid var(--black-80);
+}
+
+.remove-candidate-career-form {
+    position: absolute;
+    right: 1.5rem;
+    top: 0.5rem;
+    width: auto;
+    height: auto;
 }
 
 .qualification-form > p,
@@ -338,7 +349,7 @@
 .education-form > p > label,
 .qualification-form > p > label {
     letter-spacing: 0.03rem;
-    color: var(--black-30);
+    color: var(--black-10);
     font-weight: 500;
 }
 
@@ -480,6 +491,20 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 0.9rem;
+    text-transform: lowercase;
+}
+
+.selected-resume {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--black-30);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-size: 0.9rem;
+    text-transform: lowercase;
 }
 
 .candidate-register-form-help-text {
@@ -627,3 +652,122 @@
     }
 }
 
+/* UPDATE CANDIDATE PROFILE/CAREER INFO */
+
+.candidate-update-form-container {
+    width: 90%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem 0;
+
+    display: grid;
+    align-content: start;
+    gap: 2rem;
+}
+
+.candidate-update-form {
+    display: grid;
+    align-content: start;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid var(--black-80);
+    border-radius: 8px;
+    background: white;
+}
+
+.form-input-row {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem
+}
+
+.form-input-row > label {
+    font-weight: 500;
+    color: var(--black-10);
+    letter-spacing: 0.03rem;
+}
+
+.form-input-row > input,
+.form-input-row > select {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--black-80);
+    border-radius: 5px;
+    padding: 1rem;
+    background: white;
+    letter-spacing: 0.03rem;
+    color: var(--black-30)
+}
+
+.candidate-update-form-btn {
+    padding: 1rem;
+    border: none;
+    background: var(--green-30);
+    color: var(--black-90);
+    border-radius: 5px;
+    letter-spacing: 0.03rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 100ms linear;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    text-align: center;
+}
+
+@media (hover) {
+    .candidate-update-form-btn:hover {
+        background: var(--green-40)
+    }
+}
+
+/* formmat file/image inputs */
+.new-input-container {
+	border: 1px solid var(--black-80);
+    border-radius: 5px;
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 2rem;
+    row-gap: 0.5rem;
+    overflow: hidden;
+}
+
+.image-input-wrapper {
+	padding: 0.6rem 1rem;
+    color: white;
+    background: var(--green-30);
+    border-radius: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 0.9rem;
+}
+
+.image-anchor {
+	color: var(--green-30);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.9rem;
+    text-transform: lowercase;
+}
+
+.chosen-image-container {
+	display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--black-30);
+    overflow: hidden;
+    font-size: 0.9rem;
+}
+
+.chosen-text-content {
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

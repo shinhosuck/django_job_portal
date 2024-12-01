@@ -31,8 +31,8 @@ class CandidateQualificationForm(forms.ModelForm):
         ]
 
         widgets = {
-            'industry':forms.Select(attrs={'autofocus':True}),
-            'resume': forms.FileInput(attrs={'accept':'img/*', 'required':False})
+            'industry':forms.Select(attrs={'autofocus':True, 'autofocus': True}),
+            # 'resume': forms.FileInput(attrs={'accept':'img/*', 'required':False})
         }
 
 
@@ -48,6 +48,7 @@ class EducationForm(forms.ModelForm):
         ]
 
         widgets = {
+            'major': forms.TextInput(attrs={'autofocus': True}),
             'completion_date':forms.DateInput(attrs={'type':'date'})
         }
 
@@ -62,6 +63,7 @@ class ExperienceForm(forms.ModelForm):
         ]
 
         widgets = {
+            'company_name': forms.TextInput(attrs={'autofocus': True}),
             'start_date':forms.DateInput(attrs={'type':'date'}),
             'end_date':forms.DateInput(attrs={'type':'date'})
         }
