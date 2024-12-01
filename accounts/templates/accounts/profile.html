@@ -233,7 +233,7 @@
             {% endif %}
         </div>
         
-        <div class="candidate-profile-experience-row">
+        <div id="experience" class="candidate-profile-experience-row">
             <h3 class="candidate-profile-header">
                 <span>Experience</span>
                 {% if not experiences %}
@@ -244,7 +244,7 @@
                 {% endif %}
             </h3>
             {% if experiences %}
-                <div id="experience" class="candidate-profile-experiences">
+                <div class="candidate-profile-experiences">
                     {% for exp in experiences %}
                         <div style="display: grid; gap: 0.5rem">
                             <div class="candidate-profile-experience">
@@ -298,11 +298,9 @@
 {% block js %}
     <script>
         const scrollTo = "{{ scroll_to }}"
-
-        if (scrollTo) {
-            window.location.href = `#${scrollTo}`
-        } 
-
+        const element = scrollTo && document.querySelector(`#${scrollTo}`)
+        
+        element && element.scrollIntoView({behavior:'smooth'})
     </script>
 {% endblock js %}
 

@@ -129,7 +129,7 @@ def profile_update_form_view(request):
             for error in errors:
                 field_errors.append(error)
 
-        messages.error(request, f'{', '.join(field_errors)}')
+        messages.error(request, f"{', '.join(field_errors)}")
 
     context['form'] = form
 

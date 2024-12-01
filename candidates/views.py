@@ -70,8 +70,9 @@ def job_search_view(request):
 
 @user_login_required
 def candidate_add_career_detail_view(request):
-    user = request.user
+    scroll_to = request.GET.get('scroll_to')
     data_type = request.GET.get('type')
+    user = request.user
     data = request.POST
 
     try:
@@ -82,7 +83,7 @@ def candidate_add_career_detail_view(request):
 
     if not request.user.profile.user_type:
         message = '?message=Please complete your profile.'
-        return redirect(f'{reverse('accounts:profile-update')}{message}')
+        return redirect(f"{reverse('accounts:profile-update')}{message}")
     
     if request.method == 'POST':
         if data_type == 'qualification':
@@ -111,7 +112,10 @@ def candidate_add_career_detail_view(request):
             )
             return JsonResponse(context)
         
-    context = {'resume': resume or ''}
+    context = {
+        'resume': resume or '',
+        'scroll_to': scroll_to or ''
+    }
     
     return render(request, 'candidates/candidates_add_career_detail.html', context)
 
@@ -218,7 +222,7 @@ def apply_to_a_job_view(request, slug):
     try:
         job = Job.objects.get(slug=slug)
     except Job.DoesNotExist:
-        messages.error(request, f'Job does not exist. Pleas try again.')
+        messages.error(request, 'Job does not exist. Pleas try again.')
         return redirect('candidates:jobs')
     
     try:
@@ -238,8 +242,6 @@ def update_candidate_profile_info_view(request, slug):
     data_type = request.GET.get('data_type')
     form = None
     context = {}
-
-    print(request.FILES.get('profile_image'))
 
     if not data_type:
         return redirect('accounts:profile')
@@ -273,7 +275,7 @@ def update_candidate_profile_info_view(request, slug):
         if form.is_valid():
             form.save(commit=False)
 
-            redirect_url = f'{request.GET.get('redirect_url')}?data_type={data_type}'
+            redirect_url = f"{request.GET.get('redirect_url')}?data_type={data_type}"
             return redirect(redirect_url)
         else:
             print(form.errors)

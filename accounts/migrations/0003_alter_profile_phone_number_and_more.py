@@ -12,11 +12,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterField(
             model_name='profile',
-            name='phone_number',
-            field=models.CharField(blank=True, help_text='Max digits 15, must start with + follow by country code.', max_length=15, null=True),
-        ),
-        migrations.AlterField(
-            model_name='profile',
             name='portfolio_or_personal_website',
             field=models.URLField(blank=True, help_text='Must start with https://', null=True),
         ),

@@ -2,7 +2,6 @@
 
 import django.db.models.deletion
 import django_countries.fields
-import phonenumber_field.modelfields
 from django.conf import settings
 from django.db import migrations, models
 
@@ -30,7 +29,6 @@ class Migration(migrations.Migration):
                 ('state_or_province', models.CharField(max_length=50)),
                 ('country', django_countries.fields.CountryField(max_length=2)),
                 ('email', models.EmailField(max_length=254)),
-                ('phone_number', phonenumber_field.modelfields.PhoneNumberField(blank=True, max_length=128, null=True, region=None)),
                 ('social_link', models.URLField(blank=True, null=True)),
                 ('portfolio_or_personal_website', models.URLField(blank=True, null=True)),
                 ('user_type', models.CharField(choices=[('job seeker', 'Job Seeker'), ('employer', 'Employer')], max_length=100)),

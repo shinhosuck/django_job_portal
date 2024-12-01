@@ -52,11 +52,11 @@
             </div>
             <form class="candidate-register-form" action="" method="POST" enctype='multipart/form-data'>
                 {% csrf_token %}
-                <div class="candidate-qualification-input-row">
+                <div id='qualification' class="candidate-qualification-input-row">
                     <h2>Qualification</h2>
                     <div class="qualification-form-container"></div>
                 </div>
-                <div class="candidate-education-input-row">
+                <div id='education' class="candidate-education-input-row">
                     <h2>Education</h2>
                     <div class="education-form-container">
                     </div>
@@ -64,7 +64,7 @@
                         Add more education
                     </button>
                 </div>
-                <div class="candidate-experience-input-row">
+                <div id='experience' class="candidate-experience-input-row">
                     <h2>Experience</h2>
                     <div class="experience-form-container">
                     </div>
@@ -85,10 +85,11 @@
     </div>
 
     <script>
-
+        const data = '{{ scroll_to }}'
         let resume_url = '{{ resume }}'
-    
+
         localStorage.setItem('resume', JSON.stringify({resume:resume_url}))
+        localStorage.setItem('scroll_to', JSON.stringify({dataType:data}))
     
     </script>
 
