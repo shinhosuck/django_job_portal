@@ -36,23 +36,36 @@
     letter-spacing: 0.03rem;
     line-height: 1.4;
     color: var(--black-30);
-    max-width: 550px;
+    max-width: 450px;
     font-size: 1.1rem;
     margin: 0 auto;
-    text-wrap: balance;
+    text-wrap: pretty;
 }
 
-.register-from {
+.register-form-wrapper {
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
     display: grid;
     align-content: start;
-    gap: 1.5rem;
+    gap: 2rem;
     padding: 1.5rem;
     border-radius: 8px;
+    border: 1px solid var(--black-80);
     background: white;
-    border: 1px solid var(--black-80)
+}
+
+.register-form-header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.03rem;
+    color: var(--black-20)
+}
+
+.register-from {
+    display: grid;
+    align-content: start;
+    gap: 1.5rem;
 }
 
 .empty-input-row {
@@ -62,11 +75,11 @@
 .register-input-row {
     display: grid;
     align-content: start;
-    gap: 0.5rem;
+    gap: 0.8rem;
 }
 
 .toggle-password-requirements {
-    color: var(--green-30);
+    color: var(--black-40);
     font-size: 0.9rem;
 }
 
@@ -130,7 +143,8 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    justify-content: center;
+    gap: 0.8rem;
 }
 
 .register-form-already-registered > p {
@@ -148,6 +162,7 @@
 
 .register-form-already-registered > a > i {
     font-size: 0.9rem;
+    line-height: 0;
 }
 
 @media (hover) {
@@ -162,7 +177,7 @@
     }
 
     .register-form-header-text-container {
-       margin-top: 2rem;
+       margin-top: 1rem;
     }
 }
 
@@ -179,7 +194,6 @@
     width: 90%;
     max-width: 700px;
     margin: 0 auto;
-
     display: grid;
     align-content: start;
     row-gap: 2rem;
@@ -194,29 +208,42 @@
 .login-form-name {
     color: var(--black-20);
     font-size: 1.7rem;
-    font-weight: 600;
 }
 
 .login-form-text {
     letter-spacing: 0.04rem;
     line-height: 1.4;
     color: var(--black-30);
-    max-width: 550px;
+    max-width: 450px;
     margin: 0 auto;
     font-size: 1.1rem;
-    text-wrap: balance;
+    text-wrap: pretty;
 }
 
-.login-from {
+.login-form-wrapper {
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
     display: grid;
     align-content: start;
-    gap: 1.5rem;
+    gap: 2rem;
     padding: 1.5rem;
     border-radius: 8px;
-    border: 1px solid var(--black-80)
+    border: 1px solid var(--black-80);
+    background: white;
+}
+
+.login-form-header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.03rem;
+    color: var(--black-20)
+}
+
+.login-from {
+    display: grid;
+    align-content: start;
+    gap: 1.5rem;
 }
 
 .login-from > p {
@@ -263,11 +290,12 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    justify-content: center;
+    gap: 0.8rem;
 }
 
 .login-form-not-yet-registered > p {
-    color: var(--black-20);
+    color: var(--black-10);
     letter-spacing: 0.03rem;
 }
 
@@ -279,8 +307,15 @@
     gap: 0.3rem;
 }
 
+@media (hover) {
+    .login-form-not-yet-registered > a:hover {
+        color: var(--green-20);
+    }
+}
+
 .login-form-not-yet-registered > a > i {
     font-size: 0.9rem;
+    line-height: 0;
 }
 
 .login-form-underline {
@@ -308,6 +343,7 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 1rem;
     padding: 0.8rem;
     border-radius: 5px;
@@ -318,19 +354,25 @@
 
 @media (hover) {
     .login-form-google-link:hover {
-        background: var(--black-90)
+        background: var(--green-85)
     }
 }
 
 .login-form-google-link > img {
-    width: 33px;
+    width: 30px;
     height: auto;
 }
 
 .login-form-google-link > span {
-    color: var(--black-20);
+    color: var(--black-10);
     font-size: 1rem;
     letter-spacing: 0.03rem;
+}
+
+@media screen and (min-width:700px) {
+    .login-form-header-text-container {
+        margin-top: 1rem;
+    }
 }
 
 /* LOGOUT MODAL */
@@ -450,20 +492,33 @@
     letter-spacing: 0.03rem;
     line-height: 1.4;
     color: var(--black-30);
-    max-width: 550px;
+    max-width: 450px;
     font-size: 1.1rem;
     margin: 0 auto;
-    text-wrap: balance;
+    text-wrap: pretty;
+}
+
+.profile-form-wrapper {
+    display: grid;
+    align-content: start;
+    gap: 2rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--black-80);
+    background: white;
+}
+
+.profile-form-header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.03rem;
+    color: var(--black-20)
 }
 
 .profile-form {
     display: grid;
     align-content: start;
     gap: 1.5rem;
-    padding: 1.5rem;
-    border-radius: 8px;
-    background: white;
-    border: 1px solid var(--black-85)
 }
 
 .profile-image-input-container {
@@ -540,6 +595,14 @@ br {
     border-radius: 5px;
     color: var(--black-30);
     letter-spacing: 0.03rem;
+}
+
+.selected-profile-image {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--black-30);
+    overflow: hidden;
 }
 
 .profile-input-row > select {
@@ -621,14 +684,12 @@ br {
     border-radius: 50%;
     width: 100px;
     height: 100px;
-    padding: 1rem 1.1rem;
-    background: var(--black-90)
 }
 
 .profile-image-container > img {
     width: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
+    height:auto;
+    border-radius: 50%;
 }
 
 .profile-name {
@@ -647,7 +708,8 @@ br {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 .candidate-profile-header > a {
@@ -669,7 +731,8 @@ br {
     gap: 2rem;
     padding: 1.5rem;
     border-radius: 8px;
-    border: 1px solid var(--black-80)
+    border: 1px solid var(--black-80);
+    background: white;
 }
 
 
@@ -696,6 +759,7 @@ br {
     padding: 1.5rem;
     border-radius: 8px;
     border: 1px solid var(--black-80);
+    background: white;
 }
 
 .profile-user-info-row > a,
@@ -704,6 +768,17 @@ br {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.profile-user-info-row > a {
+    color: var(--green-20)
+    
+}
+
+@media (hover) {
+    .profile-user-info-row > a:hover {
+        color: var(--green-30)
+    }
 }
 
 .profile-user-info-row {
@@ -746,12 +821,12 @@ br {
     justify-self: end;
     color: var(--green-30);
     display: none;
+    text-wrap: nowrap;
 }
 
 @media (hover) {
     .candidate-profile-form-update:hover {
-        font-weight: 600;
-        color: var(--green-35);
+        color: var(--green-20);
     }
 
 }

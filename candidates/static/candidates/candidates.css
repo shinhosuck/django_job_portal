@@ -283,9 +283,9 @@
     letter-spacing: 0.04rem;
     line-height: 1.4;
     color: var(--black-30);
-    max-width: 550px;
+    max-width: 450px;
     margin: 0 auto;
-    text-wrap: balance;
+    text-wrap: pretty;
 }
 
 .candidate-register-form {
@@ -543,74 +543,211 @@
         padding: 3rem 0;
     }
 
-    /* .experience-form,
-    .education-form,
-    .candidate-info-form {
-        grid-template-columns: repeat(2, 1fr);
-    } */
-
     .candidate-register-form-text-container {
         margin-top: 2rem;
     }
 }
 
 /* JOBS */
-.jobs-container {
-    padding: 2rem 0;
-    /* padding-top: 0; */
-}
-
-/* .jobs-hero-container {
-    min-height: 50svh;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.300), 
-    rgba(0, 0, 0, 0.300)), url('./imgs/jobs-hero-img.webp');
+.jobs-hero-img {
+    min-height: 60svh;
+    background: linear-gradient(to bottom, 
+    rgba(0, 0, 0, 0.800), rgba(0, 0, 0, 0.5)), url('./imgs/jobs_hero.webp');
+    background-position: bottom;
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
 
-    display: flex;
+    position: relative;
+}
+
+.jobs-search-container {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    width: 100%;
+    max-width: 90%;
+    transform: translateX(-50%)
+}
+
+.jobs-search-container > 
+.search-form-container >
+.search-form {
+    background: transparent;
+}
+
+.jobs-search-container > 
+.search-form-container >
+.search-form > 
+.search-form-input-row {
+    background: white;
+}
+
+.jobs-container {
+    padding: 2rem 0;
+    display: grid;
+    align-content: start;
     align-items: start;
-} */
-
-.jobs-row {
+    gap: 2rem;
     width: 90%;
     max-width: 1400px;
     margin: 0 auto;
+}
 
+.jobs-navs {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+}
+
+.job-nav {
     display: grid;
     align-content: start;
-    gap: 2rem;
+    /* overflow: hidden; */
+}
+
+.job-nav-link {
+    color: var(--black-20);
+    text-align: center;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    padding-bottom: 0.8rem;
+}
+
+.active-job-nav-link {
+    color: var(--green-30) !important;
+    font-weight: 600;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+}
+
+.job-nav-link-border-bottom {
+    /* overflow: hidden; */
+    outline: 2px solid transparent
+}
+
+.active-border-bottom {
+    outline: 2px solid var(--green-40);
+}
+
+.job-nav-link-disabled {
+    color: var(--black-60);
+    text-align: center;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    padding-bottom: 0.8rem;
+}
+
+.job-no-job {
+    border: none !important;
+    background: none !important;
+    padding: 0 !important
+}
+
+.jobs-do-not-exist {
+    color: var(--black-10);
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+@media (hover) {
+    .job-nav:hover > .job-nav-link-border-bottom {
+        outline: 2px solid var(--black-80);
+    }
+
+    .job-nav:hover > .active-border-bottom {
+        outline: 2px solid var(--green-40);
+    }
+
+    .job-nav:hover > .job-nav-link {
+        color: var(--black-40);
+    }
 }
 
 .jobs {
     display: grid;
     align-content: start;
-    align-items: start;
-    gap: 1rem;
+    gap: 2rem;
+    grid-template-columns: 1fr;
 }
 
 .job {
     display: grid;
-    align-content: start;
-    gap: 1rem;
+    gap: 1.5rem;
     padding: 1.2rem;
-    border-radius: 8px;
+    border-radius: 1rem;
     border: 1px solid var(--black-80);
+    background: white;
 }
 
-.job-title {
+.job-contents {
+    display: grid;
+    align-items: start;
+    align-content: start;
+    gap: 1.5rem;
+    overflow: hidden;
+}
+
+.job-tags {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    row-gap: 0.5rem;
+    overflow: hidden;
+}
+
+.job-work-location,
+.job-job-type,
+.job-industry {
     color: var(--black-10);
-    letter-spacing: 0.03rem;
-    font-size: 1.5rem;
+    background: var(--green-95);
+    font-size: 0.9rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 0.3rem;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+}
+
+.job-title-container {
+    display: grid;
+    align-items: start;
+    align-self: start;
+    gap: 0.2rem
+}
+
+.job-title-header {
+    color: var(--green-10);
+    font-size: 1.4rem;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    font-weight: 600;
+}
+
+.job-created {
+    font-size: 0.9rem;
+    color: var(--black-30)
 }
 
 .job-employer-address {
     display: grid;
     align-content: start;
+    align-items: start;
     gap: 0.2rem;
     font-size: 0.9rem;
-    color: var(--black-20);
-    letter-spacing: 0.03rem;
+    color: var(--black-30);
+}
+
+.job-employer-name {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--green-25);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
 }
 
 .job-salary {
@@ -621,45 +758,63 @@
     background: var(--black-90)
 }
 
+.job-description-wrapper,
+.job-qualification-wrapper {
+    display: grid;
+    align-self: start;
+    gap: 0.3rem
+}
+
+.job-description-wrapper > h4,
+.job-qualification-wrapper > h4 {
+    color: var(--green-10)
+}
+
+.job-description-wrapper > p,
+.job-qualification-wrapper > p {
+    color: var(--black-30);
+    letter-spacing: 0.03rem;
+    line-height: 1.4;
+}
+
 .see-job-detail-btn {
-    margin-top: 1rem;
-    justify-self: start;
-    padding: 0.7rem 1rem;
+    align-self: end;
+    padding: 1rem;
     border: none;
     background: var(--green-30);
-    color: var(--black-90);
-    border-radius: 5px;
+    color: white;
+    border-radius: 8px;
     letter-spacing: 0.03rem;
     font-size: 1rem;
-    font-weight: 500;
     transition: background 100ms linear;
+    text-align: center;
 }
 
 @media (hover) {
     .see-job-detail-btn:hover {
-        background: var(--green-40)
+        background: var(--green-20)
     }
 }
 
-@media screen and (min-width: 700px) {
-    .jobs-container {
-        padding: 3rem 0;
+@media screen and (min-width: 600px) {
+    .jobs-search-container > 
+    .search-form-container >
+    .search-form {
+        background: white;
     }
+}
 
-    .jobs-row {
-        gap: 3rem;
+@media screen and (min-width:700px) {
+    .jobs-container {
+        padding: 4rem 0;
     }
 
     .jobs {
-        display: grid;
-        align-items: stretch;
-        row-gap: 2rem;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(330px, 1fr))
     }
 }
 
 /* UPDATE CANDIDATE PROFILE/CAREER INFO */
-
 .candidate-update-form-container {
     width: 90%;
     max-width: 700px;

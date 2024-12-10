@@ -11,14 +11,7 @@
     <div class="login-form-row">
         <div class="login-form-container">
             <div class="form-navbar">
-                <a href="
-                    {% if next %}
-                        {{ next }}
-                    {% else %}
-                        {% url 'candidates:landing-page' %}
-                    {% endif %}" 
-                    class="logo-container"
-                >
+                <a href="{% url 'candidates:landing-page' %}" class="logo-container">
                     <span class="logo-header">HireSpot</span>
                 </a>
                 <button class="form-navlinks-toggle-btn">
@@ -33,33 +26,36 @@
                         >
                             Home
                         </a>
-                        <a class="{% if url_name == 'login' %}active-link{% endif %} navlink" href="{% url 'accounts:login' %}">Login</a>
-                        <a class="navlink" href="{% url 'accounts:register' %}">Register</a>
+                        <a class="{% if url_name == 'login' %}active-link{% endif %} navlink" href="{% url 'accounts:login' %}">Sign in</a>
+                        <a class="navlink" href="{% url 'accounts:register' %}">Sign up</a>
                     </div>
                 {% endwith %}
             </div>
             <div class="login-form-header-text-container">
-                <h3 class="login-form-name">
+                <h2 class="login-form-name">
                     Welcome Back!
-                </h3>
+                </h2>
                 <p class="login-form-text">
                     Log in to access your account, 
                     connect with opportunities, 
                     and manage your journey.
                 </p>
             </div>
-            {% if error %} <p class='errorlist'>{{ error }}</p> {% endif %}
-            <form class="login-from" action="" method='POST'>
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="login-form-login-btn">
-                    Login
-                </button>
-            </form>
+            <div class="login-form-wrapper">
+                <h3 class="login-form-header">Sign in</h3>
+                {% if error %} <p class='errorlist'>{{ error }}</p> {% endif %}
+                <form class="login-from" action="" method='POST'>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="login-form-login-btn">
+                        Sign in
+                    </button>
+                </form>
+            </div>
             <div class="login-form-not-yet-registered">
-                <p class="">Not yet registered?</p>
+                <p class="">Don't have an account?</p>
                 <a class="" href="{% url 'accounts:register' %}">
-                    <span>Register</span>
+                    <span>Sign up</span>
                     <i class="fas fa-arrow-right"></i>
                 </a>
             </div>

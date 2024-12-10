@@ -83,6 +83,36 @@
                                     <p>N/A</p>
                                 {% endif %}
                             </div>
+                            <div class="profile-user-info-row">
+                                <p>Applied job:</p>
+                                <a href="">
+                                    {% if not profile.applied_jobs.count %}
+                                        <p>No applied job</p>
+                                    {% else %}
+                                        {{ profile.applied_jobs.count }}
+                                        {% if profile.applied_jobs.count > 1 %}
+                                            applied jobs
+                                        {% else %}
+                                            applied job
+                                        {% endif %}
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <div class="profile-user-info-row">
+                                <p>Saved job:</p>
+                                <a href="">
+                                    {% if not profile.saved_jobs.count %}
+                                        <p>No saved job</p>
+                                    {% else %}
+                                        {{ profile.saved_jobs.count }}
+                                        {% if profile.profile.saved_jobs.count > 1 %}
+                                            saved jobs
+                                        {% else %}
+                                            saved job
+                                        {% endif %}
+                                    {% endif %}
+                                </a>
+                            </div>
                         </div>
                         {% if request.user == profile.user %}
                             <a href="

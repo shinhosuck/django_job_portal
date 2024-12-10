@@ -18,6 +18,7 @@ class Profile(models.Model):
     city = models.CharField(max_length=50)
     state_or_province = models.CharField(max_length=50)
     country = CountryField()
+    post_code_or_zip_code = models.CharField(max_length=50)
     email = models.EmailField()
     phone_number = models.CharField(
             max_length=15, blank=True, null=True,
@@ -67,6 +68,20 @@ class Profile(models.Model):
     def get_absolute_url(self):
         return reverse("accounts:profile-update", kwargs={"slug": self.slug})
     
-    
-    
 
+class AppliedJob(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='applied_jobs')
+    applied_job = models.ForeignKey('employers.job', on_delete=models.SET_NULL, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.applied_job}'
+
+
+class SavedJob(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='saved_jobs')
+    saved_job = models.ForeignKey('employers.job', on_delete=models.SET_NULL, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.saved_job}'

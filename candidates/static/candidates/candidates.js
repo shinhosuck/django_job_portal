@@ -30,13 +30,13 @@ async function get_user_ip() {
 
             locationFlags.forEach((item) => {
                 item.innerHTML = `
-                <span>Country:</span>
-                <span>${flag}</span>
-                <span style="font-size: 0.9rem">
-                    ${location.country_code}
-                </soan>`
-                item.style.color = 'white'
-                item.style.fontSize = '0.9rem'
+                    <span>Country:</span>
+                    <div>
+                        <span>${flag}</span>
+                        <span style="font-size: 0.9rem">
+                            ${location.country_code}
+                        </span>
+                    </div>`
             })
         }
     } 

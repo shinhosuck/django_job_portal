@@ -1,0 +1,221 @@
+{% extends "employers/employers_index.html" %}
+{% load static %}
+
+{% block title %}
+    Employer profile
+{% endblock title %}
+
+{% block navbar %}{% endblock navbar %}
+
+{% block content %}
+    <div class="employer-dashboard-container">
+        <div class="employer-dashboard-row">
+            <div id="profile" class="form-navbar">
+                <a href="{% url 'employers:employer' %}" class="logo-container">
+                    <span class="logo-header">HireSpot</span>
+                </a>
+                <button class="form-navlinks-toggle-btn">
+                    <i class="fas fa-bars form-show-navlinks"></i>
+                    <i class="fas fa-times form-remove-navlinks remove-form-navlinks-toggle-btn-child"></i>
+                </button>
+                {% with request.resolver_match.url_name as url_name %}
+                    <div class="form-navlinks">
+                        <a class='navlink' href="{% url 'employers:employer' %}">Home</a>
+                        <a class="
+                            {% if url_name == 'employer-profile' %}active-link{% endif %} navlink" 
+                            href="{% url 'accounts:profile' %}"
+                        >
+                            Career Profile
+                        </a>
+                    </div>
+                {% endwith %}
+            </div>
+            <div class="candidate-profile-row">
+                <div class="user-profile-image-name">
+                    <div class="profile-image-container">
+                        <img src="{{ profile.get_profile_image_url }}" alt="">
+                    </div>
+                    <h2 class="profile-name">{{ profile.first_name }} {{ profile.last_name }}</h2>
+                </div>
+                <div id="profile" class='profile-personal-info'>
+                    <h3 class="candidate-profile-header">Personal Information</h3>
+                    <div style="display: grid; gap: 0.5rem">
+                        <div class="profile-user-info-container">
+                            <div style="display:grid;align-content:start;gap:1rem;">
+                                <div class="profile-user-info-row">
+                                    <p>Email:</p>
+                                    <p>{{ profile.email }}</p>
+                                </div>
+                                <div class="profile-user-info-row">
+                                    <p>Phone number:</p>
+                                    {% if profile.phone_number %}
+                                        <p>{{ profile.phone_number }}</p>
+                                    {% else %}
+                                        <p>N/A</p>
+                                    {% endif %}
+                                </div>
+                                <div class="profile-user-info-row">
+                                    <p>Address:</p>
+                                    <p>{{ profile.address }}, {{ profile.city }}, {{ profile.state_or_province }}, {{ profile.country }}, {{ profile.post_code_or_zip_code }}</p>
+                                </div>
+                                <div class="profile-user-info-row">
+                                    <p>Social site:</p>
+                                    {% if social_link %}
+                                        <a href="{{ profile.social_link}}" target="_blank" title="see social site">
+                                            {{ social_link }}
+                                        </a>
+                                    {% else %}
+                                        <p>N/A</p>
+                                    {% endif %}
+                                </div>
+                                <div class="profile-user-info-row">
+                                    <p>Personal/portfolio site:</p>
+                                    {% if portfolio_or_personal_website %}
+                                        <a href="{{ profile.portfolio_or_personal_website }}" target="_blank" title="see personal/portfolio site">
+                                            {{ portfolio_or_personal_website }}
+                                        </a>
+                                    {% else %}
+                                        <p>N/A</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if request.user == profile.user %}
+                                <a href="
+                                    {% url 'employers:update-employer' profile.slug %}?data_type=profile"
+                                    class="candidate-profile-form-update"
+                                >
+                                    <span>Update</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                        {% comment %} Mobile {% endcomment %}
+                        {% if request.user == profile.user %}
+                            <a href="
+                                {% url 'employers:update-employer' profile.slug %}?data_type=profile"
+                                class="candidate-profile-form-update-mobile"
+                            >
+                                <span>Update</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        {% endif %}
+                        {% comment %} End {% endcomment %}
+                    </div>
+                </div>
+            </div>
+            <div id='employer' class="employer-dashboard-employers-container">
+                <h3 class="candidate-profile-header">Employer{{employers|pluralize:'s'}}</h3>
+                {% for employer in employers %}
+                    <div class="employer-dashboard-employers-info-wrapper">
+                        <div class="employer-dashboard-employer">
+                            <div class="employer-dashboard-logo-address-container">
+                                <div class="employer-dashboard-logo-container">
+                                    <img src="{{ employer.get_logo_url }}" alt="">
+                                </div>
+                                <div class="employer-dashboard-address-container">
+                                    <a class="employer-dashboard-logo-name" title="see company detail"
+                                        href="{{ employer.get_absolute_url }}?redirect={{ request.path }}"
+                                    >
+                                        {{ employer.employer_name }}
+                                    </a>
+                                    <p class="employer-dashboard-city">{{ employer.city }}</p>
+                                    <p class="employer-dashboard-country">
+                                        <span>{{ employer.state_or_province }},<span>
+                                        <span>{{ employer.country }}</span>
+                                    </p>
+                                    <p class="employer-dashboard-country">
+                                        <span>{{ employer.zip_code_or_postal_code }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="employer-dashboard-jobs-container">
+                                <h4 class="employer-dashboard-jobs-header">
+                                    Posted Job{% if employer.jobs.count > 1 %}s{% endif %}:
+                                </h4>
+                                <div class="employer-dashboard-employer-jobs">
+                                    {% if employer.jobs.exists %}
+                                        {% for job in employer.jobs.all %}
+                                            <div class="employer-dashboard-employer-job">
+                                                <div class="employer-dashboard-employer-job-title-date">
+                                                    <a href="{{ job.get_absolute_url }}?redirect={{ request.path }}"  title="see job detail"
+                                                        class="employer-dashboard-employer-job-title">
+                                                        {{ job.job_title }}
+                                                    </a>
+                                                    <p class="employer-dashboard-employer-job-date">
+                                                        Posted {{ job.created|date:"M d Y"}}
+                                                    </p>
+                                                </div>
+                                                
+                                                <div class="employer-dashboard-employer-job-applicants-container">
+                                                    <p class="employer-dashboard-employer-job-applicants-header">
+                                                        {% if not job.applicants.count %}
+                                                            <span>No applicant</span>
+                                                        {% else %}
+                                                            {% if job.applicants.count == 1 %}
+                                                                <span>See applicant</span>
+                                                            {% else %}
+                                                                <span>See applicants</span>
+                                                            {% endif %}
+                                                            <i class="fas fa-chevron-down"></i>
+                                                        {% endif %}
+                                                    </p>
+                                                    {% if job.applicants.count %}
+                                                        <div class="employer-dashboard-employer-job-applicants">
+                                                            {% for applicant in job.applicants.all %}
+                                                                <a class="employer-dashboard-employer-job-applicant" 
+                                                                    target="_blank"
+                                                                    href="{{ applicant.get_absolute_url }}?redirect={{ request.path }}">
+                                                                    {{ forloop.counter }}. {{ applicant.profile.first_name}} {{ applicant.profile.last_name}}
+                                                                </a>
+                                                            {% endfor %}
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p style="font-size:0.9rem; color:var(--black-30);">No posted job!</p>
+                                    {% endif %}
+                                </div>
+                                {% if request.user == profile.user %}
+                                    <a href="
+                                        {% url 'employers:update-employer' employer.slug %}?data_type=employer"
+                                        class="candidate-profile-form-update"
+                                    >
+                                        <span>Update</span>
+                                        <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% comment %} Mobile {% endcomment %}
+                        {% if request.user == profile.user %}
+                            <a href="
+                                {% url 'employers:update-employer' employer.slug %}?data_type=employer"
+                                class="candidate-profile-form-update-mobile"
+                            >
+                                <span>Update</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        {% endif %}
+                        {% comment %} End {% endcomment %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}
+
+{% block js %}
+    <script>
+        const scrollTo = "{{ data_type }}"
+        const element = scrollTo && document.querySelector(`#${scrollTo}`)
+
+        if (element) {
+            element.scrollIntoView({behavior:'smooth'})
+        }
+    </script>
+
+{% endblock js %}

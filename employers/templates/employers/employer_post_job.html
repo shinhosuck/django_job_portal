@@ -47,7 +47,8 @@
                     professionals.
                 </p>
             </div>
-            <form class="post-job-form" action="" method="POST">
+            <form action="" method='POST' class="post-job-form">
+                <h2>Post a job</h2>
                 {% csrf_token %}
                 <p class="post-job-form-select-container">
                     <label for="employer">Employer:</label>
@@ -61,7 +62,7 @@
                     </select>
                 </p>
                 {{ form.as_p }}
-                <button class="post-job-form-submit-job-btn">Submit Job</button>
+                <button type='submit' class="post-job-form-submit-job-btn">Submit Job</button>
             </form>
             <a href="{% url 'employers:employer' %}" class="post-job-form-post-job-later">
                 <span>Complete form later</span>
@@ -69,8 +70,48 @@
             </a>
         </div>
     </div>
+   
 {% endblock content %}
 
 {% block footer %}{% endblock footer %}
 
+{% block js %}
+    <script>
+        const jobFormLabels = Array.from(document.querySelectorAll('label'))
+        let input = null
+
+        window.addEventListener('DOMContentLoaded', formatJobForm)
+
+        function formatJobForm() {
+            jobFormLabels.forEach((label) => {
+                if (label.getAttribute('for') === 'id_currency_code') {
+                    input = label.nextElementSibling
+                    const labelParent = label.parentElement
+                    labelParent.style.display = 'none'
+                }
+                else {
+                    label.innerHTML = `
+                        <span>${label.textContent.split(':')[0]}</span>
+                        <span style="color: red;">*</span>
+                    `
+                }
+            })
+        }
+
+        async function addCurrencyCode(event) {
+            const countryCode = event.currentTarget.value
+            const url = `https://restcountries.com/v3.1/alpha/${countryCode}`
+
+            const resp = await fetch(url)
+            const data = await resp.json()
+
+            const currency = data[0].currencies
+            const key = Object.keys(data[0].currencies)[0]
+            const symbol = currency[key].symbol
+
+            input.setAttribute('value', symbol)
+        }
+
+    </script>
+{% endblock js %}
 

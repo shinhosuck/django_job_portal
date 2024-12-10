@@ -30,9 +30,6 @@
                         <a class='navlink'href="{% url 'candidates:jobs' %}">
                             Home
                         </a>
-                        <a class='navlink'href="{% url 'candidates:jobs' %}">
-                            Jobs
-                        </a>
                         <a class="
                             {% if url_name == 'profile-update' %}active-link{% endif %} navlink" 
                             href="{% url 'accounts:profile-update' %}"
@@ -50,29 +47,32 @@
                     Boost your job search. Complete your profile for more accurate matches.
                 </p>
             </div>
-            <form class="profile-form" action="" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="profile-input-container">
-                    {% for field in form %}
-                        <div class="profile-input-row">
-                            {% if field.errors %}
-                                {% for error in field.errors %}
-                                    <ul class='errorlist'>
-                                        <li>{{ error}}</li>
-                                    </ul>
-                                {% endfor %}
-                            {% endif %}
-                            {{ field.label_tag }}
-                            {{ field }}
-                            <span class="helptext">{{ field.help_text }}</span>
-                        </div>
-                    {% endfor %}
-                </div>
-                <button class="profile-form-update-btn" type="submit">
-                    <span>Next</span>
-                    <i class="fas fa-arrow-right"></i>
-                </button>
-            </form>
+            <div class="profile-form-wrapper">
+                <h3 class="profile-form-header">Profile</h3>
+                <form class="profile-form" action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="profile-input-container">
+                        {% for field in form %}
+                            <div class="profile-input-row">
+                                {% if field.errors %}
+                                    {% for error in field.errors %}
+                                        <ul class='errorlist'>
+                                            <li>{{ error}}</li>
+                                        </ul>
+                                    {% endfor %}
+                                {% endif %}
+                                {{ field.label_tag }}
+                                {{ field }}
+                                <span class="helptext">{{ field.help_text }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <button class="profile-form-update-btn" type="submit">
+                        <span>Next</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -80,126 +80,8 @@
 
 {% endblock content %}
 
-{% block footer %}
+{% block footer %}{% endblock footer %}
 
-<script>
-    // CREATE CUSTOM FILE/IMAGE INPUT
-    let selectedProfileImage = null
-    const profileInputRows = Array.from(document.querySelectorAll('.profile-input-row'))[0]
-    const label = profileInputRows.querySelector('label')
-    let input = profileInputRows.querySelector('input')
-    const anchor = profileInputRows.querySelector('a')
-
-    const div = document.createElement('div')
-    const newLabel = document.createElement('label')
-
-    //input.setAttribute('onchange', 'handleProfileImageInput()')
-    input.addEventListener('change', handleProfileImageInput)
-    
-    div.setAttribute('class', 'profile-image-input-container')
-    newLabel.textContent = 'Profile image:'
-    newLabel.setAttribute('for', 'id_profile_image')
-    
-    label.textContent = 'Upload image'
-    label.classList.add('label-image-input-wrapper')
-    label.removeAttribute('for')
-   
-    anchor.textContent = `Default: ${anchor.textContent.split('/').slice(-1)}`
-    anchor.classList.add('current-image-url')
-
-    label.append(input)
-    div.append(label)
-    div.append(anchor)
-
-    profileInputRows.innerHTML = ''
-
-    profileInputRows.append(newLabel)
-    profileInputRows.append(div)
-
-    function handleProfileImageInput() {
-
-        if (selectedProfileImage) {
-            selectedProfileImage.remove()
-        }
-
-        const file = input.files[0]?.name
-        const p = document.createElement('p')
-        const tags = `
-            <span>Selected: ${file}</span>
-            <i class="fas fa-close remove-selected-profile-image-btn"></i>
-        `
-        p.innerHTML = tags
-
-        p.style.display = 'flex'
-        p.style.alignItems = 'center'
-        p.style.gap = '1rem'
-        p.style.color = 'var(--black-30)'
-        p.style.overflow = 'hidden'
-
-        p.setAttribute('class', 'selected-profile-image')
-        insertSelectedImageTag(p)
-    }
-
-    function insertSelectedImageTag(p) {
-        const profileInputContainer = document.querySelector(
-            '.profile-image-input-container')
-        const currentImageURL = document.querySelector(
-            '.current-image-url')
-    
-        profileInputContainer.insertBefore(p, currentImageURL)
-
-        selectedProfileImage = document.querySelector(
-            '.selected-profile-image')
-
-
-        const span = selectedProfileImage.querySelector('span')
-        span.style.overflow = 'hidden'
-        span.style.whiteSpace = 'nowrap'
-        span.style.textOverflow = 'ellipsis'
-        span.style.fontSize = '0.95rem'
-
-
-        const removeSelectedProfileImageBtn = document.querySelector(
-            '.remove-selected-profile-image-btn')
-
-        removeSelectedProfileImageBtn.addEventListener('click', (e) => {
-            
-            selectedProfileImage.remove()
-
-            input = document.querySelector('#id_profile_image')
-            input.remove()
-
-            const newInput = document.createElement('input')
-
-            newInput.setAttribute('type', 'file')
-            newInput.setAttribute('name', 'profile_image')
-            newInput.setAttribute('accept', 'image/*')
-            newInput.setAttribute('id', 'id_profile_image')
-            newInput.addEventListener('change', handleProfileImageInput)
-
-            label.append(newInput)
-            input = document.querySelector('#id_profile_image')
-        })
-    }
-
-    const notRequired = ['Profile image:', 'Phone number:', 'Social link:', 'Portfolio/personal website:']
-    const profileForm = document.querySelector('.profile-form')
-    const profileFormLabels = Array.from(profileForm.querySelectorAll('label'))
-    
-    profileFormLabels.forEach((label) => {
-        if (label.textContent !== 'Upload image' && notRequired.includes(label.textContent)) {
-            label.innerHTML = `
-                <span>${label.textContent.slice(0, -1)}</span>
-            `
-        }else if (label.textContent !== 'Upload image' && !notRequired.includes(label.textContent)) {
-            label.innerHTML = `
-                <span>${label.textContent.slice(0, -1)}</span>
-                <span style="color: red;">*</span>
-            `
-        }
-    })
-    
-   
-</script>
-
-{% endblock footer %}
+{% block js %}
+    <script type="text/javascript" src="{% static 'accounts/profile_update_form.js' %}"></script>
+{% endblock js %}

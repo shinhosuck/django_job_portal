@@ -12,42 +12,58 @@ class EmployerForm(forms.ModelForm):
         model = Employer
         fields = [
             'employer_name',
+            'logo',
             'city',
             'state_or_province',
             'country',
-            'about_employer', 
+            'zip_code_or_postal_code',
             'website',
-            'logo'
+            'about_employer'
         ]
 
         labels = {
-            'about_employer':'About Employer'
+            'about_employer':'About Employer',
+            'state_or_province': 'State/province',
+            'zip_code_or_postal_code':'Zip code/postal code',
         }
 
 
-    def clean_company(self):
+    def clean_employer_name(self):
         company = self.cleaned_data.get('employer_name')
 
-        try:
-            instance = Employer.objects.get(company__iexact=company)
-        except Employer.DoesNotExist:
-            instance = None 
-        
-        if instance:
-            raise forms.ValidationError(f'Employer name is taken.')
-        
+        if not self.instance:
+            try:
+                instance = Employer.objects.get(employer_name__iexact=company)
+            except Employer.DoesNotExist:
+                instance = None 
+            
+            if instance:
+                raise forms.ValidationError(f'Employer name is taken.')
+            
         return company
 
-class JobForm(forms.ModelForm):
-    job_title = forms.CharField(widget=forms.TextInput(attrs={'autofocus':True}))
     
+
+class JobForm(forms.ModelForm):
+ 
     class Meta:
         model = Job
         fields = [
+            'industry',
             'job_title',
             'job_type',
             'experience_level',
             'work_location',
+            'payment_type',
+            'currency',
             'salary',
+            'currency_code',
+            'job_description',
             'qualification'
         ]
+
+        widgets = {
+            'job_title': forms.TextInput(attrs={'autofocus':True}),
+            'currency': forms.Select(attrs={'onchange':'addCurrencyCode(event)'}),
+            'currency_code': forms.TextInput(attrs={'required':False})
+        }

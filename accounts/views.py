@@ -72,17 +72,26 @@ def login_view(request):
                                 qualification = None
 
                             if qualification:
-                                educations = user.profile.candidatequalification.educations.exists()
-                                experiences = user.profile.candidatequalification.experiences.exists()
+                                educations = user.profile. \
+                                    candidatequalification.educations.exists()
+                                experiences = user.profile. \
+                                    candidatequalification.experiences.exists()
 
                             if qualification and educations and experiences:
                                 messages.success(request, 'Successfully logged in!')
                                 return redirect('candidates:jobs')
                             else:
-                                messages.info(request, 'Please complete the forms below')
+                                messages.info(request, 
+                                              'Please complete the forms below to better serve you.')
                                 return redirect('candidates:candidate-add-career-detail')
-                        else:
-                            pass
+                            
+                        elif user.profile.user_type == 'employer':
+                            if user.profile.employers.exists():
+                                return redirect('employers:employer')
+                            else:
+                                messages.info(request, 
+                                              'Please complete the form below to better serve you.')
+                                return redirect('employers:employer-register')
                     else:
                         return redirect('accounts:profile-update')
             else:
@@ -121,9 +130,8 @@ def profile_update_form_view(request):
             
             if user_type == 'job seeker':
                 return redirect('candidates:candidate-add-career-detail')
-            else:
+            elif user_type == 'employer':
                 return redirect('employers:employer-register')
-        
         
         for key, errors in form.errors.items():
             for error in errors:
@@ -137,14 +145,24 @@ def profile_update_form_view(request):
 
 
 def logout_view(request):
-    if not request.user.is_authenticated:
+    user = request.user
+
+    if not user.is_authenticated:
         messages.error(request, "You haven't logged in yet!")
         return redirect('candidates:jobs')
 
     if request.method == 'POST':
+        user_type = user.profile.user_type
+        redirect_url = None 
+
+        if user_type == 'employer':
+            redirect_url = reverse('employers:employer')
+        else:
+            redirect_url = reverse('candidates:landing-page')
+
         logout(request)
         messages.success(request, 'Successfully logged out!')
-        return redirect('candidates:landing-page')
+        return redirect(redirect_url)
     return render(request, 'accounts/logout.html')
 
 
@@ -155,6 +173,9 @@ def profile_view(request):
     qualification = None
     educations = None 
     experiences = None 
+
+    if request.user.profile.user_type == 'employer':
+        return redirect('employers:employer-profile')
 
     try:
         qualification = profile.candidatequalification
@@ -176,6 +197,7 @@ def profile_view(request):
         'qualification': qualification,
         'educations': educations,
         'experiences': experiences,
-        'scroll_to': scroll_to or ''
+        'scroll_to': scroll_to or '',
+        'user_type': 'job_seeker'
     }
     return render(request, 'accounts/profile.html', context)

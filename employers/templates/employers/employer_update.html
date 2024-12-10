@@ -1,0 +1,21 @@
+{% extends "employers/employers_index.html" %}
+{% load static %}
+
+{% block title %}
+    Employer update
+{% endblock title %}
+
+{% block navbar %}{% endblock navbar %}
+
+{% block content %}
+    <h1>Employer update</h1>
+    <div>
+        <form action="?data_type={{ data_type }}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Update</button>
+        </form>
+    </div>
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}

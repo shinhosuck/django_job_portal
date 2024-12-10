@@ -860,7 +860,107 @@ function handleEmptyArray(dataType) {
 
     createCustomFileUplodInput()
     resumeInput = document.querySelector('#id_resume')
-    resumeInput.setAttribute('onchange', 'handleResumeFileInput()')
+    resumeInput.addEventListener('change', handleResumeFileInput)
+}
+
+
+function createCustomFileUplodInput() {
+    const resumePath = JSON.parse(localStorage.getItem('resume'))
+
+    const div = document.createElement('div')
+    let a = null
+    const newLabel = document.createElement('label')
+
+    div.setAttribute('class', 'resume-input-wrapper')
+
+
+    if (resumePath?.resume) {
+        a = document.createElement('a')
+        a.setAttribute('href', resumePath.resume)
+        a.setAttribute('target', '_blank')
+        a.setAttribute('class', 'resume-url')
+        a.textContent = `Current: ${resumePath.resume.split('/').slice(-1)}`
+    }
+
+    newLabel.setAttribute('form', 'id_resume')
+    newLabel.textContent = 'Resume:'
+
+    const qualiForm = document.querySelector('.qualification-form')
+    const pTags = qualiForm && Array.from(qualiForm.querySelectorAll('p'))
+    const inputwrapper2 = pTags && pTags[2]
+    const inputwrapper3 = pTags && pTags[3]
+
+    const label = inputwrapper2 && inputwrapper2.querySelector('label')
+    const input = inputwrapper2 && inputwrapper2.querySelector('input')
+
+    label.textContent = 'Upload resume'
+    label.removeAttribute('for')
+    label.setAttribute('class', 'resume-input-wrapper-label')
+    label.append(input)
+    
+    div.append(label)
+    a && div.append(a)
+
+    inputwrapper2.innerHTML = ''
+    inputwrapper2.append(newLabel)
+    inputwrapper2.append(div)
+
+    // candidate register form help text
+    const span = document.createElement('span')
+    const helpText = 'Skills must be separated by commas.'
+
+    span.setAttribute('class', 'candidate-register-form-help-text')
+   
+    span.innerHTML = helpText
+    inputwrapper3.append(span)
+}
+
+
+function handleResumeFileInput() {
+    const resumeInputWrapperLabel = document.querySelector('.resume-input-wrapper-label')
+    const resumeInputWrapper = document.querySelector('.resume-input-wrapper')
+    const resumeUrl = document.querySelector('.resume-url')
+    let selectedResume = document.querySelector('.selected-resume')
+
+    const p = document.createElement('p')
+    const value = resumeInput.files[0].name.replaceAll(' ', '').toLowerCase()
+
+    const elements = `
+        <span>Selected: ${value}</span>
+        <i class='fas fa-close remove-selected-resume'></i>`
+
+    p.setAttribute('class', 'selected-resume')
+
+    if (value) {
+        
+        selectedResume && selectedResume.remove()
+        p.innerHTML = elements
+
+        if (resumeUrl)
+            resumeInputWrapper.insertBefore(p, resumeUrl)
+        else {
+            resumeInputWrapper.append(p)
+        }
+    }
+
+    // Remove selected resume
+    const removeSelectedResume = document.querySelector('.remove-selected-resume')
+
+    removeSelectedResume.addEventListener('click', (e) => {
+        selectedResume = document.querySelector('.selected-resume')
+        selectedResume.remove()
+        resumeInput.remove()
+
+        const input = document.createElement('input')
+        input.setAttribute('type', 'file')
+        input.setAttribute('name', 'resume')
+        input.setAttribute('accept', 'img/*')
+        input.setAttribute('id', 'id_resume')
+        input.addEventListener('change', handleResumeFileInput)
+        
+        resumeInputWrapperLabel.append(input)
+        resumeInput = document.querySelector('#id_resume')
+    })
 }
 
 
@@ -891,108 +991,13 @@ function handleFormErrorAndWarning(data) {
     })
 }
 
+
 function getCsrfToken(csrftoken) {
     const cookie = document.cookie.split(';')
     .find((item)=>item.startsWith(csrftoken))
     .split('=').slice(-1)[0].trim()
     
     return cookie || null
-}
-
-
-function createCustomFileUplodInput() {
-    const resumePath = JSON.parse(localStorage.getItem('resume'))
-
-    const div = document.createElement('div')
-    let a = null
-    const newLabel = document.createElement('label')
-
-    div.setAttribute('class', 'resume-input-wrapper')
-
-
-    if (resumePath?.resume) {
-        a = document.createElement('a')
-        a.setAttribute('href', resumePath.resume)
-        a.setAttribute('target', '_blank')
-        a.setAttribute('class', 'resume-url')
-        a.textContent = `Current: ${resumePath.resume.split('/').slice(-1)}`
-    }
-
-    newLabel.setAttribute('form', 'id_resume')
-    newLabel.textContent = 'Resume:'
-
-    const qualiForm = document.querySelector('.qualification-form')
-    const pTags = qualiForm && Array.from(qualiForm.querySelectorAll('p'))
-    const p2 = pTags && pTags[2]
-    const p3 = pTags && pTags[3]
-
-    const label = p2 && p2.querySelector('label')
-    const input = p2 && p2.querySelector('input')
-
-    label.textContent = 'Upload resume'
-    label.removeAttribute('for')
-    label.setAttribute('class', 'resume-input-wrapper-label')
-    label.append(input)
-    
-    div.append(label)
-    a && div.append(a)
-
-    p2.innerHTML = ''
-    p2.append(newLabel)
-    p2.append(div)
-
-    // candidate register form help text
-    const span = document.createElement('span')
-    const helpText = 'Skills must be separated by commas.'
-
-    span.setAttribute('class', 'candidate-register-form-help-text')
-   
-    span.innerHTML = helpText
-    p3.append(span)
-}
-
-function handleResumeFileInput() {
-    const resumeInputWrapperLabel = document.querySelector('.resume-input-wrapper-label')
-    const resumeInputWrapper = document.querySelector('.resume-input-wrapper')
-    const resumeUrl = document.querySelector('.resume-url')
-    let selectedResume = document.querySelector('.selected-resume')
-
-    const p = document.createElement('p')
-    const value = resumeInput.value.split('\\').slice(-1)[0]
-
-    const elements = `
-        <span>Selected: ${value}</span>
-        <i class='fas fa-close remove-selected-resume'></i>`
-
-    p.setAttribute('class', 'selected-resume')
-
-    if (value) {
-        
-        if (selectedResume) {
-            selectedResume.remove()
-        }
-        p.innerHTML = elements
-        resumeInputWrapper.insertBefore(p, resumeUrl)
-    }
-
-    const removeSelectedResume = document.querySelector('.remove-selected-resume')
-
-    
-    removeSelectedResume.addEventListener('click', (e) => {
-        selectedResume = document.querySelector('.selected-resume')
-        selectedResume.remove()
-        resumeInput.remove()
-
-        const input = document.createElement('input')
-        input.setAttribute('type', 'file')
-        input.setAttribute('name', 'resume')
-        input.setAttribute('accept', 'img/*')
-        input.setAttribute('id', 'id_resume')
-        input.setAttribute('onchange', 'handleResumeFileInput()')
-        
-        resumeInputWrapperLabel.append(input)
-        resumeInput = document.querySelector('#id_resume')
-    })
 }
 
 

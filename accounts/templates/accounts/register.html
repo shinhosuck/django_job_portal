@@ -11,14 +11,7 @@
     <div class="register-form-row">
         <div class="register-form-container">
             <div class="form-navbar">
-                <a href="
-                    {% if next %}
-                        {{ next }}
-                    {% else %}
-                        {% url 'candidates:landing-page' %}
-                    {% endif %}" 
-                    class="logo-container"
-                >
+                <a href="{% url 'candidates:landing-page' %}" class="logo-container">
                     <span class="logo-header">HireSpot</span>
                 </a>
                 <button class="form-navlinks-toggle-btn">
@@ -33,36 +26,39 @@
                         >
                             Home
                         </a>
-                        <a class='navlink' href="{% url 'accounts:login' %}">Login</a>
+                        <a class='navlink' href="{% url 'accounts:login' %}">Sign in</a>
                         <a class="
                             {% if url_name == 'register' %}active-link{% endif %} navlink" 
                             href="{% url 'accounts:register' %}"
                         >
-                            Register
+                            Sign up
                         </a>
                     </div>
                 {% endwith %}
             </div>
             <div class="register-form-header-text-container">
                 <h2 class="register-form-name">
-                    Register Your Account
+                    Create Your Account
                 </h2>
                 <p class="register-form-text">
                     Ready to advance your career or hire top talent? 
                     Create an account to start your journey.
                 </p>
             </div>
-            <form class="register-from" action="" method='POST'>
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="register-form-sign-up-btn">
-                    Register
-                </button>
-            </form>
+            <div class="register-form-wrapper">
+                <h3 class="register-form-header">Sign up</h3>
+                <form class="register-from" action="" method='POST'>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="register-form-sign-up-btn">
+                        Sign up
+                    </button>
+                </form>
+            </div>
             <div class="register-form-already-registered">
-                <p class="">Already registered?</p>
+                <p class="">Already have an account?</p>
                 <a class="" href="{% url 'accounts:login' %}">
-                    <span>Login</span>
+                    <span>Sign in</span>
                     <i class="fas fa-arrow-right"></i>
                 </a>
             </div>

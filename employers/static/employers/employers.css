@@ -57,6 +57,7 @@
     align-content: center;
     padding: 2rem 0;
 }
+
 .employer-register-form-container {
     width: 90%;
     max-width: 700px;
@@ -71,47 +72,84 @@
     display: grid;
     align-content: start;
     gap: 0.8rem;
+    text-align: center;
 }
 
 .employer-register-form-name {
     color: var(--black-20);
-    font-size: 1.4rem;
-    font-weight: 600;
+    font-size: 1.7rem;
 }
 
 .employer-register-form-text {
-    letter-spacing: 0.04rem;
+    letter-spacing: 0.03rem;
     line-height: 1.4;
     color: var(--black-30);
-    max-width: 550px;
-    text-wrap: balance;
+    max-width: 450px;
+    font-size: 1.1rem;
+    margin: 0 auto;
+    text-wrap: pretty;
 }
 
 .employer-register-form {
     display: grid;
     align-content: start;
-    gap: 1.2rem;
-    padding: 1.2rem;
+    gap: 1.5rem;
+    padding: 1.5rem;
     border: 1px solid var(--black-80);
     border-radius: 8px;
+    background: white;
 }
 
-.post-job-form-select-container > select {
-    border: 1px solid var(--black-80);
-    padding: 0.8rem 1rem;
+.employer-image-input-container {
+	border: 1px solid var(--black-80);
+    padding: 0.5rem 1rem;
     border-radius: 5px;
-    background: transparent;
-    font-size: 1rem;
-    color: var(--black-20);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 2rem;
+    row-gap: 0.5rem;
+    overflow: hidden;
 }
 
-.post-job-form-select-container > select:focus {
-    outline: 3px solid var(--green-60);
+.employer-logo-image-wrapper {
+	color: white;
+    padding: 0.6rem 1rem;
+    background: var(--black-30);
+    border-radius: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 0.9rem;
 }
 
-/* .register-from > *:nth-child(6) {
-    display: none;
-} */
+.employer-log-url {
+	color: var(--green-30);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 0.9rem;
+}
+
+.chosen-company-logo {
+    color: var(--black-30);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    overflow: hidden;
+}
+
+.chosen-company-logo > span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chosen-company-logo > 
+.remove-company-logo {
+    line-height: 0;
+}
 
 .employer-register-form > p {
     display: grid;
@@ -125,13 +163,20 @@
     font-weight: 500;
 }
 
+.employer-register-form > p > select,
 .employer-register-form > p > textarea,
 .employer-register-form > p > input {
     border: 1px solid var(--black-80);
-    padding: 0.8rem 1rem;
+    padding: 1rem;
     border-radius: 5px;
-    color: var(--black-20);
+    color: var(--black-30);
     letter-spacing: 0.03rem;
+    background: white;
+}
+
+.employer-register-form > p > select {
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .employer-register-form > p > textarea {
@@ -170,6 +215,16 @@
     }
 }
 
+@media screen and (min-width:700px) {
+    .employer-register-form-row {
+        padding: 3rem 0;
+    }
+
+    .employer-register-form-text-container {
+        margin-top: 2rem;
+    }
+}
+
 /* POST JOB */
 .post-job-form-row {
     min-height: 100svh;
@@ -189,34 +244,33 @@
 
 .post-job-form-text-container {
     display: grid;
-    gap: 0.8rem
+    gap: 0.8rem;
+    text-align: center;
 }
 
 .post-job-form-name {
     color: var(--black-20);
-    font-size: 1.4rem;
-    font-weight: 600;
+    font-size: 1.7rem;
 }
 
 .post-job-form-text {
     letter-spacing: 0.04rem;
     line-height: 1.4;
     color: var(--black-30);
-    max-width: 550px;
-    text-wrap: balance;
+    max-width: 450px;
+    text-wrap: pretty;
+    margin: 0 auto;
+    font-size: 1.1rem;
 }
-
-/* .register-from > *:nth-child(6) {
-    display: none;
-} */
 
 .post-job-form {
     display: grid;
     align-content: start;
-    gap: 1.2rem;
-    padding: 1.2rem;
+    gap: 1.5rem;
+    padding: 1.5rem;
     border-radius: 8px;
-    border: 1px solid var(--black-80)
+    border: 1px solid var(--black-80);
+    background: white;
 }
 
 .post-job-form > p {
@@ -230,14 +284,20 @@
     color: var(--black-10);
     font-weight: 500;
 }
-
+.post-job-form > p > select,
 .post-job-form > p > textarea,
 .post-job-form > p > input {
     border: 1px solid var(--black-80);
-    padding: 0.8rem 1rem;
+    padding: 1rem;
     border-radius: 5px;
     color: var(--black-20);
     letter-spacing: 0.03rem;
+    background: white;
+}
+
+.post-job-form > p > select {
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .post-job-form > p > textarea {
@@ -295,16 +355,24 @@
 .job-detail-redirect {
     color: var(--black-30);
     letter-spacing: 0.03rem;
+    justify-self: start;
+}
+
+@media (hover) {
+    .job-detail-redirect:hover {
+        color: var(--green-30);
+    }
 }
 
 .job-detail {
     display: grid;
     align-content: start;
-    gap: 1.8rem;
+    gap: 2rem;
     border: 1px solid var(--black-80);
-    padding: 1.2rem;
+    padding: 1.5rem;
     border-radius: 8px;
     margin-top: 1rem;
+    background: white;
 }
 
 .job-detail-header-container {
@@ -314,14 +382,18 @@
 }
 
 .job-detail-job-title {
-    letter-spacing: 0.03rem;
-    color: var(--black-10);
-    font-size: 1.5rem;
+    color: var(--green-10);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.7rem;
 }
 
-.job-detail-job-posted {
+.job-detail-job-title > span {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--black-40);
     font-size: 0.9rem;
-    color: var(--black-30)
 }
 
 .job-detail-job-info-container {
@@ -331,8 +403,8 @@
 }
 
 .job-detail-employer-logo-container {
-    width: 65px;
-    height: 65px;
+    width: 80px;
+    height: 80px;
 }
 
 .job-detail-employer-logo-container > img {
@@ -344,51 +416,79 @@
 .job-detail-address {
     display: grid;
     align-content: start;
-    gap: 0.1rem
+    gap: 0.2rem
 }
 
 .job-detail-employer-name {
-    color: var(--black-10);
-    font-weight: 500;
+    color: var(--green-10);
+    font-weight: 600;
 }
 
 .job-detail-employer-address,
 .job-detail-employer-state-country {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--black-20)
 }
 
-.job-detail-salary {
-    justify-self: start;
-    padding: 0.4rem 0.5rem;
-    border-radius: 5px;
-    font-weight: 500;
-    font-size: 1rem;
-    background: var(--black-90)
+.job-pay-rate-job-type-container {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
 }
 
+.job-detail-job-posted,
+.job-pay-type,
+.job-pay-rate {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.job-detail-job-posted > h4,
+.job-pay-type > h4,
+.job-pay-rate > h4 {
+    color: var(--green-10);
+}
+
+.job-detail-job-posted,
+.job-detail-pay-rate,
+.job-detail-salary {
+    color: var(--black-20)
+}
+
+.job-description-container,
 .job-qualification-container {
     display: grid;
     align-content: start;
     gap: 0.5rem;
 }
 
+.job-description-header,
 .job-qualification-header {
-    color: var(--black-10);
-    letter-spacing: 0.03rem;
+    color: var(--green-10);
     font-size: 1rem;
 }
 
+.job-description,
 .job-qualification {
-    letter-spacing: 0.04rem;
     line-height: 1.4;
-    color: var(--black-30);
+    color: var(--black-20);
+    letter-spacing: 0.03rem;
+    line-height: 1.4;
 }
 
 .job-detail-job-applicant-container {
+    position: relative;
     display: grid;
     align-content: start;
+    justify-self: start;
     gap: 0.5rem;
+}
+
+.job-detail-job-applicant-container >
+.employer-dashboard-employer-job-applicants {
+    min-width: 140px;
+    top: calc(100% + 5px)
 }
 
 .job-detail-job-applicants {
@@ -410,7 +510,6 @@
 
 .job-detail-not-authenticated-btn,
 .job-detail-applied-btn {
-    margin-top: 1rem;
     justify-self: start;
     padding: 0.7rem 1.5rem;
     border: none;
@@ -422,30 +521,61 @@
     font-weight: 500;
 }
 
+.job-detail-apply-btn-container {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem
+}
+
+.job-detail-update-btn,
 .job-detail-apply-btn {
-    margin-top: 1rem;
-    justify-self: start;
     padding: 0.7rem 1.5rem;
-    border: none;
     background: var(--green-30);
-    color: var(--black-90);
+    color: white;
     border-radius: 5px;
     letter-spacing: 0.03rem;
     font-size: 1rem;
     font-weight: 500;
-    transition: background 100ms linear;
+    transition: background 200ms linear;
+}
+
+.job-detail-update-btn {
+    justify-self: start;
+}
+
+.job-detail-save-job-btn {
+    padding: 0.6rem 1.5rem;
+    outline: 2px solid var(--green-40);
+    color: var(--black-20);
+    border-radius: 5px;
+    letter-spacing: 0.03rem;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background 200ms linear;
 }
 
 @media (hover) {
     .job-detail-apply-btn:hover {
-        background: var(--green-40)
+        background: var(--green-10)
+    }
+
+    .job-detail-save-job-btn:hover {
+        background: var(--green-40);
+        color: white;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .job-detail-container {
+        padding: 3rem 0;
     }
 }
 
 /* EMPLOYER DASHBOARD */
 .employer-dashboard-container {
-    padding: 3rem 0;
+    padding: 2rem 0;
 }
+
 .employer-dashboard-row {
     width: 90%;
     max-width: 900px;
@@ -468,13 +598,24 @@
     gap: 1rem;
 }
 
+.employer-dashboard-employers-info-wrapper {
+    display:grid;
+    gap:0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.employer-dashboard-employers-info-wrapper:last-child {
+    margin-bottom: 0;
+}
+
 .employer-dashboard-employer {
     display: grid;
     align-content: start;
-    gap: 1.8rem;
+    gap: 2rem;
     padding: 1.2rem;
     border-radius: 8px;
-    border: 1px solid var(--black-80)
+    border: 1px solid var(--black-80);
+    background: white;
 }
 
 .employer-dashboard-logo-address-container {
@@ -484,8 +625,8 @@
 }
 
 .employer-dashboard-logo-container {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
 }
 
 .employer-dashboard-logo-container > img {
@@ -501,35 +642,20 @@
 }
 
 .employer-dashboard-logo-name {
-    color: var(--black-10);
+    color: var(--green-30);
     font-weight: 500;
+}
+
+@media (hover) {
+    .employer-dashboard-logo-name:hover {
+        color: var(--green-20)
+    }
 }
 
 .employer-dashboard-city,
 .employer-dashboard-country {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--black-20)
-}
-
-.employer-dashboard-employer-about {
-    display: grid;
-    align-content: start;
-    gap: 0.5rem;
-}
-
-.employer-dashboard-employer-about-header {
-    color: var(--black-10);
-    letter-spacing: 0.03rem;
-    font-weight: 700;
-    font-size: 1.1rem;
-    line-height: 1;
-}
-
-.employer-dashboard-employer-about-text {
-    color: var(--black-30);
-    letter-spacing: 0.04rem;
-    line-height: 1.4;
-    text-wrap: balance;
 }
 
 .employer-dashboard-jobs-container {
@@ -540,10 +666,7 @@
 
 .employer-dashboard-jobs-header {
     color: var(--black-10);
-    letter-spacing: 0.03rem;
-    font-weight: 700;
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
+    font-weight: 500;
     line-height: 1;
 }
 
@@ -556,6 +679,7 @@
 }
 
 .employer-dashboard-employer-job {
+    position: relative;
     display: grid;
     align-content: start;
     gap: 0.8rem;
@@ -569,6 +693,7 @@
     align-content: center;
     flex-wrap: wrap;
     gap: 0.3rem;
+    overflow: hidden;
 }
 
 .employer-dashboard-employer-job-title {
@@ -576,16 +701,26 @@
     text-wrap: nowrap;
     overflow-x: hidden;
     text-overflow: ellipsis;
-    text-decoration: underline;
+    font-weight: 500;
+    text-transform:capitalize;
+    transition: font-weight 200ms linear;
+}
+
+@media (hover) {
+    .employer-dashboard-employer-job-title:hover {
+        color: var(--green-20);
+    }
 }
 
 .employer-dashboard-employer-job-date {
     font-size: 0.85rem;
-    color: var(--black-30)
+    color: var(--black-30);
+    text-wrap: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
 }
 
 .employer-dashboard-employer-job-applicants-container {
-    position: relative;
     justify-self: start;
     display: grid;
     align-content: start;
@@ -613,9 +748,9 @@
 .employer-dashboard-employer-job-applicants {
     position: absolute;
     z-index: 2;
-    top: 25px;
+    top: 100%;
     left: 0;
-    width: 115px;
+    width: 100%;
     height: 0;
     overflow: hidden;
     white-space: nowrap;
@@ -623,26 +758,38 @@
 
     display: grid;
     align-self: start;
-    gap: 0.5rem;
-    transition: opacity 200ms linear
+    gap: 0.8rem;
+    transition: opacity 200ms linear;
 }
 
 .show-employer-dashboard-employer-job-applicants {
     opacity: 1;
     height: auto;
-    padding: 0.8rem;
+    padding: 1rem;
     border-radius: 5px;
     background: white;
-    text-decoration: underline;
-    box-shadow: 2px 2px 10px -3px var(--black-30);
+    box-shadow: 2px 2px 10px -3px var(--black-40);
 }
 
 .employer-dashboard-employer-job-applicant {
     font-size: 0.9rem;
-    color: var(--green-30);
+    color: var(--green-25);
     text-wrap: nowrap;
     overflow-x: hidden;
     text-overflow: ellipsis;
+    transition: font-weight 200ms linear;
+}
+
+@media (hover) {
+    .employer-dashboard-employer-job-applicant:hover {
+        color: var(--green-35);
+    }
+}
+
+@media screen and (min-width:700px) {
+    .employer-dashboard-container {
+        padding: 3rem 0;
+    }
 }
 
 /* EMPLOYER DETAIL */
@@ -663,6 +810,13 @@
 .employer-detail-redirect {
     color: var(--black-30);
     letter-spacing: 0.03rem;
+    justify-self: start;
+}
+
+@media (hover) {
+    .employer-detail-redirect:hover {
+        color: var(--green-30);
+    }
 }
 
 .employer-detail-header {
@@ -673,10 +827,11 @@
 .employer-detail-employer {
     display: grid;
     align-content: start;
-    gap: 1.8rem;
-    padding: 1.2rem;
+    gap: 2rem;
+    padding: 1.5rem;
     border-radius: 8px;
-    border: 1px solid var(--black-80)
+    border: 1px solid var(--black-80);
+    background: white;
 }
 
 .employer-detail-employer-info {
@@ -686,8 +841,8 @@
 }
 
 .employer-detail-employer-logo-container {
-    width: 60px;
-    height: 60px
+    width: 80px;
+    height: 80px
 }
 
 .employer-detail-employer-logo-container > img {
@@ -709,7 +864,7 @@
 
 .employer-detail-employer-address,
 .employer-detail-employer-country {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--black-20)
 }
 
@@ -729,52 +884,35 @@
 
 .employer-detail-employer-about-text {
     color: var(--black-30);
-    letter-spacing: 0.04rem;
+    letter-spacing: 0.03rem;
     line-height: 1.4;
-    text-wrap: balance;
+    text-wrap: pretty;
 }
 
-.employer-detail-employer-posted-job-container {
+.employer-detail-employer-website {
     display: grid;
     align-content: start;
     gap: 0.5rem;
 }
 
-.employer-detail-employer-posted-job-header {
+.employer-detail-employer-website-header {
     color: var(--black-10);
     letter-spacing: 0.03rem;
     font-weight: 700;
     font-size: 1.1rem;
-    margin-bottom: 0.5rem;
     line-height: 1;
+    overflow: pretty;
 }
 
-.employer-detail-jobs-container {
-    display: grid;
-    align-content: start;
-    align-items: start;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
-}
-
-.employer-detail-job {
-    display: grid;
-    align-content: start;
-    gap: 0.8rem;
-    border-radius: 8px;
-    padding: 0.8rem;
-    border: 1px solid var(--black-80)
-}
-
-.employer-detail-job-title {
+.employer-detail-employer-website-url {
     color: var(--green-30);
+    overflow: hidden;
     text-wrap: nowrap;
-    overflow-x: hidden;
     text-overflow: ellipsis;
-    text-decoration: underline;
 }
 
-.employer-detail-job-date {
-    font-size: 0.85rem;
-    color: var(--black-30)
+@media (hover) {
+    .employer-detail-employer-website-url:hover {
+        color: var(--green-20);
+    }
 }

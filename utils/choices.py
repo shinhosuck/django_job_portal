@@ -23,6 +23,11 @@ USER_TYPE_CHOICES = (
     ('employer', 'Employer'),
 )
 
+PAYMENT_TYPE_CHOICES = (
+    ('hour', 'Hourly'),
+    ('month', 'Monthly'),
+)
+
 INDUSTRY_CHOICES = (
     ('technology', 'Technology'),
     ('finance', 'Finance'),

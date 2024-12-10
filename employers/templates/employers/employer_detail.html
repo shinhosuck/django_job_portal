@@ -8,14 +8,7 @@
 {% block content %}
 <div class="employer-detail-container">
     <div class="employer-detail-row">
-        <a class="employer-detail-redirect"
-            href="
-            {% if not redirect_url %}
-                {% url 'employers:employer-dashboard' %}
-            {% else %}
-                {{ redirect_url }}
-            {% endif %}"
-        >
+        <a href="{{ redirect_url }}" class="employer-detail-redirect">
             <i class="fas fa-arrow-left"></i>
             <span>Back to previous page</span>
         </a>
@@ -39,6 +32,9 @@
                         <span>{{ employer.state_or_province }}</span>,
                         <span>{{ employer.country }}</span>
                     </p>
+                    <p class="employer-detail-employer-country">
+                        <span>{{ employer.zip_code_or_postal_code }}</span>
+                    </p>
                 </div>
             </div>
             <div class="employer-detail-employer-about">
@@ -49,28 +45,11 @@
                     {{ employer.about_employer}}
                 </p>
             </div>
-            <div class="employer-detail-employer-posted-job-container">
-                <h4 class="employer-detail-employer-posted-job-header">
-                    Posted Job{{ jobs|pluralize:'s'}}
-                </h4>
-                {% if jobs %}
-                    <div class="employer-detail-jobs-container">
-                        {% for job in jobs %}
-                            <div class="employer-detail-job">
-                                <a  class="employer-detail-job-title"
-                                    href="{{ job.get_absolute_url }}?redirect={{ job.employer.get_absolute_url }}"
-                                >
-                                    {{ job.job_title }}
-                                </a> 
-                                <p class="employer-detail-job-date">
-                                    Posted on {{ job.created|date:"M d Y"}}
-                                </p>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    <h4>No Posted Job</h4>
-                {% endif %}
+            <div class="employer-detail-employer-website">
+                <h4 class="employer-detail-employer-website-header">Website</h4>
+                <a href="{{ employer.website }}" target="_blank" class="employer-detail-employer-website-url">
+                    {{ employer.website }}
+                </a>
             </div>
         </div>
     </div>

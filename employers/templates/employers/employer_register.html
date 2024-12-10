@@ -38,9 +38,9 @@
                 {% endwith %}
             </div>
             <div class="employer-register-form-text-container">
-                <h3 class="employer-register-form-name">
+                <h2 class="employer-register-form-name">
                     Create an Employer Account!
-                </h3>
+                </h2>
                 <p class="employer-register-form-text">
                     You haven't posted a job before, 
                     so you'll need to create an employer account.
@@ -51,6 +51,11 @@
                 {{ form.as_p }}
                 <button class="employer-register-form-btn">Create Account</button>
             </form>
+            {% comment %} <form action="" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="employer-register-form-btn">Create Account</button>
+            </form> {% endcomment %}
             <a href="{% url 'employers:employer' %}" class="employer-register-form-create-later">
                 <span>Complete form later</span>
                 <i class="fa-solid fa-arrow-right"></i>
@@ -58,5 +63,37 @@
         </div>
     </div>
 {% endblock content %}
+
+{% block js %}
+
+    <script>
+        const notRequired = ['id_logo', 'id_website', 'id_about_employer']
+        const labelsList = Array.from(document.querySelectorAll('label'))
+        const errorList = Array.from(document.querySelectorAll('.errorlist'))
+
+        errorList && errorList.forEach((list) => {
+            const nextSibling = list.nextElementSibling
+            const firstChild = nextSibling.querySelector('label')
+
+            nextSibling.insertBefore(list, firstChild)
+        })
+
+        labelsList.forEach((label) => {
+            const labelFor = label.getAttribute('for')
+            if (!notRequired.includes(labelFor)) {
+                label.innerHTML= `
+                    <span>${label.textContent.split(':')[0]}</span>
+                    <span style="color: red;">*</span>`
+            }
+            else {
+                label.innerHTML = `
+                    <span>${label.textContent.split(':')[0]}</span>`
+            }
+        })
+
+    </script>
+
+
+{% endblock js %}
 
 {% block footer %}{% endblock footer %}

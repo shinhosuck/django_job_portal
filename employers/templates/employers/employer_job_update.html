@@ -50,7 +50,7 @@
                 </p>
                 {{ form.as_p }}
                 <button class="post-job-form-submit-job-btn">Update Job</button>
-            </form>
+            </form> 
             <a href="{% url 'employers:job-detail' job.slug %}?redirect={{job.employer.get_absolute_url}}" class="post-job-form-post-job-later">
                 <span>Cancel update</span>
                 <i class="fa-solid fa-arrow-right"></i>
@@ -60,3 +60,44 @@
 {% endblock content %}
 
 {% block footer %}{% endblock footer %}
+
+{% block js %}
+    <script>
+        const jobFormLabels = Array.from(document.querySelectorAll('label'))
+        let input = null
+
+        window.addEventListener('DOMContentLoaded', formatJobForm)
+
+        function formatJobForm() {
+            jobFormLabels.forEach((label) => {
+                if (label.getAttribute('for') === 'id_currency_code') {
+                    input = label.nextElementSibling
+                    const labelParent = label.parentElement
+                    labelParent.style.display = 'none'
+                }
+                else {
+                    label.innerHTML = `
+                        <span>${label.textContent.split(':')[0]}</span>
+                        <span style="color: red;">*</span>
+                    `
+                }
+            })
+        }
+
+        async function addCurrencyCode(event) {
+            const countryCode = event.currentTarget.value
+            const url = `https://restcountries.com/v3.1/alpha/${countryCode}`
+
+            const resp = await fetch(url)
+            const data = await resp.json()
+
+            const currency = data[0].currencies
+            const key = Object.keys(data[0].currencies)[0]
+            const symbol = currency[key].symbol
+
+            input.setAttribute('value', symbol)
+        }
+
+
+    </script>
+{% endblock js %}

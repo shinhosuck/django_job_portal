@@ -12,7 +12,9 @@ from .views import (
     get_search_form_suggestions,
     get_form_data_view,
     prefetch_form_data_view,
-    update_candidate_profile_info_view
+    update_candidate_profile_info_view,
+    save_job_view,
+    filter_job_view
 )
 
 app_name = 'candidates' 
@@ -32,4 +34,6 @@ urlpatterns = [
     path('candidate/<str:slug>/update/profile/info/', update_candidate_profile_info_view, name='candidate-update-profile-info'),
     path('hire-spot/contact/', contact_view, name='contact'),
     path('hire-spot/about/', about_view, name='about'),
+    path('candidates/job/<str:slug>/save/', save_job_view, name='save-job'),
+    path('candidates/jobs/filter/', filter_job_view, name='filter-job')
 ]

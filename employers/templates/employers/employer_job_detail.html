@@ -15,54 +15,86 @@
         <div class="job-detail">
             <div class="job-detail-header-container">
                 <h2 class="job-detail-job-title">
-                    {{ job.job_title}}
+                    {{ job.job_title }}
+                    {% if is_owner %}
+                        <span>
+                            ({{ job.applicants.count }} applicant{% if job.applicants.count > 1 %}s{% endif %})
+                        </span>
+                    {% endif %}
                 </h2>
-                <p class="job-detail-job-posted">
-                    Posted {{ job.created|date:'M d Y'}}
-                </p>
             </div>
             <div class="job-detail-job-info-container">
                 <div class="job-detail-employer-logo-container">
                     <img src="{{ job.employer.get_logo_url }}" alt="">
                 </div>
                 <div class="job-detail-address">
-                    <p class="job-detail-employer-name">{{ job.employer.employer_name }}</p>
+                    <p class="job-detail-employer-name">
+                        {{ job.employer.employer_name }}
+                    </p>
                     <p class="job-detail-employer-address">
-                        {{ job.employer.city }}
+                        <span>{{ job.employer.city }},</span>
+                        <span>{{ job.employer.state_or_province }}</span>
                     </p>
                     <p class="job-detail-employer-state-country">
-                        <span>{{ job.employer.state_or_province }}</span>,
                         <span>{{ job.employer.country }}</span>
+                        <span>{{ job.employer.zip_code_or_postal_code }}</span>
                     </p>
                 </div>
             </div>
-            <p class="job-detail-salary">${{ job.salary|floatformat:0 }} a month</p>
+            <div class="job-pay-rate-job-type-container">
+                <div class="job-pay-rate">
+                    <h4>Pay Rate</h4>
+                    <p class="job-detail-pay-rate">
+                        {{ job.currency_code }}{{ job.salary|floatformat:0 }} / {{ job.payment_type }}
+                    </p>
+                </div>
+                <div class="job-pay-type">
+                    <h4>Job Type</h4>
+                    <p class="job-detail-salary">
+                       {{ job.job_type }}
+                    </p>
+                </div>
+                <div class="job-detail-job-posted">
+                    <h4>Posted</h4>
+                    <p class="job-detail-job-posted">
+                        {{ job.created|date:'M d Y'}}
+                    </p>
+                </div>
+            </div>
+            <div class="job-description-container">
+                <h4 class="job-description-header">Job Description</h4>
+                <p class="job-description">{{ job.job_description }}</p>
+            </div>
             <div class="job-qualification-container">
-                <h3 class="job-qualification-header">Qualification:</h3>
+                <h4 class="job-qualification-header">Qualification</h4>
                 <p class="job-qualification">{{ job.qualification }}</p>
             </div>
-
             {% if request.user.is_authenticated %}
-                {% with request.user.profile.user_type as user_type %}
-                    {% if user_type == 'employer' %}
+                {% if is_owner %}
+                    {% if job.applicants.count %}
                         <div class="job-detail-job-applicant-container">
-                            <h4>Applicant{{ job.applicants.all|pluralize:'s' }}</h4>
-                            {% if job.applicants.all %}
-                                <div class="job-detail-job-applicants">
+                            <p class="employer-dashboard-employer-job-applicants-header">
+                                {% if job.applicants.count == 1 %}
+                                    <span>See applicant</span>
+                                {% else %}
+                                    <span>See applicants</span>
+                                {% endif %}
+                                <i class="fas fa-chevron-down"></i>
+                            </p>
+                            {% if job.applicants.exists %}
+                                <div class="employer-dashboard-employer-job-applicants">
                                     {% for applicant in job.applicants.all %}
-                                        <div class="job-detail-job-applicant">
-                                            <a href="{{ applicant.get_absolute_url }}" target="_blank" class="job-detail-job-applicant-name">
-                                                {{ applicant.user.username }}
-                                            </a>
-                                        </div>
+                                        <a class="employer-dashboard-employer-job-applicant" 
+                                            target="_blank"
+                                            href="{{ applicant.get_absolute_url }}?redirect={{ request.path }}">
+                                            {{ forloop.counter }}. {{ applicant.profile.first_name}} {{ applicant.profile.last_name}}
+                                        </a>
                                     {% endfor %}
                                 </div>
-                            {% else %}
-                                <p>No applicants</p>
                             {% endif %}
                         </div>
                     {% endif %}
-                {% endwith %}
+                {% endif %}
             {% endif %}
            
             {% if not request.user.is_authenticated %}
@@ -72,10 +104,13 @@
                     {% if applied %}
                         <button class='job-detail-applied-btn' type='button'>Applied</button>
                     {% else %}
-                        <a class="job-detail-apply-btn" href="{% url 'candidates:candidate-apply' job.slug %}">Apply</a>
+                        <div class="job-detail-apply-btn-container">
+                            <a class="job-detail-apply-btn" href="{% url 'candidates:candidate-apply' job.slug %}">Apply</a>
+                            <a class="job-detail-save-job-btn" href="{% url 'candidates:save-job' job.slug %}">Save</a>
+                        </div>
                     {% endif %}
-                {% else %}
-                    <a class="job-detail-apply-btn" href="{% url 'employers:job-update' job.slug %}">Update</a>
+                {% elif is_owner  %}
+                    <a class="job-detail-update-btn" href="{% url 'employers:job-update' job.slug %}">Update</a>
                 {% endif %}
             {% endif %}
         </div>

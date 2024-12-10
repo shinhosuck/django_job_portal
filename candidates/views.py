@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model 
 from django.contrib import messages
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.db.models import Q
 import json
 
-from accounts.models import Profile
+from employers.models import Job, Employer
+from accounts.models import Profile, AppliedJob, SavedJob
 from django.urls import reverse
 from accounts.forms import ProfileUpdateForm
 from .forms import (
@@ -19,7 +20,7 @@ from .models import (
     Education,
     Experience
 )
-from employers.models import Job 
+from datetime import datetime
 
 
 # Utils
@@ -39,8 +40,14 @@ User = get_user_model()
 
 
 def landing_page_view(request):
-    if request.user.is_authenticated:
-        return redirect('candidates:jobs')
+    user = request.user
+
+    if user.is_authenticated:
+        if user.profile.user_type == 'employer':
+            return redirect('employers:employer')
+        else:
+            return redirect('candidates:jobs')
+        
     return render(request, 'candidates/candidates_landing_page.html')
 
 
@@ -172,47 +179,96 @@ def jobs_view(request):
 
     country = data['country']
     city = data['city']
+    country_code = data['country_code']
 
     if request.user.is_authenticated:
-        candidate_job_titles =CandidateQualification.objects.\
-            filter(profile=user.profile).values_list('job_title', flat=True)
+        try:
+            qualification = user.profile.candidatequalification
+        except CandidateQualification.DoesNotExist:
+            qualification = None
         
-        filtered = ''
-        
-        if candidate_job_titles:
-            for job_title in candidate_job_titles:
-                for title in job_title.split(' '):
-                    if not filtered:
-                        if not city:
-                            filtered = jobs.filter(Q(
-                                job_title__icontains=title, 
-                                employer__country=country
-                            ))
-                        else:
-                             filtered = jobs.filter(Q(
-                                job_title__icontains=title, 
-                                employer__country=country, 
-                                employer__city=city
-                            ))
-                    else:
-                        if not city:
-                            filtered = filtered.union(jobs.filter(Q(
-                                job_title__icontains=title,
-                                employer__country=country
-                            )))
-                        else:
-                             filtered = filtered.union(jobs.filter(Q(
-                                job_title__icontains=title,
-                                employer__country=country,
-                                employer__city=city
-                            )))
+        if qualification and qualification.job_title:
+            filter = jobs.filter(
+                Q(
+                    job_title__iexact=qualification.job_title,
+                    employer__country=country_code,
+                    employer__city__iexact=city
+                )
+            )
+            
+            if not filter:
+                context['jobs'] = jobs.filter(
+                    Q(employer__country=country_code)|
+                    Q(employer__city__iexact=city)
+                )
+            else:
+                context['jobs'] = filter
                              
-            if filtered:
-                context['jobs'] = filtered
+        else:
+            context['jobs'] = jobs.filter(
+                Q(employer__country=country_code)|
+                Q(employer__city__iexact=city)
+            )
     else:
-        context['jobs'] = jobs.filter(employer__country=country)
-
+        context['jobs'] = jobs.filter(
+            Q(employer__country=country_code)|
+            Q(employer__city__iexact=city)
+        )
     return render(request, 'candidates/candidates_jobs.html', context)
+
+
+def filter_job_view(request):
+    user = request.user
+    q_param= request.GET.get('q')
+    data = get_user_ip(request)
+    country = data.get('country_code')
+    context = {'jobs':[]}
+    jobs = None
+
+    print(q_param)
+
+    if q_param == 'suggested_jobs':
+        jobs = Job.objects.filter(employer__country=country).select_related('employer')
+
+    if user.is_authenticated:
+        if q_param == 'applied_jobs':
+            jobs = [job.applied_job for job in user.profile.applied_jobs.all()]
+            
+        elif q_param == 'saved_jobs':
+            jobs = [job.saved_job for job in user.profile.saved_jobs.all()]
+    
+    if jobs:
+        for job in jobs:
+            job_obj = {
+                'id': job.id,
+                'employer_name': job.employer.employer_name,
+                'employer_city': job.employer.city,
+                'employer_state_or_province': job.employer.state_or_province,
+                'employer_country': job.employer.country.code,
+                'employer_zip_code_or_postal_code': job.employer.zip_code_or_postal_code,
+                'industry': job.industry,
+                'job_title': job.job_title,
+                'job_type': job.job_type,
+                'experience_level': job.experience_level,
+                'work_location': job.work_location,
+                'slug': job.slug,
+                'payment_type': job.payment_type,
+                'currency': job.currency.code,
+                'salary': job.salary,
+                'currency_code': job.currency_code,
+                'job_description': job.job_description[0:50],
+                'qualification': job.qualification[0:50],
+                'applicants': job.applicants.count(),
+                'created': job.created.strftime("%b %d %Y")
+            }
+
+            context['jobs'].append(job_obj)
+    else:
+        context['jobs'] = 'No jobs'
+    
+    context['q_param'] = q_param
+
+    return JsonResponse(context)
 
 
 @user_login_required
@@ -226,14 +282,35 @@ def apply_to_a_job_view(request, slug):
         return redirect('candidates:jobs')
     
     try:
-        candidate = CandidateQualification.objects.get(user=user)
+        candidate = CandidateQualification.objects.get(profile=user.profile)
     except CandidateQualification.DoesNotExist:
         messages.error(request, 'You must create your profile first.')
         return redirect('candidates:candidate-register')
     
     job.applicants.add(candidate)
 
+    print(AppliedJob.objects.filter(profile=user.profile, applied_job=job).exists())
+
+    if not AppliedJob.objects.exists():
+        AppliedJob.objects.create(profile=user.profile, applied_job=job)
+
     messages.success(request, f'Successfully applied to {job.job_title}.')
+    return redirect('candidates:jobs')
+
+
+@user_login_required
+def save_job_view(request, slug):
+    user = request.user 
+
+    try:
+        job = Job.objects.get(slug=slug)
+    except Job.DoesNotExist:
+        job = None 
+
+    if job and not SavedJob.objects.filter(profile=user.profile, saved_job=job).exists():
+        SavedJob.objects.create(profile=user.profile, saved_job=job)
+
+    messages.success(request, f'Job {job.job_title} successfully saved.')
     return redirect('candidates:jobs')
 
 
@@ -273,8 +350,7 @@ def update_candidate_profile_info_view(request, slug):
         
     if request.method == 'POST':
         if form.is_valid():
-            form.save(commit=False)
-
+            form.save()
             redirect_url = f"{request.GET.get('redirect_url')}?data_type={data_type}"
             return redirect(redirect_url)
         else:

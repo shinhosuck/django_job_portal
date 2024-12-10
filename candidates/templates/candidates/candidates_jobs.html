@@ -6,31 +6,85 @@
 {% endblock title %}
 
 {% block content %}
-    <div class="jobs-container">
-        <div class="jobs-row">
+    <div class="jobs-hero-img">
+        <div class="jobs-search-container">
             {% block search_form %}
                 {% include "candidates/candidates_job_search_form.html" %}
             {% endblock search_form %}
-            <div class="jobs">
-                {% for job in jobs %}
-                    <div class="job">
-                        <h3 class="job-title">{{ job.job_title }}</h3>
+        </div>
+    </div>
+    <div class="jobs-container">
+        <div class="jobs-navs">
+            <div class="job-nav">
+                <a class="job-nav-link suggested-jobs" href="{% url 'candidates:filter-job' %}?q=suggested_jobs">
+                    Suggested Jobs
+                </a>
+                <div class="job-nav-link-border-bottom"></div>
+            </div>
+            <div class="job-nav">
+                {% if request.user.is_authenticated %}
+                    <a class="job-nav-link applied-jobs" href="{% url 'candidates:filter-job' %}?q=applied_jobs">
+                        Applied Job
+                    </a>
+                    <div class="job-nav-link-border-bottom"></div>
+                {% else %}
+                    <p class="job-nav-link-disabled">Applied Job</p>
+                {% endif %}
+            </div>
+            <div class="job-nav">
+                {% if request.user.is_authenticated %}
+                    <a class="job-nav-link saved-jobs" href="{% url 'candidates:filter-job' %}?q=saved_jobs">
+                        Saved Jobs
+                    </a>
+                    <div class="job-nav-link-border-bottom"></div>
+                {% else %}
+                    <p class="job-nav-link-disabled">Saved Jobs</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="jobs">
+            {% for job in jobs %}
+                <div class="job">
+                    <div class="job-contents">
+                        <div class="job-tags">
+                            <a href="" class="job-industry">{{ job.industry }}</a>
+                            <a href="" class="job-job-type">{{ job.job_type }}</a>
+                            <a href="" class="job-work-location">{{ job.work_location }}</a>
+                        </div>
+                        <div class="job-title-container">
+                            <h3 class="job-title-header">{{ job.job_title }}</h3>
+                            <p class="job-created">Posted {{ job.created|date:'M d Y' }}</p>
+                        </div>
                         <div class='job-employer-address'>
-                            <p class="job-employer-name">{{ job.employer.employer_name }}</p>
+                            <a href="" class="job-employer-name">{{ job.employer.employer_name }}</a>
                             <p class="job-employer-city-state">
                                 <span>{{ job.employer.city }},</span>
                                 <span>{{ job.employer.state_or_province }}</span>
                             </p>
-                            <p class="job-employer-country">{{ job.employer.country }}</p>
+                            <p class="job-employer-country">
+                                <span>{{ job.employer.country }}</span>
+                                <span>{{ job.employer.zip_code_or_postal_code }}</span>
+                            </p>
                         </div>
-                        <p class="job-salary">${{ job.salary|floatformat:0 }}/month</p>
-                        {% with request.resolver_match.route as route %}
-                            <a class="see-job-detail-btn" href="{{ job.get_absolute_url }}?redirect=/{{ route }}">See Detail</a>
-                        {% endwith %}
+                        <p class="job-salary">
+                            {{ job.currency_code }}{{ job.salary|floatformat:0 }}/{{job.payment_type}}
+                        </p>
+                        <div class="job-description-wrapper">
+                            <h4>Job Description</h4>
+                            <p>{{ job.job_description|truncatechars:50 }}</p>
+                        </div>
+                        <div class="job-qualification-wrapper">
+                            <h4>Qualification</h4>
+                            <p>{{ job.qualification|truncatechars:50 }}</p>
+                        </div>
                     </div>
-                {% endfor %}
-            </div>
-        </div>
+                    <a class="see-job-detail-btn" href="{{ job.get_absolute_url }}?redirect={{ request.path }}">Job Detail</a>
+                </div>
+            {% endfor %}
+        </div> 
     </div>
 {% endblock content %}
 
+{% block js %}
+    <script type="text/javascript" src="{% static 'candidates/candidates_jobs.js' %}"></script>
+{% endblock js %}

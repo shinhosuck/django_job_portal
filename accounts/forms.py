@@ -43,6 +43,7 @@ class ProfileUpdateForm(forms.ModelForm):
             'city',
             'state_or_province',
             'country',
+            'post_code_or_zip_code',
             'email',
             'phone_number',
             'social_link',
