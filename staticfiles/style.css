@@ -14,6 +14,8 @@
     --green-80:hsl(122, 100%, 80%);
     --green-85:hsl(122, 100%, 85%);
     --green-90:hsl(122, 100%, 90%);
+    --green-95:hsl(122, 100%, 95%);
+    
     /* black */
     --black-10:hsl(0, 0%, 10%);
     --black-15:hsl(0, 0%, 15%);
@@ -30,6 +32,7 @@
     --black-80:hsl(0, 0%, 80%);
     --black-85:hsl(0, 0%, 85%);
     --black-90:hsl(0, 0%, 90%);
+    
     /* success, warning, info, error messages */
     --success: var(--green-30);
     --error: hsl(16, 100%, 50%);
@@ -60,6 +63,10 @@ a {
 
 li {
     list-style-type: none
+}
+
+label {
+    text-transform: capitalize;
 }
 
 input {

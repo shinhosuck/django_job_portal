@@ -1,3 +1,4 @@
+
 // Get user location
 async function get_user_ip() {
     sessionStorage.clear()
@@ -20,8 +21,6 @@ async function get_user_ip() {
                 sessionStorage.setItem('location', JSON.stringify(data))
                 location = JSON.parse(sessionStorage.getItem('location'))
             }
-
-            console.log(location)
 
             const offset = 127397
 

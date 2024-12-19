@@ -24,6 +24,7 @@ from datetime import datetime
 
 
 # Utils
+from utils.handle_filter_jobs import get_filter_jobs
 from utils.decorators import user_login_required
 from utils.geo_location import get_user_ip
 from utils.handle_suggestions import generate_suggestions
@@ -172,14 +173,18 @@ def candidate_detail_view(request, slug):
 
 
 def jobs_view(request):
-    data = get_user_ip(request)
+    pagination = request.GET.get('jobPaginate')
+    suggested_jobs = request.GET.get('q')
     jobs = Job.objects.select_related('employer')
-    user = request.user
-    context = {}
-
-    country = data['country']
-    city = data['city']
+    data = get_user_ip(request)
     country_code = data['country_code']
+    city = data['city']
+    user = request.user
+    context = {'jobs_exist':True}
+
+    increment = 3
+    start = 0 
+    end = 6
 
     if request.user.is_authenticated:
         try:
@@ -214,58 +219,74 @@ def jobs_view(request):
             Q(employer__country=country_code)|
             Q(employer__city__iexact=city)
         )
+
+    if pagination:
+        start = int(pagination) 
+        end = start + increment
+
+    if not context['jobs'] or not context['jobs'][end:end+increment]:
+        context['jobs_exist'] = False
+
+    context['jobs'] = context['jobs'][start:end]
+    context['paginate'] = {'job_paginate': end}
+    context['location'] = json.dumps(data)
+
+    if suggested_jobs:
+        context['jobs'] = get_filter_jobs(context['jobs'])
+        return JsonResponse(context)
+
+    if pagination:
+        context['jobs'] = get_filter_jobs(context['jobs'])
+        return JsonResponse(context)
+    
+    if not context['jobs']:
+        context['jobs'] = []
+
     return render(request, 'candidates/candidates_jobs.html', context)
 
 
 def filter_job_view(request):
     user = request.user
     q_param= request.GET.get('q')
-    data = get_user_ip(request)
-    country = data.get('country_code')
-    context = {'jobs':[]}
+    context = {'jobs_exists': True}
     jobs = None
 
-    print(q_param)
+    applied_job_pagination = request.GET.get('appliedJobPaginate')
+    saved_job_pagination = request.GET.get('savedJobPaginate')
 
-    if q_param == 'suggested_jobs':
-        jobs = Job.objects.filter(employer__country=country).select_related('employer')
+    increment = 3
+    start = 0
+    end = 6
 
     if user.is_authenticated:
         if q_param == 'applied_jobs':
             jobs = [job.applied_job for job in user.profile.applied_jobs.all()]
-            
         elif q_param == 'saved_jobs':
             jobs = [job.saved_job for job in user.profile.saved_jobs.all()]
-    
-    if jobs:
-        for job in jobs:
-            job_obj = {
-                'id': job.id,
-                'employer_name': job.employer.employer_name,
-                'employer_city': job.employer.city,
-                'employer_state_or_province': job.employer.state_or_province,
-                'employer_country': job.employer.country.code,
-                'employer_zip_code_or_postal_code': job.employer.zip_code_or_postal_code,
-                'industry': job.industry,
-                'job_title': job.job_title,
-                'job_type': job.job_type,
-                'experience_level': job.experience_level,
-                'work_location': job.work_location,
-                'slug': job.slug,
-                'payment_type': job.payment_type,
-                'currency': job.currency.code,
-                'salary': job.salary,
-                'currency_code': job.currency_code,
-                'job_description': job.job_description[0:50],
-                'qualification': job.qualification[0:50],
-                'applicants': job.applicants.count(),
-                'created': job.created.strftime("%b %d %Y")
-            }
 
-            context['jobs'].append(job_obj)
+    if q_param == 'applied_jobs':
+        context['paginate'] = {'applied_job_paginate': end}
+    elif q_param == 'saved_jobs':
+        context['paginate'] = {'saved_job_paginate': end}
+    
+    if applied_job_pagination:
+        start = int(applied_job_pagination)
+        end = start + increment
+        context['paginate'] = {'applied_job_paginate': end}
+    if saved_job_pagination:
+        start = int(saved_job_pagination)
+        end = start + increment
+        context['paginate'] = {'saved_job_paginate': end}
+
+    if jobs:
+        job_list = get_filter_jobs(jobs[start:end])
+        context['jobs'] = job_list
     else:
         context['jobs'] = 'No jobs'
     
+    if not context['jobs'] or not jobs[end:end+increment]:
+        context['jobs_exists'] = False 
+
     context['q_param'] = q_param
 
     return JsonResponse(context)

@@ -553,7 +553,7 @@
     min-height: 60svh;
     background: linear-gradient(to bottom, 
     rgba(0, 0, 0, 0.800), rgba(0, 0, 0, 0.5)), url('./imgs/jobs_hero.webp');
-    background-position: bottom;
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -694,7 +694,7 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 0.8rem;
+    gap: 0.5rem;
     row-gap: 0.5rem;
     overflow: hidden;
 }
@@ -790,6 +790,22 @@
     text-align: center;
 }
 
+.jobs-load-more-btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+.jobs-load-more-btn {
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    color: white;
+    letter-spacing: 0.03rem;
+    border: none;
+    margin-top: 2rem;
+    cursor: pointer;
+    background: var(--green-30)
+}
+
 @media (hover) {
     .see-job-detail-btn:hover {
         background: var(--green-20)
@@ -807,6 +823,7 @@
 @media screen and (min-width:700px) {
     .jobs-container {
         padding: 4rem 0;
+        padding-bottom: 6rem;
     }
 
     .jobs {

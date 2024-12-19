@@ -16,7 +16,7 @@
     <div class="jobs-container">
         <div class="jobs-navs">
             <div class="job-nav">
-                <a class="job-nav-link suggested-jobs" href="{% url 'candidates:filter-job' %}?q=suggested_jobs">
+                <a class="job-nav-link suggested-jobs" href="{% url 'candidates:jobs' %}?q=suggested_jobs">
                     Suggested Jobs
                 </a>
                 <div class="job-nav-link-border-bottom"></div>
@@ -81,10 +81,36 @@
                     <a class="see-job-detail-btn" href="{{ job.get_absolute_url }}?redirect={{ request.path }}">Job Detail</a>
                 </div>
             {% endfor %}
-        </div> 
+        </div>
+        <div class="jobs-load-more-btn-container">
+            <button type="button" class="jobs-load-more-btn">Load More</button>
+        </div>
     </div>
 {% endblock content %}
 
 {% block js %}
+    <script type="text/javascript">
+        const locationObj = JSON.parse(sessionStorage.getItem('location'))
+        const url = localStorage.getItem('filter_url')
+        const user = "{{ request.user.username }}"
+        const locale = "{{ location|escapejs }}"
+        const jobPaginate = JSON.parse("{{ paginate.job_paginate|escapejs }}")
+
+        localStorage.setItem('location', locale)
+
+        if (jobPaginate) {
+            localStorage.setItem('paginate', JSON.stringify({jobPaginate:jobPaginate}))
+        }
+        
+        if (user && locationObj?.user !== user) {
+            localStorage.removeItem('filter_url')
+        }
+        
+        if(!localStorage.getItem('filter_url')) {
+            localStorage.setItem('filter_url', `${window.location.href}?q=suggested_jobs`)
+        }
+        
+    </script>
     <script type="text/javascript" src="{% static 'candidates/candidates_jobs.js' %}"></script>
+    <script type="text/javascript" src="{% static 'candidates/jobs_paginate.js' %}"></script>
 {% endblock js %}
