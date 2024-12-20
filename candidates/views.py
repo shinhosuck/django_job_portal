@@ -310,8 +310,6 @@ def apply_to_a_job_view(request, slug):
     
     job.applicants.add(candidate)
 
-    print(AppliedJob.objects.filter(profile=user.profile, applied_job=job).exists())
-
     if not AppliedJob.objects.exists():
         AppliedJob.objects.create(profile=user.profile, applied_job=job)
 
