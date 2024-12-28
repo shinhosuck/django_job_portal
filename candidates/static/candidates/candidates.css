@@ -145,10 +145,6 @@
     outline: none;
 }
 
-.search-form-clear-btn {
-    display: none;
-}
-
 .search-form-input-divider {
     display: none;
     align-self: center;
@@ -170,6 +166,7 @@
     border-radius: 5px;
     font-weight: 500;
     border: none;
+    cursor: pointer;
 }
 
 .searches-suggestions-container,
@@ -200,6 +197,8 @@
 .search-form-clear-btn {
     color: var(--black-40);
     font-size: 1.25rem;
+    display: none;
+    cursor: pointer;
 }
 
 .suggestion {

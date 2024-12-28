@@ -1,6 +1,11 @@
 
-// Get user location
-async function get_user_ip() {
+/* 
+    FETCH USER LOCATION:
+    - see urls.py,
+    - url: /candidates/location/,
+    - views: fetch_user_location_view()
+*/
+async function getUserIP() {
     sessionStorage.clear()
     
     const url = `${window.location.origin}/candidates/location/`
@@ -43,7 +48,9 @@ async function get_user_ip() {
         console.log(error.message)
     }
 }
-get_user_ip()
+getUserIP()
+
+// end
 
 
 const searchSubmitBtn = document.querySelector('.search-form-submit-btn')
@@ -66,24 +73,30 @@ const events = ['click', 'keyup']
 window.addEventListener('DOMContentLoaded', getSuggestions)
 
 
+/*
+    - This async function gets called on window load.
+    - Fetches suggestions from the back-end
+    - Calls "createSuggestionElements" function 
+        to create suggestions elements
+*/
 async function getSuggestions(params) {
-    if (searchSubmitBtn) {
-        searchSubmitBtn.disabled = true
-    }
-
-    let path = '/candidates/search-form/suggestions/'
+    let url = `${window.location.origin}/candidates/search-form/suggestions/`
 
     if (params.type == 'query') {
         const data = `?${params.name}=${params.value}`
-        path = `${path}${data}`
+        url = `${url}${data}`
     }
-
     try {
-        const resp = await fetch(path)
+        const resp = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
         const data = await resp.json()
 
         if (resp.ok) {
-            createSuggestionElements(data)
+            handleSuggestionsAndCitiesData(data)
         }
     } 
     catch (error) {
@@ -91,59 +104,25 @@ async function getSuggestions(params) {
     }
 }
 
-inputs.forEach((input) => {
-    events.forEach((eventType) => {
-        if (eventType === 'click') {
-            input.addEventListener(eventType, (e) => {
-                inputRows.forEach((row) => {
-                    row.classList.remove('row-focus')
-                    row.lastElementChild.classList.remove('show-suggestions')
-                })
 
-                const currentItem = e.currentTarget
-                currentItem.parentElement.classList.add('row-focus')
-                currentItem.nextElementSibling.nextElementSibling?.classList.add('show-suggestions')
-            })
-        }else {
-            handleKeyUpEvent(eventType)
-        }
-    })
-})
-
-
-clearTextBtns.forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-        const previousSibling = e.currentTarget.previousElementSibling
-        previousSibling.value = ''
-        e.currentTarget.style.display = 'none'
-        e.currentTarget.nextElementSibling?.classList.remove('show-suggestions')
-        searchSubmitBtn.disabled = true
-    })
-})
-
-
-window.addEventListener('click', (e) => {
-    if (searchForm && !searchForm.contains(e.target)) {
-        inputRows.forEach((row) => {
-            row.classList.remove('row-focus')
-            row.lastElementChild.classList.remove('show-suggestions')
-        })
-    }
-})
-
-
-function createSuggestionElements(data) {
+/*
+    - This function gets called from "getSuggestions"
+    - Destructures the data and calls appropriate functions
+*/
+function handleSuggestionsAndCitiesData(data) {
     const { cities_suggestions, search_suggestions} = data
 
     const searchSuggestion = search_suggestions && 
         Boolean(search_suggestions.length) && 
         createSearchSuggestion(search_suggestions)
-        
+    
+    
     const citiesSuggestion = cities_suggestions && 
         Boolean(cities_suggestions.length) && 
         createCitiesSuggestion(cities_suggestions)
     
     if (citiesSuggestion || searchSuggestion) {
+
         const closeSuggestionBtns = document.querySelectorAll('.close-suggestions')
         const suggestions = Array.from(document.querySelectorAll('.suggestion'))
 
@@ -153,6 +132,12 @@ function createSuggestionElements(data) {
     }
 }
 
+
+/*
+    - This function gets called from "handleSuggestionsAndCitiesData".
+    - Creates keyword/suggestion elements.
+    - Appends suggestions elements to "searchInputRow".
+*/
 function createSearchSuggestion(search_suggestions) {
     const keywordsSuggestion = document.createElement('div')
     keywordsSuggestion.setAttribute('class', 'searches-suggestions-container')
@@ -192,6 +177,11 @@ function createSearchSuggestion(search_suggestions) {
 }
 
 
+/*
+    - This function gets called from "handleSuggestionsAndCitiesData".
+    - Creates cities suggestion elements.
+    - Appends cities elements to "citiesInputRow".
+*/
 function createCitiesSuggestion(cities_suggestions) {
     const citiesSuggestions = document.createElement('div')
     citiesSuggestions.setAttribute('class', 'cities-suggestions-container')
@@ -231,6 +221,11 @@ function createCitiesSuggestion(cities_suggestions) {
 }
 
 
+/*
+    - This function gets called from "handleSuggestionsAndCitiesData"
+    - Adds click events to suggetion elements
+    - Suggestion on click, adds suggestion to input value
+*/
 function handleSuggestionClickEvent(suggestions) {
     suggestions.forEach((suggestion) => {
         suggestion.addEventListener('click', (e) => {
@@ -242,12 +237,16 @@ function handleSuggestionClickEvent(suggestions) {
 
             parent.classList.remove('show-suggestions')
             parent.previousElementSibling.style.display = 'flex'
-            searchSubmitBtn.disabled = false
         })
     })
 }
 
 
+/*
+    - This function gets called from "handleSuggestionsAndCitiesData".
+    - Adds click event to "remove suggesion button".
+    - Button on click, removes the suggestions.
+*/
 function handleCloseSuggestionsBtn(closeSuggestionBtns) {
     closeSuggestionBtns.forEach((btn) => {
         btn.addEventListener('click', (e) => {
@@ -257,20 +256,49 @@ function handleCloseSuggestionsBtn(closeSuggestionBtns) {
 }
 
 
-function handleKeyUpEvent(eventType) {
+/*
+    - This gets triggered on load.
+    - Loops through "events" array.
+    - Appropriate event is added to the form input.
+    - removes previous input focus and suggestion container.
+*/
+inputs.forEach((input) => {
+    events.forEach((eventType) => {
+        if (eventType === 'click') {
+            input.addEventListener(eventType, (e) => {
+                inputRows.forEach((row) => {
+                    row.classList.remove('row-focus')
+                    row.lastElementChild.classList.remove('show-suggestions')
+                })
+                const currentItem = e.currentTarget
+                currentItem.parentElement.classList.add('row-focus')
+                currentItem.nextElementSibling.nextElementSibling?.classList.add('show-suggestions')
+            })
+        }else {
 
+            // if event is "keyup", this function gets called
+            handleKeyUpEvent(eventType)
+        }
+    })
+})
+
+
+/*
+    - Adds "keyup" event to form input
+    - Implemented "debounce" functionality
+        to reduce excessive API calls.
+*/
+function handleKeyUpEvent(eventType) {
     function getSearchFormInputData() {
         let timeoutID;
 
         return (e) => {
-            console.log(e.type)
             clearTimeout(timeoutID)
             timeoutID = setTimeout(() => {
                 const {name, value} = e.target
 
                 if (value) {
                     getSuggestions({name:name, value:value, type:'query'})
-                    searchSubmitBtn.disabled = false
                 }
 
             }, 200);
@@ -288,6 +316,41 @@ function handleKeyUpEvent(eventType) {
         input.addEventListener(eventType, getSearchFormInputData())
     })
 }
+
+
+/*
+    - click event that listens for button 
+        click within the search and city input.
+    - on click, clears out the text in the input.
+    - also removes suggestion container
+*/
+clearTextBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+        console.log(e.currentTarget)
+        const previousSibling = e.currentTarget.previousElementSibling
+        previousSibling.value = ''
+        e.currentTarget.style.display = 'none'
+        e.currentTarget.nextElementSibling?.classList.remove('show-suggestions')
+    })
+})
+
+
+/*
+    - window listens for target which is not within search form
+    - if not within search form, input focus 
+        and suggestion container get removed
+*/
+window.addEventListener('click', (e) => {
+    if (searchForm && !searchForm.contains(e.target)) {
+        inputRows.forEach((row) => {
+            row.classList.remove('row-focus')
+            row.lastElementChild.classList.remove('show-suggestions')
+        })
+    }
+})
+
+
+
 
 
 

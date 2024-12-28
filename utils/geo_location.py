@@ -19,6 +19,8 @@ def get_user_ip(request):
     if ip in exclude:
         ip = default
 
+    # on development, ip falls back to default (manila, philippines)
+
     return get_user_location(request, ip)
     
 
@@ -30,6 +32,8 @@ def get_user_location(request, ip):
         path = '/home/djjobportal/django_job_portal/geolite2-city/GeoLite2-City.mmdb'
     else:
         path = 'geolite2-city/GeoLite2-City.mmdb'
+
+    # On pythonanywhere.com, the path needs to be absolute
 
     reader = database.Reader(path)
     response = reader.city(ip)

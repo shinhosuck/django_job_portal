@@ -23,7 +23,7 @@ from .models import (
 from datetime import datetime
 
 
-# Utils
+# HELPER FUNCTIONS FROM UTILS DIR
 from utils.handle_filter_jobs import get_filter_jobs
 from utils.decorators import user_login_required
 from utils.geo_location import get_user_ip
@@ -52,8 +52,19 @@ def landing_page_view(request):
     return render(request, 'candidates/candidates_landing_page.html')
 
 
-def fetch_user_location(request):
+def fetch_user_location_view(request):
+    '''
+    Handles a request to fetch the user's 
+    location based on their IP address.
+
+    - Initial request originates from "candidates.js",
+        "getUserIP()" function.
+    - Uses "get_user_ip" helper to extract the user's IP.
+    - Returns a JSON response containing the user's 
+        location (country, city, state).
+    '''
     location = get_user_ip(request)
+
     return JsonResponse(location, status=200)
 
 
@@ -61,6 +72,8 @@ def get_search_form_suggestions(request):
     search = request.GET.get('q')
     city = request.GET.get('city')
     location =  get_user_ip(request)
+
+    print('SEARCH:', search)
 
     values = Job.objects.filter(employer__country=location['country_code']).\
         values('job_title','industry','job_type','employer__city')
@@ -71,7 +84,6 @@ def get_search_form_suggestions(request):
 
 def job_search_view(request):
     search = request.GET.get('q') or None
-    
     return render(request, 'candidates/candidates_search_results.html')
 
 
