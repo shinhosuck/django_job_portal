@@ -35,7 +35,7 @@ def get_user_location(request, ip):
     
     reader = database.Reader(path)
     try:
-        response = reader.city('189.100.231.150')
+        response = reader.city(ip)
     except Exception as e:
         response = None
     
