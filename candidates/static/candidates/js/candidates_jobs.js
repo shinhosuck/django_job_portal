@@ -7,58 +7,38 @@ window.addEventListener('DOMContentLoaded', handlePreviousData)
 
 
 function handlePreviousData() {
-
-    // hide jobs container if not jobs
-    if (!Array.from(jobsContainer.querySelectorAll('.job')).length) {
-        const container = document.querySelector('.jobs-container')
-        const searchFormBtn = document.querySelector('.search-form-submit-btn')
-        searchFormBtn.setAttribute('type', 'button')
-        searchFormBtn.style.background = 'var(--black-50)'
-        searchFormBtn.style.color = 'var(--black-30)'
-
-        container.innerHTML = ''
-        container.innerHTML = `
-            <h3 class='jobs-do-not-exist' style=" text-align: center; font-size:1.1rem; font-weight: 600">
-                <span>Sorry, there was a server error. Please try again later.</span>
-                <i class="far fa-frown"></i>
-            </h3>
-        `
-        container.style.height = '80svh'
-    }
-    else {
-        let url = localStorage.getItem('filter_url')
-        loadJobNavs(url)
-        
-        let location = JSON.parse(localStorage.getItem('location'))
+    let url = localStorage.getItem('filter_url')
+    loadJobNavs(url)
     
-        if (url) {
-            removeJobNavLinkClass()
-        
-            if (!location?.user) {
-                const suggestedJob = jobNavLinks.
-                find((nav) => nav.classList.contains('suggested-jobs'))
+    let location = JSON.parse(localStorage.getItem('location'))
 
-                suggestedJob.classList.add('active-job-nav-link')
-                suggestedJob.nextElementSibling.classList.add('active-border-bottom')
-                jobsMainContainer.scrollIntoView({behavior:"smooth"})
+    if (url) {
+        removeJobNavLinkClass()
+    
+        if (!location?.user) {
+            const suggestedJob = jobNavLinks.
+            find((nav) => nav.classList.contains('suggested-jobs'))
 
-                url = suggestedJob.href
-                localStorage.setItem('filter_url', url)
-            }
-            else {
-                jobNavLinks.forEach((link) => {
-                    if (link.href === url) {
-                        link.classList.add('active-job-nav-link')
-                        link.nextElementSibling.classList.add('active-border-bottom')
-
-                        jobsMainContainer.scrollIntoView({behavior:"smooth"})
-                        fetchPreviousJobs(url)
-                    }
-                })
-            }
-        }else {
+            suggestedJob && suggestedJob.classList.add('active-job-nav-link')
+            suggestedJob && suggestedJob.nextElementSibling.classList.add('active-border-bottom')
             jobsMainContainer.scrollIntoView({behavior:"smooth"})
+
+            url = suggestedJob && suggestedJob.href
+            suggestedJob && localStorage.setItem('filter_url', url)
         }
+        else {
+            jobNavLinks.forEach((link) => {
+                if (link.href === url) {
+                    link.classList.add('active-job-nav-link')
+                    link.nextElementSibling.classList.add('active-border-bottom')
+
+                    jobsMainContainer.scrollIntoView({behavior:"smooth"})
+                    fetchPreviousJobs(url)
+                }
+            })
+        }
+    }else {
+        jobsMainContainer.scrollIntoView({behavior:"smooth"})
     }
 }
 

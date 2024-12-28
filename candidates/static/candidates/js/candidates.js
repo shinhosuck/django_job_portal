@@ -1,11 +1,29 @@
+const searchSubmitBtn = document.querySelector('.search-form-submit-btn')
+const searchContainerForm = document.querySelector('.search-form-container')
+const searchForm = document.querySelector('.search-form')
+const searchInputRow = document.querySelector('.search-input-row')
+const citiesInputRow = document.querySelector('.cities-input-row')
+const clearTextBtns = Array.from(
+    document.querySelectorAll('.search-form-clear-btn')
+)
+const inputRows = Array.from(
+    document.querySelectorAll('.search-form-input-row')
+)
+const inputs = Array.from(
+    document.querySelectorAll('.search-form-input')
+)
+
+const events = ['click', 'keyup']
+
+window.addEventListener('DOMContentLoaded', getUserIP)
 
 /* 
-    FETCH USER LOCATION:
-    - see urls.py,
-    - url: /candidates/location/,
-    - views: fetch_user_location_view()
+    -fetches user location from backend:
+    - see django urls.py in back-end,
+    - end point: /candidates/location/,
+    - django views: fetch_user_location_view()
 */
-async function getUserIP() {
+async function getUserIP(params) {
     sessionStorage.clear()
     
     const url = `${window.location.origin}/candidates/location/`
@@ -47,39 +65,17 @@ async function getUserIP() {
     catch (error) {
         console.log(error.message)
     }
+    getSuggestions(params)
 }
-getUserIP()
-
-// end
-
-
-const searchSubmitBtn = document.querySelector('.search-form-submit-btn')
-const searchContainerForm = document.querySelector('.search-form-container')
-const searchForm = document.querySelector('.search-form')
-const searchInputRow = document.querySelector('.search-input-row')
-const citiesInputRow = document.querySelector('.cities-input-row')
-const clearTextBtns = Array.from(
-    document.querySelectorAll('.search-form-clear-btn')
-)
-const inputRows = Array.from(
-    document.querySelectorAll('.search-form-input-row')
-)
-const inputs = Array.from(
-    document.querySelectorAll('.search-form-input')
-)
-
-const events = ['click', 'keyup']
-
-window.addEventListener('DOMContentLoaded', getSuggestions)
-
 
 /*
     - This async function gets called on window load.
     - Fetches suggestions from the back-end
-    - Calls "createSuggestionElements" function 
+    - Calls "handleSuggestionsAndCitiesData()" function 
         to create suggestions elements
 */
 async function getSuggestions(params) {
+    
     let url = `${window.location.origin}/candidates/search-form/suggestions/`
 
     if (params.type == 'query') {
@@ -94,6 +90,7 @@ async function getSuggestions(params) {
             }
         })
         const data = await resp.json()
+        // console.log(data)
 
         if (resp.ok) {
             handleSuggestionsAndCitiesData(data)
@@ -104,25 +101,50 @@ async function getSuggestions(params) {
     }
 }
 
+/*
+    - Attaches eventListeners to the inputs on load.
+    - Loops through "events" array.
+    - Appropriate event is added to the form input.
+    - removes previous input focus and suggestion container.
+*/
+inputs.forEach((input) => {
+    events.forEach((eventType) => {
+        if (eventType === 'click') {
+            input.addEventListener(eventType, (e) => {
+                inputRows.forEach((row) => {
+                    row.classList.remove('row-focus')
+                    row.lastElementChild.classList.remove('show-suggestions')
+                })
+                const currentItem = e.currentTarget
+                currentItem.parentElement.classList.add('row-focus')
+                currentItem.nextElementSibling.nextElementSibling?.classList.add('show-suggestions')
+            })
+        }else {
+            // if event is "keyup", this function gets called
+            handleKeyUpEvent(eventType)
+        }
+    })
+})
+
 
 /*
-    - This function gets called from "getSuggestions"
+    - This function gets called from "getSuggestions()"
     - Destructures the data and calls appropriate functions
 */
 function handleSuggestionsAndCitiesData(data) {
-    const { cities_suggestions, search_suggestions} = data
+    const { cities_suggestions, search_suggestions, city, state_or_province } = data
 
     const searchSuggestion = search_suggestions && 
         Boolean(search_suggestions.length) && 
         createSearchSuggestion(search_suggestions)
     
-    
     const citiesSuggestion = cities_suggestions && 
         Boolean(cities_suggestions.length) && 
-        createCitiesSuggestion(cities_suggestions)
+        createCitiesSuggestion(cities_suggestions, city, state_or_province)
     
+    // searchSuggestion or citiesSuggestion return true,
+    // this block will run
     if (citiesSuggestion || searchSuggestion) {
-
         const closeSuggestionBtns = document.querySelectorAll('.close-suggestions')
         const suggestions = Array.from(document.querySelectorAll('.suggestion'))
 
@@ -131,7 +153,6 @@ function handleSuggestionsAndCitiesData(data) {
 
     }
 }
-
 
 /*
     - This function gets called from "handleSuggestionsAndCitiesData".
@@ -182,7 +203,8 @@ function createSearchSuggestion(search_suggestions) {
     - Creates cities suggestion elements.
     - Appends cities elements to "citiesInputRow".
 */
-function createCitiesSuggestion(cities_suggestions) {
+function createCitiesSuggestion(cities_suggestions, city, state_or_province) {
+    console.log(city, state_or_province)
     const citiesSuggestions = document.createElement('div')
     citiesSuggestions.setAttribute('class', 'cities-suggestions-container')
 
@@ -255,52 +277,23 @@ function handleCloseSuggestionsBtn(closeSuggestionBtns) {
     })
 }
 
-
-/*
-    - This gets triggered on load.
-    - Loops through "events" array.
-    - Appropriate event is added to the form input.
-    - removes previous input focus and suggestion container.
-*/
-inputs.forEach((input) => {
-    events.forEach((eventType) => {
-        if (eventType === 'click') {
-            input.addEventListener(eventType, (e) => {
-                inputRows.forEach((row) => {
-                    row.classList.remove('row-focus')
-                    row.lastElementChild.classList.remove('show-suggestions')
-                })
-                const currentItem = e.currentTarget
-                currentItem.parentElement.classList.add('row-focus')
-                currentItem.nextElementSibling.nextElementSibling?.classList.add('show-suggestions')
-            })
-        }else {
-
-            // if event is "keyup", this function gets called
-            handleKeyUpEvent(eventType)
-        }
-    })
-})
-
-
 /*
     - Adds "keyup" event to form input
     - Implemented "debounce" functionality
         to reduce excessive API calls.
 */
 function handleKeyUpEvent(eventType) {
-    function getSearchFormInputData() {
+    function wrapper() {
         let timeoutID;
 
         return (e) => {
             clearTimeout(timeoutID)
-            timeoutID = setTimeout(() => {
-                const {name, value} = e.target
+            const {name, value} = e.target
 
+            timeoutID = setTimeout(() => {
                 if (value) {
                     getSuggestions({name:name, value:value, type:'query'})
                 }
-
             }, 200);
             
             if (e.target.value) {
@@ -313,7 +306,7 @@ function handleKeyUpEvent(eventType) {
     }
 
     inputs.forEach((input) => {
-        input.addEventListener(eventType, getSearchFormInputData())
+        input.addEventListener(eventType, wrapper())
     })
 }
 
@@ -326,7 +319,6 @@ function handleKeyUpEvent(eventType) {
 */
 clearTextBtns.forEach((btn) => {
     btn.addEventListener('click', (e) => {
-        console.log(e.currentTarget)
         const previousSibling = e.currentTarget.previousElementSibling
         previousSibling.value = ''
         e.currentTarget.style.display = 'none'
@@ -348,10 +340,4 @@ window.addEventListener('click', (e) => {
         })
     }
 })
-
-
-
-
-
-
 

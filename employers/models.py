@@ -5,7 +5,7 @@ from django.urls import reverse
 from datetime import datetime
 from django_countries.fields import CountryField
 from candidates.models import CandidateQualification
-from utils.choices import (
+from utils.constant import (
     JOB_TYPE_CHOICES, 
     EXPERIENCE_LEVEL_CHOICES, 
     WORK_LOCATION_CHOICES,

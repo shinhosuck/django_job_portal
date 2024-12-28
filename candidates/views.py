@@ -3,8 +3,6 @@ from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Q
-import json
-
 from employers.models import Job, Employer
 from accounts.models import Profile, AppliedJob, SavedJob
 from django.urls import reverse
@@ -21,13 +19,14 @@ from .models import (
     Experience
 )
 from datetime import datetime
-
+from textwrap import dedent
+import json
 
 # HELPER FUNCTIONS FROM UTILS DIR
 from utils.handle_filter_jobs import get_filter_jobs
 from utils.decorators import user_login_required
 from utils.geo_location import get_user_ip
-from utils.handle_suggestions import generate_suggestions
+from utils.generate_suggestions import generate_suggestions
 from utils.create_candiate_profile import (
     create_or_update_qualification, 
     create_or_update_education,
@@ -59,7 +58,7 @@ def fetch_user_location_view(request):
 
     - Initial request originates from "candidates.js",
         "getUserIP()" function.
-    - Uses "get_user_ip" helper to extract the user's IP.
+    - Uses "get_user_ip()" helper to extract the user's IP.
     - Returns a JSON response containing the user's 
         location (country, city, state).
     '''
@@ -69,17 +68,56 @@ def fetch_user_location_view(request):
 
 
 def get_search_form_suggestions(request):
+    # User queries
     search = request.GET.get('q')
-    city = request.GET.get('city')
+    user_location = request.GET.get('location')
+
+    # Data from user ip
     location =  get_user_ip(request)
+    country_code = location.get('country_code')
+    country = location.get('country')
+    state_or_province = location.get('state')
+    user_city = location.get('city')
 
-    print('SEARCH:', search)
-
-    values = Job.objects.filter(employer__country=location['country_code']).\
-        values('job_title','industry','job_type','employer__city')
+    # Populate queryset using user location
+    queryset = Job.objects.filter(Q(employer__country=country_code) |
+        Q(employer__city=user_city)|Q(employer__state_or_province=state_or_province)) \
+        .values('job_title','industry','job_type','employer__city')
     
-    context = generate_suggestions(values, search, city)
-    return JsonResponse(context, status=200)
+    """ 
+    Queryset will be available on initial render and on every AJAX request.
+    Populate queryset with user:
+    - country_code or
+    - state_or_province or
+    - user_city 
+    """
+    
+    # if queryset is unavailable, this block will be run.
+    if not queryset and search or user_location:
+        if search:
+            queryset = Job.objects.filter(Q(employer__employer_name__icontains=search)|
+                Q(industry__icontains=search)|Q(job_title__icontains=search)|
+                Q(job_type__icontains=search)|Q(work_location__icontains=search)) \
+                .values('job_title','industry','job_type','employer__city')
+        if user_location:
+            queryset = Job.objects.filter(Q(employer__city__icontains=user_location)|
+                Q(employer__state_or_province__icontains=user_location)) \
+                .values('job_title','industry','job_type','employer__city')
+
+    """
+    - This block will be run after initial render.
+    - It will only run if the queryset is not available.
+    - It will be triggered only when uer inputs search values
+    - Queryset will be populated based on user search input.
+    """
+
+    context = generate_suggestions(queryset, search, user_location)
+
+    return JsonResponse(
+            {**context, 'city':user_city,'state_or_province':state_or_province}, 
+            status=200
+        )
+   
 
 
 def job_search_view(request):
@@ -96,7 +134,7 @@ def candidate_add_career_detail_view(request):
     data = request.POST
 
     try:
-        resume = user.profile.candidatequalification\
+        resume = user.profile.candidatequalification \
         .get_resume_url()
     except CandidateQualification.DoesNotExist:
         resume = None
@@ -185,12 +223,15 @@ def candidate_detail_view(request, slug):
 
 
 def jobs_view(request):
+    jobs = Job.objects.select_related('employer')
+
     pagination = request.GET.get('jobPaginate')
     suggested_jobs = request.GET.get('q')
-    jobs = Job.objects.select_related('employer')
+
     data = get_user_ip(request)
-    country_code = data['country_code']
-    city = data['city']
+    country_code = data and data.get('country_code')
+    city = data and data.get('city')
+
     user = request.user
     context = {'jobs_exist':True}
 

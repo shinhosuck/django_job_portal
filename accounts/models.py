@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings 
-from utils.choices import USER_TYPE_CHOICES
+from utils.constant import USER_TYPE_CHOICES
 from django.urls import reverse
 from django_countries.fields import CountryField
 

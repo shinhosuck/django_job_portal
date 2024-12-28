@@ -63,7 +63,7 @@
         min-height: 100svh;
         background: linear-gradient(to top, 
             rgba(0, 0, 0, 0.800), rgba(0, 0, 0, 0.7)),
-            url('imgs/hero.webp');
+            url('../imgs/hero.webp');
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -551,7 +551,7 @@
 .jobs-hero-img {
     min-height: 60svh;
     background: linear-gradient(to bottom, 
-    rgba(0, 0, 0, 0.800), rgba(0, 0, 0, 0.5)), url('./imgs/jobs_hero.webp');
+    rgba(0, 0, 0, 0.800), rgba(0, 0, 0, 0.5)), url('../imgs/jobs_hero.webp');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -645,10 +645,34 @@
     padding: 0 !important
 }
 
-.jobs-do-not-exist {
-    color: var(--black-10);
+.jobs-do-not-exist-container {
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    align-items: start;
+    align-content: start;
+    gap: 1.5rem
+}
+
+.sad-emoji-container {
+    width: 70px;
+}
+
+.sad-emoji-container > img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.jobs-do-not-exist-text {
+    color: var(--black-15);
     font-weight: 500;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    text-wrap: pretty;
+    text-align: center;
+    max-width: 350px;
+    letter-spacing: 0.03;
+    line-height: 1.3;
 }
 
 @media (hover) {

@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
-from utils.choices import INDUSTRY_CHOICES
+from utils.constant import INDUSTRY_CHOICES
 from accounts.models import Profile
 
 from datetime import datetime 
