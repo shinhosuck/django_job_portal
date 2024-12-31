@@ -24,7 +24,6 @@ window.addEventListener('DOMContentLoaded', getUserIP)
     - django views: fetch_user_location_view()
 */
 async function getUserIP(params) {
-    sessionStorage.clear()
     
     const url = `${window.location.origin}/candidates/location/`
     let location = JSON.parse(sessionStorage.getItem('location'))
@@ -40,7 +39,9 @@ async function getUserIP(params) {
         const data = await resp.json()
 
         if (resp.ok) {
-            if (data?.user !== location?.user || !location) {
+            if (data?.user !== location?.user || !data?.user || 
+                !location?.user || !location) {
+                
                 sessionStorage.setItem('location', JSON.stringify(data))
                 location = JSON.parse(sessionStorage.getItem('location'))
             }
@@ -52,10 +53,9 @@ async function getUserIP(params) {
 
             locationFlags.forEach((item) => {
                 item.innerHTML = `
-                    <span>Country:</span>
                     <div>
                         <span>${flag}</span>
-                        <span style="font-size: 0.9rem">
+                        <span>
                             ${location.country_code}
                         </span>
                     </div>`
@@ -90,7 +90,6 @@ async function getSuggestions(params) {
             }
         })
         const data = await resp.json()
-        // console.log(data)
 
         if (resp.ok) {
             handleSuggestionsAndCitiesData(data)
@@ -204,7 +203,6 @@ function createSearchSuggestion(search_suggestions) {
     - Appends cities elements to "citiesInputRow".
 */
 function createCitiesSuggestion(cities_suggestions, city, state_or_province) {
-    console.log(city, state_or_province)
     const citiesSuggestions = document.createElement('div')
     citiesSuggestions.setAttribute('class', 'cities-suggestions-container')
 

@@ -41,9 +41,7 @@
                     <a href="{% url 'accounts:register' %}" class="navlink register-link">Sign up</a>
                 {% endif %}
         {% endwith %}
-        {% if request.user.is_authenticated %}
-            <p class="location-flag"></p>
-        {% endif %}
+        <p class="location-flag"></p>
     </nav>
 
     <!-- Mobile nav bar -->
@@ -62,9 +60,8 @@
         </div>
         {% with request.resolver_match.url_name as url_name %}
             <div class="mobile-navlinks">
-                {% if request.user.is_authenticated %}
-                    <p class="location-flag" style="text-align: center"></p>
-                {% endif %}
+                <p class="location-flag" style="display:flex; justify-content:center">
+                </p>
                 {% if request.user.is_authenticated %}
                     <div href="" class="mobile-navlink-user">
                         <div class="mobile-navlink-img-container">

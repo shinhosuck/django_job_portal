@@ -13,15 +13,14 @@
             {% endblock search_form %}
         </div>
     </div>
-    <div class="jobs-container" style="{% if not jobs %}height:80dvh{% endif %}">
+    <div class="jobs-container" style="{% if not jobs %}mine-height:80dvh{% endif %}">
         {% if not jobs %}
             <div class='jobs-do-not-exist-container'>
                 <div class='sad-emoji-container'>
                     <img src="{% static 'candidates/imgs/sad_emoji.png' %}">
                 </div>
                 <p class='jobs-do-not-exist-text'>
-                    Sorry, based on your location, there are no jobs available.
-                    Sear using different location.
+                    {{ my_message }}
                 </p>
             </div>
         {% else %}
@@ -35,7 +34,7 @@
                 <div class="job-nav">
                     {% if request.user.is_authenticated %}
                         <a class="job-nav-link applied-jobs" href="{% url 'candidates:filter-job' %}?q=applied_jobs">
-                            Applied Job
+                            Applied Jobs
                         </a>
                         <div class="job-nav-link-border-bottom"></div>
                     {% else %}
@@ -53,6 +52,12 @@
                     {% endif %}
                 </div>
             </div>
+            {% if my_message %}
+                <div class='jobs-no-matching-jobs'>
+                    <span class='jobs-no-matching-jobs-message'>{{ my_message }}</span> 
+                    <button class='jobs-no-matching-jobs-message-close-btn'><i class="fas fa-close"></i></button>
+                </div>
+            {% endif %}
             <div class="jobs">
                 {% for job in jobs %}
                     <div class="job">
@@ -94,7 +99,9 @@
                 {% endfor %}
             </div>
             <div class="jobs-load-more-btn-container">
-                <button type="button" class="jobs-load-more-btn">Load More</button>
+                <button type="button" class="jobs-load-more-btn">
+                    Load More
+                </button>
             </div>
         {% endif %}
     </div>
@@ -102,26 +109,26 @@
 
 {% block js %}
     <script type="text/javascript">
+
         const locationObj = JSON.parse(sessionStorage.getItem('location'))
         const url = localStorage.getItem('filter_url')
         const user = "{{ request.user.username }}"
         const locale = "{{ location|escapejs }}"
         const jobPaginate = JSON.parse("{{ paginate.job_paginate|escapejs }}")
 
-        localStorage.setItem('location', locale)
+        // localStorage.setItem('location', locale)
+        sessionStorage.setItem('location', locale)
 
         if (jobPaginate) {
             localStorage.setItem('paginate', JSON.stringify({jobPaginate:jobPaginate}))
         }
         
+        // when the user has changed,
+        // remove the filter_url from local storage
         if (user && locationObj?.user !== user) {
             localStorage.removeItem('filter_url')
         }
-        
-        if(!localStorage.getItem('filter_url')) {
-            localStorage.setItem('filter_url', `${window.location.href}?q=suggested_jobs`)
-        }
-        
+
     </script>
     <script type="text/javascript" src="{% static 'candidates/js/candidates_jobs.js' %}"></script>
     <script type="text/javascript" src="{% static 'candidates/js/jobs_paginate.js' %}"></script>

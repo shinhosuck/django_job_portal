@@ -2,28 +2,48 @@ const jobsContainer = document.querySelector('.jobs')
 const jobNavLinks = Array.from(document.querySelectorAll('.job-nav-link'))
 const jobsMainContainer = document.querySelector('.jobs-container')
 const loadMoreJobsBtn = document.querySelector('.jobs-load-more-btn')
+const jobsNoMatchingJobs = document.querySelector('.jobs-no-matching-jobs')
+const jobsNoMatchingJobsMessageCloseBtn = document.querySelector(
+    '.jobs-no-matching-jobs-message-close-btn')
+
+
+
 
 window.addEventListener('DOMContentLoaded', handlePreviousData)
 
-
+// this run on initial load and every reload
 function handlePreviousData() {
     let url = localStorage.getItem('filter_url')
-    loadJobNavs(url)
+
+    if(!localStorage.getItem('filter_url')) {
+        localStorage.setItem('filter_url', `${window.location.href}?q=suggested_jobs`)
+    }else {
+        
+    }
+
+    // suggested jobs, save jobs, and applied jobs
+    addClickEventsToJobsNavs(url)
     
-    let location = JSON.parse(localStorage.getItem('location'))
+    let location = JSON.parse(sessionStorage.getItem('location'))
 
     if (url) {
-        removeJobNavLinkClass()
-    
+        // remove current active state from either:
+        // Suggested Jobs, Saved Jobs or Applied Jobs
+        removeActiveJobNavLinkClass()
+
         if (!location?.user) {
+            // gets triggered if location data do not contain user.
+            // sets the 'Suggested Jobs' active status.
             const suggestedJob = jobNavLinks.
             find((nav) => nav.classList.contains('suggested-jobs'))
 
             suggestedJob && suggestedJob.classList.add('active-job-nav-link')
             suggestedJob && suggestedJob.nextElementSibling.classList.add('active-border-bottom')
-            jobsMainContainer.scrollIntoView({behavior:"smooth"})
 
+            // resets the url with "Suggested Jobs" href.
             url = suggestedJob && suggestedJob.href
+
+            // sets the localStorage with filter url data with the new url
             suggestedJob && localStorage.setItem('filter_url', url)
         }
         else {
@@ -32,14 +52,19 @@ function handlePreviousData() {
                     link.classList.add('active-job-nav-link')
                     link.nextElementSibling.classList.add('active-border-bottom')
 
-                    jobsMainContainer.scrollIntoView({behavior:"smooth"})
+                    if (jobsNoMatchingJobs && !link.classList.contains('suggested-jobs')){
+                        console.log(link.href === url)
+                        jobsNoMatchingJobs.style.display = 'none'
+                    }
+
+                    // if location?.user, fetch previous data
+                    // probaly on page refresh.
                     fetchPreviousJobs(url)
                 }
             })
         }
-    }else {
-        jobsMainContainer.scrollIntoView({behavior:"smooth"})
     }
+    jobsMainContainer.scrollIntoView({behavior:"smooth"})
 }
 
 
@@ -83,8 +108,8 @@ async function fetchPreviousJobs(url) {
     }
 }
 
-
-function loadJobNavs(url) {
+// Attach click events to "Suggested Jobs, Saved Jobs, Applied Jobs"
+function addClickEventsToJobsNavs(url) {
     jobNavLinks.forEach((nav, index) => {
         if (!url) {
             if (index === 0) {
@@ -97,7 +122,7 @@ function loadJobNavs(url) {
 }
 
 
-function removeJobNavLinkClass() {
+function removeActiveJobNavLinkClass() {
     jobNavLinks.forEach((nav) => {
         if (nav.classList.contains('active-job-nav-link')) {
             nav.classList.remove('active-job-nav-link')
@@ -106,12 +131,14 @@ function removeJobNavLinkClass() {
     })
 }
 
-
+// fetch data based off 'Suggested Jobs, Saved Jobs, or Applied Jobs'
 async function handleJobNavClickEvent(e) {
     e.preventDefault()
-    removeJobNavLinkClass()
+    removeActiveJobNavLinkClass()
     e.currentTarget.classList.add('active-job-nav-link')
     e.currentTarget.nextElementSibling.classList.add('active-border-bottom')
+
+    jobsNoMatchingJobs && removeNoMatchingJobsMessage()
     
     localStorage.setItem('filter_url', e.currentTarget.href)
 
@@ -133,6 +160,7 @@ async function handleJobNavClickEvent(e) {
             loadMoreJobsBtn.style.background = 'var(--green-30)'
         }
        
+        // Set pagination starting index
         if(data?.paginate?.job_paginate) {
             localStorage.setItem('paginate', JSON.stringify({
                 jobPaginate:data.paginate.job_paginate
@@ -153,6 +181,8 @@ async function handleJobNavClickEvent(e) {
     }
 }
 
+ 
+
 
 function createHtmlElements(data) {
     let div = document.createElement('div')
@@ -160,17 +190,20 @@ function createHtmlElements(data) {
 
     if (data?.jobs === 'No jobs') {
         div.classList.add('job-no-job')
+        div.style.gridColumn = '1 / -1'
         const element = `
-            <p class='jobs-do-not-exist'>
-                <span>You don't have any "${data.q_param.split('_').join(' ')}".</span>
-                <i class="far fa-frown"></i>
-            </p>
+           
+            <div class='jobs-do-not-exist-container'>
+                <p class='jobs-do-not-exist' style="font-weight:500;color:var(--black-40);font-size:1.1rem">
+                    You don't have any "${data.q_param.split('_').join(' ')}"!
+                </p>
+            </div>
         `
 
         div.innerHTML = element 
         jobsContainer.innerHTML = ''
         jobsContainer.append(div)
-        jobsContainer.style.height = '80svh'
+        jobsContainer.style.minHeight = '80svh'
     }
     else {
         jobsContainer.innerHTML = ''
@@ -219,3 +252,10 @@ function createHtmlElements(data) {
         })
     }
 }
+
+
+function removeNoMatchingJobsMessage() {
+    jobsNoMatchingJobs.remove()
+}
+
+jobsNoMatchingJobsMessageCloseBtn.addEventListener('click', removeNoMatchingJobsMessage)

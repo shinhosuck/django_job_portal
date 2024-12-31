@@ -23,7 +23,10 @@ from textwrap import dedent
 import json
 
 # HELPER FUNCTIONS FROM UTILS DIR
-from utils.handle_filter_jobs import get_filter_jobs
+from utils.handle_filter_jobs import (
+    get_filter_jobs,
+    filter_jobs_by_user_location
+)
 from utils.decorators import user_login_required
 from utils.geo_location import get_user_ip
 from utils.generate_suggestions import generate_suggestions
@@ -34,7 +37,6 @@ from utils.create_candiate_profile import (
     fetch_previous_form_data,
     prefetch_form_data
 )
-
 
 User = get_user_model()
 
@@ -68,6 +70,16 @@ def fetch_user_location_view(request):
 
 
 def get_search_form_suggestions(request):
+
+    """
+    - This function get triggered on intial render.
+    - This function get triggere when the user enters 
+        some value in the search inputs.
+    - Not when search button is clicked.
+    - AJAX call comes from candiates.js.
+    - async function getSuggestions()
+    """
+
     # User queries
     search = request.GET.get('q')
     user_location = request.GET.get('location')
@@ -82,7 +94,7 @@ def get_search_form_suggestions(request):
     # Populate queryset using user location
     queryset = Job.objects.filter(Q(employer__country=country_code) |
         Q(employer__city=user_city)|Q(employer__state_or_province=state_or_province)) \
-        .values('job_title','industry','job_type','employer__city')
+        .values('job_title','industry','job_type','employer__city','employer__state_or_province')
     
     """ 
     Queryset will be available on initial render and on every AJAX request.
@@ -98,11 +110,11 @@ def get_search_form_suggestions(request):
             queryset = Job.objects.filter(Q(employer__employer_name__icontains=search)|
                 Q(industry__icontains=search)|Q(job_title__icontains=search)|
                 Q(job_type__icontains=search)|Q(work_location__icontains=search)) \
-                .values('job_title','industry','job_type','employer__city')
+                .values('job_title','industry','job_type','employer__city', 'employer__state_or_province')
         if user_location:
             queryset = Job.objects.filter(Q(employer__city__icontains=user_location)|
                 Q(employer__state_or_province__icontains=user_location)) \
-                .values('job_title','industry','job_type','employer__city')
+                .values('job_title','industry','job_type','employer__city', 'employer__state_or_province')
 
     """
     - This block will be run after initial render.
@@ -224,6 +236,7 @@ def candidate_detail_view(request, slug):
 
 def jobs_view(request):
     jobs = Job.objects.select_related('employer')
+    qualification = None
 
     pagination = request.GET.get('jobPaginate')
     suggested_jobs = request.GET.get('q')
@@ -239,44 +252,24 @@ def jobs_view(request):
     start = 0 
     end = 6
 
+    # Initial load/render and every request.
     if request.user.is_authenticated:
         try:
             qualification = user.profile.candidatequalification
         except CandidateQualification.DoesNotExist:
             qualification = None
-        
-        if qualification and qualification.job_title:
-            filter = jobs.filter(
-                Q(
-                    job_title__iexact=qualification.job_title,
-                    employer__country=country_code,
-                    employer__city__iexact=city
-                )
-            )
-            
-            if not filter:
-                context['jobs'] = jobs.filter(
-                    Q(employer__country=country_code)|
-                    Q(employer__city__iexact=city)
-                )
-            else:
-                context['jobs'] = filter
-                             
-        else:
-            context['jobs'] = jobs.filter(
-                Q(employer__country=country_code)|
-                Q(employer__city__iexact=city)
-            )
-    else:
-        context['jobs'] = jobs.filter(
-            Q(employer__country=country_code)|
-            Q(employer__city__iexact=city)
-        )
+
+    qs, message= filter_jobs_by_user_location(country_code, city,
+            jobs, qualification)
+
+    context['jobs'] = qs
+    context ['my_message'] = message
 
     if pagination:
         start = int(pagination) 
         end = start + increment
 
+    # Checks jobs if current qs or next set of qs exists.
     if not context['jobs'] or not context['jobs'][end:end+increment]:
         context['jobs_exist'] = False
 
@@ -285,6 +278,11 @@ def jobs_view(request):
     context['location'] = json.dumps(data)
 
     if suggested_jobs:
+        """
+        - This will be triggered when suggested jobs is True.
+        - The return response to async function handleJobNavClickEvent()
+        - See candidates_jobs.js for more detail
+        """
         context['jobs'] = get_filter_jobs(context['jobs'])
         return JsonResponse(context)
 
@@ -292,9 +290,14 @@ def jobs_view(request):
         context['jobs'] = get_filter_jobs(context['jobs'])
         return JsonResponse(context)
     
+    
+    
+    # Only on initial load.
     if not context['jobs']:
         context['jobs'] = []
-
+    # else:
+    #     context['jobs'] = context['jobs'][0:9]
+   
     return render(request, 'candidates/candidates_jobs.html', context)
 
 

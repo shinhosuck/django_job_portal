@@ -1,20 +1,20 @@
 const jobsWrapper = document.querySelector('.jobs')
 const jobsLoadMoreBtn = document.querySelector('.jobs-load-more-btn')
-let pagination = null
 
 
 jobsLoadMoreBtn && jobsLoadMoreBtn.addEventListener('click', (e) => {
-    pagination = JSON.parse(localStorage.getItem('paginate'))
-    setPagination()
+    const pagination = JSON.parse(localStorage.getItem('paginate'))
+    setPagination(pagination)
 })
 
 
-async function setPagination() {
+async function setPagination(pagination) {
     const filterUrl = localStorage.getItem('filter_url')
-    const paginationType = Object.keys(pagination)[0]
+    const type = Object.keys(pagination)[0]
+    const value = pagination[type]
 
-    const url = filterUrl + `&${paginationType}=${pagination[paginationType]}`
-
+    const url = filterUrl && filterUrl + `&${type}=${value}`
+    
     try {
         const resp = await fetch(url, {
             method: "GET",

@@ -11,13 +11,17 @@ def generate_suggestions(queryset, search, user_location):
     cities_suggestions = []
 
     for obj in queryset:
+        city = None
         for key, value in obj.items():
             if key == 'employer__city':
-                if value.lower() not in cities_suggestions:
-                    cities_suggestions.append(value.lower())
+                city = value
+            elif key == 'employer__state_or_province':
+                city = f'{city}, {value}'
+                if city.title() not in cities_suggestions:
+                    cities_suggestions.append(city.title())
             else:
-                if value.lower() not in search_suggestions:
-                    search_suggestions.append(value.lower())
+                if value.capitalize() not in search_suggestions:
+                    search_suggestions.append(value.capitalize())
 
     random_shuffle(search_suggestions)
     random_shuffle(cities_suggestions)

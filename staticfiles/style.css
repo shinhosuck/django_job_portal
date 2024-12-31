@@ -358,10 +358,10 @@ button {
     align-items: center;
     gap: 0.5rem;
     color: white;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
 }
 
-@media screen and (min-width:830px) {
+@media screen and (min-width:850px) {
     .mobile-nav-bar {
         display: none;
     }
