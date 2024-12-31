@@ -595,6 +595,7 @@
 .jobs-navs {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 1.6rem;
 }
 
@@ -735,6 +736,35 @@
     text-overflow: ellipsis;
 }
 
+.jobs-no-matching-jobs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    overflow: hidden;
+}
+
+.jobs-no-matching-jobs-message {
+    color: var(--black-20);
+    letter-spacing: 0.03rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--black-40);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.jobs-no-matching-jobs-message-close-btn {
+    border: none;
+    background: none; 
+    font-size: 1.3rem;
+}
+
+.jobs-no-matching-jobs-message-close-btn {
+   color: var(--black-10);
+}
+
 .job-title-container {
     display: grid;
     align-items: start;
@@ -824,7 +854,7 @@
     color: white;
     letter-spacing: 0.03rem;
     border: none;
-    margin-top: 2rem;
+    margin-top: 1rem;
     cursor: pointer;
     background: var(--green-30)
 }
@@ -847,6 +877,7 @@
     .jobs-container {
         padding: 4rem 0;
         padding-bottom: 6rem;
+        gap: 3rem;
     }
 
     .jobs {

@@ -2,20 +2,28 @@ const jobsContainer = document.querySelector('.jobs')
 const jobNavLinks = Array.from(document.querySelectorAll('.job-nav-link'))
 const jobsMainContainer = document.querySelector('.jobs-container')
 const loadMoreJobsBtn = document.querySelector('.jobs-load-more-btn')
+const jobsNoMatchingJobs = document.querySelector('.jobs-no-matching-jobs')
+const jobsNoMatchingJobsMessageCloseBtn = document.querySelector(
+    '.jobs-no-matching-jobs-message-close-btn')
+
+
 
 
 window.addEventListener('DOMContentLoaded', handlePreviousData)
 
-// this run initial load and every reload
+// this run on initial load and every reload
 function handlePreviousData() {
-
-    // fetch filter_url from localStorage
     let url = localStorage.getItem('filter_url')
 
-    // Add click events to "Suggested Jobs, Saved Jobs, Applied Jobs"
+    if(!localStorage.getItem('filter_url')) {
+        localStorage.setItem('filter_url', `${window.location.href}?q=suggested_jobs`)
+    }else {
+        
+    }
+
+    // suggested jobs, save jobs, and applied jobs
     addClickEventsToJobsNavs(url)
     
-    // let location = JSON.parse(localStorage.getItem('location'))
     let location = JSON.parse(sessionStorage.getItem('location'))
 
     if (url) {
@@ -44,8 +52,13 @@ function handlePreviousData() {
                     link.classList.add('active-job-nav-link')
                     link.nextElementSibling.classList.add('active-border-bottom')
 
-                    // if user exists in location data,
-                    // fetch previous data
+                    if (jobsNoMatchingJobs && !link.classList.contains('suggested-jobs')){
+                        console.log(link.href === url)
+                        jobsNoMatchingJobs.style.display = 'none'
+                    }
+
+                    // if location?.user, fetch previous data
+                    // probaly on page refresh.
                     fetchPreviousJobs(url)
                 }
             })
@@ -124,6 +137,8 @@ async function handleJobNavClickEvent(e) {
     removeActiveJobNavLinkClass()
     e.currentTarget.classList.add('active-job-nav-link')
     e.currentTarget.nextElementSibling.classList.add('active-border-bottom')
+
+    jobsNoMatchingJobs && removeNoMatchingJobsMessage()
     
     localStorage.setItem('filter_url', e.currentTarget.href)
 
@@ -166,6 +181,8 @@ async function handleJobNavClickEvent(e) {
     }
 }
 
+ 
+
 
 function createHtmlElements(data) {
     let div = document.createElement('div')
@@ -173,17 +190,20 @@ function createHtmlElements(data) {
 
     if (data?.jobs === 'No jobs') {
         div.classList.add('job-no-job')
+        div.style.gridColumn = '1 / -1'
         const element = `
-            <p class='jobs-do-not-exist'>
-                <span>You don't have any "${data.q_param.split('_').join(' ')}".</span>
-                <i class="far fa-frown"></i>
-            </p>
+           
+            <div class='jobs-do-not-exist-container'>
+                <p class='jobs-do-not-exist' style="font-weight:500;color:var(--black-40);font-size:1.1rem">
+                    You don't have any "${data.q_param.split('_').join(' ')}"!
+                </p>
+            </div>
         `
 
         div.innerHTML = element 
         jobsContainer.innerHTML = ''
         jobsContainer.append(div)
-        jobsContainer.style.height = '80svh'
+        jobsContainer.style.minHeight = '80svh'
     }
     else {
         jobsContainer.innerHTML = ''
@@ -232,3 +252,10 @@ function createHtmlElements(data) {
         })
     }
 }
+
+
+function removeNoMatchingJobsMessage() {
+    jobsNoMatchingJobs.remove()
+}
+
+jobsNoMatchingJobsMessageCloseBtn.addEventListener('click', removeNoMatchingJobsMessage)
