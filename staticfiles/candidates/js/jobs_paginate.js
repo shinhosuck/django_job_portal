@@ -4,6 +4,7 @@ const jobsLoadMoreBtn = document.querySelector('.jobs-load-more-btn')
 
 jobsLoadMoreBtn && jobsLoadMoreBtn.addEventListener('click', (e) => {
     const pagination = JSON.parse(localStorage.getItem('paginate'))
+    const jobsExist = localStorage.getItem('jobs_exist')
     setPagination(pagination)
 })
 
@@ -23,12 +24,10 @@ async function setPagination(pagination) {
             }
         })
         const data = await resp.json()
-        
+
         if (resp.ok) {
-            if (!data.jobs_exist) {
-                jobsLoadMoreBtn.disabled = true
-                jobsLoadMoreBtn.textContent = 'No More Jobs'
-                jobsLoadMoreBtn.style.background = 'var(--black-40)'
+            if (data?.jobs_exist && data.jobs_exist === 'None') {
+                jobsLoadMoreBtn.style.display = 'none'
             }
 
             data?.jobs && appendPaginateJobObject(data.jobs)

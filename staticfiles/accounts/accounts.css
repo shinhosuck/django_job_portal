@@ -682,13 +682,14 @@ br {
 .profile-image-container {
     justify-self: center;
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
 }
 
 .profile-image-container > img {
     width: 100%;
-    height:auto;
+    height: 100%;
+    object-fit: cover;
     border-radius: 50%;
 }
 
@@ -770,9 +771,28 @@ br {
     text-overflow: ellipsis;
 }
 
-.profile-user-info-row > a {
+/* .profile-user-info-row > a {
     color: var(--green-20)
-    
+} */
+
+.profile-applied-jobs-container,
+.profile-saved-jobs-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    overflow: hidden;
+}
+
+.profile-applied-jobs-container > a,
+.profile-saved-jobs-container > a {
+    color: var(--black-10);
+    background: var(--black-90);
+    padding: 0.3rem 0.5rem;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 @media (hover) {
@@ -805,7 +825,10 @@ br {
     padding: 0.3rem 0.5rem;
     border-radius: 4px;
     font-size: 0.9rem;
-    color: var(--black-10)
+    color: var(--black-10);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .candidate-profile-form-update-mobile {

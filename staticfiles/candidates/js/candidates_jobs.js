@@ -13,6 +13,7 @@ window.addEventListener('DOMContentLoaded', handlePreviousData)
 
 // this run on initial load and every reload
 function handlePreviousData() {
+    const jobsExist = localStorage.getItem('jobs_exist')
     let url = localStorage.getItem('filter_url')
 
     if(!localStorage.getItem('filter_url')) {
@@ -65,6 +66,11 @@ function handlePreviousData() {
         }
     }
     jobsMainContainer.scrollIntoView({behavior:"smooth"})
+    
+    if (jobsExist === 'None') {
+        loadMoreJobsBtn.parentElement
+        .style.display = 'none'
+    }
 }
 
 
@@ -190,7 +196,6 @@ function createHtmlElements(data) {
 
     if (data?.jobs === 'No jobs') {
         div.classList.add('job-no-job')
-        div.style.gridColumn = '1 / -1'
         const element = `
            
             <div class='jobs-do-not-exist-container'>
@@ -257,5 +262,5 @@ function createHtmlElements(data) {
 function removeNoMatchingJobsMessage() {
     jobsNoMatchingJobs.remove()
 }
-
-jobsNoMatchingJobsMessageCloseBtn.addEventListener('click', removeNoMatchingJobsMessage)
+jobsNoMatchingJobsMessageCloseBtn &&jobsNoMatchingJobsMessageCloseBtn
+.addEventListener('click', removeNoMatchingJobsMessage)
