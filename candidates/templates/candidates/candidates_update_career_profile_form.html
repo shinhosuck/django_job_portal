@@ -32,7 +32,7 @@
                     </a>
                     <a class="
                         {% if url_name == 'candidate-update-profile-info' %}active-link{% endif %} navlink" 
-                        href="{% url 'accounts:profile' %}"
+                        href="{% url 'candidates:candidate-update-profile-info' slug %}?data_type={{data_type}}"
                     >
                         Update {{ data_type|capfirst }}
                     </a>
@@ -66,7 +66,7 @@
 
     </script>
 
-    <script type="text/javascript" src="{% static 'candidates/candidate_update_creer_profile.js' %}"></script>
+    <script type="text/javascript" src="{% static 'candidates/js/candidate_update_creer_profile.js' %}"></script>
 {% endblock js %}
 
 {% block footer %}{% endblock footer %}

@@ -57,11 +57,6 @@ def filter_jobs_by_user_location(country, city, jobs, quali):
                     Based on your job title, there are no jobs available, 
                     but you might like these alternative jobs.
                     '''
-                else:
-                    message = '''
-                    Based on your location and  job title, there are no jobs available.
-                    Please enter a job tititle and location for jobs.
-                    '''
     else:
         filter_jobs = jobs.filter(
             Q(employer__country__iexact=country) | 

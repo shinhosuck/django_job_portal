@@ -13,7 +13,7 @@
             {% endblock search_form %}
         </div>
     </div>
-    <div class="jobs-container" style="{% if not jobs %}mine-height:80dvh{% endif %}">
+    <div class="jobs-container" style="{% if not jobs %}min-height:80dvh{% endif %}">
         {% if not jobs %}
             <div class='jobs-do-not-exist-container'>
                 <div class='sad-emoji-container'>
@@ -115,10 +115,18 @@
         const user = "{{ request.user.username }}"
         const locale = "{{ location|escapejs }}"
         const jobPaginate = JSON.parse("{{ paginate.job_paginate|escapejs }}")
+        const jobsExist = "{{ jobs_exist }}"
+
+        // On reload, deletethe this
+        localStorage.removeItem('jobs_exist')
 
         // localStorage.setItem('location', locale)
         sessionStorage.setItem('location', locale)
 
+        if (jobsExist) {
+            localStorage.setItem('jobs_exist', '{{jobs_exist}}')
+        }
+        
         if (jobPaginate) {
             localStorage.setItem('paginate', JSON.stringify({jobPaginate:jobPaginate}))
         }

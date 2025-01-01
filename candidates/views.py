@@ -246,7 +246,7 @@ def jobs_view(request):
     city = data and data.get('city')
 
     user = request.user
-    context = {'jobs_exist':True}
+    context = {}
 
     increment = 3
     start = 0 
@@ -270,8 +270,10 @@ def jobs_view(request):
         end = start + increment
 
     # Checks jobs if current qs or next set of qs exists.
-    if not context['jobs'] or not context['jobs'][end:end+increment]:
-        context['jobs_exist'] = False
+    if not context['jobs']:
+        pass
+    if not context['jobs'][end:end+increment]:
+        context['jobs_exist'] = 'None'
 
     context['jobs'] = context['jobs'][start:end]
     context['paginate'] = {'job_paginate': end}
@@ -295,8 +297,8 @@ def jobs_view(request):
     # Only on initial load.
     if not context['jobs']:
         context['jobs'] = []
-    # else:
-    #     context['jobs'] = context['jobs'][0:9]
+   
+    print(context)
    
     return render(request, 'candidates/candidates_jobs.html', context)
 
@@ -394,7 +396,7 @@ def update_candidate_profile_info_view(request, slug):
     data_type = request.GET.get('data_type')
     form = None
     context = {}
-
+    
     if not data_type:
         return redirect('accounts:profile')
 
@@ -430,7 +432,7 @@ def update_candidate_profile_info_view(request, slug):
             return redirect(redirect_url)
         else:
             print(form.errors)
-    
+
     context['form'] = form
     context['data_type'] = data_type
     context['slug'] = slug

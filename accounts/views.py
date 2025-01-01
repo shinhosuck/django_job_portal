@@ -46,6 +46,14 @@ def login_view(request):
     form = LoginForm(request.POST or None)
     context = {'form': form}
 
+    if request.user.is_authenticated:
+        user_type  = request.user.profile.user_type
+        messages.warning(request, 'You are already authenticated.')
+
+        if user_type == 'employer':
+            return redirect('employers:employer')
+        return redirect('candidates:jobs') 
+
     if request.method == 'POST':
         if form.is_valid():
             data = form.cleaned_data

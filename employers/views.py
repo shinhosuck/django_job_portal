@@ -116,6 +116,7 @@ def employer_detail_view(request, slug):
 
 
 def employer_job_detail(request, slug):
+    print('SLUG', slug)
     redirect_url = request.GET.get('redirect')
     user = request.user
 
@@ -125,8 +126,8 @@ def employer_job_detail(request, slug):
         'is_owner': False
     }
 
-    if not redirect_url:
-        raise Http404('Page Does Not Exist.')
+    # if not redirect_url:
+    #     raise Http404('Page Does Not Exist.')
     
     try:
         job = Job.objects.get(slug=slug)
