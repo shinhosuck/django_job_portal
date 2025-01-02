@@ -2,31 +2,152 @@
 {% load static %}
 
 {% block title %}
-    Home
+	Home
 {% endblock title %}
 
 {% block nav %}
-    {% include "candidates/candidates_landing_page_navbar.html" %}
+	{% include "candidates/candidates_landing_page_navbar.html" %}
 {% endblock nav %}
 
 {% block content %}
-    <div class="hero-row">
-        <div class="hero-content-container">
-            <div class="mobile-landing-page-hero-img-container">
-                <img src="{% static 'candidates/imgs/hero.webp' %}" alt="">
-                <div class="mobile-landing-page-hero-img-background-overlay"></div>
-            </div>
-            <div class="hero-text-container">
-                <h1 class="hero-header">Land Your Dream Job Today!</h1>
-                <p class="hero-text-body">
-                    At <strong>HireSpot</strong>, we connect talented individuals with great companies, 
-                    offer personalized matches, and provide robust search tools to help 
-                    you find your next job opportunity.
-                </p>
-                <a class="find-your-dream-job-btn" href="{% url 'candidates:jobs' %}">Find Your Dream Job!</a>
-            </div>
-        </div>
-    </div>
+	<div class="hero-row">
+		<div class="hero-content-container">
+			<div class="mobile-landing-page-hero-img-container">
+				<img src="{% static 'candidates/imgs/hero.webp' %}" alt="">
+				<div class="mobile-landing-page-hero-img-background-overlay"></div>
+			</div>
+			<div class="hero-text-container">
+				<h1 class="hero-header">Land Your Dream Job Today!</h1>
+				<p class="hero-text-body">
+					At <strong>HireSpot</strong>, we connect talented individuals with great companies, 
+					offer personalized matches, and provide robust search tools to help 
+					you find your next job opportunity.
+				</p>
+				<a class="find-your-dream-job-btn" href="{% url 'candidates:jobs' %}">Find Your Dream Job!</a>
+			</div>
+		</div>
+	</div>
+	<div class="langing-page-candidates-content-container">
+		<div class="langing-page-candidates-content-header-container" >
+			<h2 class="landing-page-candidates-contents-header">Why <strong>HireSpot</strong> Works for You?</h2>
+			<p class="landing-page-candidates-contents-header-text">
+			  Looking for a job shouldn't be hard. <strong>HireSpot</strong> makes 
+			  it easy for you to find the perfect match, all 
+			  in one place. Here’s why job seekers choose us every day.
+			</p>
+		</div>
+		<div class="langing-page-candidates-contents">
+			<div class="landing-page-candidates-content">
+				<div class="lanidng-page-candidates-content-image">
+					<img src="{% static 'candidates/imgs/candidates_landing_page_content_1/checkmark.png' %}" alt="">
+				</div>
+				<h3 class="landing-page-candidates-content-header">Find Jobs That Fit Your Skills</h3>
+				<p class="landing-page-candidates-content-body">
+					With our simple and intuitive search feature, you can quickly discover jobs that 
+					match your experience and career goals. No need for complex filters—just enter 
+					your title, location, and hit search!
+				</p>
+			</div>
+			<div class="landing-page-candidates-content">
+				<div class="lanidng-page-candidates-content-image">
+					<img src="{% static 'candidates/imgs/candidates_landing_page_content_1/profile.png' %}" alt="">
+				</div>
+				<h3 class="landing-page-candidates-content-header">Job Suggestions Tailored to You</h3>
+				<p class="landing-page-candidates-content-body">
+					We understand that every job seeker has unique skills and aspirations. 
+					That's why <strong>HireSpot</strong> suggests jobs based on your profile, ensuring you 
+					never miss a great opportunity.
+				</p>
+			</div>
+			<div class="landing-page-candidates-content">
+				<div class="lanidng-page-candidates-content-image">
+					<img src="{% static 'candidates/imgs/candidates_landing_page_content_1/focus.png' %}" alt="">
+				</div>
+				<h3 class="landing-page-candidates-content-header">Focus on What Matters to You</h3>
+				<p class="landing-page-candidates-content-body">
+					Stop wasting time sifting through irrelevant listings. 
+					<strong>HireSpot</strong> brings you only the most relevant job opportunities, 
+					so you can spend more time preparing for your next step, rather 
+					than searching endlessly.
+				</p>
+			</div>
+		</div>
+		<a class="landing-page-candidates-content-cta-btn" href="{% url 'candidates:jobs' %}">Sign up now</a>
+	</div>
+	<div class="landing-page-candidates-background-color">
+		<div class="landing-page-candidates-how-it-works-container">
+			<div class="landing-page-candidates-how-it-works-header-container">
+				<h2 class="landing-page-candidates-how-it-works-header">How HireSpot Works</h2>
+				<p class="landing-page-candidates-how-it-works-text">
+					Here’s how to get started with <strong>HireSpot</strong>. 
+					Don’t worry if you can’t complete everything at once. 
+					<strong>You can always complete the form later.</strong> 
+					Just click the "Finish Later" link to cancel the process and return when you’re ready.
+				</p>
+			</div>
+			<div class="landing-page-candidates-how-it-works-steps">
+				<div class="landing-page-candidates-how-it-works-step">
+					<h3 class="landing-page-candidates-how-it-works-step-header">Step 1: Register</h3>
+					<p class="landing-page-candidates-how-it-works-step-text">
+						Sign up with your basic information. You can always come back later to finish the registration.
+					</p>
+				</div>
+				<div class="landing-page-candidates-how-it-works-step">
+					<h3 class="landing-page-candidates-how-it-works-step-header">Step 2: Login</h3>
+					<p class="landing-page-candidates-how-it-works-step-text">
+						Log in to your account. You can update your login details later if needed.
+					</p>
+				</div>
+				<div class="landing-page-candidates-how-it-works-step">
+					<h3 class="landing-page-candidates-how-it-works-step-header">Step 3: Complete Your Profile</h3>
+					<p class="landing-page-candidates-how-it-works-step-text">
+						Fill out your profile details. Don’t worry, if you need time to finish, simply click the “Finish Later” link.
+					</p>
+				</div>
+				<div class="landing-page-candidates-how-it-works-step">
+					<h3 class="landing-page-candidates-how-it-works-step-header">Step 4: Add Your Qualifications</h3>
+					<p class="landing-page-candidates-how-it-works-step-text">
+						Once your profile is set up, you can easily add qualifications. You can finish this part at any time by clicking “Finish Later.”
+					</p>
+				</div>
+			</div>
+			<a class="landing-page-candidates-content-cta-btn" href="{% url 'candidates:jobs' %}">Get Started Now</a>
+		</div>
+	</div>
+	<div class="landing-page-candidates-testimonials">
+		<h2 class="landing-page-candidates-testimonials-header">What Our Users Say</h2>
+		<div class="landing-page-candidates-testimonials-container">
+			<div class="landing-page-candidates-testimonial">
+				<div class="landing-page-candidates-testimonial-avatar">
+					<img src="{% static 'candidates/imgs/users/user1.jpg' %}" alt="User image" />
+				</div>
+				<p class="landing-page-candidates-testimonial-text">
+					"I found my dream job on HireSpot in less than a week. The platform's simplicity really made it easy to navigate."
+				</p>
+				<p class="landing-page-candidates-testimonial-name">James L.</p>
+				<p class="landing-page-candidates-testimonial-role">Product Manager</p>
+			</div>
+			<div class="landing-page-candidates-testimonial">
+				<div class="landing-page-candidates-testimonial-avatar">
+					<img src="{% static 'candidates/imgs/users/user2.webp' %}" alt="User image" />
+				</div>
+				<p class="landing-page-candidates-testimonial-text">
+					"The job suggestions were perfectly tailored to my skills. I felt like HireSpot understood exactly what I needed."
+				</p>
+				<p class="landing-page-candidates-testimonial-name">Anna M.</p>
+				<p class="landing-page-candidates-testimonial-role">UX Designer</p>
+			</div>
+			<div class="landing-page-candidates-testimonial">
+				<div class="landing-page-candidates-testimonial-avatar">
+					<img src="{% static 'candidates/imgs/users/user3.webp' %}" alt="User image" />
+				</div>
+				<p class="landing-page-candidates-testimonial-text">
+					"I appreciated the option to complete my profile later. It made the whole process less stressful and more flexible."
+				</p>
+				<p class="landing-page-candidates-testimonial-name">Michael P.</p>
+				<p class="landing-page-candidates-testimonial-role">Software Engineer</p>
+			</div>
+		</div>
+	</div>
+	  
 {% endblock content %}
-
-{% block footer %}{% endblock footer %}

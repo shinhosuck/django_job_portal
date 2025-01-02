@@ -61,6 +61,9 @@
 {% block js %}
     <script type="text/javascript">
         const dataType = '{{ data_type }}'
+        const user_type = '{{ request.user.profile.user_type }}' || 'null'
+
+        localStorage.setItem('user_type', user_type)
         
         localStorage.setItem('selectForm', JSON.stringify({dataType:dataType}))
 

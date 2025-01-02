@@ -15,7 +15,6 @@ from candidates.models import CandidateQualification
 from .models import Profile
 from utils.decorators import user_login_required
 
-
 def register_view(request):
     next = request.GET.get('next') or None
 
@@ -48,8 +47,12 @@ def login_view(request):
 
     if request.user.is_authenticated:
         user_type  = request.user.profile.user_type
-        messages.warning(request, 'You are already authenticated.')
 
+        # if not user_type:
+        #     messages.info(request, 'Please complete your profile to better serve you.')
+        #     return redirect('accounts:profile-update')
+
+        messages.warning(request, 'You are already authenticated.')
         if user_type == 'employer':
             return redirect('employers:employer')
         return redirect('candidates:jobs') 

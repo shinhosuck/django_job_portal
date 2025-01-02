@@ -21,7 +21,7 @@ def save_profile(sender, instance, **kwargs):
     profile.email = instance.email
     profile.slug = slugify(instance.username)
     profile.save()
-
+   
 
 @receiver(post_delete, sender=Profile)
 def post_delete_user(sender, instance, **kwargs):

@@ -2,17 +2,21 @@ const form = document.querySelector('.candidate-update-form')
 const formInputRows = Array.from(form.querySelectorAll('p'))
 const data = JSON.parse(localStorage.getItem('selectForm'))
 
-const loadFunction = data?.dataType === 'profile' && updateCandidateProfile() || 
-                    data?.dataType === 'qualification' && updateCandidateQualification()
+const loadFunction = data?.dataType === 'profile' 
+&& updateCandidateProfile() || data?.dataType === 'qualification' 
+&& updateCandidateQualification()
 
 window.addEventListener('DOMContentLoaded', hideFormInutUserType)
 
+
 // Hide form input user_type
+// if user profile.user_type has a value.
 function hideFormInutUserType() {
     formInputRows.forEach((element) => {
+        const user_type = localStorage.getItem('user_type')
         const select = element.querySelector('select')
-    
-        if (select && select.id === 'id_user_type') {
+
+        if (select && select.id ==='id_user_type' && user_type !== 'null') {
             select.parentElement.style.display = 'none'
         }
         element.setAttribute('class', 'form-input-row')
@@ -23,7 +27,6 @@ function hideFormInutUserType() {
 // PROFILE FORM
 // Profile form first input/profile image input
 function updateCandidateProfile() {
-    console.log('hello')
     const profileImageInputRow = formInputRows[0]
     const children = Array.from(profileImageInputRow.querySelectorAll('*'))
 

@@ -1,4 +1,6 @@
 /* LANDING PAGE */
+
+/* hero section */
 .mobile-landing-page-hero-img-container {
     position: relative;
 }
@@ -60,7 +62,7 @@
 
 @media screen and (min-width: 700px) {
     .hero-content-container {
-        min-height: 100svh;
+        min-height: 80dvh;
         background: linear-gradient(to top, 
             rgba(0, 0, 0, 0.800), rgba(0, 0, 0, 0.7)),
             url('../imgs/hero.webp');
@@ -95,7 +97,251 @@
         margin-top: 1.5rem;
     }
 }
+/* end */
 
+/* landing page content */
+.langing-page-candidates-content-container {
+    width: 90%; 
+    max-width: 1200px;
+    margin: 2rem auto;
+    display: grid;
+    align-items: start;
+    align-content: start;
+    gap: 2.5rem;
+}
+
+.langing-page-candidates-content-header-container {
+    display: grid;
+    align-items: start;
+    align-content: start;
+    gap: 1rem;
+}
+
+.landing-page-candidates-contents-header {
+    font-size: clamp(1.8rem, 1vw + 1rem, 2.2rem);
+    color: var(--green-15);
+    justify-self: center;
+    text-align: center;
+    text-wrap: pretty;
+}
+
+.landing-page-candidates-contents-header-text {
+    color: var(--black-15);
+    letter-spacing: 0.04rem;
+    line-height: 1.4;
+    text-align: center;
+    text-wrap: pretty;
+    max-width: 500px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+}
+
+.langing-page-candidates-contents {
+    display: grid;
+    align-content: start;
+    gap: 1.5rem;
+}
+
+.landing-page-candidates-content {
+    display: grid;
+    row-gap: 0.8rem;
+    align-content: start;
+    align-items: start;
+    border-radius: 15px;
+    padding: 1.2rem;
+    border: 1px solid var(--black-80);
+}
+
+.lanidng-page-candidates-content-image {
+    width: 80px;
+    justify-self: center;
+    display: flex;
+    align-items: end;
+}
+
+.lanidng-page-candidates-content-image > img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    display: block;
+}
+
+.landing-page-candidates-content-header {
+    color: var(--green-15);
+    text-align: center;
+    text-wrap: pretty;
+    font-size: 1.1rem;
+}
+
+.landing-page-candidates-content-body {
+    letter-spacing: 0.04rem;
+    line-height: 1.4;
+    color: var(--black-30);
+    text-wrap: pretty;
+    text-align: center;
+}
+
+.landing-page-candidates-content-cta-btn {
+    font-weight: 500;
+    color: var(--black-90);
+    font-size: 1.2rem;
+    justify-self: center;
+    padding: 1.2rem 2rem;
+    border-radius: 5px;
+    background: rgb(0, 157, 0);
+}
+
+@media screen and (min-width: 600px) {
+    .langing-page-candidates-contents {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .langing-page-candidates-content-container {
+        margin: 4rem auto;
+        margin-bottom: 5rem;
+        gap: 3rem;
+    }
+
+    .langing-page-candidates-contents {
+        display: grid;
+        align-content: start;
+    }
+}
+
+.landing-page-candidates-background-color {
+    background: white;
+}
+
+.landing-page-candidates-how-it-works-container {
+    width: 90%; 
+    max-width: 800px;
+    margin: 0rem auto;
+    display: grid;
+    align-items: start;
+    align-content: start;
+    gap: 2.5rem;
+    padding: 2rem 0;
+}
+
+.landing-page-candidates-how-it-works-header-container {
+    display: grid;
+    align-items: start;
+    justify-content: center;
+    gap: 1rem
+
+}
+
+.landing-page-candidates-how-it-works-header {
+    font-size: clamp(1.8rem, 1vw + 1rem, 2.2rem);
+    color: var(--green-15);
+    justify-self: center;
+    text-align: center;
+    text-wrap: pretty;
+}
+
+.landing-page-candidates-how-it-works-text {
+    color: var(--black-15);
+    letter-spacing: 0.04rem;
+    line-height: 1.4;
+    text-align: center;
+    text-wrap: pretty;
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+}
+
+.landing-page-candidates-how-it-works-steps {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.landing-page-candidates-how-it-works-step {
+    display: grid;
+    row-gap: 0.8rem;
+    align-content: start;
+    align-items: start;
+    border-radius: 15px;
+    padding: 1.2rem;
+    border: 1px solid var(--black-80);
+    background: hsl(122, 100%, 98%);
+}
+
+.landing-page-candidates-how-it-works-step-header {
+    color: var(--green-15);
+    text-wrap: pretty;
+    font-size: 1.1rem;
+}
+
+.landing-page-candidates-how-it-works-step-text {
+    letter-spacing: 0.04rem;
+    line-height: 1.4;
+    color: var(--black-30);
+    text-wrap: pretty;
+}
+
+@media screen and (min-width: 900px) {
+    .landing-page-candidates-how-it-works-container {
+        padding: 5rem 0 5rem 0;
+        gap: 3rem;
+    }
+}
+
+.landing-page-candidates-testimonials {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    display: grid;
+    align-items: start;
+    align-content: start;
+    gap: 2.5rem;
+}
+
+.landing-page-candidates-testimonials-header {
+    font-size: clamp(1.8rem, 1vw + 1rem, 2.2rem);
+    color: var(--green-15);
+    justify-self: center;
+    text-align: center;
+    text-wrap: pretty;
+}
+
+.landing-page-candidates-testimonials-container {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.landing-page-candidates-testimonial {
+    display: grid;
+    row-gap: 0.8rem;
+    align-content: start;
+    align-items: start;
+    border-radius: 15px;
+    padding: 1.2rem;
+    border: 1px solid var(--black-80);
+}
+
+.landing-page-candidates-testimonial-avatar > img {
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+}
+
+@media screen and (min-width: 600px) {
+    .landing-page-candidates-testimonials-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .landing-page-candidates-testimonials {
+        margin: 5rem auto;
+        margin-bottom: 5rem;
+        gap: 3rem;
+    }
+}
+/* end */
+
+/* END OF LANDING PAGE */
 
 /* Job Search Form */
 
@@ -244,7 +490,6 @@
     .show-suggestions {
         top: 70px;
     }
-
 }
  
 /* End */

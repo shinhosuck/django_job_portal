@@ -6,7 +6,8 @@ import os
 
 
 @receiver(post_save, sender=Employer)
-def post_save_employer(sender, instance, created, **kwargs):
+def post_save_employer(sender, instance, created, request, **kwargs):
+    print('REQUEST', request)
     if created:
         instance.slug = slugify(instance.employer_name)
         instance.save()

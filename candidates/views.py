@@ -38,6 +38,10 @@ from utils.create_candiate_profile import (
     prefetch_form_data
 )
 
+# django social login
+from social_django.models import UserSocialAuth
+
+
 User = get_user_model()
 
 
@@ -45,6 +49,7 @@ def landing_page_view(request):
     user = request.user
 
     if user.is_authenticated:
+
         if user.profile.user_type == 'employer':
             return redirect('employers:employer')
         else:
