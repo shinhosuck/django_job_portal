@@ -1,11 +1,12 @@
 
 :root {
     /* green */
-    --green-7:hsl(122, 50%, 7%);
+    --green-7:hsl(124, 74%, 5%);
     --green-10:hsl(122, 50%, 10%);
     --green-15:hsl(122, 50%, 15%);
     --green-20:hsl(122, 50%, 20%);
     --green-25:hsl(122, 50%, 25%);
+    --green-28:hsl(122, 50%, 28%);
     --green-30:hsl(122, 92%, 30%);
     --green-35:hsl(122, 92%, 35%);
     --green-40:hsl(122, 92%, 40%);
@@ -33,12 +34,23 @@
     --black-80:hsl(0, 0%, 80%);
     --black-85:hsl(0, 0%, 85%);
     --black-90:hsl(0, 0%, 90%);
+
+    /* Matching Gradient: lower the numer, darker*/
+    --mg-dark-geen-1: hsl(122, 49%, 10%);
+    --mg-light-green-2: hsl(164, 73%, 16%);
+    --mg-blue-green-1: hsl(179, 100%, 21%);
+    --mg-blue-green-2: hsl(189, 70%, 37%);
+    --mg-blue-green-3: hsl(201, 61%, 60%);
+    --mg-blue-green-4: hsl(215, 100%, 82%);
     
     /* success, warning, info, error messages */
     --success: var(--green-30);
     --error: hsl(16, 100%, 50%);
     --warning: hsl(38, 80%, 49%);
     --info: var(--black-40);
+
+    /* CTA btn */
+    --cta: hsl(122, 100%, 27%);
 }
 
 ::before,
@@ -51,7 +63,7 @@
 
 body {
     font-family: "Inter", sans-serif;
-    background: hsl(122, 100%, 98%);
+    /* background: hsl(122, 100%, 98%); */
 }
 
 main {
@@ -250,7 +262,7 @@ button {
 /* NAVBAR GLOBAL */
 .nav-row {
     padding: 1rem 0;
-    background: var(--green-10);
+    background: var(--green-7);
 }
 
 .mobile-nav-bar {
@@ -361,7 +373,7 @@ button {
     font-size: 1.1rem;
 }
 
-@media screen and (min-width:850px) {
+@media screen and (min-width:870px) {
     .mobile-nav-bar {
         display: none;
     }
@@ -479,9 +491,9 @@ button {
     }
 
     .register-link {
-        background: var(--green-30);
-        padding: 0.5rem;
-        border-radius: 5px;
+        background: var(--cta);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
         transition: background 100ms linear;
     }
 
@@ -631,7 +643,7 @@ button {
     
 /* FOOTER */
 .footer-row {
-    background: var(--green-10);
+    background: var(--green-7);
     padding: 2rem 0;
     padding-bottom: 0;
 }
@@ -736,14 +748,14 @@ button {
 }
 
 .footer-form-submit-btn {
-    padding: 1rem;
+    padding: 1.1rem 2rem;
     border: none;
     background: var(--green-30);
     color: white;
     letter-spacing: 0.03rem;
     font-size: 1.1rem;
     font-weight: 500;
-    border-radius: 5px;
+    border-radius: 30px;
 }
 
 .footer-social-links {
@@ -752,26 +764,23 @@ button {
     justify-content: center;
     gap: 1.2rem;
     margin: 3rem 0;
-    margin-bottom: 2rem;
+    margin-bottom: 0rem;
 }
 
 .footer-social-link > i {
-    font-size: 2.3rem;
+    font-size: 2rem;
 }
 
-.fa-linkedin {
-    color: #1f57ff;
-}
-
+.fa-linkedin,
 .fa-github {
-    color: var(--black-90)
+    color: white
 }
 
 .footer-copy-right {
     color: var(--black-80);
     text-align: center;
-    letter-spacing: 0.05rem;
-    padding: 1.3rem 0;
+    letter-spacing: 0.03rem;
+    padding: 1.5rem 0;
     background: var(--green-7)
 }
 
