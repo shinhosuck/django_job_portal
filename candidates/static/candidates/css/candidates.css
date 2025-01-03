@@ -21,28 +21,29 @@
 
 .hero-text-container {
     width: 90%;
-    max-width: 500px;
     margin: 0 auto;
-
     display: grid;
     align-content: start;
     gap: 1.5rem;
-    text-align: center;
     text-wrap: pretty;
     padding: 3rem 0;
+    padding-top: 2rem;
 }
 
 .hero-header {
-    color: var(--black-10);
-    font-size: 2.5rem;
+    color: var(--green-10);
+    max-width: 500px;
+    font-size: clamp(2.3rem, 1dvw + 1.5rem, 2.5rem);
 }
 
 .hero-text-body {
     letter-spacing: 0.05rem;
     line-height: 1.4;
+    font-weight: 500;
     font-size: 1.1rem;
     color: var(--black-30);
-    text-wrap: balance;
+    max-width: 400px;
+    text-wrap: pretty;
 }
 
 .hero-text-body > strong {
@@ -53,15 +54,24 @@
     font-weight: 500;
     margin-top: 1rem;
     color: var(--black-90);
-    font-size: 1.2rem;
-    justify-self: center;
-    padding: 1.2rem 2rem;
-    border-radius: 5px;
-    background: rgb(0, 157, 0);
+    font-size: 1.1rem;
+    justify-self: start;
+    padding: 1.1rem 2rem;
+    border-radius: 30px;
+    background: var(--cta);
+    transition: background 200ms linear;
 }
+
+@media (hover) {
+    .find-your-dream-job-btn:hover {
+        background: var(--green-20);
+    }
+}
+
 
 @media screen and (min-width: 700px) {
     .hero-content-container {
+        position: initial;
         min-height: 80dvh;
         background: linear-gradient(to top, 
             rgba(0, 0, 0, 0.800), rgba(0, 0, 0, 0.7)),
@@ -69,24 +79,32 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-    
         display: grid;
-        align-content: center;
+        align-content: start;
     }
 
     .mobile-landing-page-hero-img-container {
         display: none;
     }
 
+    .hero-text-container {
+        text-align: start;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding-top: 6rem
+    }
+
     .hero-header {
         color: var(--black-90);
         font-size: 3rem;
+        max-width: 500px;
     }
     
     .hero-text-body {
         color: var(--black-80);
         font-size: 1.2rem;
         line-height: 1.5;
+        max-width: 550px;
     }
 
     .hero-text-body > strong {
@@ -95,6 +113,7 @@
     
     .find-your-dream-job-btn {
         margin-top: 1.5rem;
+        justify-self: start;
     }
 }
 /* end */
@@ -102,7 +121,7 @@
 /* landing page content */
 .langing-page-candidates-content-container {
     width: 90%; 
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 2rem auto;
     display: grid;
     align-items: start;
@@ -118,22 +137,18 @@
 }
 
 .landing-page-candidates-contents-header {
-    font-size: clamp(1.8rem, 1vw + 1rem, 2.2rem);
+    font-size: clamp(1.8rem, 1vw + 1rem, 2.3rem);
     color: var(--green-15);
-    justify-self: center;
-    text-align: center;
     text-wrap: pretty;
 }
 
 .landing-page-candidates-contents-header-text {
-    color: var(--black-15);
+    color: var(--black-30);
     letter-spacing: 0.04rem;
     line-height: 1.4;
-    text-align: center;
     text-wrap: pretty;
     max-width: 500px;
-    margin: 0 auto;
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 1dvw + 0.5rem, 1.1rem);
 }
 
 .langing-page-candidates-contents {
@@ -150,11 +165,11 @@
     border-radius: 15px;
     padding: 1.2rem;
     border: 1px solid var(--black-80);
+    background: hsl(122, 100%, 98%);
 }
 
 .lanidng-page-candidates-content-image {
     width: 80px;
-    justify-self: center;
     display: flex;
     align-items: end;
 }
@@ -167,9 +182,9 @@
 
 .landing-page-candidates-content-header {
     color: var(--green-15);
-    text-align: center;
     text-wrap: pretty;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
+    line-height: 1.3;
 }
 
 .landing-page-candidates-content-body {
@@ -177,17 +192,23 @@
     line-height: 1.4;
     color: var(--black-30);
     text-wrap: pretty;
-    text-align: center;
 }
 
 .landing-page-candidates-content-cta-btn {
     font-weight: 500;
     color: var(--black-90);
-    font-size: 1.2rem;
-    justify-self: center;
-    padding: 1.2rem 2rem;
-    border-radius: 5px;
-    background: rgb(0, 157, 0);
+    font-size: 1.1rem;
+    justify-self: start;
+    padding: 1.1rem 2rem;
+    border-radius: 30px;
+    background: var(--cta);
+    transition: background 200ms linear;
+}
+
+@media (hover) {
+    .landing-page-candidates-content-cta-btn:hover {
+        background: var(--green-15);
+    }
 }
 
 @media screen and (min-width: 600px) {
@@ -199,7 +220,6 @@
 @media screen and (min-width: 900px) {
     .langing-page-candidates-content-container {
         margin: 4rem auto;
-        margin-bottom: 5rem;
         gap: 3rem;
     }
 
@@ -210,12 +230,12 @@
 }
 
 .landing-page-candidates-background-color {
-    background: white;
+    background: hsl(122, 100%, 98%)
 }
 
 .landing-page-candidates-how-it-works-container {
     width: 90%; 
-    max-width: 800px;
+    max-width: 1400px;
     margin: 0rem auto;
     display: grid;
     align-items: start;
@@ -227,16 +247,12 @@
 .landing-page-candidates-how-it-works-header-container {
     display: grid;
     align-items: start;
-    justify-content: center;
     gap: 1rem
-
 }
 
 .landing-page-candidates-how-it-works-header {
-    font-size: clamp(1.8rem, 1vw + 1rem, 2.2rem);
+    font-size: clamp(1.8rem, 1vw + 1rem, 2.3rem);
     color: var(--green-15);
-    justify-self: center;
-    text-align: center;
     text-wrap: pretty;
 }
 
@@ -244,15 +260,14 @@
     color: var(--black-15);
     letter-spacing: 0.04rem;
     line-height: 1.4;
-    text-align: center;
     text-wrap: pretty;
-    max-width: 600px;
-    margin: 0 auto;
-    font-size: 1.1rem;
+    max-width: 550px;
+    font-size: clamp(1rem, 1dvw + 0.5rem, 1.1rem);
 }
 
 .landing-page-candidates-how-it-works-steps {
     display: grid;
+    align-content: start;
     gap: 1.5rem;
 }
 
@@ -264,7 +279,7 @@
     border-radius: 15px;
     padding: 1.2rem;
     border: 1px solid var(--black-80);
-    background: hsl(122, 100%, 98%);
+    background: white;
 }
 
 .landing-page-candidates-how-it-works-step-header {
@@ -280,28 +295,49 @@
     text-wrap: pretty;
 }
 
+.landing-page-candidates-how-it-works-cta-btn {
+    font-weight: 500;
+    color: var(--black-90);
+    font-size: 1.1rem;
+    justify-self: start;
+    padding: 1.1rem 2rem;
+    border-radius: 30px;
+    background: var(--cta);
+    transition: background 200ms linear;
+}
+
+@media (hover) {
+    .landing-page-candidates-how-it-works-cta-btn:hover {
+        background: var(--green-15);
+    }
+}
+
+@media screen and (min-width: 650px) {
+    .landing-page-candidates-how-it-works-steps {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
 @media screen and (min-width: 900px) {
     .landing-page-candidates-how-it-works-container {
-        padding: 5rem 0 5rem 0;
+        padding: 6rem 0 6rem 0;
         gap: 3rem;
     }
 }
 
 .landing-page-candidates-testimonials {
     width: 90%;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 2rem auto;
     display: grid;
     align-items: start;
     align-content: start;
-    gap: 2.5rem;
+    gap: 2rem;
 }
 
 .landing-page-candidates-testimonials-header {
-    font-size: clamp(1.8rem, 1vw + 1rem, 2.2rem);
+    font-size: clamp(1.8rem, 1vw + 1rem, 2.3rem);
     color: var(--green-15);
-    justify-self: center;
-    text-align: center;
     text-wrap: pretty;
 }
 
@@ -318,6 +354,7 @@
     border-radius: 15px;
     padding: 1.2rem;
     border: 1px solid var(--black-80);
+    background: hsl(122, 100%, 98%);
 }
 
 .landing-page-candidates-testimonial-avatar > img {
@@ -326,7 +363,30 @@
     border-radius: 10px;
 }
 
-@media screen and (min-width: 600px) {
+.landing-page-candidates-testimonial-text {
+    letter-spacing: 0.03rem;
+    line-height: 1.4;
+    color: var(--black-20)
+}
+
+.landing-page-candidates-testimonial-user-role-container {
+    display: grid;
+    gap: 0.3rem;
+    align-items: start;
+    align-self: start;
+}
+
+.landing-page-candidates-testimonial-name {
+    font-weight: 600;
+    color: var(--green-15)
+}
+
+.landing-page-candidates-testimonial-role {
+    color: var(--black-30);
+    font-size: 0.95rem;
+}
+
+@media screen and (min-width: 650px) {
     .landing-page-candidates-testimonials-container {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
@@ -334,9 +394,8 @@
 
 @media screen and (min-width: 900px) {
     .landing-page-candidates-testimonials {
-        margin: 5rem auto;
-        margin-bottom: 5rem;
-        gap: 3rem;
+        margin: 4rem auto;
+        margin-bottom: 6rem;
     }
 }
 /* end */

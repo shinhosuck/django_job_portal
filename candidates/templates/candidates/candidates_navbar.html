@@ -78,7 +78,7 @@
                     <a class='{% if url_name == "about" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'candidates:about' %}">About</a>
                     <a class='{% if url_name == "contact" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'candidates:contact' %}">Contact</a>
                     <a href="{% url 'accounts:login' %}" class="mobile-navlink">Sign in</a>
-                    <a href="{% url 'accounts:register' %}" class="mobile-navlink">Sign out</a>
+                    <a href="{% url 'accounts:register' %}" class="mobile-navlink">Sign up</a>
                 {% else %}
                     <a href="{% url 'accounts:profile' %}" class="mobile-navlink">Profile</a>
                     <a class='{% if url_name == "about" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'candidates:about' %}">About</a>
