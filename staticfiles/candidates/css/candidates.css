@@ -126,7 +126,7 @@
     display: grid;
     align-items: start;
     align-content: start;
-    gap: 2.5rem;
+    gap: 2rem;
 }
 
 .langing-page-candidates-content-header-container {
@@ -223,7 +223,6 @@
     .langing-page-candidates-content-container {
         margin: 4rem auto;
         margin-bottom: 3rem;
-        gap: 3rem;
     }
 
     .langing-page-candidates-contents {
@@ -246,7 +245,7 @@
     display: grid;
     align-items: start;
     align-content: start;
-    gap: 2.5rem;
+    gap: 2rem;
     padding: 2rem 0;
 }
 
@@ -328,8 +327,7 @@
 
 @media screen and (min-width: 900px) {
     .landing-page-candidates-how-it-works-container {
-        padding: 4rem 0 3rem 0;
-        gap: 3rem;
+        padding: 3rem 0 3rem 0;
     }
 }
 
@@ -403,7 +401,7 @@
 
 @media screen and (min-width: 900px) {
     .landing-page-candidates-testimonials {
-        margin: 4rem auto;
+        margin-top: 3rem;
         margin-bottom: 6rem;
     }
 }
