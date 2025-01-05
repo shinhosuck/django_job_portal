@@ -1,3 +1,5 @@
+const body = document.querySelector('body')
+
 
 const navbarRow = document.querySelector('.nav-row')
 
@@ -110,11 +112,32 @@ logoutModalCloseBtn && logoutModalCloseBtn.addEventListener('click', () => {
 
 
 // Contact form on contact page
-const contactForm = Array.from(document.querySelectorAll('.contact-form > p'))
+const toggleContactFormFooterBtns = document.querySelectorAll('.toggle-footer-contact-form-btn')
+const footerContactFormMessageUsText = document.querySelector('.footer-contact-form-message-us-text')
+const contactFormFooter = document.querySelector('.footer-contact-form')
+const contactFormRows = Array.from(document.querySelectorAll('.contact-form > p'))
                     
-contactForm.forEach((p)=> {
+contactFormRows.forEach((p)=> {
     p.setAttribute('class', 'contact-form-row')
 })
+
+
+toggleContactFormFooterBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+        contactFormFooter.classList.toggle('show-footer-contact-form')
+        body.scrollIntoView({ behavior: 'instant', block:'start'})
+    
+        if (contactFormFooter.classList.contains('show-footer-contact-form')) {
+            footerContactFormMessageUsText.style.display = 'none'
+            body.style.overflowY = 'hidden'
+        }
+        else {
+            footerContactFormMessageUsText.style.display = 'grid'
+            body.style.overflow = 'auto'
+        }
+    })
+})
+
 
 // Landing page Mobile navbar: toggle mobile navlinks
 const mobileNavLinksToggleBtnsContainer = document.querySelector('.landing-page-mobile-navlinks-toggle-btns-container')
@@ -147,3 +170,5 @@ window.addEventListener('click', (e) => {
         mobileCloseBtn.classList.add('hide-mobile-navlinks-toggle-btn')
     }
 })
+
+

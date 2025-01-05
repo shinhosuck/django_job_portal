@@ -209,7 +209,7 @@
 
 @media (hover) {
     .landing-page-candidates-content-cta-btn:hover {
-        background: var(--green-15);
+        background: var(--green-20);
     }
 }
 
@@ -232,10 +232,7 @@
 }
 
 .landing-page-candidates-background-color {
-    /* background: hsl(122, 100%, 98%) */
-    /* background: var(--accent) */
-    /* background: var(--black-85); */
-
+    /* background: var(--black-95); */
 }
 
 .landing-page-candidates-how-it-works-container {
@@ -284,9 +281,7 @@
     border-radius: 15px;
     padding: 1.2rem;
     border: 1px solid var(--black-80);
-    background: white;
-    background: var(--black-90)
-    /* background: var(--accent) */
+    background: var(--black-90);
 }
 
 .landing-page-candidates-how-it-works-step-header {
@@ -315,7 +310,7 @@
 
 @media (hover) {
     .landing-page-candidates-how-it-works-cta-btn:hover {
-        background: var(--green-15);
+        background: var(--green-20);
     }
 }
 

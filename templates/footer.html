@@ -32,29 +32,49 @@
         {% endwith %}
         <div class="footer-content footer-contact-form-container">
             <h2 class='footer-contact-form-header'>Message Us</h2>
+            <div class="footer-contact-form-message-us-text-container">
+                <p class="footer-contact-form-message-us-text">
+                    Have a question or feedback? We truly value your 
+                    concerns and suggestions, and we're here to assist 
+                    you every step of the way.
+                </p>
+                <button class='toggle-footer-contact-form-btn' type='button'>
+                    <span class='toggle-footer-contact-form-btn-message'>Click here to message us!</span>
+                </button>
+            </div>
             <form action="" method='POST' class="footer-contact-form">
+                <a  href='{% url "candidates:landing-page" %}' class="footer-brand-logo">
+                    HireSpot
+                </a>
+                <h2 class='footer-contact-form-header'>Message Us</h2>
                 {% csrf_token %}
                 <div class="footer-message-form-input-row">
-                    <label for="email">Email:</label>
+                    <label for="email">Email</label>
                     <input 
                         required
                         id="email"
                         type="email" 
-                        name='email' 
+                        name='email'
+                        placeholder="myemail@mail.com" 
                         class="footer-message-form-email-input" 
                     >
                 </div>
                 <div class="footer-message-form-textarea-row">
-                    <label for="message">Message:</label>
+                    <label for="message">Message</label>
                     <textarea 
-                        required
-                        id="message"
+                        required id="message" 
                         name="message" 
+                        placeholder="How can we help you?"
                         class="footer-message-form-message-textarea" 
-                    >
-                    </textarea>
+                    ></textarea>
                 </div>
                 <button class="footer-form-submit-btn" type='submit'>Submit Message</button>
+                <div class='toggle-footer-contact-form-btn-wrapper'>
+                    <button class='toggle-footer-contact-form-btn toggle-footer-contact-form-btn-close' type='button'>
+                        <span class='toggle-footer-contact-form-btn-message'>Click to close form</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
             </form>
         </div>
     </div>
