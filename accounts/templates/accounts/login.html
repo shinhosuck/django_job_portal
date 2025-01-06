@@ -10,45 +10,19 @@
 {% block content %}
     <div class="login-form-row">
         <div class="login-form-container">
-            <div class="form-navbar">
-                <a href="{% url 'candidates:landing-page' %}" class="logo-container">
-                    <span class="logo-header">HireSpot</span>
-                </a>
-                <button class="form-navlinks-toggle-btn">
-                    <i class="fas fa-bars form-show-navlinks"></i>
-                    <i class="fas fa-times form-remove-navlinks remove-form-navlinks-toggle-btn-child"></i>
-                </button>
-                {% with request.resolver_match.url_name as url_name %}
-                    <div class="form-navlinks">
-                        <a 
-                            class='navlink'
-                            href="{% if next %}{{ next }}{% else %}{% url 'candidates:landing-page' %}{% endif %}"
-                        >
-                            Home
-                        </a>
-                        <a class="{% if url_name == 'login' %}active-link{% endif %} navlink" href="{% url 'accounts:login' %}">Sign in</a>
-                        <a class="navlink" href="{% url 'accounts:register' %}">Sign up</a>
-                    </div>
-                {% endwith %}
-            </div>
-            <div class="login-form-header-text-container">
-                <h2 class="login-form-name">
-                    Welcome Back!
-                </h2>
-                <p class="login-form-text">
-                    Log in to access your account, 
-                    connect with opportunities, 
-                    and manage your journey.
-                </p>
-            </div>
+            <a href="{% url 'candidates:landing-page' %}" class="logo-container">
+                <span class="logo-header">HireSpot</span>
+            </a>
+            <h2 class="login-form-name">
+                Welcome Back!
+            </h2>
             <div class="login-form-wrapper">
-                <h3 class="login-form-header">Sign in</h3>
                 {% if error %} <p class='errorlist'>{{ error }}</p> {% endif %}
                 <form class="login-from" action="" method='POST'>
                     {% csrf_token %}
                     {{ form.as_p }}
                     <button type="submit" class="login-form-login-btn">
-                        Sign in
+                        Sign In
                     </button>
                 </form>
             </div>

@@ -53,15 +53,21 @@ function formatRegisterForm() {
         }
         else {
             row.setAttribute('class', 'register-input-row')
+
+            const input = row.querySelector('input')
+
+            if (input.id === 'id_username' || input.id === 'id_password2') {
+                const span = input.nextElementSibling
+                input.placeholder = span.textContent.replaceAll('Required.', '')
+                span.remove()
+            }
+
             const spans = Array.from(row.querySelectorAll('span'))
 
             spans.forEach((span) => {
                 if (span && !span.innerHTML) {
                     span.style.display = 'none'
                 } 
-                else {
-                    span.textContent = span.textContent.replaceAll('Required.', '')
-                }
             })
         }
     })
@@ -79,23 +85,33 @@ userRegisterForm && formatRegisterForm()
 
 
 function togglePasswordRequirements() {
-    const registerFormChildren = Array.from(userRegisterForm.children) 
-    const helpTextList = registerFormChildren[4]
-    const inputRow = registerFormInputRows[2]
+    const registerFormChildren = Array.from(userRegisterForm.children)
+    let helpTextList = null
+    let inputRow = null
+    
+    registerFormChildren.forEach((row) => {
+        let input = null 
+        if (row.classList.contains('register-input-row')) {
+            if (row.querySelector('input').id === 'id_password1') {
+                inputRow = row
+                helpTextList = inputRow.nextElementSibling
+            }
+        }
+    })
 
     helpTextList.classList.add('password-help-text-list')
 
     const div = document.createElement('div')
     div.setAttribute('class', 'toggle-password-requirements')
     
-    div.innerHTML = `<h4>
-                        <span>
-                            See password requirements
-                        </span>
-                        <span>
-                            <i class="fa-solid fa-chevron-down "></i>
-                        </span>
-                    </h4>`
+    div.innerHTML = `
+        <span>
+            Password requirements
+        </span>
+        <span>
+            <i class="fa-solid fa-chevron-down "></i>
+        </span>
+    `
                     
     inputRow.append(div)
     handleToggleEvent(helpTextList)
