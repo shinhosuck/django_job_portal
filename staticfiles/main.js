@@ -129,7 +129,7 @@ toggleContactFormFooterBtns.forEach((btn) => {
     
         if (contactFormFooter.classList.contains('show-footer-contact-form')) {
             footerContactFormMessageUsText.style.display = 'none'
-            body.style.overflowY = 'hidden'
+            body.style.overflow = 'hidden'
         }
         else {
             footerContactFormMessageUsText.style.display = 'grid'

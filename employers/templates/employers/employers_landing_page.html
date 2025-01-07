@@ -7,19 +7,184 @@
 
 {% block content %}
     <div class="employers-landing-page-content-row">
-        <div class="employers-landing-page-content-container">
-            <div class="employers-landing-page-contents">
+        <div class="employers-landing-page-hero-content-container">
+            <div class="employers-landing-page-hero-contents">
+                <div class="employers-landing-page-hero-text-content">
+                    <h1 class="employers-landing-page-header">Unlock Exceptional Talent for Your Team!</h1>
+                    <p class="employers-landing-page-hero-text">
+                        At <strong>HireSpot</strong>, we made posting a job effortless so you can focus 
+                        on connecting with top candidates, reviewing matches that meet your qualifications, 
+                        and scheduling interviews-all in one seamless platform.  
+                    </p>
+                    <a href="{% url 'employers:post-job' %}" class="employers-landing-page-post-a-job-btn">Post a Job Now!</a>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-employers-landing-page-hero-contents">
+            <div class="employers-landing-page-hero-text-content">
                 <h1 class="employers-landing-page-header">Unlock Exceptional Talent for Your Team!</h1>
-                <p class="employers-landing-page-text">
-                    At <strong>HireSpot</strong>, we help employers quickly find the right candidates. 
-                    Post job openings, browse qualified applicants, and streamline your hiring process 
-                    with our advanced search filters and candidate assessments. 
-                    Start building your dream team today!
+                <p class="employers-landing-page-hero-text">
+                    At <strong>HireSpot</strong>, we made posting a job effortless so you can focus 
+                    on connecting with top candidates, reviewing matches that meet your qualifications, 
+                    and scheduling interviews-all in one seamless platform.  
                 </p>
-                <a href="{% url 'employers:post-job' %}" class="employers-landing-page-post-a-job-btn">Post a Job</a>
+                <a href="{% url 'employers:post-job' %}" class="employers-landing-page-post-a-job-btn">Post a Job Now!</a>
             </div>
         </div>
     </div>
-{% endblock content %}
+    <div class="employers-landing-page-content-wrapper">
 
-{% block footer %}{% endblock footer %}
+        {% comment %} Section1 {% endcomment %}
+        <div class="employers-landing-page-content-container">
+            <div class="employers-landing-page-content-header-text">
+                <h1 class="employers-landing-page-content-header">
+                    Trusted by Employers
+                </h1>
+                <p>
+                    Businesses like yours are already simplifying their 
+                    hiring process with <strong>HireSpot</strong>. Here's what they have to say.
+                </p>
+            </div>
+            <div class="employers-landing-page-content">
+                <div class="employers-landing-page-text-content">
+                    <div class="employers-landing-page-employer-image-conainer">
+                        <img src="{% static 'employers/imgs/employers/employer2.webp' %}" alt="">
+                    </div>
+                    <h3>"Hiring has never been easier."</h3>
+                    <p>
+                        "We’ve been using HireSpot for a few months now, 
+                        and the difference is night and day. I love how quickly 
+                        we’re able to get candidates who actually meet our needs, 
+                        and the ease of scheduling interviews has really saved me time."    
+                    </p>
+                    <p class="employers-landing-page-employer-name">
+                        <span>Sara Mongomory</span>
+                        <span>General Manager</span>
+                    </p>
+
+                </div>
+                <div class="employers-landing-page-text-content">
+                    <div class="employers-landing-page-employer-image-conainer">
+                        <img src="{% static 'employers/imgs/employers/employer1.webp' %}" alt="">
+                    </div>
+                    <h3>"A game-changer for our recruitment process."</h3>
+                    <p>
+                        "At first, we weren’t sure what to expect. But after a few hires,
+                         we noticed a dramatic difference. The time-to-hire is quicker, 
+                         and we’re getting better-qualified candidates. It feels like 
+                         we’ve really optimized our recruitment process."
+                    </p>
+                    <p class="employers-landing-page-employer-name">
+                        <span>James Thomas</span>
+                        <span>Recruitment Specialist</span>
+                    </p>
+
+                </div>
+                <div class="employers-landing-page-text-content">
+                    <div class="employers-landing-page-employer-image-conainer">
+                        <img src="{% static 'employers/imgs/employers/employer3.webp' %}" alt="">
+                    </div>
+                    <h3>"Streamlined, effective, and simple."</h3>
+                    <p>
+                        "We’ve always struggled with complicated job boards. 
+                        HireSpot makes it so much easier to post openings 
+                        and manage applications. It’s refreshing to use something 
+                        that just works without all the complexity."
+                    </p>
+                    <p class="employers-landing-page-employer-name">
+                        <span>Laura Jameson</span>
+                        <span>HR Director</span>
+                    </p>
+
+                </div>
+            </div>
+            <a class="employers-landing-page-get-started-btn" href="{% url 'accounts:register' %}">
+                Let's Get Stared
+            </a>
+        </div>
+
+        {% comment %} Section 2 {% endcomment %}
+        <div class="employers-landing-page-content-container">
+            <div class="employers-landing-page-content-header-text">
+                <h1 class="employers-landing-page-content-header">
+                    How HireSpot Makes Hiring Easy
+                </h1>
+                <p>
+                    Our platform is built to save you time and connect 
+                    you with the best candidates. Here’s how it works.
+                </p>
+            </div>
+            <div class="employers-landing-page-content">
+                <div class="employers-landing-page-text-content make-hiring-easy-text">
+                    <div class="make-hiring-easy-image-container">
+                        <img src="{% static 'employers/imgs/employers-icons/clipboard.png' %}" alt="">
+                    </div>
+                    <h3>Post Your Job</h3>
+                    <p>Create a job listing in minutes with our user-friendly form.</p>
+                </div>
+                <div class="employers-landing-page-text-content make-hiring-easy-text">
+                    <div class="make-hiring-easy-image-container">
+                        <img src="{% static 'employers/imgs/employers-icons/loupe.png' %}" alt="">
+                    </div>
+                    <h3>Review Candidates</h3>
+                    <p>See applicants that match your qualifications instantly.</p>
+                </div>
+                <div class="employers-landing-page-text-content make-hiring-easy-text">
+                    <div class="make-hiring-easy-image-container">
+                        <img src="{% static 'employers/imgs/employers-icons/calendar.png' %}" alt="">
+                    </div>
+                    <h3>Schedule Interviews</h3>
+                    <p>Use our scheduling tool to book interviews quickly.</p>
+                </div>
+                <div class="employers-landing-page-text-content make-hiring-easy-text">
+                    <div class="make-hiring-easy-image-container">
+                        <img src="{% static 'employers/imgs/employers-icons/briefcase.png' %}" alt="">
+                    </div>
+                    <h3>Hire the Best</h3>
+                    <p>Make offers and onboard candidates seamlessly.</p>
+                </div>
+            </div>
+            <a class="employers-landing-page-get-started-btn" href="{% url 'accounts:register' %}">
+                Start Hiring Today
+            </a>
+        </div>
+
+        {% comment %} Section 3 {% endcomment %}
+        <div class="employers-landing-page-content-container">
+            <div class="employers-landing-page-content-header-text">
+                <h1 class="employers-landing-page-content-header">
+                    Why Employers Choose HireSpot
+                </h1>
+                <p>
+                    We’ve designed HireSpot to simplify every stage of your hiring process.
+                    Here’s why businesses across industries trust us to build their teams.
+                </p>
+            </div>
+            <div class="employers-landing-page-content">
+                <div class="employers-landing-page-text-content employers-why-choose-hirespot">
+                    <h3>Streamlined Job Management</h3>
+                    <p>Post, edit, and track your job openings from one intuitive dashboard.</p>
+                </div>
+                <div class="employers-landing-page-text-content employers-why-choose-hirespot">
+                    <h3>Clear Candidate Insights</h3>
+                    <p>Quickly review resumes and key qualifications with profiles that prioritize clarity.</p>
+                </div>
+                <div class="employers-landing-page-text-content employers-why-choose-hirespot">
+                    <h3>Instant Customer Service Response</h3>
+                    <p>Contact us anytime and get quick, helpful responses to keep your hiring process moving.</p>
+                </div>
+                <div class="employers-landing-page-text-content employers-why-choose-hirespot">
+                    <h3>End-to-End Efficiency</h3>
+                    <p>
+                        From posting jobs to scheduling interviews, we have simplified 
+                        the process so that you can focus on what matters to you.
+                    </p>
+                </div>
+            </div>
+            <a class="employers-landing-page-get-started-btn" href="{% url 'accounts:register' %}">
+                Start Hiring Smarter
+            </a>
+        </div>
+    </div>
+
+{% endblock content %}

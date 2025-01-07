@@ -795,13 +795,14 @@ button {
     height: 100dvh;
     width: 100%;
     opacity: 1;
-    background: var(--green-7);
+    background: rgba(0, 15, 4, 0.90);
     padding: 5rem 5%;
+    backdrop-filter: blur(20px);
 }
 
 .show-footer-contact-form > 
 .footer-brand-logo {
-    margin-bottom:3rem;
+    margin-bottom:1rem;
     text-align: center;
 }
 
@@ -809,7 +810,7 @@ button {
 .footer-contact-form-header {
     text-align: center;
     margin-bottom: 0.8rem;
-    font-size: 1.4;
+    font-size: 1.3rem;
 }
 
 .show-footer-contact-form > 

@@ -108,9 +108,7 @@ function togglePasswordRequirements() {
         <span>
             Password requirements
         </span>
-        <span>
-            <i class="fa-solid fa-chevron-down "></i>
-        </span>
+        <i class="fa-solid fa-chevron-down "></i>
     `
                     
     inputRow.append(div)
@@ -118,19 +116,18 @@ function togglePasswordRequirements() {
 }
 
 function handleToggleEvent(helpTextList) {
-    const togglePasswordRequirements = document.querySelector('.toggle-password-requirements')
+    const togglePasswordRequirements = document
+    .querySelector('.toggle-password-requirements')
 
-    togglePasswordRequirements.addEventListener('click', () => {
+    togglePasswordRequirements.addEventListener('click', (e) => {
         helpTextList.classList.toggle('password-help-text-list')
 
         if (helpTextList.classList.contains('password-help-text-list')) {
-            const element = (togglePasswordRequirements.
-                lastElementChild.lastElementChild.lastElementChild)
+            const element = togglePasswordRequirements.lastElementChild
             element.style.transform = 'rotate(0deg)'
         }
         else {
-            const element = (togglePasswordRequirements.
-                lastElementChild.lastElementChild.lastElementChild)
+            const element = togglePasswordRequirements.lastElementChild
             element.style.transform = 'rotate(180deg)'
         }
     })

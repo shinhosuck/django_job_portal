@@ -33,7 +33,7 @@
 .hero-header {
     color: var(--green-10);
     max-width: 500px;
-    font-size: clamp(2.3rem, 1dvw + 1.5rem, 2.5rem);
+    font-size: clamp(2.3rem, 1dvw + 1.5rem, 3rem);
 }
 
 .hero-text-body {
@@ -95,7 +95,7 @@
     }
 
     .hero-header {
-        color: var(--black-90);
+        color: white;
         font-size: 3rem;
         max-width: 500px;
     }
@@ -138,7 +138,7 @@
 
 .landing-page-candidates-contents-header {
     font-size: clamp(1.8rem, 1vw + 1rem, 2.3rem);
-    color: var(--green-15);
+    color: var(--green-7);
     text-wrap: pretty;
 }
 
@@ -162,10 +162,9 @@
     row-gap: 0.5rem;
     align-content: start;
     align-items: start;
-    border-radius: 15px;
+    border-radius: 25px;
     padding: 1.2rem;
     border: 1px solid var(--black-80);
-    /* background: hsl(122, 100%, 98%); */
     background: var(--accent)
 }
 
@@ -182,11 +181,12 @@
 }
 
 .landing-page-candidates-content-header {
-    color: var(--green-15);
+    color: var(--green-7);
     text-wrap: pretty;
     font-size: 1.35rem;
     line-height: 1.3;
     margin-top: 0.2rem;
+    font-weight: 600;
 }
 
 .landing-page-candidates-content-body {
@@ -229,10 +229,6 @@
         display: grid;
         align-content: start;
     }
-}
-
-.landing-page-candidates-background-color {
-    /* background: var(--black-95); */
 }
 
 .landing-page-candidates-how-it-works-container {
@@ -278,23 +274,25 @@
     row-gap: 0.8rem;
     align-content: start;
     align-items: start;
-    border-radius: 15px;
+    border-radius: 25px;
     padding: 1.2rem;
     border: 1px solid var(--black-80);
     background: var(--black-90);
 }
 
 .landing-page-candidates-how-it-works-step-header {
-    color: var(--green-10);
+    color: var(--green-7);
     text-wrap: pretty;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    line-height: 1.3;
+    font-weight: 600;
 }
 
 .landing-page-candidates-how-it-works-step-text {
-    letter-spacing: 0.04rem;
+    color: var(--black-10);
     line-height: 1.4;
-    color: var(--black-20);
-    text-wrap: pretty;
+    letter-spacing: 0.04rem;
+    text-wrap: pretty
 }
 
 .landing-page-candidates-how-it-works-cta-btn {
@@ -352,10 +350,9 @@
     row-gap: 0.8rem;
     align-content: start;
     align-items: start;
-    border-radius: 15px;
+    border-radius: 25px;
     padding: 1.2rem;
     border: 1px solid var(--black-80);
-    /* background: hsl(122, 100%, 98%); */
     background: var(--accent)
 }
 
