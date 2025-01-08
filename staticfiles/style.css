@@ -517,20 +517,37 @@ button {
 }
 
 /* ABOUT */
-.about-container {
-    width: 90%;
-    max-width: 700px;
-    margin: 3rem auto;
+.about-page-hero {
+    min-height: 50dvh;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url('imgs/about.webp');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 
-    display: grid;
-    align-content: start;
-    gap: 2rem;
+    display: flex;
+    align-items: center;
 }
 
 .about-header {
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
     font-size: 2rem;
-    color: var(--black-10);
+    font-size: clamp(2rem, 1vw + 2rem, 3rem);
+    color: white;
     letter-spacing: 0.03rem;
+    margin-top: 4rem;
+}
+
+.about-container {
+    width: 90%;
+    max-width: 500px;
+    margin: 2rem auto;
+
+    display: grid;
+    align-content: start;
+    gap: 1rem;
 }
 
 .about-img-container > img {

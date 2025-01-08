@@ -25,8 +25,7 @@
     align-content: start;
     gap: 1.5rem;
     text-wrap: pretty;
-    padding: 3rem 0;
-    padding-top: 2rem;
+    padding: 2rem 0;
 }
 
 .employers-landing-page-hero-text-content {
@@ -64,7 +63,6 @@
     border-radius: 30px;
     background: var(--cta);
     justify-self: start;
-    margin-top: 1rem;
 }
 /* End of hero */
 
@@ -194,7 +192,7 @@
 
 .make-hiring-easy-text {
     gap: 0.3rem !important;
-    background: var(--black-90)!important; 
+    background: var(--accent)!important; 
 }
 
 .make-hiring-easy-text > h3 {
@@ -217,6 +215,7 @@
 /* section 3 */
 .employers-why-choose-hirespot {
     gap: 0.5rem !important;
+    background: var(--black-90) !important;
 }
 
 .employers-why-choose-hirespot > h3 {
@@ -224,11 +223,9 @@
 }
 
 /* end of section 3 */
-
-
 @media screen and (min-width: 700px) {
     .employers-landing-page-hero-content-container {
-        min-height: 80svh;
+        min-height: 80dvh;
         background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)),
             url('imgs/employer_hero_img.webp');
         background-position: center;
@@ -269,6 +266,10 @@
         font-size: 1.2rem;
         line-height: 1.5;
         max-width: 550px;
+    }
+
+    .employers-landing-page-post-a-job-btn {
+        margin-top: 1.5rem;
     }
 
     .employers-landing-page-content {

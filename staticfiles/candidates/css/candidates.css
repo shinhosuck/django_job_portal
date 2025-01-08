@@ -26,7 +26,7 @@
     align-content: start;
     gap: 1.5rem;
     text-wrap: pretty;
-    padding: 3rem 0;
+    padding: 2rem 0;
     padding-top: 2rem;
 }
 
@@ -52,7 +52,6 @@
 
 .find-your-dream-job-btn {
     font-weight: 500;
-    margin-top: 1rem;
     color: var(--black-90);
     font-size: 1.1rem;
     justify-self: start;
