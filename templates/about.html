@@ -7,30 +7,153 @@
 
 {% block content %}
     <div class="about-row">
-        <div class="about-page-hero">
-            <h1 class="about-header">About HireSpot</h1>
-        </div>
-        <div class="about-container">
-            
-            <p class="about-text">
-                At <a class="about-link" href="{% url "candidates:landing-page" %}"><strong>HireSpot</strong></a>, we aim to make hiring easier for everyone. 
-                Our goal is to help businesses find the right people for 
-                their teams and to assist job seekers in showcasing their skills. 
-                With our simple platform, employers can quickly connect with 
-                qualified candidates, while job seekers can easily apply for 
-                jobs that match their talents. Our team is dedicated to 
-                providing a smooth experience for both sides, ensuring 
-                that everyone can navigate the job market with confidence.
-            </p>
-            <p class="about-text">
-                We believe that hiring should be fair and inclusive. 
-                That’s why <a class="about-link" href="{% url "candidates:landing-page" %}"><strong>HireSpot</strong></a> is not just about filling positions; 
-                it’s about building strong connections between companies 
-                and candidates. We know that every hiring choice matters, 
-                and we’re here to support you in finding the perfect fit. 
-                Join us as we work together to change the way people 
-                find jobs and build successful careers.
-            </p>
+        <section class="about-hero-container">
+            <article class="about-hero-content">
+                <h1 class="about-hero-header">About HireSpot</h1>
+                <p class="about-hero-subtext">
+                    Your gateway to new opportunities. 
+                    Discover how <strong>HireSpot</strong> connects job seekers and employers, 
+                    transforming careers and businesses alike.
+                </p>
+            </article>
+        </section>
+        <div class="about-contents-wrapper">
+            {% comment %} content 1 {% endcomment %}
+            <section class="about-content-wrapper">
+                <article class="about-content">
+                    <div class="about-content-image-container">
+                        <div>
+                            <img src="{% static 'imgs/about-contents-imgs/history.png' %}" alt="">
+                        </div>
+                        <h2 class="about-content-header">Our History</h2>
+                    </div>
+                    <div class="about-content-text">
+                        <p class="about-text">
+                            Founded in 2024, <strong>HireSpot</strong> started with a vision to 
+                            redefine how people connect with jobs. From humble 
+                            beginnings to helping thousands of professionals and 
+                            businesses, our journey has been about growth, innovation,
+                            and making a difference.
+                        </p>
+                    </div>
+                </article>
+            </section>
+
+            {% comment %} content 2 {% endcomment %}
+            <section class="about-content-wrapper">
+                <article class="about-content">
+                    <div class="about-content-image-container">
+                        <div>
+                            <img src="{% static 'imgs/about-contents-imgs/values.png' %}" alt="">
+                        </div>
+                        <h2 class="about-content-header">Our Values</h2>
+                    </div>
+                    <ul class="about-content-values-list">
+                        <li class="about-content-value">
+                            <h3>Empowerment</h3>
+                            <p>Helping individuals take charge of their careers.</p>
+                        </li>
+                        <li class="about-content-value">
+                            <h3>Transparency</h3>
+                            <p>Providing clear, honest communication between job seekers and employers.</p>
+                        </li>
+                        <li class="about-content-value">
+                            <h3>Innovation</h3>
+                            <p>Continuously improving the job search experience through technology.</p>
+                        </li>
+                    </ul>
+                </article>
+            </section>
+              
+            {% comment %} content 3 {% endcomment %}
+            <section class="about-content-wrapper">
+                <article class="about-content">
+                    <div class="about-content-image-container">
+                        <div>
+                            <img src="{% static 'imgs/about-contents-imgs/purpose.png' %}" alt="">
+                        </div>
+                        <h2 class="about-content-header">Our Mission</h2>
+                    </div>
+                    <div class="about-content-text">
+                        
+                        <p class="about-text">
+                            To empower individuals by connecting them with 
+                            opportunities that inspire and fulfill their ambitions. 
+                            We are dedicated to making hiring efficient and using 
+                            technology to build a better future for everyone.
+                        </p>
+                    </div>
+                </article>
+            </section>
+
+            {% comment %} content 5 {% endcomment %}
+            <section class="about-content-wrapper">
+                <article class="about-content">
+                    <div class="about-content-image-container">
+                        <div>
+                            <img src="{% static 'imgs/about-contents-imgs/team.png' %}" alt="">
+                        </div>
+                        <h2 class="about-content-header">Meet the Team</h2>
+                    </div>
+                    <div class="about-content-text">
+                        <p class="about-text">
+                            Behind <strong>HireSpot</strong> is a passionate team of professionals 
+                            dedicated to making job searching and hiring seamless. 
+                            Get to know the visionaries and innovators who bring 
+                            our platform to life.
+                        </p>
+                    </div>
+                    {% comment %} slider {% endcomment %}
+                    <div class="team-member-slider-cards">
+                        <div class="meet-the-team-team-member">
+                            <div class="team-member-image-container">
+                                <img src="{% static 'imgs/team-member-imgs/img1.webp' %}" alt="">
+                            </div>
+                            <div class="meet-the-team-team-member-bio">
+                                <p>Dave Parker</p>
+                                <p>Backend Engineer</p>
+                            </div>
+                        </div>
+                        <div class="meet-the-team-team-member">
+                            <div class="team-member-image-container">
+                                <img src="{% static 'imgs/team-member-imgs/img2.webp' %}" alt="">
+                            </div>
+                            <div class="meet-the-team-team-member-bio">
+                                <p>Frank Thomson</p>
+                                <p>Fullstack Engineer</p>
+                            </div>
+                        </div>
+                        <div class="meet-the-team-team-member">
+                            <div class="team-member-image-container">
+                                <img src="{% static 'imgs/team-member-imgs/img3.webp' %}" alt="">
+                            </div>
+                            <div class="meet-the-team-team-member-bio">
+                                <p>Jerome Henderson</p>
+                                <p>Senior Engineer</p>
+                            </div>
+                        </div>
+                        <div class="meet-the-team-team-member">
+                            <div class="team-member-image-container">
+                                <img src="{% static 'imgs/team-member-imgs/img4.webp' %}" alt="">
+                            </div>
+                            <div class="meet-the-team-team-member-bio">
+                                <p>Laura Lofton</p>
+                                <p>Forontend Engineer</p>
+                            </div>
+                        </div>
+                        <div class="meet-the-team-team-member">
+                            <div class="team-member-image-container">
+                                <img src="{% static 'imgs/team-member-imgs/img5.webp' %}" alt="">
+                            </div>
+                            <div class="meet-the-team-team-member-bio">
+                                <p>Joana Simpson</p>
+                                <p>Human Resource</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% comment %} slider {% endcomment %}
+                </article>
+            </section>
         </div>
     </div>
 {% endblock content %}
