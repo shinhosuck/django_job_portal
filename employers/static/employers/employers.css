@@ -111,7 +111,7 @@
 
 .employers-landing-page-content {
     display: grid;
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
 .employers-landing-page-text-content {
@@ -121,8 +121,10 @@
     gap: 1rem;
     padding: 1.2rem;
     border-radius: 25px;
-    border: 1px solid var(--black-80);
-    background: var(--accent)
+    /* border: 1px solid var(--black-80);
+    background: var(--accent) */
+    background: var(--accent);
+    border: 1px solid hsl(0, 100%, 85%);
 }
 
 .employers-landing-page-employer-image-conainer {
@@ -192,7 +194,8 @@
 
 .make-hiring-easy-text {
     gap: 0.3rem !important;
-    background: var(--accent)!important; 
+    background: var(--accent) !important;
+    border: 1px solid hsl(0, 100%, 85%) !important;
 }
 
 .make-hiring-easy-text > h3 {
@@ -216,6 +219,7 @@
 .employers-why-choose-hirespot {
     gap: 0.5rem !important;
     background: var(--black-90) !important;
+    border: 1px solid var(--black-80) !important;
 }
 
 .employers-why-choose-hirespot > h3 {
@@ -273,6 +277,7 @@
     }
 
     .employers-landing-page-content {
+        gap: 1.5rem;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
 }

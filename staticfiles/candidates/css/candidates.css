@@ -153,7 +153,7 @@
 .langing-page-candidates-contents {
     display: grid;
     align-content: start;
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
 .landing-page-candidates-content {
@@ -163,8 +163,8 @@
     align-items: start;
     border-radius: 25px;
     padding: 1.2rem;
-    border: 1px solid var(--black-80);
-    background: var(--accent)
+    background: var(--accent);
+    border: 1px solid hsl(0, 100%, 85%);
 }
 
 .lanidng-page-candidates-content-image {
@@ -227,6 +227,7 @@
     .langing-page-candidates-contents {
         display: grid;
         align-content: start;
+        gap: 1.5rem;
     }
 }
 
@@ -265,7 +266,7 @@
 .landing-page-candidates-how-it-works-steps {
     display: grid;
     align-content: start;
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
 .landing-page-candidates-how-it-works-step {
@@ -321,6 +322,10 @@
     .landing-page-candidates-how-it-works-container {
         padding: 3rem 0 3rem 0;
     }
+
+    .landing-page-candidates-how-it-works-steps {
+        gap: 1.5rem
+    }
 }
 
 .landing-page-candidates-testimonials {
@@ -341,7 +346,7 @@
 
 .landing-page-candidates-testimonials-container {
     display: grid;
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
 .landing-page-candidates-testimonial {
@@ -351,8 +356,8 @@
     align-items: start;
     border-radius: 25px;
     padding: 1.2rem;
-    border: 1px solid var(--black-80);
-    background: var(--accent)
+    background: var(--accent);
+    border: 1px solid hsl(0, 100%, 85%);
 }
 
 .landing-page-candidates-testimonial-avatar > img {
@@ -394,6 +399,10 @@
     .landing-page-candidates-testimonials {
         margin-top: 3rem;
         margin-bottom: 6rem;
+    }
+
+    .landing-page-candidates-testimonials-container {
+        gap: 1.5rem;
     }
 }
 /* end */

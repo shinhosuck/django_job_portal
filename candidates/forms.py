@@ -16,7 +16,8 @@ class MessageForm(forms.ModelForm):
         ]
 
         widgets = {
-            'email':forms.EmailInput(attrs={'autofocus':True})
+            'email':forms.EmailInput(attrs={'autofocus':True, 'placeholder':'yourname@mail.com'}),
+            'message':forms.Textarea(attrs={'placeholder':'How can we help you?'})
         }
 
 
