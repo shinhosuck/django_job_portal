@@ -30,15 +30,15 @@
                             <a href="{% url 'accounts:profile' %}" class="navlink">Profile</a>
                             <a href="{% url 'candidates:about' %}" class="{% if url_name == "about" %}active-link{% endif %} navlink">About</a>
                             <a href="{% url 'candidates:contact' %}" class="{% if url_name == "contact" %}active-link{% endif %} navlink">Contact</a>
-                            <button class='navlink logout-btn'>Sign out</button>
+                            <button class='navlink logout-btn'>Sign Out</button>
                         </div>
                     </div>
                 {% endif %}
                 {% if not request.user.is_authenticated %}
                     <a href="{% url 'candidates:about' %}" class="{% if url_name == "about" %}active-link{% endif %} navlink">About</a>
                     <a href="{% url 'candidates:contact' %}" class="{% if url_name == "contact" %}active-link{% endif %} navlink">Contact</a>
-                    <a href="{% url 'accounts:login' %}" class="navlink">Sign in</a>
-                    <a href="{% url 'accounts:register' %}" class="navlink register-link">Sign up</a>
+                    <a href="{% url 'accounts:login' %}" class="navlink">Sign In</a>
+                    <a href="{% url 'accounts:register' %}" class="navlink register-link">Sign Up</a>
                 {% endif %}
         {% endwith %}
         <p class="location-flag"></p>
@@ -60,7 +60,7 @@
         </div>
         {% with request.resolver_match.url_name as url_name %}
             <div class="mobile-navlinks">
-                <p class="location-flag" style="display:flex; justify-content:center">
+                <p class="location-flag" style="display:flex; justify-content:center;color:white;">
                 </p>
                 {% if request.user.is_authenticated %}
                     <div href="" class="mobile-navlink-user">
@@ -77,13 +77,13 @@
                 {% if not request.user.is_authenticated %}
                     <a class='{% if url_name == "about" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'candidates:about' %}">About</a>
                     <a class='{% if url_name == "contact" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'candidates:contact' %}">Contact</a>
-                    <a href="{% url 'accounts:login' %}" class="mobile-navlink">Sign in</a>
-                    <a href="{% url 'accounts:register' %}" class="mobile-navlink">Sign up</a>
+                    <a href="{% url 'accounts:login' %}" class="mobile-navlink">Sign In</a>
+                    <a href="{% url 'accounts:register' %}" class="mobile-navlink">Sign Up</a>
                 {% else %}
                     <a href="{% url 'accounts:profile' %}" class="mobile-navlink">Profile</a>
                     <a class='{% if url_name == "about" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'candidates:about' %}">About</a>
                     <a class='{% if url_name == "contact" %}active-mobile-navlink{% endif %} mobile-navlink' href="{% url 'candidates:contact' %}">Contact</a>
-                    <button class="mobile-navlink mobile-logout-btn">Sign out</button>
+                    <button class="mobile-navlink mobile-logout-btn">Sign Out</button>
                 {% endif %}
             </div>
         {% endwith %}

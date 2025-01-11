@@ -67,19 +67,25 @@
 /* End of hero */
 
 /* Landing page contents */
+
 /* sction 1 */
 .employers-landing-page-content-wrapper {
-    width: 90%;
-    max-width: 1400px;
-    margin: 0 auto;
     display: grid;
-    gap: 4rem;
-    align-content: start;
     align-items: start;
-    padding: 2rem 0;
+    align-content: start;
+    gap: 3.5rem;
+    padding: 2rem 0
+}
+
+.employers-landing-page-section:nth-child(even) {
+    padding: 3.5rem 0;
+    background: var(--black-95);
 }
 
 .employers-landing-page-content-container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
     display: grid;
     gap: 2rem;
     align-items: start;
@@ -94,8 +100,8 @@
 }
 
 .employers-landing-page-content-header {
-    font-size: clamp(1.8rem, 1vw + 1rem, 2.3rem);
-    color: var(--green-7);
+    font-size: clamp(1.8rem, 1vw + 1.5rem, 2.5rem);
+    color: var(--blck-10);
     text-wrap: pretty;
 }
 
@@ -121,54 +127,45 @@
     gap: 1rem;
     padding: 1.2rem;
     border-radius: 25px;
-    /* border: 1px solid var(--black-80);
-    background: var(--accent) */
     background: var(--accent);
-    border: 1px solid hsl(0, 100%, 85%);
 }
 
-.employers-landing-page-employer-image-conainer {
-    width: 120px;
-    border-radius: 50%;
-    background: hsl(2, 100%, 80%);
-    border-left: 9px solid hsl(2, 100%, 80%);
+.make-hiring-easy-text {
+    gap: 0.3rem !important;
+    background: var(--accent) !important;
 }
 
-.employers-landing-page-employer-image-conainer > img {
-    width: 100%;
-    height: 100%;
+.landing-page-employers-content-image-container {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.make-hiring-easy-image-container {
+    width: 40px;
+    margin-bottom: 0.5rem;
+}
+
+.make-hiring-easy-image-container > img {
+    width: 40px;
+    aspect-ratio: 1/1;
     display: block;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 50%;
+    height: auto;
 }
 
-.employers-landing-page-text-content > h3 {
-    color: var(--green-7);
+.employers-landing-page-hiring-make-easy-header {
+    color: var(--black-10);
     text-wrap: pretty;
-    font-size: 1.35rem;
-    line-height: 1.3;
-    font-weight: 600;
-}
-
-.employers-landing-page-text-content > p {
-    color: var(--black-10);
-    line-height: 1.4;
-    letter-spacing: 0.04rem;
-    text-wrap: pretty
-}
-
-.employers-landing-page-employer-name {
-    color: var(--black-10);
+    font-size: clamp(1.1rem, 1vw + 1rem, 1.35rem);
+    line-height: 1.2;
     font-weight: 700;
-    font-size: 0.95rem;
-    display: grid;
-    align-items: start;
-    align-content: start;
 }
 
-.employers-landing-page-employer-name > span:last-child {
-    font-weight: 400;
+.employers-landing-page-hiring-make-easy-text {
+    letter-spacing: 0.04rem;
+    line-height: 1.4;
+    color: var(--black-15);
+    text-wrap: pretty;
 }
 
 .employers-landing-page-get-started-btn {
@@ -188,45 +185,98 @@
     }
 }
 
+@media screen and (min-width: 900px) {
+    .employers-landing-page-content-wrapper {
+        gap: 7rem;
+        padding: 4rem 0;
+        padding-bottom: 6rem;
+    }
+
+    .employers-landing-page-section:nth-child(even) {
+        padding: 7rem 0;
+        background: var(--black-95);
+    }
+}
 /* end of section 1 */
 
 /* section 2 */
-
-.make-hiring-easy-text {
-    gap: 0.3rem !important;
-    background: var(--accent) !important;
-    border: 1px solid hsl(0, 100%, 85%) !important;
+.employers-why-choose-hirespot {
+    gap: 0.5rem !important;
+    background: white !important;
 }
 
-.make-hiring-easy-text > h3 {
-    font-size: 1.2rem;
+.employers-landing-page-why-choose-header {
+    color: var(--black-10);
+    text-wrap: pretty;
+    font-size: clamp(1.1rem, 1vw + 1rem, 1.35rem);
+    line-height: 1.2;
+    font-weight: 700;
 }
 
-.make-hiring-easy-image-container {
-    width: 50px;
-    margin-bottom: 0.5rem;
+.employers-landing-page-why-choose-text {
+    color: var(--black-20);
+    line-height: 1.4;
+    letter-spacing: 0.04rem;
+    text-wrap: pretty;
 }
 
-.make-hiring-easy-image-container > img {
-    width: 100%;
-    display: block;
-    height: auto;
+@media screen and (min-width: 1200px) {
+    .employers-landing-page-section:nth-child(2) > 
+    .employers-landing-page-content-container >
+    .why-employers-choose-hirespot {
+        gap: 1.5rem;
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
 }
 
 /* end of section 2 */
 
-/* section 3 */
-.employers-why-choose-hirespot {
-    gap: 0.5rem !important;
-    background: var(--black-90) !important;
-    border: 1px solid var(--black-80) !important;
+/* Section 3 */
+.employers-landing-page-employer-image-conainer {
+    width: 120px;
+    border-radius: 50%;
+    background: hsl(2, 100%, 80%);
+    border-left: 9px solid hsl(2, 100%, 80%);
 }
 
-.employers-why-choose-hirespot > h3 {
-    font-size: 1.2rem;
+.employers-landing-page-employer-image-conainer > img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
+.employers-landing-page-trusted-by-employers-header {
+    color: var(--black-10);
+    text-wrap: pretty;
+    font-size: clamp(1.1rem, 1vw + 1rem, 1.35rem);
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.employers-landing-page-trusted-by-employers-text {
+    color: var(--black-15);
+    line-height: 1.4;
+    letter-spacing: 0.04rem;
+    text-wrap: pretty
+}
+
+.employers-landing-page-employer-name {
+    color: var(--black-10);
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: grid;
+    align-items: start;
+    align-content: start;
+}
+
+.employers-landing-page-employer-name > span:last-child {
+    font-weight: 400;
+}
 /* end of section 3 */
+
 @media screen and (min-width: 700px) {
     .employers-landing-page-hero-content-container {
         min-height: 80dvh;
@@ -279,14 +329,6 @@
     .employers-landing-page-content {
         gap: 1.5rem;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
-}
-
-@media screen and (min-width: 900px) {
-    .employers-landing-page-content-wrapper {
-        padding: 4rem 0;
-        padding-bottom: 6rem;
-        gap: 7rem;
     }
 }
 

@@ -46,7 +46,7 @@
     --cta: #008a05;
 
     /* red blue accent */
-    --accent: hsl(2, 100%, 95%);
+    --accent: hsl(4, 100%, 95%);
     --focus: hsl(2, 100%, 75%);
     --accent-text: hsl(2, 100%, 60%);
 }
@@ -259,7 +259,7 @@ button {
 /* NAVBAR GLOBAL */
 .nav-row {
     padding: 1rem 0;
-    background: var(--green-7);
+    background: white;
 }
 
 .mobile-nav-bar {
@@ -272,16 +272,16 @@ button {
 }
 
 .mobile-brand-logo {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     line-height: 1;
-    font-weight: 600;
-    color: var(--green-35);
+    font-weight: 700;
+    color: var(--green-30);
 }
 
 .mobile-navlinks-toggle-btns-container > button {
     border: none;
     background: none;
-    color: var(--black-80);
+    color: var(--black-10);
     font-size: 1.4rem;
 }
 
@@ -299,16 +299,16 @@ button {
     display: grid;
     align-content: start;
     gap: 1.5rem;
-    padding: 2rem 0;
+    padding: 3rem 0;
 
     opacity: 0;
     transition: opacity 100ms linear;
-    background: var(--green-20);
+    background: var(--black-20);
 }
 
 .show-mobile-navlinks {
     top: 60.8px;
-    opacity: 1
+    opacity: 1;
 }
 
 .mobile-navlink-user {
@@ -366,7 +366,7 @@ button {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: white;
+    color: var(--black-10);
     font-size: 1.1rem;
 }
 
@@ -387,10 +387,10 @@ button {
     }
 
     .brand-logo {
-        font-size: 2rem;
+        font-size: 2.5rem;
         line-height: 1;
-        font-weight: 600;
-        color: var(--green-35);
+        font-weight: 700;
+        color: var(--green-30);
     }
 
     .navlinks {
@@ -409,7 +409,7 @@ button {
         align-items: center;
         gap: 0.5rem;
         cursor: pointer;
-        color: var(--black-90);
+        color: var(--black1-15);
         letter-spacing: 0.03rem;
     }
 
@@ -442,37 +442,38 @@ button {
         z-index: 2;
         top: -2000%;
         right: 0;
-        min-width: 150px;
+        min-width: 170px;
 
         display: grid;
         align-content: start;
-        gap: 1.3rem;
-        padding: 1.2rem;
+        gap: 1.4rem;
+        padding: 1.5rem 1.2rem;
         border-radius: 8px;
         opacity: 0;
         transition: opacity 200ms linear;
     }
 
     .show-navlink-drop-down-link {
-        top: 55px;
+        top: 50px;
         opacity: 1;
         text-wrap: nowrap;
-        background: var(--green-20);
+        background: white;
+        border: 1px solid var(--blck-80)
     }
 
     .navlink-drop-down-link > .navlink {
-        color: var(--black-90);
+        color: var(--black-10);
     }
 
     .navlink-drop-down-link > .active-link {
         font-weight: 600;
-        color: var(--green-40);
+        color: var(--green-30);
     }
     /* end */
 
 
     .navlink {
-        color: var(--black-90);
+        color: var(--black-10);
         letter-spacing: 0.03rem;
     }
 
@@ -484,25 +485,29 @@ button {
 
     .active-link {
         font-weight: 600;
-        color: var(--green-40);
+        color: var(--green-30);
     }
 
     .register-link {
         background: var(--cta);
         padding: 0.5rem 1rem;
         border-radius: 20px;
+        color: white !important;
         transition: background 100ms linear;
     }
 
     @media (hover) {
         .navlink-user:hover,
         .navlink:hover {
-            color: var(--green-40)
+            color: var(--green-30);
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
         }
 
         .register-link:hover {
             background: var(--green-25);
             color: var(--black-90);
+            text-decoration: none;
         }
     }
 }
@@ -556,7 +561,7 @@ button {
     display: grid;
     align-items: start;
     align-content: start;
-    gap: 3rem;
+    gap: 3.5rem;
     padding: 2rem 0;
 }
 
@@ -597,7 +602,7 @@ button {
 
 .about-content-header {
     color: var(--green-7);
-    font-size: clamp(1.4rem, 1dvw + 1.5rem, 2rem);
+    font-size: clamp(1.8rem, 1dvw + 1.5rem, 2.5rem);
 }
 
 .about-text {
@@ -710,7 +715,7 @@ button {
     .about-contents-wrapper {
         padding: 4rem 0;
         padding-bottom: 6rem;
-        gap: 6rem;
+        gap: 7rem;
     }
 
     .about-content {
@@ -867,7 +872,7 @@ button {
     
 /* FOOTER */
 .footer-row {
-    background: var(--green-7);
+    background: var(--black-10);
     padding: 2rem 0;
     padding-bottom: 0;
 }
@@ -889,15 +894,15 @@ button {
 
 .footer-brand-logo {
     font-size: 2.5rem;
-    line-height: 1;
-    font-weight: 600;
+    line-height: 1.2;
+    font-weight: 700;
     color: var(--green-35);
 }
 
 .footer-brand-text-body {
-    letter-spacing: 0.04rem;
-    line-height: 1.4;
-    color: var(--black-85);
+    letter-spacing: 0.05rem;
+    line-height: 1.5;
+    color: var(--black-90);
     font-size: 1.05rem;
     text-wrap: balance;
 }
@@ -916,11 +921,11 @@ button {
     color: white;
     letter-spacing: 0.03rem;
     font-weight: 600;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
 }
 
 .footer-quick-link {
-    color: var(--black-85);
+    color: var(--black-90);
     letter-spacing: 0.03rem;
     transition: color 100ms linear;
 }
@@ -946,7 +951,7 @@ button {
     color: white;
     letter-spacing: 0.03rem;
     font-weight: 600;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
 }
 
 .footer-contact-form-message-us-text-container {
@@ -957,9 +962,9 @@ button {
 }
 
 .footer-contact-form-message-us-text {
-    color: var(--black-85);
-    letter-spacing: 0.04rem;
-    line-height: 1.4;
+    color: var(--black-90);
+    letter-spacing: 0.05rem;
+    line-height: 1.5;
     max-width: 500px;
 }
 
@@ -970,8 +975,8 @@ button {
     gap: 0.5rem;
     background: none;
     border: none;
-    color: var(--green-35);
-    font-weight: 500;
+    color: var(--green-40);
+    font-weight: 600;
     cursor: pointer;
     border-bottom: 2px solid transparent;
     transition: border-bottom 100ms linear;
@@ -1022,13 +1027,15 @@ button {
 .footer-brand-logo {
     margin-bottom:1rem;
     text-align: center;
+    font-weight: 700;
 }
 
 .show-footer-contact-form > 
 .footer-contact-form-header {
     text-align: center;
     margin-bottom: 0.8rem;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    color: var(--black-80)
 }
 
 .show-footer-contact-form > 
@@ -1071,7 +1078,7 @@ button {
 
 .footer-message-form-input-row > label,
 .footer-message-form-textarea-row > label {
-    color: var(--black-80);
+    color: var(--black-90);
     letter-spacing: 0.03rem;
 } 
 
@@ -1133,17 +1140,18 @@ button {
 }
 
 .footer-copy-right {
-    color: var(--black-80);
+    color: white;
     text-align: center;
     letter-spacing: 0.03rem;
     padding: 1.5rem 0;
-    background: var(--green-7)
+    background: var(--black-20);
+    margin-top: 2rem;
 }
 
 
 @media screen and (min-width: 740px) {
     .footer-row {
-        padding: 2.5rem 0;
+        padding: 4rem 0;
         padding-bottom: 0;
     }
 

@@ -118,10 +118,36 @@
 /* end */
 
 /* landing page content */
+.landing-page-candidates-section-container {
+    display: grid;
+    align-items: start;
+    align-content: start;
+    gap: 3.5rem;
+    padding: 2rem 0
+}
+
+.landing-page-candidates-section:nth-child(even) {
+    padding: 3.5rem 0;
+    background: var(--black-95);
+}
+
+@media screen and (min-width: 900px) {
+    .landing-page-candidates-section-container {
+        gap: 7rem;
+        padding: 4rem 0;
+        padding-bottom: 6rem;
+    }
+
+    .landing-page-candidates-section:nth-child(even) {
+        padding: 7rem 0;
+        background: var(--black-95);
+    }
+}
+
 .langing-page-candidates-content-container {
-    width: 90%; 
+    width: 90%;
     max-width: 1400px;
-    margin: 2rem auto;
+    margin: 0 auto;
     display: grid;
     align-items: start;
     align-content: start;
@@ -136,8 +162,8 @@
 }
 
 .landing-page-candidates-contents-header {
-    font-size: clamp(1.8rem, 1vw + 1rem, 2.3rem);
-    color: var(--green-7);
+    font-size: clamp(1.8rem, 1vw + 1.5rem, 2.5rem);
+    color: var(--black-10);
     text-wrap: pretty;
 }
 
@@ -158,40 +184,44 @@
 
 .landing-page-candidates-content {
     display: grid;
-    row-gap: 0.5rem;
+    row-gap: 0.8rem;
     align-content: start;
     align-items: start;
     border-radius: 25px;
     padding: 1.2rem;
     background: var(--accent);
-    border: 1px solid hsl(0, 100%, 85%);
+}
+
+.landing-page-candidates-content-image-container {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
 }
 
 .lanidng-page-candidates-content-image {
-    width: 70px;
+    width: 40px;
     display: flex;
     align-items: end;
 }
 
 .lanidng-page-candidates-content-image > img {
-    width: 100%;
+    width: 40px;
     aspect-ratio: 1/1;
     display: block;
 }
 
 .landing-page-candidates-content-header {
-    color: var(--green-7);
+    color: var(--black-10);
     text-wrap: pretty;
-    font-size: 1.35rem;
-    line-height: 1.3;
-    margin-top: 0.2rem;
-    font-weight: 600;
+    font-size: clamp(1.1rem, 1vw + 1rem, 1.35rem);
+    line-height: 1.2;
+    font-weight: 700;
 }
 
 .landing-page-candidates-content-body {
     letter-spacing: 0.04rem;
     line-height: 1.4;
-    color: var(--black-30);
+    color: var(--black-15);
     text-wrap: pretty;
 }
 
@@ -219,11 +249,6 @@
 }
 
 @media screen and (min-width: 900px) {
-    .langing-page-candidates-content-container {
-        margin: 4rem auto;
-        margin-bottom: 3rem;
-    }
-
     .langing-page-candidates-contents {
         display: grid;
         align-content: start;
@@ -232,25 +257,24 @@
 }
 
 .landing-page-candidates-how-it-works-container {
-    width: 90%; 
+    width: 90%;
     max-width: 1400px;
-    margin: 0rem auto;
+    margin: 0 auto;
     display: grid;
     align-items: start;
     align-content: start;
     gap: 2rem;
-    padding: 2rem 0;
 }
 
 .landing-page-candidates-how-it-works-header-container {
     display: grid;
     align-items: start;
-    gap: 1rem
+    gap: 1rem;
 }
 
 .landing-page-candidates-how-it-works-header {
-    font-size: clamp(1.8rem, 1vw + 1rem, 2.3rem);
-    color: var(--green-15);
+    font-size: clamp(1.8rem, 1vw + 1.5rem, 2.5rem);
+    color: var(--black-10);
     text-wrap: pretty;
 }
 
@@ -276,20 +300,30 @@
     align-items: start;
     border-radius: 25px;
     padding: 1.2rem;
-    border: 1px solid var(--black-80);
-    background: var(--black-90);
+    background: white;
+}
+
+.landing-page-candidates-how-works-image-container {
+    width: 40px;
+}
+
+.landing-page-candidates-how-works-image-container > img {
+    width: 40px;
+    aspect-ratio: 1/1;
+    height: auto;
+    display: block;
 }
 
 .landing-page-candidates-how-it-works-step-header {
-    color: var(--green-7);
+    color: var(--black-15);
     text-wrap: pretty;
-    font-size: 1.2rem;
+    font-size: clamp(1.1rem, 1vw + 1rem, 1.35rem);
     line-height: 1.3;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .landing-page-candidates-how-it-works-step-text {
-    color: var(--black-10);
+    color: var(--black-20);
     line-height: 1.4;
     letter-spacing: 0.04rem;
     text-wrap: pretty
@@ -319,11 +353,8 @@
 }
 
 @media screen and (min-width: 900px) {
-    .landing-page-candidates-how-it-works-container {
-        padding: 3rem 0 3rem 0;
-    }
-
     .landing-page-candidates-how-it-works-steps {
+        grid-template-columns: 1fr 1fr 1fr;
         gap: 1.5rem
     }
 }
@@ -331,7 +362,7 @@
 .landing-page-candidates-testimonials {
     width: 90%;
     max-width: 1400px;
-    margin: 2rem auto;
+    margin: 0 auto;
     display: grid;
     align-items: start;
     align-content: start;
@@ -339,9 +370,10 @@
 }
 
 .landing-page-candidates-testimonials-header {
-    font-size: clamp(1.8rem, 1vw + 1rem, 2.3rem);
-    color: var(--green-15);
+    font-size: clamp(1.8rem, 1vw + 1.5rem, 2.5rem);
+    color: var(--black-10);
     text-wrap: pretty;
+    
 }
 
 .landing-page-candidates-testimonials-container {
@@ -356,8 +388,7 @@
     align-items: start;
     border-radius: 25px;
     padding: 1.2rem;
-    background: var(--accent);
-    border: 1px solid hsl(0, 100%, 85%);
+    background: var(--accent)
 }
 
 .landing-page-candidates-testimonial-avatar > img {
@@ -369,7 +400,7 @@
 .landing-page-candidates-testimonial-text {
     letter-spacing: 0.03rem;
     line-height: 1.4;
-    color: var(--black-20)
+    color: var(--black-15)
 }
 
 .landing-page-candidates-testimonial-user-role-container {
@@ -385,7 +416,7 @@
 }
 
 .landing-page-candidates-testimonial-role {
-    color: var(--black-30);
+    color: var(--black-20);
     font-size: 0.95rem;
 }
 
@@ -396,11 +427,6 @@
 }
 
 @media screen and (min-width: 900px) {
-    .landing-page-candidates-testimonials {
-        margin-top: 3rem;
-        margin-bottom: 6rem;
-    }
-
     .landing-page-candidates-testimonials-container {
         gap: 1.5rem;
     }
