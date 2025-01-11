@@ -1,4 +1,4 @@
-# HireSpot (inprogress)
+# HireSpot - in progress 
 
 ## Landing Page Screenshot
 
