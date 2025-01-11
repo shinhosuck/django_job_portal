@@ -2,7 +2,7 @@
 
 ## Landing Page Screenshot
 
-<img src="https://ibb.co/pyj7mXH" alt="Landing Page Screenshot" style="width:100%; height:auto">
+<img src="https://i.ibb.co/WtvhTKr/screenshot.png" alt="Landing Page Screenshot" style="width:100%; height:auto">
 
 # Technology Stack
 
