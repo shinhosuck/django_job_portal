@@ -442,7 +442,7 @@
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
-    border-radius: 8px;
+    border-radius: 30px;
     gap: 0.5rem;
     background: white
 }
@@ -453,13 +453,13 @@
     display: flex;
     align-items: center;
     padding: 1rem 1.2rem;
-    border-radius: 8px;
-    border: 1px solid var(--black-80)
+    border-radius: 30px;
+    border: 1px solid var(--black-80);
 }
 
 .row-focus {
-    border-radius: 8px;
-    outline: 3px solid var(--green-60);
+    border-radius: 30px;
+    outline: 3px solid var(--focus);
 }
 
 .search-form-input-row > label {
@@ -501,7 +501,7 @@
     color: white;
     background: var(--green-30);
     letter-spacing: 0.03rem;
-    border-radius: 5px;
+    border-radius: 25px;
     font-weight: 500;
     border: none;
     cursor: pointer;
@@ -513,7 +513,8 @@
     z-index: 2;
     top: 0;
     left: 0;
-    height: 0;
+    max-height: 0;
+    opacity: 0;
     width: 100%;
     overflow: hidden;
     white-space: nowrap;
@@ -521,15 +522,17 @@
 
 .show-suggestions {
     opacity: 1;
-    top: 55px;
-    height: auto;
+    top: 60px;
+    max-height: 300px;
     display: grid;
     align-content: start;
     gap: 1rem;
-    padding: 1.5rem;
-    border-radius: 8px;
-    border: 1px solid hsl(0, 0%, 80%);
+    padding: 1.2rem 1.5rem;
+    border-radius: 10px;
     background: white;
+    overflow: auto;
+    border: 1px solid hsl(0, 0%, 80%);
+    box-shadow: 3px 3px 15px -3px var(--black-30);
 }
 
 .search-form-clear-btn {
@@ -558,6 +561,7 @@
     .search-form {
         display: flex;
         border: 1px solid var(--black-80);
+        border-radius: 50px;
     }
 
     .search-form-input-divider {
@@ -566,11 +570,17 @@
     
     .search-form-input-row {
         padding: 0.8rem 1.2rem;
-        border: none
+        padding-left: 1.5rem;
+        border: none;
+        border-radius: 40px;
+    }
+
+    .row-focus {
+        border-radius: 40px;
     }
 
     .search-form-button-container {
-        padding: 0.4rem;
+        padding: 0.8rem;
         margin-top: 0;
     }
 
@@ -580,7 +590,7 @@
     }
 
     .show-suggestions {
-        top: 70px;
+        top: 80px;
     }
 }
  
@@ -886,7 +896,7 @@
 
 /* JOBS */
 .jobs-hero-img {
-    min-height: 60svh;
+    min-height: 80svh;
     background: linear-gradient(to bottom, 
     rgba(0, 0, 0, 0.800), rgba(0, 0, 0, 0.5)), url('../imgs/jobs_hero.webp');
     background-position: center;
@@ -898,7 +908,7 @@
 
 .jobs-search-container {
     position: absolute;
-    top: 30%;
+    top: 20%;
     left: 50%;
     width: 100%;
     max-width: 90%;
@@ -1002,12 +1012,12 @@
 }
 
 .jobs-do-not-exist-text {
-    color: var(--black-15);
+    color: var(--black-20);
     font-weight: 500;
     font-size: 1.2rem;
     text-wrap: pretty;
     text-align: center;
-    max-width: 350px;
+    max-width: 400px;
     letter-spacing: 0.03;
     line-height: 1.3;
 }

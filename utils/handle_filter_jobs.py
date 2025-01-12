@@ -45,8 +45,8 @@ def filter_jobs_by_user_location(country, city, jobs, quali):
         
         if not filter_jobs:
             filter_jobs = jobs.filter(
-                Q(employer__country__iexact=country,job_title__iexact=quali.job_title) | 
-                Q(employer__city__iexact=city,job_title__iexact=quali.job_title))
+                Q(employer__country__iexact=country, job_title__iexact=quali.job_title) | 
+                Q(employer__city__iexact=city, job_title__iexact=quali.job_title))
             
             if not filter_jobs:
                 filter_jobs = jobs.filter(
@@ -54,12 +54,18 @@ def filter_jobs_by_user_location(country, city, jobs, quali):
                     Q(employer__city__iexact=city))
                 if filter_jobs:
                     message = '''
-                    Based on your job title, there are no jobs available, 
+                    Sorry! Based on your job title, there aren't any jobs available, 
                     but you might like these alternative jobs.
                     '''
     else:
         filter_jobs = jobs.filter(
             Q(employer__country__iexact=country) | 
             Q(employer__city__iexact=city))
+        
+        if not filter_jobs:
+            message = '''
+                    Sorry! Based on your location, there aren't any jobs available.
+                    Please try using different location.
+                    '''
     
     return filter_jobs, message

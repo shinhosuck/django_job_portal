@@ -68,8 +68,9 @@ function handlePreviousData() {
     jobsMainContainer.scrollIntoView({behavior:"smooth"})
     
     if (jobsExist === 'None') {
-        loadMoreJobsBtn.parentElement
-        .style.display = 'none'
+        if(loadMoreJobsBtn) {
+            loadMoreJobsBtn.parentElement.style.display = 'none'
+        }
     }
 }
 

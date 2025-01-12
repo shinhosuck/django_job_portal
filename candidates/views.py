@@ -81,7 +81,7 @@ def get_search_form_suggestions(request):
     - This function get triggere when the user enters 
         some value in the search inputs.
     - Not when search button is clicked.
-    - AJAX call comes from candiates.js.
+    - AJAX call comes from candiates_search_suggestions.js.
     - async function getSuggestions()
     """
 
@@ -97,8 +97,8 @@ def get_search_form_suggestions(request):
     user_city = location.get('city')
 
     # Populate queryset using user location
-    queryset = Job.objects.filter(Q(employer__country=country_code) |
-        Q(employer__city=user_city)|Q(employer__state_or_province=state_or_province)) \
+    queryset = Job.objects.filter(Q(employer__country__iexact=country_code) |
+        Q(employer__city__iexact=user_city)|Q(employer__state_or_province__iexact=state_or_province)) \
         .values('job_title','industry','job_type','employer__city','employer__state_or_province')
     
     """ 
@@ -108,18 +108,19 @@ def get_search_form_suggestions(request):
     - state_or_province or
     - user_city 
     """
-    
+
     # if queryset is unavailable, this block will be run.
     if not queryset and search or user_location:
         if search:
             queryset = Job.objects.filter(Q(employer__employer_name__icontains=search)|
                 Q(industry__icontains=search)|Q(job_title__icontains=search)|
                 Q(job_type__icontains=search)|Q(work_location__icontains=search)) \
-                .values('job_title','industry','job_type','employer__city', 'employer__state_or_province')
+                .values('job_title','industry','job_type')
+            
         if user_location:
             queryset = Job.objects.filter(Q(employer__city__icontains=user_location)|
                 Q(employer__state_or_province__icontains=user_location)) \
-                .values('job_title','industry','job_type','employer__city', 'employer__state_or_province')
+                .values('employer__city', 'employer__state_or_province')
 
     """
     - This block will be run after initial render.
@@ -264,7 +265,7 @@ def jobs_view(request):
         except CandidateQualification.DoesNotExist:
             qualification = None
 
-    qs, message= filter_jobs_by_user_location(country_code, city,
+    qs, message = filter_jobs_by_user_location(country_code, city,
             jobs, qualification)
 
     context['jobs'] = qs
