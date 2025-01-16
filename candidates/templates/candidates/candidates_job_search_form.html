@@ -1,16 +1,16 @@
 
 <div class="search-form-container">
-    <form class="search-form" action="" method="GET">
+    <form class="search-form" action="{% url 'candidates:job-search' %}" method="GET">
         <div class="search-form-input-row search-input-row">
-            <label for="query">
+            <label class="search-label" for="query">
                 <i class="fas fa-search"></i>
             </label>
-            <input class="search-form-input" id="query" type="text" name="q" placeholder="Job title, keywords or company">
+            <input class="search-form-input" id="query" type="text" name="search" placeholder="Job title, Industry or company">
             <i class="fas fa-close search-form-clear-btn"></i>
         </div>
         <div class="search-form-input-divider"></div>
         <div class="search-form-input-row cities-input-row">
-            <label for="city">
+            <label class="location-label" for="city">
                 <i class="fas fa-location"></i>
             </label>
             <input class="search-form-input" id="city" type="text" name="location" placeholder="City, state or province">

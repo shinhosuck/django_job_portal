@@ -19,6 +19,7 @@ def get_user_ip(request):
     if ip in exclude:
         ip = default
 
+    ip = '34.21.9.50'
     # on development, ip falls back to default (manila, philippines)
     return get_user_location(request, ip)
     

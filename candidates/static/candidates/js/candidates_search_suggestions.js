@@ -90,7 +90,7 @@ async function getSuggestions(params) {
             }
         })
         const data = await resp.json()
-
+ 
         if (resp.ok) {
             handleSuggestionsAndCitiesData(data)
         }
@@ -131,15 +131,20 @@ inputs.forEach((input) => {
     - Destructures the data and calls appropriate functions
 */
 function handleSuggestionsAndCitiesData(data) {
-    const { cities_suggestions, search_suggestions, city, state_or_province } = data
+    const { 
+        search,
+        searched_location,
+        cities_suggestions, 
+        search_suggestions, 
+        city, state_or_province } = data
 
     const searchSuggestion = search_suggestions && 
         Boolean(search_suggestions.length) && 
-        createSearchSuggestion(search_suggestions)
+        createSearchSuggestion(search_suggestions, search)
     
     const citiesSuggestion = cities_suggestions && 
         Boolean(cities_suggestions.length) && 
-        createCitiesSuggestion(cities_suggestions, city, state_or_province)
+        createCitiesSuggestion(cities_suggestions, city, state_or_province, searched_location)
     
     // searchSuggestion or citiesSuggestion return true,
     // this block will run
@@ -158,7 +163,7 @@ function handleSuggestionsAndCitiesData(data) {
     - Creates keyword/suggestion elements.
     - Appends suggestions elements to "searchInputRow".
 */
-function createSearchSuggestion(search_suggestions) {
+function createSearchSuggestion(search_suggestions, search) {
     const keywordsSuggestion = document.createElement('div')
     keywordsSuggestion.setAttribute('class', 'searches-suggestions-container')
 
@@ -188,7 +193,7 @@ function createSearchSuggestion(search_suggestions) {
 
     if (searchSuggestionContainer) {
         searchSuggestionContainer.remove()
-        keywordsSuggestion.classList.add('show-suggestions')
+        search && keywordsSuggestion.classList.add('show-suggestions')
     }
     
     searchInputRow.append(keywordsSuggestion)
@@ -202,7 +207,7 @@ function createSearchSuggestion(search_suggestions) {
     - Creates cities suggestion elements.
     - Appends cities elements to "citiesInputRow".
 */
-function createCitiesSuggestion(cities_suggestions, city, state_or_province) {
+function createCitiesSuggestion(cities_suggestions, city, state_or_province, searched_location) {
     const citiesSuggestions = document.createElement('div')
     citiesSuggestions.setAttribute('class', 'cities-suggestions-container')
 
@@ -216,11 +221,11 @@ function createCitiesSuggestion(cities_suggestions, city, state_or_province) {
     button.append(i)
     citiesSuggestions.append(button)
 
-    cities_suggestions.forEach((city) => {
+    cities_suggestions.forEach((suggested_city) => {
         const span = document.createElement('span')
         span.setAttribute('class', 'suggestion')
 
-        const textNode = document.createTextNode(city)
+        const textNode = document.createTextNode(suggested_city)
         span.appendChild(textNode)
 
         citiesSuggestions.appendChild(span)
@@ -232,7 +237,7 @@ function createCitiesSuggestion(cities_suggestions, city, state_or_province) {
 
     if (citiesSuggestionContainer) {
         citiesSuggestionContainer.remove()
-        citiesSuggestions.classList.add('show-suggestions')
+        searched_location && citiesSuggestions.classList.add('show-suggestions')
     }
 
     citiesInputRow.append(citiesSuggestions)

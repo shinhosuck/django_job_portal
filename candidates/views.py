@@ -25,7 +25,9 @@ import json
 # HELPER FUNCTIONS FROM UTILS DIR
 from utils.handle_filter_jobs import (
     get_filter_jobs,
-    filter_jobs_by_user_location
+    filter_jobs_by_user_location,
+    search_filter_job,
+    convert_queryset_to_json_data
 )
 from utils.decorators import user_login_required
 from utils.geo_location import get_user_ip
@@ -86,8 +88,8 @@ def get_search_form_suggestions(request):
     """
 
     # User queries
-    search = request.GET.get('q')
-    user_location = request.GET.get('location')
+    search = request.GET.get('search')
+    searched_location = request.GET.get('location')
 
     # Data from user ip
     location =  get_user_ip(request)
@@ -110,16 +112,16 @@ def get_search_form_suggestions(request):
     """
 
     # if queryset is unavailable, this block will be run.
-    if not queryset and search or user_location:
+    if not queryset and search or searched_location:
         if search:
             queryset = Job.objects.filter(Q(employer__employer_name__icontains=search)|
                 Q(industry__icontains=search)|Q(job_title__icontains=search)|
                 Q(job_type__icontains=search)|Q(work_location__icontains=search)) \
                 .values('job_title','industry','job_type')
             
-        if user_location:
-            queryset = Job.objects.filter(Q(employer__city__icontains=user_location)|
-                Q(employer__state_or_province__icontains=user_location)) \
+        if searched_location:
+            queryset = Job.objects.filter(Q(employer__city__icontains=searched_location)|
+                Q(employer__state_or_province__icontains=searched_location)) \
                 .values('employer__city', 'employer__state_or_province')
 
     """
@@ -129,18 +131,52 @@ def get_search_form_suggestions(request):
     - Queryset will be populated based on user search input.
     """
 
-    context = generate_suggestions(queryset, search, user_location)
+    context = generate_suggestions(queryset, search, searched_location)
 
     return JsonResponse(
-            {**context, 'city':user_city,'state_or_province':state_or_province}, 
+            {**context,'search':search, 
+             'searched_location':searched_location, 'city':user_city,
+             'state_or_province':state_or_province
+            }, 
             status=200
         )
    
 
-
 def job_search_view(request):
-    search = request.GET.get('q') or None
-    return render(request, 'candidates/candidates_search_results.html')
+    json_content = request.headers.get('Content-Type')
+    search_query = request.GET.get('search')
+    search_location = request.GET.get('location')
+    user_location = get_user_ip(request)
+    context = {
+        'jobs': None
+    }
+ 
+    if not search_query or not search_location:
+        context['my_message'] = '''
+        Sorry! Your search did not return anything.
+        Keyword or location field can\'t be empty.
+        '''
+        return render(request, 'candidates/candidates_search_results.html', context)
+
+    if search_query and search_location:
+        jobs = search_filter_job(search_query, search_location, user_location)
+
+        if not jobs:
+            message = f'''
+            Sorry! Based on your location and search '{search_query}', no jobs were found. 
+            '''
+            context['my_message'] = message
+        else:
+            context['jobs'] = jobs
+    
+    if json_content == 'application/json':
+        if context['jobs']:
+            json_context = convert_queryset_to_json_data(context)
+            if json_context:
+                return JsonResponse(json_context)
+        return JsonResponse({'message': 'no jobs available'})
+
+    return render(request, 'candidates/candidates_search_results.html', context)
 
 
 
@@ -285,6 +321,7 @@ def jobs_view(request):
     context['paginate'] = {'job_paginate': end}
     context['location'] = json.dumps(data)
 
+    
     if suggested_jobs:
         """
         - This will be triggered when suggested jobs is True.
@@ -303,8 +340,6 @@ def jobs_view(request):
     # Only on initial load.
     if not context['jobs']:
         context['jobs'] = []
-   
-    print(context)
    
     return render(request, 'candidates/candidates_jobs.html', context)
 
