@@ -189,8 +189,6 @@ async function handleJobNavClickEvent(e) {
 }
 
  
-
-
 function createHtmlElements(data) {
     let div = document.createElement('div')
     div.setAttribute('class', 'job')
