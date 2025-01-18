@@ -8,6 +8,7 @@ def get_filter_jobs(jobs):
     for job in jobs:
         job_obj = {
             'id': job.id,
+            'employer_url': job.employer.get_absolute_url(),
             'employer_name': job.employer.employer_name,
             'employer_city': job.employer.city,
             'employer_state_or_province': job.employer.state_or_province,
@@ -23,8 +24,8 @@ def get_filter_jobs(jobs):
             'currency': job.currency.code,
             'salary': job.salary,
             'currency_code': job.currency_code,
-            'job_description': job.job_description[0:50],
-            'qualification': job.qualification[0:50],
+            'job_description': job.job_description,
+            'qualification': job.qualification,
             'applicants': job.applicants.count(),
             'created': job.created.strftime("%b %d %Y")
         }
@@ -43,7 +44,7 @@ def filter_jobs_by_user_location(country, city, jobs, quali):
                 employer__city__iexact=city, 
                 job_title__iexact=quali.job_title
             ))
-        
+       
         if not filter_jobs:
             filter_jobs = jobs.filter(
                 Q(employer__country__iexact=country, job_title__iexact=quali.job_title) | 
@@ -57,6 +58,11 @@ def filter_jobs_by_user_location(country, city, jobs, quali):
                     message = '''
                     Sorry! Based on your job title, there aren't any jobs available, 
                     but you might like these alternative jobs.
+                    '''
+                else:
+                    message = '''
+                    Sorry! Based on your location, there aren't any jobs available.
+                    Please try using different location.
                     '''
     else:
         filter_jobs = jobs.filter(
@@ -94,9 +100,9 @@ def search_filter_job(search_query, search_location, user_location):
                         filtered_jobs = filtered_by_location.filter(iexact_or_icontains(field, search))
                        
                         if filtered_jobs:
-                            filtered_by_country = filtered_jobs.filter(currency__iexact=country)
+                            if country:
+                                filtered_by_country = filtered_jobs.filter(currency__iexact=country)
                           
-                            if filtered_by_country:
                                 if not jobs:
                                     jobs = filtered_by_country
                                 else:
@@ -116,6 +122,7 @@ def convert_queryset_to_json_data(context):
             {
                 'id': job.id,
                 'employer_id': job.employer.id,
+                'employer_url': job.employer.get_absolute_url(),
                 'employer_name': job.employer.employer_name,
                 'employer_city': job.employer.city,
                 'employer_state_or_province': job.employer.state_or_province,
@@ -130,7 +137,7 @@ def convert_queryset_to_json_data(context):
                 'currency_code': job.currency_code,
                 'job_description': job.job_description,
                 'qualification': job.qualification,
-                'created': str(job.created)
+                'created': job.created.strftime("%b %d %Y")
             }
         )
     context['jobs'] = jobs_json

@@ -26,45 +26,50 @@
                         </p>
                     </div>
                 {% else %}
-                    <div class="jobs">
-                        {% for job in jobs %}
-                            <div class="job">
-                                <div class="job-contents">
-                                    <div class="job-tags">
-                                        <a href="" class="job-industry">{{ job.industry }}</a>
-                                        <a href="" class="job-job-type">{{ job.job_type }}</a>
-                                        <a href="" class="job-work-location">{{ job.work_location }}</a>
-                                    </div>
-                                    <div class="job-title-container">
-                                        <h3 class="job-title-header">{{ job.job_title }}</h3>
-                                        <p class="job-created">Posted {{ job.created|date:'M d Y' }}</p>
-                                    </div>
-                                    <div class='job-employer-address'>
-                                        <a href="" class="job-employer-name">{{ job.employer.employer_name }}</a>
-                                        <p class="job-employer-city-state">
-                                            <span>{{ job.employer.city }},</span>
-                                            <span>{{ job.employer.state_or_province }}</span>
+                    <div class="job-search-results-wrapper">
+                        <h1 class="job-search-results-header">Search Results</h1>
+                        <div class="jobs">
+                            {% for job in jobs %}
+                                <div class="job">
+                                    <div class="job-contents">
+                                        <div class="job-tags">
+                                            <a href="" class="job-industry">{{ job.industry }}</a>
+                                            <a href="" class="job-job-type">{{ job.job_type }}</a>
+                                            <a href="" class="job-work-location">{{ job.work_location }}</a>
+                                        </div>
+                                        <div class="job-title-container">
+                                            <h3 class="job-title-header">{{ job.job_title }}</h3>
+                                            <p class="job-created">Posted {{ job.created|date:'M d Y' }}</p>
+                                        </div>
+                                        <div class='job-employer-address'>
+                                            <a href="" class="job-employer-name">{{ job.employer.employer_name }}</a>
+                                            <p class="job-employer-city-state">
+                                                <span>{{ job.employer.city }},</span>
+                                                <span>{{ job.employer.state_or_province }}</span>
+                                            </p>
+                                            <p class="job-employer-country">
+                                                <span>{{ job.employer.country }}</span>
+                                                <span>{{ job.employer.zip_code_or_postal_code }}</span>
+                                            </p>
+                                        </div>
+                                        <p class="job-salary">
+                                            <span>{{ job.currency_code }}{{ job.salary|floatformat:0 }}</span>
+                                            <span>/</span>
+                                            <span>{{job.payment_type}}</span>
                                         </p>
-                                        <p class="job-employer-country">
-                                            <span>{{ job.employer.country }}</span>
-                                            <span>{{ job.employer.zip_code_or_postal_code }}</span>
-                                        </p>
+                                        <div class="job-description-wrapper">
+                                            <h4>Job Description</h4>
+                                            <p>{{ job.job_description|truncatechars:50 }}</p>
+                                        </div>
+                                        <div class="job-qualification-wrapper">
+                                            <h4>Qualification</h4>
+                                            <p>{{ job.qualification|truncatechars:50 }}</p>
+                                        </div>
                                     </div>
-                                    <p class="job-salary">
-                                        {{ job.currency_code }}{{ job.salary|floatformat:0 }}/{{job.payment_type}}
-                                    </p>
-                                    <div class="job-description-wrapper">
-                                        <h4>Job Description</h4>
-                                        <p>{{ job.job_description|truncatechars:50 }}</p>
-                                    </div>
-                                    <div class="job-qualification-wrapper">
-                                        <h4>Qualification</h4>
-                                        <p>{{ job.qualification|truncatechars:50 }}</p>
-                                    </div>
+                                    <a class="see-job-detail-btn" href="{{ job.get_absolute_url }}?redirect={{ request.path }}">Job Detail</a>
                                 </div>
-                                <a class="see-job-detail-btn" href="{{ job.get_absolute_url }}?redirect={{ request.path }}">Job Detail</a>
-                            </div>
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
                     </div>
                     <div class="jobs-load-more-btn-container">
                         <button type="button" class="jobs-load-more-btn">

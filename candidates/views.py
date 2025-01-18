@@ -154,13 +154,13 @@ def job_search_view(request):
     if not search_query or not search_location:
         context['my_message'] = '''
         Sorry! Your search did not return anything.
-        Keyword or location field can\'t be empty.
+        Make sure that Keyword or location field aren\'t empty.
         '''
         return render(request, 'candidates/candidates_search_results.html', context)
 
     if search_query and search_location:
         jobs = search_filter_job(search_query, search_location, user_location)
-
+        
         if not jobs:
             message = f'''
             Sorry! Based on your location and search '{search_query}', no jobs were found. 
@@ -283,9 +283,9 @@ def jobs_view(request):
     pagination = request.GET.get('jobPaginate')
     suggested_jobs = request.GET.get('q')
 
-    data = get_user_ip(request)
-    country_code = data and data.get('country_code')
-    city = data and data.get('city')
+    location_data = get_user_ip(request)
+    country_code = location_data and location_data.get('country_code')
+    city = location_data and location_data.get('city')
 
     user = request.user
     context = {}
@@ -311,15 +311,13 @@ def jobs_view(request):
         start = int(pagination) 
         end = start + increment
 
-    # Checks jobs if current qs or next set of qs exists.
-    if not context['jobs']:
-        pass
+    # Checks jobs next set of qs exists.
     if not context['jobs'][end:end+increment]:
         context['jobs_exist'] = 'None'
 
     context['jobs'] = context['jobs'][start:end]
     context['paginate'] = {'job_paginate': end}
-    context['location'] = json.dumps(data)
+    context['location'] = json.dumps(location_data)
 
     
     if suggested_jobs:
@@ -334,8 +332,6 @@ def jobs_view(request):
     if pagination:
         context['jobs'] = get_filter_jobs(context['jobs'])
         return JsonResponse(context)
-    
-    
     
     # Only on initial load.
     if not context['jobs']:

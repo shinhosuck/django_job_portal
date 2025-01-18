@@ -1,13 +1,10 @@
 const jobsContainer = document.querySelector('.jobs')
-const jobNavLinks = Array.from(document.querySelectorAll('.job-nav-link'))
+const jobDashboardNavLinks = Array.from(document.querySelectorAll('.job-nav-link'))
 const jobsMainContainer = document.querySelector('.jobs-container')
 const loadMoreJobsBtn = document.querySelector('.jobs-load-more-btn')
 const jobsNoMatchingJobs = document.querySelector('.jobs-no-matching-jobs')
 const jobsNoMatchingJobsMessageCloseBtn = document.querySelector(
     '.jobs-no-matching-jobs-message-close-btn')
-
-
-
 
 window.addEventListener('DOMContentLoaded', handlePreviousData)
 
@@ -18,10 +15,8 @@ function handlePreviousData() {
 
     if(!localStorage.getItem('filter_url')) {
         localStorage.setItem('filter_url', `${window.location.href}?q=suggested_jobs`)
-    }else {
-        
     }
-
+   
     // suggested jobs, save jobs, and applied jobs
     addClickEventsToJobsNavs(url)
     
@@ -35,8 +30,7 @@ function handlePreviousData() {
         if (!location?.user) {
             // gets triggered if location data do not contain user.
             // sets the 'Suggested Jobs' active status.
-            const suggestedJob = jobNavLinks.
-            find((nav) => nav.classList.contains('suggested-jobs'))
+            const suggestedJob = jobDashboardNavLinks.find((nav) => nav.classList.contains('suggested-jobs'))
 
             suggestedJob && suggestedJob.classList.add('active-job-nav-link')
             suggestedJob && suggestedJob.nextElementSibling.classList.add('active-border-bottom')
@@ -48,13 +42,12 @@ function handlePreviousData() {
             suggestedJob && localStorage.setItem('filter_url', url)
         }
         else {
-            jobNavLinks.forEach((link) => {
+            jobDashboardNavLinks.forEach((link) => {
                 if (link.href === url) {
                     link.classList.add('active-job-nav-link')
                     link.nextElementSibling.classList.add('active-border-bottom')
 
                     if (jobsNoMatchingJobs && !link.classList.contains('suggested-jobs')){
-                        console.log(link.href === url)
                         jobsNoMatchingJobs.style.display = 'none'
                     }
 
@@ -84,6 +77,7 @@ async function fetchPreviousJobs(url) {
             }
         })
         const data = await resp.json()
+
         if (resp.ok) {
             createHtmlElements(data)
 
@@ -117,7 +111,7 @@ async function fetchPreviousJobs(url) {
 
 // Attach click events to "Suggested Jobs, Saved Jobs, Applied Jobs"
 function addClickEventsToJobsNavs(url) {
-    jobNavLinks.forEach((nav, index) => {
+    jobDashboardNavLinks.forEach((nav, index) => {
         if (!url) {
             if (index === 0) {
                 nav.classList.add('active-job-nav-link')
@@ -130,7 +124,7 @@ function addClickEventsToJobsNavs(url) {
 
 
 function removeActiveJobNavLinkClass() {
-    jobNavLinks.forEach((nav) => {
+    jobDashboardNavLinks.forEach((nav) => {
         if (nav.classList.contains('active-job-nav-link')) {
             nav.classList.remove('active-job-nav-link')
             nav.nextElementSibling.classList.remove('active-border-bottom')
@@ -224,7 +218,7 @@ function createHtmlElements(data) {
                         <p class="job-created">Posted ${job.created}</p>
                     </div>
                     <div class="job-employer-address">
-                        <a href="" class="job-employer-name">${job.employer_name}</a>
+                        <p class="job-employer-name">${job.employer_name}</p>
                         <p class="job-employer-city-state">
                             <span>${job.employer_city},</span>
                             <span>${job.employer_state_or_province}</span>
@@ -235,15 +229,17 @@ function createHtmlElements(data) {
                         </p>
                     </div>
                     <p class="job-salary">
-                        ${job.currency_code}${job.salary.split('.')[0]}/${job.payment_type}
+                        <span>${job.currency_code}${job.salary.split('.')[0]}</span>
+                        <span>/</span>
+                        <span>${job.payment_type}</span>
                     </p>
                     <div class="job-description-wrapper">
                         <h4>Job Description</h4>
-                        <p>${job.job_description} ...</p>
+                        <p>${job.job_description.length > 80 ? job.job_description.substring(0, 80) + '...':job.job_description}</p>
                     </div>
                     <div class="job-qualification-wrapper">
                         <h4>Qualification</h4>
-                        <p>${job.qualification} ...</p>
+                        <p>${job.qualification.length > 80 ? job.qualification.substring(0, 80) + '...':job.qualification}</p>
                     </div>
                 </div>
                 <a class="see-job-detail-btn" href="/employers/jobs/${job.slug}/detail/?redirect=/candidates/jobs/">Job Detail</a>

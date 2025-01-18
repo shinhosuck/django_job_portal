@@ -76,7 +76,7 @@ function appendPaginateJobObject(jobs) {
                     <p class="job-created">Posted ${job.created}</p>
                 </div>
                 <div class="job-employer-address">
-                    <a href="" class="job-employer-name">${job.employer_name}</a>
+                    <p class="job-employer-name">${job.employer_name}</p>
                     <p class="job-employer-city-state">
                         <span>${job.employer_city},</span>
                         <span>${job.employer_state_or_province}</span>
@@ -87,15 +87,17 @@ function appendPaginateJobObject(jobs) {
                     </p>
                 </div>
                 <p class="job-salary">
-                    ${job.currency_code}${job.salary.split('.')[0]}/${job.payment_type}
+                    <span>${job.currency_code}${job.salary.split('.')[0]}</span>
+                    <span>/</span>
+                    <span>${job.payment_type}</span>
                 </p>
                 <div class="job-description-wrapper">
                     <h4>Job Description</h4>
-                    <p>${job.job_description} ...</p>
+                    <p>${job.job_description.length > 80 ? job.job_description.substring(0, 80) + '...':job.job_description}</p>
                 </div>
                 <div class="job-qualification-wrapper">
                     <h4>Qualification</h4>
-                    <p>${job.qualification} ...</p>
+                    <p>${job.qualification.length > 80 ? job.qualification.substring(0, 80) + '...':job.qualification}</p>
                 </div>
             </div>
             <a class="see-job-detail-btn" href="/employers/jobs/${job.slug}/detail/?redirect=/candidates/jobs/">Job Detail</a>
