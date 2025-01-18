@@ -405,8 +405,8 @@
     transform: translateX(-50%);
     width: 90%;
     max-width: 400px;
-    padding: 1.2rem;
-    border-radius: 5px;
+    padding: 1.5rem;
+    border-radius: 25px;
     opacity: 0;
     transition: opacity 100ms linear;
 }
@@ -422,7 +422,7 @@
     display: flex;
     align-items: center;
     justify-content: end;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .logout-modal-close-btn {
@@ -444,16 +444,22 @@
 .lobout-modal-form {
     display: grid;
     align-content: start;
+    align-items: start;
     gap: 2rem;
 }
+
+/* .lobout-modal-form > * {
+    border: 1px solid red;
+} */
 
 .lobout-modal-form-message {
     text-align: center;
     text-wrap: pretty;
     letter-spacing: 0.04rem;
     line-height: 1.3;
-    font-size: 1.6rem;
-    color: var(--black-20)
+    font-size: 1.5rem;
+    color: var(--black-20);
+    font-weight: 600;
 }
 
 .lobout-modal-form-btns {
@@ -469,10 +475,10 @@
     padding: 0.8rem 1rem;
     font-size: 1rem;
     letter-spacing: 0.03rem;
-    border-radius: 5px;
+    border-radius: 30px;
     text-align: center;
     font-weight: 500;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .lobout-modal-form-logout-btn {

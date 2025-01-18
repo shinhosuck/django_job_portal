@@ -65,8 +65,9 @@
                                             <h4>Qualification</h4>
                                             <p>{{ job.qualification|truncatechars:50 }}</p>
                                         </div>
+                                        <a class="see-job-detail-btn" href="{{ job.get_absolute_url }}?redirect={{ request.path }}">Job Detail</a>
                                     </div>
-                                    <a class="see-job-detail-btn" href="{{ job.get_absolute_url }}?redirect={{ request.path }}">Job Detail</a>
+                                    {% comment %} <a class="see-job-detail-btn" href="{{ job.get_absolute_url }}?redirect={{ request.path }}">Job Detail</a> {% endcomment %}
                                 </div>
                             {% endfor %}
                         </div>

@@ -6,25 +6,26 @@
 {% endblock title %}
 
 {% block content %}
-    <div class="jobs-hero-img">
+    <section class="jobs-hero-img">
         <div class="jobs-search-container">
             {% block search_form %}
                 {% include "candidates/candidates_job_search_form.html" %}
             {% endblock search_form %}
         </div>
-    </div>
+    </section>
     <div class="jobs-container">
         {% if not jobs %}
-            <div class='jobs-do-not-exist-container'>
+            <section class='jobs-do-not-exist-container'>
                 <div class='sad-emoji-container'>
                     <img src="{% static 'candidates/imgs/sad_emoji.png' %}">
                 </div>
                 <p class='jobs-do-not-exist-text'>
                     {{ my_message }}
                 </p>
-            </div>
+            </section>
         {% else %}
-            <div class="jobs-dashboard-navs">
+            <h1 class="jobs-latest-jobs-header">Latest Jobs</h1>
+            <section class="jobs-dashboard-navs">
                 <div class="job-nav">
                     <a class="job-nav-link suggested-jobs" href="{% url 'candidates:jobs' %}?q=suggested_jobs">
                         Suggested Jobs
@@ -51,14 +52,14 @@
                         <p class="job-nav-link-disabled">Saved Jobs</p>
                     {% endif %}
                 </div>
-            </div>
+            </section>
             {% if my_message %}
-                <div class='jobs-no-matching-jobs'>
+                <section class='jobs-no-matching-jobs'>
                     <span class='jobs-no-matching-jobs-message'>{{ my_message }}</span> 
                     <button class='jobs-no-matching-jobs-message-close-btn'><i class="fas fa-close"></i></button>
-                </div>
+                </section>
             {% endif %}
-            <div class="jobs">
+            <section class="jobs">
                 {% for job in jobs %}
                     <div class="job">
                         <div class="job-contents">
@@ -67,19 +68,28 @@
                                 <a href="" class="job-job-type">{{ job.job_type }}</a>
                                 <a href="" class="job-work-location">{{ job.work_location }}</a>
                             </div>
+                            <div class='job-employer-info'>
+                                <div class='job-employer-logo-container'>
+                                    <img src="{{ job.employer.logo.url }}" alt="">
+                                </div>
+                                <div class='job-employer-address'>
+                                    <p class="job-employer-name">{{ job.employer.employer_name }}</p>
+                                    <p class="job-employer-city-state">
+                                        <span>{{ job.employer.city }},</span>
+                                        <span>{{ job.employer.state_or_province }}</span>
+                                    </p>
+                                    <p class="job-employer-country">
+                                        <span>{{ job.employer.country }}</span>
+                                        <span>{{ job.employer.zip_code_or_postal_code }}</span>
+                                    </p>
+                                </div>
+                            </div>
                             <div class="job-title-container">
                                 <h3 class="job-title-header">{{ job.job_title }}</h3>
-                                <p class="job-created">Posted {{ job.created|date:'M d Y' }}</p>
-                            </div>
-                            <div class='job-employer-address'>
-                                <p class="job-employer-name">{{ job.employer.employer_name }}</p>
-                                <p class="job-employer-city-state">
-                                    <span>{{ job.employer.city }},</span>
-                                    <span>{{ job.employer.state_or_province }}</span>
-                                </p>
-                                <p class="job-employer-country">
-                                    <span>{{ job.employer.country }}</span>
-                                    <span>{{ job.employer.zip_code_or_postal_code }}</span>
+                                <p class="job-created">
+                                    <span>{{ job.employer.country}}</span>
+                                    <span>|</span>
+                                    <span>{{ job.created|date:'M d Y' }}</span>
                                 </p>
                             </div>
                             <p class="job-salary">
@@ -95,15 +105,15 @@
                                 <h4>Qualification</h4>
                                 <p>{{ job.qualification|truncatechars:80 }}</p>
                             </div>
+                            {% comment %} <a class="see-job-detail-btn" href="{{ job.get_absolute_url }}?redirect={{ request.path }}">Job Detail</a> {% endcomment %}
                         </div>
                         <a class="see-job-detail-btn" href="{{ job.get_absolute_url }}?redirect={{ request.path }}">Job Detail</a>
                     </div>
                 {% endfor %}
-            </div>
+            </section>
             <div class="jobs-load-more-btn-container">
                 <button type="button" class="jobs-load-more-btn">
-                    <span>Load More</span>
-                    <i class="fas fa-chevron-down"></i>
+                    Load More Jobs
                 </button>
             </div>
         {% endif %}
@@ -118,7 +128,7 @@
         const user = "{{ request.user.username }}"
         const locale = "{{ location|escapejs }}"
         const jobPaginate = JSON.parse("{{ paginate.job_paginate|escapejs }}")
-        const jobsExist = "{{ jobs_exist }}"
+        {% comment %} const jobsExist = "{{ jobs_exist }}" {% endcomment %}
 
         // On reload, deletethe this
         localStorage.removeItem('jobs_exist')
@@ -126,9 +136,7 @@
         // localStorage.setItem('location', locale)
         sessionStorage.setItem('location', locale)
 
-        if (jobsExist) {
-            localStorage.setItem('jobs_exist', '{{jobs_exist}}')
-        }
+        localStorage.setItem('jobs_exist', '{{jobs_exist}}'.toLowerCase())
         
         if (jobPaginate) {
             localStorage.setItem('paginate', JSON.stringify({jobPaginate:jobPaginate}))

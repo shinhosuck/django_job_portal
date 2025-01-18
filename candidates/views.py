@@ -288,7 +288,9 @@ def jobs_view(request):
     city = location_data and location_data.get('city')
 
     user = request.user
-    context = {}
+    context = {
+        'jobs_exist': True
+    }
 
     increment = 3
     start = 0 
@@ -313,12 +315,12 @@ def jobs_view(request):
 
     # Checks jobs next set of qs exists.
     if not context['jobs'][end:end+increment]:
-        context['jobs_exist'] = 'None'
+        context['jobs_exist'] = False
 
     context['jobs'] = context['jobs'][start:end]
     context['paginate'] = {'job_paginate': end}
     context['location'] = json.dumps(location_data)
-
+    context['q_param'] = suggested_jobs
     
     if suggested_jobs:
         """
@@ -336,14 +338,16 @@ def jobs_view(request):
     # Only on initial load.
     if not context['jobs']:
         context['jobs'] = []
-   
+    
     return render(request, 'candidates/candidates_jobs.html', context)
 
 
 def filter_job_view(request):
     user = request.user
     q_param= request.GET.get('q')
-    context = {'jobs_exists': True}
+    context = {
+        'jobs_exist': True
+    }
     jobs = None
 
     applied_job_pagination = request.GET.get('appliedJobPaginate')
@@ -379,8 +383,10 @@ def filter_job_view(request):
     else:
         context['jobs'] = 'No jobs'
     
-    if not context['jobs'] or not jobs[end:end+increment]:
-        context['jobs_exists'] = False 
+    if not context['jobs']:
+        pass
+    if not context['jobs'][end:end+increment]:
+        context['jobs_exist'] = False 
 
     context['q_param'] = q_param
 
