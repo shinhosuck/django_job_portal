@@ -134,7 +134,7 @@
 @media screen and (min-width: 900px) {
     .landing-page-candidates-section-container {
         gap: 7rem;
-        padding: 4rem 0;
+        padding: 3rem 0;
         padding-bottom: 6rem;
     }
 
@@ -953,6 +953,12 @@
     margin: 0 auto;
 }
 
+.jobs-latest-jobs-header {
+    font-size: clamp(1.8rem, 1vw + 1.5rem, 2.3rem);
+    color: var(--black-10);
+    text-wrap: pretty;
+}
+
 .jobs-dashboard-navs {
     display: flex;
     align-items: center;
@@ -1061,8 +1067,8 @@
     gap: 1.5rem;
     padding: 1.4rem;
     border-radius: 25px;
-    border: 1px solid var(--black-80);
-    background: white;
+    border: 1px solid var(--black-85);
+    background: var(--black-95);
 }
 
 .job-contents {
@@ -1086,13 +1092,47 @@
 .job-job-type,
 .job-industry {
     color: var(--black-10);
-    background: var(--accent);
+    background: var(--black-90);
     font-size: 0.9rem;
     padding: 0.3rem 0.5rem;
     border-radius: 0.3rem;
     overflow: hidden;
     text-wrap: nowrap;
     text-overflow: ellipsis;
+    border: 1px solid var(--black-85)
+}
+
+.job-employer-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.job-employer-logo-container {
+    width: 65px;
+}
+
+.job-employer-logo-container > img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    display: block;
+    object-fit: cover;
+}
+
+.job-employer-address {
+    display: grid;
+    align-items: start;
+    align-content: start;
+    gap: 0.2rem;
+    font-size: 0.9rem;
+    color: var(--black-35)
+}
+
+.job-employer-name {
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--black-10);
 }
 
 .jobs-no-matching-jobs {
@@ -1129,7 +1169,7 @@
 
 .job-title-header {
     color: var(--green-10);
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     overflow: hidden;
     text-wrap: nowrap;
     text-overflow: ellipsis;
@@ -1138,22 +1178,15 @@
 
 .job-created {
     font-size: 0.9rem;
-    color: var(--black-30)
-}
-
-.job-employer-address {
-    display: grid;
-    align-content: start;
-    align-items: start;
-    gap: 0.2rem;
-    font-size: 0.9rem;
     color: var(--black-30);
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 0.3rem;
 }
 
-.job-employer-name {
-    font-weight: 500;
-    font-size: 1rem;
-    color: var(--black-10);
+.job-created > span:nth-child(2) {
+    font-size: 0.6rem;
 }
 
 .job-salary {
@@ -1164,7 +1197,8 @@
     padding: 0.4rem 0.5rem;
     border-radius: 5px;
     font-weight: 500;
-    background: var(--black-90)
+    background: var(--black-90);
+    border: 1px solid var(--black-85)
 }
 
 .job-description-wrapper,
@@ -1206,17 +1240,26 @@
 }
 
 .jobs-load-more-btn {
-    display: grid;
-    justify-content: center;
-    justify-items: center;
-    gap: 0.3rem;
-    color: var(--black-10);
+    color: white;
     letter-spacing: 0.03rem;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     cursor: pointer;
-    background: none;
+    background: var(--black-10);
     border: none;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    border-radius: 35px;
+    padding: 1.2rem 4rem;
+    transition: background 100ms linear;
+}
+
+.jobs-load-more-btn > i {
+    font-size: 1.1rem;
+}
+
+.no-more-jobs {
+    color: white;
+    background: var(--black-30);
+    cursor: initial;
 }
 
 @media (hover) {
@@ -1224,10 +1267,17 @@
         background: var(--green-20);
     }
 
-    /* .jobs-load-more-btn:hover {
+    .jobs-load-more-btn:hover {
+        background: var(--black-90);
+        color: var(--black-10);
+        outline: 2px solid var(--black-80)
+    }
+
+    .no-more-jobs:hover {
+        background: var(--black-30);
         color: white;
-        background: var(--black-10)
-    } */
+        outline: none
+    }
 }
 
 @media screen and (min-width: 600px) {
@@ -1239,14 +1289,16 @@
 }
 
 @media screen and (min-width:700px) {
-    .jobs-container {
-        padding: 4rem 0;
-        padding-bottom: 6rem;
-        gap: 3rem;
-    }
-
     .jobs {
         grid-template-columns: repeat(auto-fill, minmax(330px, 1fr))
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .jobs-container {
+        padding: 3rem 0;
+        padding-bottom: 6rem;
+        gap: 3rem;
     }
 }
 
@@ -1279,7 +1331,7 @@
 }
 
 .job-search-results-header {
-    font-size: clamp(1.8rem, 1vw + 1.5rem, 2.5rem);
+    font-size: clamp(1.8rem, 1vw + 1.5rem, 2.3rem);
     color: var(--black-10);
     text-wrap: pretty;
 }

@@ -4,7 +4,7 @@ const jobsLoadMoreBtn = document.querySelector('.jobs-load-more-btn')
 
 jobsLoadMoreBtn && jobsLoadMoreBtn.addEventListener('click', (e) => {
     const pagination = JSON.parse(localStorage.getItem('paginate'))
-    const jobsExist = localStorage.getItem('jobs_exist')
+    // const jobsExist = localStorage.getItem('jobs_exist')
     setPagination(pagination)
 })
 
@@ -26,36 +26,69 @@ async function setPagination(pagination) {
         const data = await resp.json()
 
         if (resp.ok) {
-            if (data?.jobs_exist && data.jobs_exist === 'None') {
-                jobsLoadMoreBtn.style.display = 'none'
-            }
-
             data?.jobs && appendPaginateJobObject(data.jobs)
-
-            pagination = JSON.parse(localStorage.getItem('paginate'))
-            let index = null
-
-            if (data?.paginate?.job_paginate) {
-                index = data.paginate.job_paginate 
-                pagination = {jobPaginate:index}
-            }
-            if(data?.paginate?.suggested_job_paginate) {
-                index = data.paginate.suggested_job_paginate 
-                pagination = {suggestedJobPaginate:index}
-            }
-            if(data?.paginate?.applied_job_paginate) {
-                index = data.paginate.applied_job_paginate 
-                pagination = {appliedJobPaginate:index}
-            }
-            if(data?.paginate?.saved_job_paginate) {
-                index = data.paginate.saved_job_paginate 
-                pagination = {savedJobPaginate:index}
-            }
-            localStorage.setItem('paginate', JSON.stringify(pagination))
+            hideOrShowLoadMoreJobsBtn(data)
+            setJobsPagination(data, pagination)
         }
     } catch (error) {
         console.log(error.message)
     }
+}
+
+
+function hideOrShowLoadMoreJobsBtn(data) {
+    localStorage.setItem('jobs_exist', data.jobs_exist)
+    const {jobs_exist, q_param} = data
+
+    if (!jobs_exist) {
+        if (q_param === 'suggested_jobs') {
+            jobsLoadMoreBtn.textContent = 'No More Jobs'
+        }
+        else if (q_param === 'applied_jobs') {
+            jobsLoadMoreBtn.textContent = 'No More Applied Jobs'
+        }
+        else if (q_param === 'saved_jobs') {
+            jobsLoadMoreBtn.textContent = 'No More Saved Jobs'
+        }
+        jobsLoadMoreBtn.disabled = true 
+        jobsLoadMoreBtn.classList.add('no-more-jobs')
+    }
+    else {
+        if (q_param === 'suggested_jobs') {
+            loadMoreJobsBtn.textContent = 'See More Jobs'
+        }
+        else if (q_param === 'applied_jobs') {
+            loadMoreJobsBtn.textContent = 'See More Applied Jobs'
+        }
+        else if (q_param === 'saved_jobs') {
+            loadMoreJobsBtn.textContent = 'See More Saved Jobs'
+        }
+        loadMoreJobsBtn.disabled = false
+        loadMoreJobsBtn.classList.remove('no-more-jobs')
+    }
+}
+
+function setJobsPagination(data, pagination) {
+    pagination = JSON.parse(localStorage.getItem('paginate'))
+    let index = null
+
+    if (data?.paginate?.job_paginate) {
+        index = data.paginate.job_paginate 
+        pagination = {jobPaginate:index}
+    }
+    if(data?.paginate?.suggested_job_paginate) {
+        index = data.paginate.suggested_job_paginate 
+        pagination = {suggestedJobPaginate:index}
+    }
+    if(data?.paginate?.applied_job_paginate) {
+        index = data.paginate.applied_job_paginate 
+        pagination = {appliedJobPaginate:index}
+    }
+    if(data?.paginate?.saved_job_paginate) {
+        index = data.paginate.saved_job_paginate 
+        pagination = {savedJobPaginate:index}
+    }
+    localStorage.setItem('paginate', JSON.stringify(pagination))
 }
 
 

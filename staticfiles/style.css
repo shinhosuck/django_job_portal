@@ -735,7 +735,7 @@ button {
 
 @media screen and (min-width: 900px) {
     .about-contents-wrapper {
-        padding: 4rem 0;
+        padding: 3rem 0;
         padding-bottom: 6rem;
         gap: 7rem;
     }
@@ -883,7 +883,7 @@ button {
     .contact-container {
         grid-template-columns: 2fr 1fr;
         gap: 5rem;
-        margin: 4rem auto;
+        margin: 3rem auto;
         margin-bottom: 6rem;
     }
 

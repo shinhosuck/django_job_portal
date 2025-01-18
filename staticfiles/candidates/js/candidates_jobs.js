@@ -10,7 +10,7 @@ window.addEventListener('DOMContentLoaded', handlePreviousData)
 
 // this run on initial load and every reload
 function handlePreviousData() {
-    const jobsExist = localStorage.getItem('jobs_exist')
+    const jobsExist = JSON.parse(localStorage.getItem('jobs_exist'))
     let url = localStorage.getItem('filter_url')
 
     if(!localStorage.getItem('filter_url')) {
@@ -60,9 +60,16 @@ function handlePreviousData() {
     }
     jobsMainContainer.scrollIntoView({behavior:"smooth"})
     
-    if (jobsExist === 'None') {
+    if (!jobsExist) {
         if(loadMoreJobsBtn) {
-            loadMoreJobsBtn.parentElement.style.display = 'none'
+            if (Array.from(jobsContainer.querySelectorAll('.job').length < 3)) {
+                loadMoreJobsBtn.parentElement.style.display = 'none'
+            }else {
+                loadMoreJobsBtn.parentElement.style.display = 'flex'
+            }
+            loadMoreJobsBtn.textContent = 'No More Jobs'
+            loadMoreJobsBtn.disabled = true
+            loadMoreJobsBtn.classList.add('no-more-jobs')
         }
     }
 }
@@ -153,32 +160,73 @@ async function handleJobNavClickEvent(e) {
             }
         })
         const data = await resp.json()
-        createHtmlElements(data)
 
-        if (loadMoreJobsBtn.disabled === true) {
-            loadMoreJobsBtn.disabled = false
-            loadMoreJobsBtn.textContent = 'Load More'
-            loadMoreJobsBtn.style.background = 'var(--green-30)'
+        const htmlCreated = createHtmlElements(data)
+        setPaginateStartIndex(data)
+
+        if (htmlCreated) {
+            disableOrEnableLoadMoreJobsBtn(data)
         }
-       
-        // Set pagination starting index
-        if(data?.paginate?.job_paginate) {
-            localStorage.setItem('paginate', JSON.stringify({
-                jobPaginate:data.paginate.job_paginate
-            }))
-        }
-        if(data?.paginate?.applied_job_paginate) {
-            localStorage.setItem('paginate', JSON.stringify({
-                appliedJobPaginate:data.paginate.applied_job_paginate
-            }))
-        }
-        if(data?.paginate.saved_job_paginate) {
-            localStorage.setItem('paginate', JSON.stringify({
-                savedJobPaginate:data.paginate.saved_job_paginate
-            }))
-        }
+
     } catch (error) {
         console.log(error.message)
+    }
+}
+
+// Enable or disable Load More Jobs btn
+function disableOrEnableLoadMoreJobsBtn(data) {
+    localStorage.setItem('jobs_exist', data.jobs_exist)
+
+    if (Array.from(jobsContainer.querySelectorAll('.job')).length < 3) {
+        loadMoreJobsBtn.parentElement.style.display = 'none'
+    }else {
+        loadMoreJobsBtn.parentElement.style.display = 'flex'
+    }
+
+    if (!data?.jobs_exist) {
+        if (data.q_param === 'suggested_jobs') {
+            loadMoreJobsBtn.textContent = 'No More Jobs'
+        }
+        else if (data.q_param === 'applied_jobs') {
+            loadMoreJobsBtn.textContent = 'No More Applied Jobs'
+        }
+        else if (data.q_param === 'saved_jobs') {
+            loadMoreJobsBtn.textContent = 'No More Saved Jobs'
+        }
+        loadMoreJobsBtn.disabled = true
+        loadMoreJobsBtn.classList.add('no-more-jobs')
+    }
+    else {
+        if (data.q_param === 'suggested_jobs') {
+            loadMoreJobsBtn.textContent = 'See More Jobs'
+        }
+        else if (data.q_param === 'applied_jobs') {
+            loadMoreJobsBtn.textContent = 'See More Applied Jobs'
+        }
+        else if (data.q_param === 'saved_jobs') {
+            loadMoreJobsBtn.textContent = 'See More Saved Jobs'
+        }
+        loadMoreJobsBtn.disabled = false
+        loadMoreJobsBtn.classList.remove('no-more-jobs')
+    }
+}
+
+// Set pagination starting index
+function setPaginateStartIndex(data) {
+    if(data?.paginate?.job_paginate) {
+        localStorage.setItem('paginate', JSON.stringify({
+            jobPaginate:data.paginate.job_paginate
+        }))
+    }
+    if(data?.paginate?.applied_job_paginate) {
+        localStorage.setItem('paginate', JSON.stringify({
+            appliedJobPaginate:data.paginate.applied_job_paginate
+        }))
+    }
+    if(data?.paginate.saved_job_paginate) {
+        localStorage.setItem('paginate', JSON.stringify({
+            savedJobPaginate:data.paginate.saved_job_paginate
+        }))
     }
 }
 
@@ -251,6 +299,7 @@ function createHtmlElements(data) {
             div.setAttribute('class', 'job')
         })
     }
+    return true
 }
 
 
