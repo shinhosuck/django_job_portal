@@ -1,4 +1,4 @@
-const jobsWrapper = document.querySelector('.jobs')
+let jobsWrapper = document.querySelector('.jobs')
 const jobsLoadMoreBtn = document.querySelector('.jobs-load-more-btn')
 
 
@@ -138,9 +138,13 @@ function appendPaginateJobObject(jobs) {
         div.innerHTML = element
         jobsWrapper.append(div)
 
-        div.scrollIntoView({behavior:'smooth', block:'end'})
+        // div.scrollIntoView({behavior:'smooth', block:'end'})
         
         div = document.createElement('div')
         div.setAttribute('class', 'job')
     })
+    
+    jobsWrapper = document.querySelector('.jobs')
+    const ele = Array.from(jobsWrapper.querySelectorAll('.job')).slice(-3)[0]
+    ele.scrollIntoView({behavior:'smooth', block:'end'})
 }

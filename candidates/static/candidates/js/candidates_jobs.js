@@ -304,7 +304,12 @@ function createHtmlElements(data) {
 
 
 function removeNoMatchingJobsMessage() {
-    jobsNoMatchingJobs.remove()
+    jobsNoMatchingJobsMessageCloseBtn.addEventListener('click', ()=> {
+        jobsNoMatchingJobs.remove()
+    })
+
+    setTimeout(()=> {
+        jobsNoMatchingJobs.remove()
+    }, 10000)
 }
-jobsNoMatchingJobsMessageCloseBtn &&jobsNoMatchingJobsMessageCloseBtn
-.addEventListener('click', removeNoMatchingJobsMessage)
+jobsNoMatchingJobsMessageCloseBtn && removeNoMatchingJobsMessage()

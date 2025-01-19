@@ -19,7 +19,15 @@ def get_user_ip(request):
     if ip in exclude:
         ip = default
 
-    ip = "34.21.9.50"
+    '''
+    ip addresses:
+    san diego: 172.56.240.74
+    sacramento: 200.10.37.58
+    random US: 170.171.1.255
+    random world: 104.129.129.47
+    '''
+
+    ip = "170.171.1.255"
 
     # on development, ip falls back to default (manila, philippines)
     return get_user_location(request, ip)

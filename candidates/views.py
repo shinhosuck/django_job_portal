@@ -143,7 +143,7 @@ def get_search_form_suggestions(request):
    
 
 def job_search_view(request):
-    json_content = request.headers.get('Content-Type')
+    content_type = request.headers.get('Content-Type')
     search_query = request.GET.get('search')
     search_location = request.GET.get('location')
     user_location = get_user_ip(request)
@@ -169,7 +169,7 @@ def job_search_view(request):
         else:
             context['jobs'] = jobs
     
-    if json_content == 'application/json':
+    if content_type == 'application/json':
         if context['jobs']:
             json_context = convert_queryset_to_json_data(context)
             if json_context:
@@ -278,15 +278,17 @@ def candidate_detail_view(request, slug):
 
 def jobs_view(request):
     jobs = Job.objects.select_related('employer')
-    qualification = None
-
+    
     pagination = request.GET.get('jobPaginate')
     suggested_jobs = request.GET.get('q')
 
+    # Get user location
     location_data = get_user_ip(request)
     country_code = location_data and location_data.get('country_code')
+    state = location_data and location_data.get('state')
     city = location_data and location_data.get('city')
 
+    qualification = None
     user = request.user
     context = {
         'jobs_exist': True
@@ -296,16 +298,17 @@ def jobs_view(request):
     start = 0 
     end = 6
 
-    # Initial load/render and every request.
+    print(location_data)
+
     if request.user.is_authenticated:
         try:
             qualification = user.profile.candidatequalification
         except CandidateQualification.DoesNotExist:
             qualification = None
 
-    qs, message = filter_jobs_by_user_location(country_code, city,
+    qs, message = filter_jobs_by_user_location(country_code, state, city,
             jobs, qualification)
-
+     
     context['jobs'] = qs
     context ['my_message'] = message
 
@@ -334,11 +337,7 @@ def jobs_view(request):
     if pagination:
         context['jobs'] = get_filter_jobs(context['jobs'])
         return JsonResponse(context)
-    
-    # Only on initial load.
-    if not context['jobs']:
-        context['jobs'] = []
-    
+     
     return render(request, 'candidates/candidates_jobs.html', context)
 
 

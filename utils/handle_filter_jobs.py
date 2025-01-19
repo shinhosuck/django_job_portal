@@ -34,48 +34,79 @@ def get_filter_jobs(jobs):
     return job_list
 
 
-def filter_jobs_by_user_location(country, city, jobs, quali):
+def filter_jobs_by_user_location(country_code, state, city, jobs, quali):
     filter_jobs = None
     message = None
     
     if quali and quali.job_title:
-        filter_jobs = jobs.filter(Q(
-                employer__country__iexact=country, 
-                employer__city__iexact=city, 
-                job_title__iexact=quali.job_title
-            ))
+        filter_jobs = jobs.filter(create_q_objects(country_code, state, city, 4, quali))
        
         if not filter_jobs:
-            filter_jobs = jobs.filter(
-                Q(employer__country__iexact=country, job_title__iexact=quali.job_title) | 
-                Q(employer__city__iexact=city, job_title__iexact=quali.job_title))
-            
+            filter_jobs = jobs.filter(create_q_objects(country_code, state, city, 3, quali))
+           
             if not filter_jobs:
-                filter_jobs = jobs.filter(
-                    Q(employer__country__iexact=country) | 
-                    Q(employer__city__iexact=city))
-                if filter_jobs:
-                    message = '''
-                    Sorry! Based on your job title, there aren't any jobs available, 
-                    but you might like these alternative jobs.
-                    '''
-                else:
-                    message = '''
-                    Sorry! Based on your location, there aren't any jobs available.
-                    Please try using different location.
-                    '''
+                filter_jobs = jobs.filter(Q(employer__country__iexact=country_code))
+                message = '''
+                Based on your job title and state/province or city, we could\'t 
+                find any jobs tailered for you. How about these alternative jobs?'''
+                
+                if not filtered_qs:
+                    warning_message = '''
+                    Based on your country, state/province or city, we could\'t find any jobs.'''
     else:
-        filter_jobs = jobs.filter(
-            Q(employer__country__iexact=country) | 
-            Q(employer__city__iexact=city))
+        filtered_qs, warning_message = filter_jobs_without_qualifiction(country_code, state, city, jobs, quali)
         
-        if not filter_jobs:
-            message = '''
-                    Sorry! Based on your location, there aren't any jobs available.
-                    Please try using different location.
-                    '''
+        filter_jobs = filtered_qs
+        message = warning_message
+
     return filter_jobs, message
 
+
+def filter_jobs_without_qualifiction(country_code, state, city, jobs, quali):
+    filtered_qs = None
+    warning_message = None 
+
+    filtered_qs = jobs.filter(create_q_objects(country_code, state, city, 3, quali))
+
+    if not filtered_qs:
+        filtered_qs = jobs.filter(create_q_objects(country_code, state, city, 2, quali))
+    
+        if not filtered_qs:
+            filtered_qs = jobs.filter(Q(employer__country__iexact=country_code))
+            warning_message = '''
+            Based on your state/province or city, we could\'t 
+            find any jobs tailered for you. How about these alternative jobs?'''
+            
+            if not filtered_qs:
+                warning_message = '''
+                Based on your country, state/province or city, we could\'t find any jobs.'''
+        
+    return filtered_qs, warning_message
+
+
+def create_q_objects(country_code, state, city, num_of_args, quali):
+    qs = None
+
+    if quali:
+        if num_of_args == 4:
+            qs = Q(employer__country__iexact=country_code, employer__state_or_province__iexact=state, \
+                   employer__city__iexact=city, job_title__iexact=quali.job_title)
+        elif num_of_args == 3:
+            qs = (Q(employer__country__iexact=country_code, \
+                    employer__city__iexact=city, job_title__iexact=quali.job_title) | 
+                Q(employer__country__iexact=country_code, \
+                  employer__state_or_province__iexact=state, job_title__iexact=quali.job_title))
+    else:
+        if num_of_args == 3:
+            qs = Q(employer__country__iexact=country_code, \
+                employer__state_or_province__iexact=state, \
+                employer__city__iexact=city)
+            
+        elif num_of_args == 2:
+            qs = (Q(employer__country__iexact=country_code, employer__state_or_province__iexact=state) |
+                Q(employer__country__iexact=country_code, employer__city__iexact=city))  
+        
+    return qs
 
 def search_filter_job(search_query, search_location, user_location):
     country = user_location.get('country_code')

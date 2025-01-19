@@ -1138,26 +1138,36 @@
 .jobs-no-matching-jobs {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 2rem;
     overflow: hidden;
 }
 
 .jobs-no-matching-jobs-message {
-    color: var(--black-20);
+    color: var(--black-10);
     letter-spacing: 0.03rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    color: var(--black-40);
     font-size: 1rem;
     font-weight: 500;
 }
 
 .jobs-no-matching-jobs-message-close-btn {
     border: none;
-    background: none; 
-    font-size: 1.3rem;
-    color: var(--black-10);
+    color: var(--black-40);
+    background: none;
+    cursor: pointer;
+    transition: color 100ms linear;
+}
+
+@media (hover) {
+    .jobs-no-matching-jobs-message-close-btn:hover {
+        color: var(--green-40)
+    }
+}
+
+.jobs-no-matching-jobs-message-close-btn > i {
+    font-size: 1.4rem;
 }
 
 .job-title-container {
@@ -1242,13 +1252,12 @@
 .jobs-load-more-btn {
     color: white;
     letter-spacing: 0.03rem;
-    margin-top: 1.5rem;
     cursor: pointer;
     background: var(--black-10);
     border: none;
     font-size: 1.2rem;
     border-radius: 35px;
-    padding: 1.2rem 4rem;
+    padding: 1.2rem 2rem;
     transition: background 100ms linear;
 }
 
@@ -1299,6 +1308,11 @@
         padding: 3rem 0;
         padding-bottom: 6rem;
         gap: 3rem;
+    }
+
+    .jobs-load-more-btn {
+        margin-top: 1.5rem;
+        padding: 1.2rem 4rem;
     }
 }
 
