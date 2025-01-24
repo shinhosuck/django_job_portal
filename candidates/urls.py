@@ -14,7 +14,8 @@ from .views import (
     prefetch_form_data_view,
     update_candidate_profile_info_view,
     save_job_view,
-    filter_job_view
+    filter_jobs_page_dashboard_view,
+    job_detail_view
 )
 
 app_name = 'candidates' 
@@ -25,6 +26,7 @@ urlpatterns = [
     path('candidates/location/', fetch_user_location_view, name='candidate-location'),
     path('candidates/search-form/suggestions/', get_search_form_suggestions, name='suggestions'),
     path('candidates/jobs/', jobs_view, name='jobs' ),
+    path('candidates/jobs/<str:slug>/detail/', job_detail_view, name='candidate-job-detail'),
     path('candidates/jobs/search/', job_search_view, name='job-search'),
     path('candidates/add/career/detail/', candidate_add_career_detail_view, name='candidate-add-career-detail'),
     path('candidates/<str:slug>/detail/', candidate_detail_view, name='candidate-detail'),
@@ -35,5 +37,5 @@ urlpatterns = [
     path('hire-spot/contact/', contact_view, name='contact'),
     path('hire-spot/about/', about_view, name='about'),
     path('candidates/job/<str:slug>/save/', save_job_view, name='save-job'),
-    path('candidates/jobs/filter/', filter_job_view, name='filter-job')
+    path('candidates/jobs/filter/', filter_jobs_page_dashboard_view, name='filter-job')
 ]

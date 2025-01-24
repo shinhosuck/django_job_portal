@@ -1,4 +1,4 @@
-{% extends "employers/employers_index.html" %}
+{% extends "candidates/candidates_index.html" %}
 {% load static %}
 
 {% block title %}
@@ -6,9 +6,20 @@
 {% endblock title %}
 
 {% block content %}
+<section class="jobs-hero-img">
+    <div class="job-detail-hero-text-container">
+        <h1 class="job-detail-hero-header">
+            Job Detail
+        </h1>
+        <p class="job-detail-hero-text">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
+            Praesentium quam mollitia dolores quae quod eligendi, 
+            aliquid hic voluptatibus inventore suscipit exercitationem 
+            quaerat assumenda saepe voluptate aspernatur est in a ipsa.
+        </p>
+    </div>
+</section>
 <div class="job-detail-container">
-    <section class="jobs-hero-img">
-    </section>
     <section class="job-detail-row">
         <a class="job-detail-redirect" href="{{ redirect_url }}">
             <i class="fas fa-arrow-left"></i>
@@ -18,11 +29,6 @@
             <div class="job-detail-header-container">
                 <h2 class="job-detail-job-title">
                     {{ job.job_title }}
-                    {% if is_owner %}
-                        <span>
-                            ({{ job.applicants.count }} applicant{% if job.applicants.count > 1 %}s{% endif %})
-                        </span>
-                    {% endif %}
                 </h2>
             </div>
             <div class="job-detail-job-info-container">
@@ -104,18 +110,36 @@
             {% else %}
                 {% if request.user.profile.user_type == 'job seeker' %}
                     {% if applied %}
-                        <button class='job-detail-applied-btn' type='button'>Applied</button>
+                        <div class="job-detail-applied-btn-container">
+                            <button class='job-detail-applied-btn' type='button'>Applied</button>
+                            {% if job_saved %}
+                                <button type='button' class="job-detail-job-saved-btn">Saved</button>
+                            {% else %}
+                                <a class="job-detail-save-job-btn" href="{% url 'candidates:save-job' job.slug %}">Save</a>
+                            {% endif %}
+                        </div>
                     {% else %}
                         <div class="job-detail-apply-btn-container">
                             <a class="job-detail-apply-btn" href="{% url 'candidates:candidate-apply' job.slug %}">Apply</a>
-                            <a class="job-detail-save-job-btn" href="{% url 'candidates:save-job' job.slug %}">Save</a>
+                            {% if job_saved %}
+                                <button type='button' class="job-detail-job-saved-btn">Saved</button>
+                            {% else %}
+                                <a class="job-detail-save-job-btn" href="{% url 'candidates:save-job' job.slug %}">Save</a>
+                            {% endif %}
                         </div>
                     {% endif %}
-                {% elif is_owner  %}
-                    <a class="job-detail-update-btn" href="{% url 'employers:job-update' job.slug %}">Update</a>
                 {% endif %}
             {% endif %}
         </div>
     </section>
 </div>
 {% endblock content %}
+
+{% block js %}
+    <script type='text/javascript'>
+        const jobDetailContainer = document.querySelector('.job-detail-container')
+
+        jobDetailContainer.scrollIntoView({behavior:'smooth', block:'start'})
+
+    </script>
+{% endblock js %}

@@ -895,8 +895,6 @@ button {
 /* FOOTER */
 .footer-row {
     background: var(--black-10);
-    padding: 2rem 0;
-    padding-bottom: 0;
 }
 
 .footer-contents {
@@ -906,6 +904,7 @@ button {
     display: grid;
     align-content: start;
     gap: 3rem;
+    padding-top: 3rem;
 }
 
 .footer-brand-content {
@@ -1135,13 +1134,21 @@ button {
     }
 }
 
+.footer-bottom-row {
+    display: grid;
+    align-items: start;
+    align-content: start;
+    gap: 2rem;
+    background: var(--black-20);
+    margin-top: 4rem;
+    padding: 3rem 0 1rem 0;
+}
+
 .footer-social-links {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1.2rem;
-    margin: 3rem 0;
-    margin-bottom: 0rem;
 }
 
 .footer-social-link > i {
@@ -1157,7 +1164,7 @@ button {
 @media (hover) {
     .fa-linkedin:hover,
     .fa-github:hover {
-        color: var(--green-30)
+        color: var(--green-40)
     }
 }
 
@@ -1165,18 +1172,10 @@ button {
     color: white;
     text-align: center;
     letter-spacing: 0.03rem;
-    padding: 1.5rem 0;
-    background: var(--black-20);
-    margin-top: 2rem;
 }
 
 
 @media screen and (min-width: 740px) {
-    .footer-row {
-        padding: 4rem 0;
-        padding-bottom: 0;
-    }
-
     .footer-contents {
         column-gap: 4rem;
         row-gap: 2rem;

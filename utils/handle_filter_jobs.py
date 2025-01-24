@@ -1,6 +1,6 @@
 from django.db.models import Q
 from employers.models import Job
-
+from textwrap import dedent
 
 def get_filter_jobs(jobs):
     job_list = []
@@ -9,6 +9,7 @@ def get_filter_jobs(jobs):
         job_obj = {
             'id': job.id,
             'employer_url': job.employer.get_absolute_url(),
+            'employer_logo': job.employer.logo.url,
             'employer_name': job.employer.employer_name,
             'employer_city': job.employer.city,
             'employer_state_or_province': job.employer.state_or_province,
@@ -46,13 +47,12 @@ def filter_jobs_by_user_location(country_code, state, city, jobs, quali):
            
             if not filter_jobs:
                 filter_jobs = jobs.filter(Q(employer__country__iexact=country_code))
-                message = '''
-                Based on your job title and state/province or city, we could\'t 
-                find any jobs tailered for you. How about these alternative jobs?'''
+                message = dedent('''Based on your "job title and state/province or city," 
+                        we couldn't find any jobs tailored for you. But we found jobs that you might like.''')
                 
-                if not filtered_qs:
-                    warning_message = '''
-                    Based on your country, state/province or city, we could\'t find any jobs.'''
+                if not filter_jobs:
+                    message = dedent('''Based on your "country, state/province or city", 
+                        we couldn't find any jobs.''')
     else:
         filtered_qs, warning_message = filter_jobs_without_qualifiction(country_code, state, city, jobs, quali)
         
@@ -73,13 +73,12 @@ def filter_jobs_without_qualifiction(country_code, state, city, jobs, quali):
     
         if not filtered_qs:
             filtered_qs = jobs.filter(Q(employer__country__iexact=country_code))
-            warning_message = '''
-            Based on your state/province or city, we could\'t 
-            find any jobs tailered for you. How about these alternative jobs?'''
+            warning_message = dedent('''Based on your "state/province or city," 
+                    we couldn't find any jobs tailored for you. But we found jobs that you might like.''')
             
             if not filtered_qs:
-                warning_message = '''
-                Based on your country, state/province or city, we could\'t find any jobs.'''
+                warning_message = dedent('''
+                Based on your "country, state/province or city", we couldn't find any jobs.''')
         
     return filtered_qs, warning_message
 
@@ -119,30 +118,59 @@ def search_filter_job(search_query, search_location, user_location):
     employer_fields = ['employer__city', 'employer__state_or_province']
     job_fields = ['job_title', 'industry']
 
+    filter_by_location = None 
+    filter_by_keyword = None 
     jobs = None
+    message = None
     
     for location in locations:
         for field in employer_fields:
-            filtered_by_location = Job.objects.filter(iexact_or_icontains(field, location))
-           
-            if filtered_by_location:
+            by_location = Job.objects.filter(iexact_or_icontains(field, location))
+    
+            if by_location:
+                if not filter_by_location:
+                    filter_by_location = by_location
+                else:
+                    filter_by_location = filter_by_location.union(by_location)
+
                 for search in searches:
                     for field in job_fields:
-                        filtered_jobs = filtered_by_location.filter(iexact_or_icontains(field, search))
-                       
-                        if filtered_jobs:
-                            if country:
-                                filtered_by_country = filtered_jobs.filter(currency__iexact=country)
-                          
+                        by_keyword = by_location.filter(iexact_or_icontains(field, search))
+
+                        if by_keyword:
+                            filter_by_location = None
+
+                            if not filter_by_keyword:
+                                filter_by_keyword = by_keyword
+                            else:
+                                filter_by_keyword = filter_by_keyword.union(by_keyword)
+
+                            by_country = by_keyword.filter(currency__iexact=country)
+
+                            if by_country:
+                                filter_by_keyword = None
+
                                 if not jobs:
-                                    jobs = filtered_by_country
+                                    jobs = by_country 
                                 else:
-                                    jobs = jobs.union(filtered_by_country)
-    return jobs
+                                    jobs = jobs.union(by_country)
+    if jobs:
+        message = dedent('We found jobs based on your "country, search keyword and location".')
+    if not jobs and filter_by_keyword and not filter_by_location:
+        message = dedent('We could only find jobs based on "search keyword and location".')
+    if not jobs and not filter_by_keyword and filter_by_location:
+        message = dedent('We could only find jobs based on your search "location".')
+    if not jobs and not filter_by_keyword and not filter_by_location:
+        message = dedent('We did not find any jobs based on your location.')
+
+    return jobs or filter_by_keyword or filter_by_location, message
 
 
 def iexact_or_icontains(field, value):
-        return Q(**{f'{field}__iexact':value}) | Q(**{f'{field}__icontains':value})
+    iexact = {f'{field}__iexact':value}
+    icontains = {f'{field}__icontains':value}
+
+    return Q(**iexact)| Q(**icontains)
 
 
 def convert_queryset_to_json_data(context):

@@ -104,19 +104,28 @@ function appendPaginateJobObject(jobs) {
                     <a href="" class="job-job-type">${job.job_type}</a>
                     <a href="" class="job-work-location">${job.work_location}</a>
                 </div>
+                <div class='job-employer-info'>
+                    <div class="job-employer-logo-container">
+                        <img src="${job.employer_logo }" alt="">
+                    </div>
+                    <div class="job-employer-address">
+                        <p class="job-employer-name">${job.employer_name}</p>
+                        <p class="job-employer-city-state">
+                            <span>${job.employer_city},</span>
+                            <span>${job.employer_state_or_province}</span>
+                        </p>
+                        <p class="job-employer-country">
+                            <span>${job.employer_country}</span>
+                            <span>${job.employer_zip_code_or_postal_code}</span>
+                        </p>
+                    </div>
+                </div>
                 <div class="job-title-container">
                     <h3 class="job-title-header">${job.job_title}</h3>
-                    <p class="job-created">Posted ${job.created}</p>
-                </div>
-                <div class="job-employer-address">
-                    <p class="job-employer-name">${job.employer_name}</p>
-                    <p class="job-employer-city-state">
-                        <span>${job.employer_city},</span>
-                        <span>${job.employer_state_or_province}</span>
-                    </p>
-                    <p class="job-employer-country">
+                    <p class="job-created">
                         <span>${job.employer_country}</span>
-                        <span>${job.employer_zip_code_or_postal_code}</span>
+                        <span>|</span>
+                        <span>${job.created}</span>
                     </p>
                 </div>
                 <p class="job-salary">
@@ -133,7 +142,7 @@ function appendPaginateJobObject(jobs) {
                     <p>${job.qualification.length > 80 ? job.qualification.substring(0, 80) + '...':job.qualification}</p>
                 </div>
             </div>
-            <a class="see-job-detail-btn" href="/employers/jobs/${job.slug}/detail/?redirect=/candidates/jobs/">Job Detail</a>
+            <a class="see-job-detail-btn" href="/candidates/jobs/${job.slug}/detail/?redirect=/candidates/jobs/">Job Detail</a>
         `
         div.innerHTML = element
         jobsWrapper.append(div)

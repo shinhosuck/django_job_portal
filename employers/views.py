@@ -116,7 +116,6 @@ def employer_detail_view(request, slug):
 
 
 def employer_job_detail(request, slug):
-    print('SLUG', slug)
     redirect_url = request.GET.get('redirect')
     user = request.user
 

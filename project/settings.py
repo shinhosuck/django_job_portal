@@ -66,15 +66,17 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    },
-    'postgres': {
-        'ENGINE':'django.db.backends.postgresql_psycopg2',
-        'NAME': 'job_portal',
-        'USER': os.environ.get('JOB_PORTAL_USER'),
-        'PASSWORD': os.environ.get('PASSWORD'),
-        'HOST': 'localhost',
-        'PORT': '5432'
     }
+    
+    # ,
+    # 'postgres': {
+    #     'ENGINE':'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'job_portal',
+    #     'USER': os.environ.get('JOB_PORTAL_USER'),
+    #     'PASSWORD': os.environ.get('PASSWORD'),
+    #     'HOST': 'localhost',
+    #     'PORT': '5432'
+    # }
 }
 
 AUTH_PASSWORD_VALIDATORS = [

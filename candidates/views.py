@@ -152,22 +152,16 @@ def job_search_view(request):
     }
  
     if not search_query or not search_location:
-        context['my_message'] = '''
+        context['message'] = '''
         Sorry! Your search did not return anything.
         Make sure that Keyword or location field aren\'t empty.
         '''
         return render(request, 'candidates/candidates_search_results.html', context)
 
     if search_query and search_location:
-        jobs = search_filter_job(search_query, search_location, user_location)
-        
-        if not jobs:
-            message = f'''
-            Sorry! Based on your location and search '{search_query}', no jobs were found. 
-            '''
-            context['my_message'] = message
-        else:
-            context['jobs'] = jobs
+        jobs, message = search_filter_job(search_query, search_location, user_location)
+        context['jobs'] = jobs 
+        context['message'] = message
     
     if content_type == 'application/json':
         if context['jobs']:
@@ -278,6 +272,10 @@ def candidate_detail_view(request, slug):
 
 def jobs_view(request):
     jobs = Job.objects.select_related('employer')
+
+    # for job in jobs:
+    #     print('APPLICANTS:', job.applicants.all())
+    #     job.applicants.clear()
     
     pagination = request.GET.get('jobPaginate')
     suggested_jobs = request.GET.get('q')
@@ -298,8 +296,6 @@ def jobs_view(request):
     start = 0 
     end = 6
 
-    print(location_data)
-
     if request.user.is_authenticated:
         try:
             qualification = user.profile.candidatequalification
@@ -310,7 +306,7 @@ def jobs_view(request):
             jobs, qualification)
      
     context['jobs'] = qs
-    context ['my_message'] = message
+    context ['message'] = message
 
     if pagination:
         start = int(pagination) 
@@ -325,12 +321,8 @@ def jobs_view(request):
     context['location'] = json.dumps(location_data)
     context['q_param'] = suggested_jobs
     
+    # One of the jobs page dashboard link button
     if suggested_jobs:
-        """
-        - This will be triggered when suggested jobs is True.
-        - The return response to async function handleJobNavClickEvent()
-        - See candidates_jobs.js for more detail
-        """
         context['jobs'] = get_filter_jobs(context['jobs'])
         return JsonResponse(context)
 
@@ -341,7 +333,38 @@ def jobs_view(request):
     return render(request, 'candidates/candidates_jobs.html', context)
 
 
-def filter_job_view(request):
+def job_detail_view(request, slug):
+    user = request.user
+    redirect_url = request.GET.get('redirect')
+    context = {
+        'redirect_url': redirect_url
+    }
+
+    try:
+        job = Job.objects.get(slug=slug)
+    except Job.DoesNotExist:
+        job = None
+    
+    context['job'] = job
+
+    if user.is_authenticated and user.profile:
+        try:
+            qualification = CandidateQualification.objects.get(profile = user.profile)
+        except CandidateQualification.DoesNotExist:
+            qualification = None
+
+        if qualification:
+            user_type = user.profile.user_type
+            if user_type == 'job seeker':
+                if qualification in context['job'].applicants.all():
+                    context['applied'] = True
+                if SavedJob.objects.filter(saved_job=job, profile=user.profile):
+                    context['job_saved'] = True
+        # print('JOB SAVED:', SavedJob.objects.filter(saved_job=context['job'], profile=user.profile))
+    return render(request, 'candidates/candidates_job_detail.html', context)
+
+
+def filter_jobs_page_dashboard_view(request):
     user = request.user
     q_param= request.GET.get('q')
     context = {
@@ -382,8 +405,6 @@ def filter_job_view(request):
     else:
         context['jobs'] = 'No jobs'
     
-    if not context['jobs']:
-        pass
     if not context['jobs'][end:end+increment]:
         context['jobs_exist'] = False 
 
@@ -409,12 +430,13 @@ def apply_to_a_job_view(request, slug):
         return redirect('candidates:candidate-register')
     
     job.applicants.add(candidate)
+    instance, created = AppliedJob.objects.get_or_create(profile=user.profile, applied_job=job)
 
-    if not AppliedJob.objects.exists():
-        AppliedJob.objects.create(profile=user.profile, applied_job=job)
+    reverse_url = reverse('candidates:candidate-job-detail', kwargs={'slug': slug})
+    url = f'{reverse_url}?redirect=/candidates/jobs/'
 
     messages.success(request, f'Successfully applied to {job.job_title}.')
-    return redirect('candidates:jobs')
+    return redirect(url)
 
 
 @user_login_required
@@ -426,11 +448,13 @@ def save_job_view(request, slug):
     except Job.DoesNotExist:
         job = None 
 
-    if job and not SavedJob.objects.filter(profile=user.profile, saved_job=job).exists():
-        SavedJob.objects.create(profile=user.profile, saved_job=job)
+    instance, created = SavedJob.objects.get_or_create(profile=user.profile, saved_job=job)
+ 
+    reverse_url = reverse('candidates:candidate-job-detail', kwargs={'slug': slug})
+    url = f'{reverse_url}?redirect=/candidates/jobs/'
 
     messages.success(request, f'Job {job.job_title} successfully saved.')
-    return redirect('candidates:jobs')
+    return redirect(url)
 
 
 @user_login_required

@@ -7,6 +7,9 @@ class CompanyAdmin(admin.ModelAdmin):
     list_display = [
         'profile',
         'employer_name',
+        'city',
+        'state_or_province',
+        'country',
         'slug',
         'created',
         'updated'

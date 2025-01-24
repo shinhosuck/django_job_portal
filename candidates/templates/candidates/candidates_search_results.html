@@ -22,13 +22,26 @@
                             <img src="{% static 'candidates/imgs/sad_emoji.png' %}">
                         </div>
                         <p class='jobs-do-not-exist-text'>
-                            {{ my_message }}
+                            {{ message }}
                         </p>
                     </div>
                 {% else %}
                     <div class="job-search-results-wrapper">
                         <h1 class="job-search-results-header">Search Results</h1>
-                        <div class="jobs">
+                        <d iv class="jobs">
+                            {% if message %}
+                                <div class='jobs-no-matching-jobs'>
+                                    <p class='jobs-no-matching-jobs-message-container'>
+                                        <span class='info-icon'>
+                                            <i class="fa-solid fa-circle-info"></i>
+                                        </span>
+                                        <span class='jobs-no-matching-message' title='{{ message }}'>{{ message }}</span>
+                                    </p> 
+                                    <button type='button' class='jobs-no-matching-jobs-message-close-btn'>
+                                        <i class="fas fa-close"></i>
+                                    </button>
+                                </div>
+                            {% endif %}
                             {% for job in jobs %}
                                 <div class="job">
                                     <div class="job-contents">
@@ -65,18 +78,17 @@
                                             <h4>Qualification</h4>
                                             <p>{{ job.qualification|truncatechars:50 }}</p>
                                         </div>
-                                        <a class="see-job-detail-btn" href="{{ job.get_absolute_url }}?redirect={{ request.path }}">Job Detail</a>
                                     </div>
-                                    {% comment %} <a class="see-job-detail-btn" href="{{ job.get_absolute_url }}?redirect={{ request.path }}">Job Detail</a> {% endcomment %}
+                                    <a class="see-job-detail-btn" href="{{ job.get_absolute_url }}?redirect={{ request.path }}">Job Detail</a>
                                 </div>
                             {% endfor %}
                         </div>
                     </div>
-                    <div class="jobs-load-more-btn-container">
+                    {% comment %} <div class="jobs-load-more-btn-container">
                         <button type="button" class="jobs-load-more-btn">
                             Load More
                         </button>
-                    </div>
+                    </div> {% endcomment %}
                 {% endif %}
             </div>
         </section>
@@ -85,5 +97,6 @@
 {% endblock content %}
 
 {% block js %}
+    <script type="text/javascript" src="{% static 'candidates/js/candidates_jobs.js' %}"></script>
     <script type="text/javascript" src="{% static 'candidates/js/candidates_job_search_results.js' %}"></script>
 {% endblock js %}

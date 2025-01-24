@@ -623,16 +623,17 @@
 
 /* JOB DETAIL */
 .job-detail-container {
+    min-height: 100dvh;
     padding: 2rem 0;
 }
 
 .job-detail-row {
     width: 90%;
-    max-width: 900px;
+    max-width: 700px;
     margin: 0 auto;
-
     display: grid;
     align-content: start;
+    align-items: start;
     gap: 2rem;
 }
 
@@ -652,11 +653,6 @@
     display: grid;
     align-content: start;
     gap: 2rem;
-    border: 1px solid var(--black-80);
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin-top: 1rem;
-    background: white;
 }
 
 .job-detail-header-container {
@@ -799,7 +795,7 @@
     border: none;
     background: var(--black-70);
     color: var(--black-40);
-    border-radius: 5px;
+    border-radius: 30px;
     letter-spacing: 0.03rem;
     font-size: 1rem;
     font-weight: 500;
@@ -814,9 +810,9 @@
 .job-detail-update-btn,
 .job-detail-apply-btn {
     padding: 0.7rem 1.5rem;
-    background: var(--green-30);
+    background: var(--cta);
     color: white;
-    border-radius: 5px;
+    border-radius: 30px;
     letter-spacing: 0.03rem;
     font-size: 1rem;
     font-weight: 500;
@@ -828,10 +824,10 @@
 }
 
 .job-detail-save-job-btn {
-    padding: 0.6rem 1.5rem;
-    outline: 2px solid var(--green-40);
+    padding: 0.5rem 1.5rem;
+    outline: 2px solid var(--cta);
     color: var(--black-20);
-    border-radius: 5px;
+    border-radius: 30px;
     letter-spacing: 0.03rem;
     font-size: 1rem;
     font-weight: 500;
@@ -840,18 +836,37 @@
 
 @media (hover) {
     .job-detail-apply-btn:hover {
-        background: var(--green-10)
+        background: var(--green-20)
     }
 
     .job-detail-save-job-btn:hover {
-        background: var(--green-40);
+        background: var(--cta);
         color: white;
     }
 }
 
 @media screen and (min-width: 700px) {
+    .job-detail {
+        border: 1px solid var(--black-85);
+        background: var(--black-95);
+        padding: 2rem;
+        border-radius: 30px;
+    }
+
+    .job-description,
+    .job-qualification {
+        max-width: 500px;
+    }
+}
+
+@media screen and (min-width: 900px) {
     .job-detail-container {
-        padding: 3rem 0;
+        padding: 6rem 0;
+        padding-bottom: 8rem;
+    }
+
+    .job-detail-row {
+        gap: 4rem;
     }
 }
 

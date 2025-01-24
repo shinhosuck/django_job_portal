@@ -14,13 +14,13 @@
         </div>
     </section>
     <div class="jobs-container">
-        {% if not jobs %}
+        {% if not jobs and message %}
             <section class='jobs-do-not-exist-container'>
                 <div class='sad-emoji-container'>
                     <img src="{% static 'candidates/imgs/sad_emoji.png' %}">
                 </div>
                 <p class='jobs-do-not-exist-text'>
-                    {{ my_message }}
+                    {{ message }}
                 </p>
             </section>
         {% else %}
@@ -53,15 +53,20 @@
                     {% endif %}
                 </div>
             </section>
-            {% if my_message %}
-                <section class='jobs-no-matching-jobs'>
-                    <span class='jobs-no-matching-jobs-message'>{{ my_message }}</span> 
-                    <button type='button' class='jobs-no-matching-jobs-message-close-btn'>
-                        <i class="fas fa-close"></i>
-                    </button>
-                </section>
-            {% endif %}
             <section class="jobs">
+                {% if message %}
+                    <section class='jobs-no-matching-jobs'>
+                        <p class='jobs-no-matching-jobs-message-container'>
+                            <span class='info-icon'>
+                                <i class="fa-solid fa-circle-info"></i>
+                            </span>
+                            <span class='jobs-no-matching-message' title='{{ message }}'>{{ message }}</span>
+                        </p> 
+                        <button type='button' class='jobs-no-matching-jobs-message-close-btn'>
+                            <i class="fas fa-close"></i>
+                        </button>
+                    </section>
+                {% endif %}
                 {% for job in jobs %}
                     <div class="job">
                         <div class="job-contents">
@@ -108,7 +113,7 @@
                                 <p>{{ job.qualification|truncatechars:80 }}</p>
                             </div>
                         </div>
-                        <a class="see-job-detail-btn" href="{{ job.get_absolute_url }}?redirect={{ request.path }}">Job Detail</a>
+                        <a class="see-job-detail-btn" href="{% url 'candidates:candidate-job-detail' job.slug %}?redirect={{ request.path }}">Job Detail</a>
                     </div>
                 {% endfor %}
             </section>

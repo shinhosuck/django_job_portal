@@ -910,7 +910,7 @@
 
 /* ==== JOBS ==== */
 .jobs-hero-img {
-    min-height: 80svh;
+    min-height: 60dvh;
     background: linear-gradient(to bottom, 
     rgba(0, 0, 0, 0.800), rgba(0, 0, 0, 0.5)), url('../imgs/jobs_hero.webp');
     background-position: center;
@@ -1002,12 +1002,6 @@
     text-wrap: nowrap;
     text-overflow: ellipsis;
     padding-bottom: 0.8rem;
-}
-
-.job-no-job {
-    border: none !important;
-    background: none !important;
-    padding: 0 !important
 }
 
 .jobs-do-not-exist-container {
@@ -1136,38 +1130,56 @@
 }
 
 .jobs-no-matching-jobs {
+    grid-column: 1 / -1;
     display: flex;
     align-items: center;
-    gap: 2rem;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
-.jobs-no-matching-jobs-message {
-    color: var(--black-10);
+.jobs-no-matching-jobs-message-container {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    overflow-x: hidden;
+}
+
+.jobs-no-matching-message {
+    color: var(--black-40);
     letter-spacing: 0.03rem;
-    overflow: hidden;
+    font-size: 0.9rem;
+    font-weight: 500;
+    overflow-x: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-size: 1rem;
-    font-weight: 500;
+}
+
+.info-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    color: var(--black-10);
+    font-size: 1.25rem;
+    margin: 0.2rem;
 }
 
 .jobs-no-matching-jobs-message-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 15px;
+    height: 15px;
+    margin-left: 2rem;
+    color: var(--black-20);
     border: none;
-    color: var(--black-40);
     background: none;
     cursor: pointer;
-    transition: color 100ms linear;
-}
-
-@media (hover) {
-    .jobs-no-matching-jobs-message-close-btn:hover {
-        color: var(--green-40)
-    }
 }
 
 .jobs-no-matching-jobs-message-close-btn > i {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
 }
 
 .job-title-container {
@@ -1271,6 +1283,25 @@
     cursor: initial;
 }
 
+.dashboard-jobs-no-jobs {
+    border: none !important;
+    background: none !important;
+    padding: 0 !important
+}
+
+.dashboard-jobs-do-not-exist-container {
+    display: grid;
+    align-items: start;
+    align-content: start;
+    gap: 1.5rem;
+}
+
+.dashboard-jobs-do-not-exist-message {
+    font-weight:500;
+    color:var(--black-40);
+    font-size:1.1rem
+}
+
 @media (hover) {
     .see-job-detail-btn:hover {
         background: var(--green-20);
@@ -1318,6 +1349,296 @@
 
 /* ==== END ==== */
 
+/* ==== CANDIDATES JOB DETAIL ==== */
+.job-detail-hero-text-container {
+    width: 90%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding-top: 6rem;
+    padding-bottom: 2rem;
+    display: grid;
+    align-content: start;
+    align-items: start;
+    gap: 1rem;
+}
+
+.job-detail-hero-header {
+    letter-spacing: 0.03rem;
+    color: white;
+    text-wrap: pretty;
+    font-size: clamp(2.3rem, 1dvw + 1.8rem, 3rem);
+}
+
+.job-detail-hero-text {
+    color: var(--black-90);
+    text-wrap: pretty;
+    max-width: 600px;
+    letter-spacing: 0.04rem;
+    line-height: 1.4;
+    font-size: 1.1rem;
+}
+
+.job-detail-container {
+    min-height: 100dvh;
+    padding: 2rem 0;
+}
+
+.job-detail-row {
+    width: 90%;
+    max-width: 700px;
+    margin: 0 auto;
+    display: grid;
+    align-content: start;
+    align-items: start;
+    gap: 2rem;
+}
+
+.job-detail-redirect {
+    color: var(--black-30);
+    letter-spacing: 0.03rem;
+    justify-self: start;
+    font-size: 1.1rem;
+}
+
+@media (hover) {
+    .job-detail-redirect:hover {
+        color: var(--green-30);
+    }
+}
+
+.job-detail {
+    display: grid;
+    align-content: start;
+    gap: 2rem;
+}
+
+.job-detail-header-container {
+    display: grid;
+    align-content: start;
+    gap: 0.3rem;
+}
+
+.job-detail-job-title {
+    color: var(--green-10);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.7rem;
+}
+
+.job-detail-job-title > span {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--black-40);
+    font-size: 0.9rem;
+}
+
+.job-detail-job-info-container {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.job-detail-employer-logo-container {
+    width: 80px;
+    height: 80px;
+}
+
+.job-detail-employer-logo-container > img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.job-detail-address {
+    display: grid;
+    align-content: start;
+    gap: 0.2rem
+}
+
+.job-detail-employer-name {
+    color: var(--green-10);
+    font-weight: 600;
+}
+
+.job-detail-employer-address,
+.job-detail-employer-state-country {
+    font-size: 0.9rem;
+    color: var(--black-20)
+}
+
+.job-pay-rate-job-type-container {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+}
+
+.job-detail-job-posted,
+.job-pay-type,
+.job-pay-rate {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.job-detail-job-posted > h4,
+.job-pay-type > h4,
+.job-pay-rate > h4 {
+    color: var(--green-10);
+}
+
+.job-detail-job-posted,
+.job-detail-pay-rate,
+.job-detail-salary {
+    color: var(--black-20)
+}
+
+.job-description-container,
+.job-qualification-container {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+}
+
+.job-description-header,
+.job-qualification-header {
+    color: var(--green-10);
+    font-size: 1rem;
+}
+
+.job-description,
+.job-qualification {
+    line-height: 1.4;
+    color: var(--black-20);
+    letter-spacing: 0.03rem;
+    line-height: 1.4;
+}
+
+.job-detail-job-applicant-container {
+    position: relative;
+    display: grid;
+    align-content: start;
+    justify-self: start;
+    gap: 0.5rem;
+}
+
+.job-detail-job-applicant-container >
+.employer-dashboard-employer-job-applicants {
+    min-width: 140px;
+    top: calc(100% + 5px)
+}
+
+.job-detail-job-applicants {
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+}
+
+.job-detail-job-applicant {
+    display: grid;
+    align-content: start;
+}
+
+.job-detail-job-applicant-name {
+    color: var(--green-30);
+    text-decoration: underline;
+    font-size: 0.9rem;
+}
+
+.job-detail-applied-btn-container {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.job-detail-not-authenticated-btn,
+.job-detail-applied-btn,
+.job-detail-job-saved-btn {
+    justify-self: start;
+    padding: 0.7rem 1.5rem;
+    border: none;
+    background: var(--black-70);
+    color: var(--black-40);
+    border-radius: 30px;
+    letter-spacing: 0.03rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.job-detail-apply-btn-container {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem
+}
+
+.job-detail-apply-btn {
+    padding: 0.7rem 1.5rem;
+    background: var(--cta);
+    color: white;
+    border-radius: 30px;
+    letter-spacing: 0.03rem;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background 200ms linear;
+}
+
+.job-detail-save-job-btn {
+    padding: 0.5rem 1.5rem;
+    outline: 2px solid var(--cta);
+    color: var(--black-20);
+    border-radius: 30px;
+    letter-spacing: 0.03rem;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background 200ms linear;
+}
+
+@media (hover) {
+    .job-detail-apply-btn:hover {
+        background: var(--green-20)
+    }
+
+    .job-detail-save-job-btn:hover {
+        background: var(--cta);
+        color: white;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .job-detail-hero-header {
+        text-align: center;
+    }
+    
+    .job-detail-hero-text {
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .job-detail {
+        border: 1px solid var(--black-85);
+        background: var(--black-95);
+        padding: 2rem;
+        border-radius: 30px;
+    }
+
+    .job-description,
+    .job-qualification {
+        max-width: 500px;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .job-detail-container {
+        padding: 4rem 0;
+        padding-bottom: 6rem;
+    }
+
+    .job-detail-row {
+        gap: 4rem;
+    }
+}
+
+/* ==== END ==== */
 
 /* ==== JOB SEARCH ==== */
 .candidates-job-search-result-hero-container {

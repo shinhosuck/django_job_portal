@@ -95,8 +95,6 @@ async function submitSearchForm(values) {
 
     const url = `${origin}/candidates/jobs/search/?search=${search.value}&location=${location.value}`
 
-    console.log(url)
-
     const resp = await fetch(url, {
         method: 'GET',
         headers: {

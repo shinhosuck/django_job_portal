@@ -1,7 +1,7 @@
 {% load static %}
 
 
-<div class="footer-row">
+<section class="footer-row">
     <div class="footer-contents">
         <div class="footer-content footer-brand-content">
             <a  href='{% url "candidates:landing-page" %}' class="footer-brand-logo">
@@ -78,15 +78,17 @@
             </form>
         </div>
     </div>
-    <div class="footer-social-links">
-        <a href="https://www.linkedin.com/in/eric-anderson-a6b906214" target="_blank"  class="footer-social-link">
-            <i class="fa-brands fa-linkedin"></i>
-        </a>
-        <a href="https://github.com/shinhosuck/django_job_portal" target="_blank" class="footer-social-link">
-            <i class="fa-brands fa-github"></i>
-        </a>
+   <div class="footer-bottom-row">
+        <div class="footer-social-links">
+            <a href="https://www.linkedin.com/in/eric-anderson-a6b906214" target="_blank"  class="footer-social-link">
+                <i class="fa-brands fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/shinhosuck/django_job_portal" target="_blank" class="footer-social-link">
+                <i class="fa-brands fa-github"></i>
+            </a>
+        </div>
+        <div class="footer-copy-right">
+            <p>&copy;2024 HireSpot Team</p>
+        </div>
     </div>
-    <div class="footer-copy-right">
-        <p>&copy;2024 HireSpot Team</p>
-    </div>
-</div>
+</section>

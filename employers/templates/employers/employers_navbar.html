@@ -4,7 +4,7 @@
 
     <nav class="lg-nav-bar">
         <div class="brand-container">
-            <a href="{% url 'employers:employer' %}" class="brand-logo">HireSpot</a>
+            <a href="{% if redirect_url != '/candidates/jobs/' %}{% url 'employers:employer' %}{% else %}{% url 'candidates:landing-page' %}{% endif %}" class="brand-logo">HireSpot</a>
         </div>
         {% with request.resolver_match.url_name as url_name %}
             <div class="navlinks">
