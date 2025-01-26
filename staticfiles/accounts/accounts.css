@@ -119,14 +119,15 @@
     border-radius: 8px;
     color: var(--black-30);
     letter-spacing: 0.03rem;
+    position: relative;
 }
 
 .register-input-row > input::placeholder {
     white-space:pre-line;
     position: absolute;
     top: 50%;
+    transform: translateY(-50%);
     font-size: 0.95rem;
-    transform: translateY(-50%)
 }
 
 .register-form-sign-up-btn {

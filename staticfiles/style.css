@@ -114,7 +114,7 @@ button {
     z-index: 2;
     width: 90%;
     max-width: 1400px;
-    top:70px;
+    top:75px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -521,19 +521,19 @@ button {
     background-size: cover;
     background-repeat: no-repeat;
     display: flex;
-    align-items: start;
+    align-items: center;
 }
 
 .about-hero-content {
     width: 90%;
     max-width: 1400px;
     margin: 0 auto;
-    margin-top: 6rem;
+    /* margin-top: 6rem; */
     display: grid;
     gap: 1rem;
     align-content: start;
     align-items: start;
-    /* text-align: center; */
+    padding: 2rem 0;
 }
 
 .about-hero-header {
@@ -550,7 +550,6 @@ button {
     color: var(--black-90);
     text-wrap: pretty;
     max-width: 600px;
-    /* margin: 0 auto */
 }
 
 .about-hero-subtext > strong {
@@ -573,14 +572,12 @@ button {
     align-items: start;
     align-content: start;
     gap: 1rem;
-    /* justify-content: center; */
 }
 
 .about-content-image-container {
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    /* justify-content: center; */
 }
 
 .about-content-image-container > div {
@@ -612,7 +609,6 @@ button {
     text-wrap: pretty;
     max-width: 700px;
     margin: 0 auto;
-    /* text-align: center; */
     font-size: clamp(1rem, 1vw + 1rem, 1.1rem);
 }
 
@@ -734,6 +730,15 @@ button {
 }
 
 @media screen and (min-width: 900px) {
+    .about-hero-container {
+        align-items: start;
+    }
+
+    .about-hero-content {
+        margin-top: 6rem;
+        padding: 0;
+    }
+
     .about-contents-wrapper {
         padding: 3rem 0;
         padding-bottom: 6rem;
@@ -828,6 +833,7 @@ button {
     gap: 1.5rem;
 }
 
+.contact-form-location-container,
 .contact-form-email-container,
 .contact-form-phone-container {
     display: grid;
@@ -843,18 +849,21 @@ button {
 }
 
 .contact-form-email-icon,
-.contact-form-phone-icon {
+.contact-form-phone-icon,
+.contact-form-map-icon {
     display: flex;
     align-items: center;
     gap: 0.6rem
 }
 
+.contact-form-map-icon > i,
 .contact-form-email-icon > i,
 .contact-form-phone-icon > i {
     font-size: 1.3rem;
     color: var(--accent-text)
 }
 
+.contact-form-map-icon > span,
 .contact-form-email-icon > span,
 .contact-form-phone-icon > span {
     font-weight: 600;
@@ -862,9 +871,19 @@ button {
     font-size: 1.1rem;
 }
 
+.contact-google-map-container {
+    border: 1px solid var(--black-85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    background: var(--black-95);
+    border-radius: 8px;
+}
+
 @media screen and (min-width: 750px) {
     .contact-container {
-        grid-template-columns: 3fr 1fr;
+        grid-template-columns: 2fr 1fr;
         gap: 3rem;
     }
 
