@@ -202,7 +202,7 @@ def profile_view(request):
     skills = qualification and qualification.skills or None
 
     context = {
-        'skills':skills and skills.split(' '),
+        'skills':skills and skills.split(','),
         'resume': resume and resume.split('/')[-1],
         'profile': profile,
         'qualification': qualification,

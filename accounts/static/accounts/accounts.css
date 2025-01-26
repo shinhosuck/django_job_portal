@@ -684,34 +684,64 @@ br {
 
 /* CANDIDATE PROFILE INFO */
 .candidate-profile-info-container {
-    width: 90%;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 2rem 0;
+    /* padding: 2rem 0; */
+}
 
+.candidate-profile-form-add,
+.candidate-profile-form-update {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    background: var(--cta);
+    text-wrap: nowrap;
+    padding: 0.7rem 1.2rem;
+    border-radius: 30px;
+    transition: background 100ms linear;
+}
+
+@media (hover) {
+    .candidate-profile-form-add:hover,
+    .candidate-profile-form-update:hover {
+        background: var(--green-20);
+    }
+
+}
+
+/* Profile section */
+.candidate-profile-container {
+    min-height: 60dvh;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.75)),
+    url('../../../static/imgs/about.webp');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+}
+
+.candidate-profile-row {
+    width: 90%;
+    max-width: 700px;
+    margin: 0 auto;
+    display: grid;
+    align-content: start;
+    gap: 3rem;
+    padding: 2rem 0;
+}
+
+.profile-info {
     display: grid;
     align-content: start;
     gap: 2rem;
 }
 
-.candidate-profile-row {
-    display: grid;
-    align-content: start;
-    gap: 3rem;
-}
-
-.user-profile-image-name {
-    display: grid;
-    align-content: start;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-}
-
 .profile-image-container {
-    justify-self: center;
     border-radius: 50%;
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
+    background: white;
+    padding: 0.4rem
 }
 
 .profile-image-container > img {
@@ -721,87 +751,60 @@ br {
     border-radius: 50%;
 }
 
-.profile-name {
-    text-align: center;
+.profile-user-info-container{
+    display: flex;
+    align-items: center;
+    column-gap: 2rem;
+    row-gap: 1.5rem;
+    flex-wrap: wrap;
+    overflow-x: hidden;
 }
 
-.profile-personal-info {
-    display: grid;
-    align-content: start;
-    gap: 1rem;
-}
-
-.candidate-profile-header {
-    color: var(--black-10);
+.profile-name-container {
+    flex: 0 0 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    font-size: 1.2rem;
-    font-weight: 600;
+    overflow-x: hidden;
 }
 
-.candidate-profile-header > a {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--green-25)
-}
-
-@media (hover) {
-    .candidate-profile-header > a:hover {
-        color: var(--green-35);
-    }
-}
-
-.profile-user-info-container {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 2rem;
-    padding: 1.5rem;
-    border-radius: 8px;
-    border: 1px solid var(--black-80);
-    background: white;
-}
-
-
-.candidate-profile-experience-row,
-.candidate-profile-education-row {
-    display: grid;
-    align-content: start;
-    gap: 1rem;
-}
-
-.candidate-profile-experiences,
-.candidate-profile-educations {
-    display: grid;
-    align-content: start;
-    gap: 1.5rem;
-}
-
-.candidate-profile-experience,
-.candidate-profile-education {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 2rem;
-    padding: 1.5rem;
-    border-radius: 8px;
-    border: 1px solid var(--black-80);
-    background: white;
-}
-
-.profile-user-info-row > a,
-.profile-user-info-row > p:last-child{
-    color: var(--black-10);
-    overflow: hidden;
+.profile-name {
+    font-size: clamp(1.3rem, 1vw + 1.3rem, 2rem);
+    /* color: var(--black-10); */
+    color: white;
+    overflow-x: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
-/* .profile-user-info-row > a {
-    color: var(--green-20)
-} */
+.profile-user-info-row {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    overflow-x: hidden;
+}
+
+.profile-user-info-row > i {
+    color: var(--accent-text);
+    padding-right: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.profile-user-info-row > span {
+    /* color: var(--black-20); */
+    color: var(--black-80);
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.profile-user-info-row > p {
+    /* color: var(--black-10); */
+    color: white;
+    font-weight: 500;
+    margin-right: 0.2rem;
+}
 
 .profile-applied-jobs-container,
 .profile-saved-jobs-container {
@@ -813,87 +816,328 @@ br {
 
 .profile-applied-jobs-container > a,
 .profile-saved-jobs-container > a {
-    color: var(--black-10);
-    background: var(--black-90);
-    padding: 0.3rem 0.5rem;
+    /* color: var(--cta); */
+    color: var(--green-50);
     font-size: 0.9rem;
-    border-radius: 4px;
     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-decoration: underline;
+}
+/* End of profile */
+
+/* Qualification */
+.candidate-qualification-row {
+    width: 90%;
+    max-width: 700px;
+    margin: 0 auto;
+    display: grid;
+    align-content: start;
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.candidate-qualification-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    overflow-x: hidden;
+}
+
+.candidate-qualification-header {
+    font-size: clamp(1.3rem, 1vw + 1.3rem, 2rem);
+    color: var(--black-10);
+    overflow-x: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
-@media (hover) {
-    .profile-user-info-row > a:hover {
-        color: var(--green-30)
-    }
+.candidate-qualification-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 2rem;
+    row-gap: 1rem;
+    overflow-x: hidden;
 }
 
-.profile-user-info-row {
+.candidate-qualification {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
-.profile-user-info-row > i {
-    color: var(--black-60);
-    padding-right: 0.5rem;
-    font-size: 1.2rem;
+.qualification-sub-header {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--black-10)
 }
 
-.profile-user-info-row > p:first-child {
-    color: var(--black-50);
-    font-weight: 500;
-    text-wrap: nowrap;
+.candidate-qualification-resume {
+    color: var(--cta);
+    text-decoration: underline;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
-.profile-qualification-skill {
+.candidate-qualification-skills {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    overflow-x: hidden;
+}
+
+.candidate-qualification-skill {
     background: var(--black-90);
     padding: 0.3rem 0.5rem;
     border-radius: 4px;
     font-size: 0.9rem;
     color: var(--black-10);
-    overflow: hidden;
+    overflow-x: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
-.candidate-profile-form-update-mobile {
-    padding: 0.6rem 1.5rem;
-    color: white;
-    border-radius: 5px;
-    justify-self: end;
-    background: var(--green-30);
-    color: white;
+.candidate-qualification > span {
+    color: var(--black-30)
+}
+/* End of qualification */
+
+/* Education */
+.candidate-education-container {
+    background: var(--black-95)
 }
 
-.candidate-profile-form-update {
-    justify-self: end;
-    color: var(--green-30);
-    display: none;
+.candidate-education-row {
+    width: 90%;
+    max-width: 700px;
+    margin: 0 auto;
+    display: grid;
+    align-content: start;
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.candidate-education-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    overflow-x: hidden;
+}
+
+.candidate-education-header {
+    font-size: clamp(1.3rem, 1vw + 1.3rem, 2rem);
+    color: var(--black-10);
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.candidate-educations {
+    display: grid;
+    align-items: start;
+    align-content: start;
+    gap: 1rem;
+}
+
+.candidate-education {
+    display: grid;
+    align-items: start;
+    align-content: start;
+    gap: 1.5rem;
+    border: 1px solid var(--black-85);
+    padding: 1.4rem;
+    border-radius: 25px;
+    background: white;
+}
+
+.candidate-education-institution {
+    color: var(--black-10)
+}
+
+.candidate-education-text-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 1.5rem;
+    row-gap: 0.8rem;
+}
+
+.candidate-education-text-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.candidate-education-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--black-10);
+}
+
+.candidate-education-text-wrapper > p {
+    color: var(--black-30);
+}
+
+.candidate-education-btns {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem
+}
+
+.candidate-education-btns > 
+.candidate-profile-form-update,
+.candidate-education-btns > 
+.candidate-profile-form-remove {
+    background: var(--cta);
+    color: white;
     text-wrap: nowrap;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: background 100ms linear;
+}
+
+.candidate-education-btns > 
+.candidate-profile-form-remove {
+    background: var(--black-30);
 }
 
 @media (hover) {
+    .candidate-education-btns > 
     .candidate-profile-form-update:hover {
-        color: var(--green-20);
+        background: var(--green-20);
     }
-
-}
-
-@media screen and (min-width: 600px) {
-    .candidate-profile-form-update-mobile {
-        display: none;
-    }
-
-    .candidate-profile-form-update {
-        display: block;
+    .candidate-education-btns > 
+    .candidate-profile-form-remove:hover {
+        background: var(--black-10);
     }
 }
+/* End of education */
 
-@media screen and (min-width: 700px) {
-    .candidate-profile-info-container {
-        padding: 3rem 0;
+/* Experience */
+.candidate-experience-row {
+    width: 90%;
+    max-width: 700px;
+    margin: 0 auto;
+    display: grid;
+    align-content: start;
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.candidate-experience-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    overflow-x: hidden;
+}
+
+.candidate-experience-header {
+    font-size: clamp(1.3rem, 1vw + 1.3rem, 2rem);
+    color: var(--black-10);
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.candidate-experiences {
+    display: grid;
+    align-items: start;
+    align-content: start;
+    gap: 1rem;
+}
+
+.candidate-experience {
+    display: grid;
+    align-items: start;
+    align-content: start;
+    gap: 1.5rem;
+    border: 1px solid var(--black-85);
+    padding: 1.4rem;
+    border-radius: 25px;
+    background: var(--black-95);
+}
+
+.candidate-experience-text-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 1.5rem;
+    row-gap: 0.8rem;
+}
+
+.candidate-experience-text-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.candidate-experience-company {
+    color: var(--black-10)
+}
+
+.candidate-experience-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--black-10);
+}
+
+.candidate-experience-text-wrapper > p {
+    color: var(--black-30);
+}
+
+.candidate-experience-btns {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem
+}
+
+.candidate-experience-btns > 
+.candidate-profile-form-update,
+.candidate-experience-btns > 
+.candidate-profile-form-remove {
+    background: var(--cta);
+    color: white;
+    text-wrap: nowrap;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: background 100ms linear;
+}
+
+.candidate-experience-btns > 
+.candidate-profile-form-remove {
+    background: var(--black-30);
+}
+
+@media (hover) {
+    .candidate-experience-btns > 
+    .candidate-profile-form-update:hover {
+        background: var(--green-20);
+    }
+    .candidate-experience-btns > 
+    .candidate-profile-form-remove:hover {
+        background: var(--black-10);
+    }
+}
+
+/* End of experience */
+
+@media screen and (min-width: 900px) {
+    .candidate-profile-row,
+    .candidate-qualification-row,
+    .candidate-education-row,
+    .candidate-experience-row{
+        padding: 4rem 0;
+    }
+
+    .candidate-experience-row{
+        padding-bottom: 6rem;
     }
 }

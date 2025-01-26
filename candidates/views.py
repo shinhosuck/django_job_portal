@@ -272,11 +272,6 @@ def candidate_detail_view(request, slug):
 
 def jobs_view(request):
     jobs = Job.objects.select_related('employer')
-
-    # for job in jobs:
-    #     print('APPLICANTS:', job.applicants.all())
-    #     job.applicants.clear()
-    
     pagination = request.GET.get('jobPaginate')
     suggested_jobs = request.GET.get('q')
 
