@@ -31,7 +31,7 @@
                     {{ job.job_title }}
                 </h2>
             </div>
-            <div class="job-detail-job-info-container">
+            <a href="{{ job.employer.get_absolute_url }}"  target="_blank" class="job-detail-job-info-container">
                 <div class="job-detail-employer-logo-container">
                     <img src="{{ job.employer.get_logo_url }}" alt="">
                 </div>
@@ -48,7 +48,7 @@
                         <span>{{ job.employer.zip_code_or_postal_code }}</span>
                     </p>
                 </div>
-            </div>
+            </a>
             <div class="job-pay-rate-job-type-container">
                 <div class="job-pay-rate">
                     <h4>Pay Rate:</h4>

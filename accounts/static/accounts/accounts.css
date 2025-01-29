@@ -683,10 +683,6 @@ br {
 }
 
 /* CANDIDATE PROFILE INFO */
-.candidate-profile-info-container {
-    /* padding: 2rem 0; */
-}
-
 .candidate-profile-form-add,
 .candidate-profile-form-update {
     display: flex;
@@ -738,8 +734,8 @@ br {
 
 .profile-image-container {
     border-radius: 50%;
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     background: white;
     padding: 0.4rem
 }
@@ -755,7 +751,7 @@ br {
     display: flex;
     align-items: center;
     column-gap: 2rem;
-    row-gap: 1.5rem;
+    row-gap: 1rem;
     flex-wrap: wrap;
     overflow-x: hidden;
 }
@@ -767,11 +763,11 @@ br {
     justify-content: space-between;
     gap: 1rem;
     overflow-x: hidden;
+    margin-bottom: 0.5rem;
 }
 
 .profile-name {
     font-size: clamp(1.3rem, 1vw + 1.3rem, 2rem);
-    /* color: var(--black-10); */
     color: white;
     overflow-x: hidden;
     white-space: nowrap;
@@ -792,7 +788,6 @@ br {
 }
 
 .profile-user-info-row > span {
-    /* color: var(--black-20); */
     color: var(--black-80);
     overflow-x: hidden;
     white-space: nowrap;
@@ -800,7 +795,6 @@ br {
 }
 
 .profile-user-info-row > p {
-    /* color: var(--black-10); */
     color: white;
     font-weight: 500;
     margin-right: 0.2rem;
@@ -816,7 +810,6 @@ br {
 
 .profile-applied-jobs-container > a,
 .profile-saved-jobs-container > a {
-    /* color: var(--cta); */
     color: var(--green-50);
     font-size: 0.9rem;
     overflow: hidden;

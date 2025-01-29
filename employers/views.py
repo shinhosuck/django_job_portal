@@ -88,12 +88,13 @@ def employer_profile_view(request):
 
 
 def employer_detail_view(request, slug):
+
     redirect_url = request.GET.get('redirect')
     user = request.user
     context = {}
 
-    if not redirect_url:
-        raise Http404('Page Does Not Exist.')
+    # if not redirect_url:
+    #     raise Http404('Page Does Not Exist.')
 
     try:
         employer = Employer.objects.get(slug=slug)

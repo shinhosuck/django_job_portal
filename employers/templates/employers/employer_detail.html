@@ -6,6 +6,16 @@
 {% endblock title %}
 
 {% block content %}
+<section class="employer-company-hero-img">
+    <div class="employer-company-hero-text-container">
+        <h1 class="employer-company-hero-header">
+            Compay Detail
+        </h1>
+        <p class="employer-company-hero-text">
+            {{ employer.about_employer}}
+        </p>
+    </div>
+</section>
 <div class="employer-detail-container">
     <div class="employer-detail-row">
         <a href="{{ redirect_url }}" class="employer-detail-redirect">

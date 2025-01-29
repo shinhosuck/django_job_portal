@@ -64,7 +64,7 @@
                         <div class="profile-user-info-row">
                             <p>Applied:</p>
                             {% if not profile.applied_jobs.count %}
-                                <p>Not available</p>
+                                <span>Not available</span>
                             {% else %}
                                 <div class="profile-applied-jobs-container">
                                     {% for job in profile.applied_jobs.all %}
@@ -78,7 +78,7 @@
                         <div class="profile-user-info-row">
                             <p>Saved:</p>
                             {% if not profile.saved_jobs.count %}
-                                <p>Not available</p>
+                                <span>Not available</span>
                             {% else %}
                                 <div class="profile-saved-jobs-container">
                                     {% for job in profile.saved_jobs.all%}
