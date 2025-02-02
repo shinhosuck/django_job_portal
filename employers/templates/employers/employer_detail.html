@@ -9,22 +9,15 @@
 <section class="employer-company-hero-img">
     <div class="employer-company-hero-text-container">
         <h1 class="employer-company-hero-header">
-            Compay Detail
+            {{ employer.employer_name }}
         </h1>
         <p class="employer-company-hero-text">
-            {{ employer.about_employer}}
+            {{ employer.about_employer }}
         </p>
     </div>
 </section>
 <div class="employer-detail-container">
-    <div class="employer-detail-row">
-        <a href="{{ redirect_url }}" class="employer-detail-redirect">
-            <i class="fas fa-arrow-left"></i>
-            <span>Back to previous page</span>
-        </a>
-        <h1 class="employer-detail-header">
-            {{ employer.employer_name}}
-        </h1>
+    <section class="employer-detail-row">
         <div class="employer-detail-employer">
             <div class="employer-detail-employer-info">
                 <div class="employer-detail-employer-logo-container">
@@ -49,19 +42,19 @@
             </div>
             <div class="employer-detail-employer-about">
                 <h4 class="employer-detail-employer-about-header">
-                    About
+                    About Us
                 </h4>
                 <p class="employer-detail-employer-about-text">
                     {{ employer.about_employer}}
                 </p>
             </div>
             <div class="employer-detail-employer-website">
-                <h4 class="employer-detail-employer-website-header">Website</h4>
+                <h4 class="employer-detail-employer-website-header">Our Website</h4>
                 <a href="{{ employer.website }}" target="_blank" class="employer-detail-employer-website-url">
                     {{ employer.website }}
                 </a>
             </div>
         </div>
-    </div>
+    </section>
 </div>
 {% endblock content %}

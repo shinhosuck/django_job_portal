@@ -1132,12 +1132,12 @@
 
 
 .employer-detail-container {
-    padding: 3rem 0;
+    padding: 2rem 0;
 }
 
 .employer-detail-row {
     width: 90%;
-    max-width: 900px;
+    max-width: 700px;
     margin: 0 auto;
 
     display: grid;
@@ -1166,10 +1166,6 @@
     display: grid;
     align-content: start;
     gap: 2rem;
-    padding: 1.5rem;
-    border-radius: 8px;
-    border: 1px solid var(--black-80);
-    background: white;
 }
 
 .employer-detail-employer-info {
@@ -1256,6 +1252,16 @@
 }
 
 @media screen and (min-width: 700px) {
+    .employer-detail-employer {
+        display: grid;
+        align-content: start;
+        gap: 2rem;
+        border: 1px solid var(--black-85);
+        background: var(--black-95);
+        padding: 2rem;
+        border-radius: 30px;
+    }
+
     .employer-company-hero-header {
         text-align: center;
     }
@@ -1263,5 +1269,12 @@
     .employer-company-hero-text {
         text-align: center;
         margin: 0 auto;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .employer-detail-container {
+        padding: 4rem 0;
+        padding-bottom: 6rem;
     }
 }
