@@ -1092,13 +1092,52 @@
 }
 
 /* EMPLOYER DETAIL */
+.employer-company-hero-img {
+    min-height: 60dvh;
+    background: linear-gradient(to bottom, 
+    rgba(0, 0, 0, 0.800), rgba(0, 0, 0, 0.5)), url('imgs/company_detail.webp');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.employer-company-hero-text-container {
+    width: 90%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding-top: 6rem;
+    padding-bottom: 2rem;
+    display: grid;
+    align-content: start;
+    align-items: start;
+    gap: 1rem;
+}
+
+.employer-company-hero-header {
+    letter-spacing: 0.03rem;
+    color: white;
+    text-wrap: pretty;
+    font-size: clamp(2.3rem, 1dvw + 1.8rem, 3rem);
+}
+
+.employer-company-hero-text {
+    color: var(--black-90);
+    text-wrap: pretty;
+    max-width: 600px;
+    letter-spacing: 0.04rem;
+    line-height: 1.4;
+    font-size: 1.1rem;
+}
+
+
 .employer-detail-container {
-    padding: 3rem 0;
+    padding: 2rem 0;
 }
 
 .employer-detail-row {
     width: 90%;
-    max-width: 900px;
+    max-width: 700px;
     margin: 0 auto;
 
     display: grid;
@@ -1127,10 +1166,6 @@
     display: grid;
     align-content: start;
     gap: 2rem;
-    padding: 1.5rem;
-    border-radius: 8px;
-    border: 1px solid var(--black-80);
-    background: white;
 }
 
 .employer-detail-employer-info {
@@ -1213,5 +1248,33 @@
 @media (hover) {
     .employer-detail-employer-website-url:hover {
         color: var(--green-20);
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .employer-detail-employer {
+        display: grid;
+        align-content: start;
+        gap: 2rem;
+        border: 1px solid var(--black-85);
+        background: var(--black-95);
+        padding: 2rem;
+        border-radius: 30px;
+    }
+
+    .employer-company-hero-header {
+        text-align: center;
+    }
+    
+    .employer-company-hero-text {
+        text-align: center;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .employer-detail-container {
+        padding: 4rem 0;
+        padding-bottom: 6rem;
     }
 }

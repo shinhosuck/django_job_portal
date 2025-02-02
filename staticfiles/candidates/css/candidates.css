@@ -916,7 +916,6 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-
     position: relative;
 }
 
@@ -1101,6 +1100,14 @@
     align-items: center;
     gap: 0.5rem;
     margin-top: 0.5rem;
+}
+
+@media (hover) {
+    .job-employer-info:hover {
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-decoration-color: var(--cta);
+    }
 }
 
 .job-employer-logo-container {
@@ -1439,6 +1446,14 @@
     gap: 0.8rem;
 }
 
+@media (hover) {
+    .job-detail-job-info-container:hover {
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-decoration-color: var(--cta);
+    }
+}
+
 .job-detail-employer-logo-container {
     width: 80px;
     height: 80px;
@@ -1634,7 +1649,7 @@
     }
 
     .job-detail-row {
-        gap: 4rem;
+        gap: 3rem;
     }
 }
 

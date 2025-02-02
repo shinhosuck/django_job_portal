@@ -248,7 +248,7 @@ function createHtmlElements(data) {
 
         div.innerHTML = element 
         jobsContainer.innerHTML = ''
-        jobsContainer.append(div)
+        jobsContainer.append(a)
         jobsContainer.style.minHeight = '80dvh'
     }
     else {
@@ -261,9 +261,9 @@ function createHtmlElements(data) {
                         <a href="" class="job-job-type">${job.job_type}</a>
                         <a href="" class="job-work-location">${job.work_location}</a>
                     </div>
-                    <div class='job-employer-info'>
+                    <a href='${job.employer_url}' target='_blank' class='job-employer-info'>
                         <div class="job-employer-logo-container">
-                            <img src="${job.employer_logo }" alt="">
+                            <img src="${job.employer_logo}" alt="">
                         </div>
                         <div class="job-employer-address">
                             <p class="job-employer-name">${job.employer_name}</p>
@@ -276,7 +276,7 @@ function createHtmlElements(data) {
                                 <span>${job.employer_zip_code_or_postal_code}</span>
                             </p>
                         </div>
-                    </div>
+                    </a>
                     <div class="job-title-container">
                         <h3 class="job-title-header">${job.job_title}</h3>
                         <p class="job-created">

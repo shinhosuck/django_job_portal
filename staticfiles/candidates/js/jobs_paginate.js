@@ -95,7 +95,7 @@ function setJobsPagination(data, pagination) {
 function appendPaginateJobObject(jobs) {
     let div = document.createElement('div')
     div.setAttribute('class', 'job')
-
+    
     jobs.forEach((job) => {
         const element = `
             <div class="job-contents">
@@ -104,7 +104,7 @@ function appendPaginateJobObject(jobs) {
                     <a href="" class="job-job-type">${job.job_type}</a>
                     <a href="" class="job-work-location">${job.work_location}</a>
                 </div>
-                <div class='job-employer-info'>
+                <a  href='${job.employer_url}' target='_blank' class='job-employer-info'>
                     <div class="job-employer-logo-container">
                         <img src="${job.employer_logo }" alt="">
                     </div>
@@ -119,7 +119,7 @@ function appendPaginateJobObject(jobs) {
                             <span>${job.employer_zip_code_or_postal_code}</span>
                         </p>
                     </div>
-                </div>
+                </a>
                 <div class="job-title-container">
                     <h3 class="job-title-header">${job.job_title}</h3>
                     <p class="job-created">
