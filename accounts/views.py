@@ -66,7 +66,6 @@ def login_view(request):
                 username=data['username'], 
                 password=data['password']
             )
-
             if user:
                 login(request, user)
                 if next:
@@ -104,15 +103,12 @@ def login_view(request):
                                               'Please complete the form below to better serve you.')
                                 return redirect('employers:employer-register')
                     else:
-                        return redirect('accounts:profile-update')
-            else:
-                messages.error(request, 'Username or password did not match.')
-
+                        return redirect('accounts:profile-update', user.profile.slug)
     return render(request, 'accounts/login.html', context)
             
 
 @user_login_required
-def profile_update_form_view(request):
+def profile_update_form_view(request, slug):
     message = request.GET.get('message')
     user = request.user 
     field_errors = []
@@ -120,6 +116,10 @@ def profile_update_form_view(request):
     context = {
         'message': message
     }
+
+    if user.profile.slug != slug:
+        messages.error(request, "You are not authorized.")
+        return redirect('candidates:jobs')
         
     try:
         profile = Profile.objects.get(user=user)

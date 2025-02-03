@@ -10,9 +10,10 @@ from django.urls import reverse
 
 
 def employer_landing_page_view(request):
+    url_name = request.GET.get('url_name')
     user = request.user 
 
-    if user.is_authenticated:
+    if user.is_authenticated and url_name != 'jobs':
         user_type = user.profile.user_type
         if user_type == 'job seeker':
             return redirect('candidates:landing-page')
