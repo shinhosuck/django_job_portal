@@ -109,6 +109,7 @@ def login_view(request):
 
 @user_login_required
 def profile_update_form_view(request, slug):
+    print('hello world')
     message = request.GET.get('message')
     user = request.user 
     field_errors = []

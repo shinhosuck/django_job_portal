@@ -10,19 +10,15 @@
 {% block content %}
     <div class="profile-form-row">
         <div class="profile-form-container">
-            <a href="
-                {% if next %}
-                    {{ next }}
-                {% else %}
-                    {% url 'candidates:landing-page' %}
-                {% endif %}" 
+            <a 
+                href="{% if next %}{{ next }}{% else %}{% url 'candidates:landing-page' %}{% endif %}" 
                 class="logo-container"
             >
                 <span class="logo-header">HireSpot</span>
             </a>
             <div class="profile-form-header-text-container">
                 <h2 class="profile-form-name">
-                    Enhance Your Profile
+                    Update Your Profile
                 </h2>
                 <p class="profile-form-text">
                     Boost your job search. Complete your profile for more accurate matches.
@@ -64,5 +60,10 @@
 {% block footer %}{% endblock footer %}
 
 {% block js %}
+    <script type='text/javascript'>
+        const profileFormInputRows = Array.from(document.querySelectorAll('.profile-input-row'))
+    </script>
+
+
     <script type="text/javascript" src="{% static 'accounts/profile_update_form.js' %}"></script>
 {% endblock js %}

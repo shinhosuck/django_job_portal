@@ -39,12 +39,6 @@ function formatFileInput() {
     splitForm()
 }
 
-
-function splitForm() {
-    console.log('split form')
-}
-
-
 // Handles file input change
 function handleProfileImageInput() {
 
