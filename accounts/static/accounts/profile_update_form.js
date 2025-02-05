@@ -36,7 +36,7 @@ function formatFileInput() {
 
     firstProfileInputRow.append(newLabel)
     firstProfileInputRow.append(div)
-    splitForm()
+    // splitForm()
 }
 
 // Handles file input change
@@ -101,7 +101,7 @@ function insertSelectedImageTag(p) {
     })
 }
 
-const notRequired = ['Profile image:', 'Phone number:', 'Social link:', 'Portfolio/personal website:']
+const notRequired = ['Profile image:', 'Phone number:', 'Social link:', 'Personal Website:']
 const profileForm = document.querySelector('.profile-form')
 const profileFormLabels = Array.from(profileForm.querySelectorAll('label'))
 

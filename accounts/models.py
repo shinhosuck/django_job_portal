@@ -20,18 +20,9 @@ class Profile(models.Model):
     country = CountryField()
     post_code_or_zip_code = models.CharField(max_length=50)
     email = models.EmailField()
-    phone_number = models.CharField(
-            max_length=15, blank=True, null=True,
-            help_text='Max digits 15, must start with + follow by country code.'
-        )
-    social_link = models.URLField(
-            null=True, blank=True,
-            help_text='Must start with https://'
-        )
-    portfolio_or_personal_website = models.URLField(
-            blank=True, null=True,
-            help_text='Must start with https://'
-        )
+    phone_number = models.CharField(max_length=15)
+    social_link = models.URLField(null=True, blank=True)
+    personal_website = models.URLField(blank=True, null=True)
     user_type = models.CharField(max_length=100, choices=USER_TYPE_CHOICES)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

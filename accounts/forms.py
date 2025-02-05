@@ -47,22 +47,22 @@ class ProfileUpdateForm(forms.ModelForm):
             'email',
             'phone_number',
             'social_link',
-            'portfolio_or_personal_website',
+            'personal_website',
             'user_type'
         ]
 
         widgets = {
-            'phone_number': forms.TextInput(attrs={'placeholder': '+999999999999999'}),
+            'phone_number': forms.TextInput(attrs={'placeholder': 'Must start with + follow by country code.'}),
             'social_link': forms.URLInput(
-                attrs={'placeholder': 'https://www.sociallink.com', 'required':False}
+                attrs={'placeholder': 'Must start with https://', 'required':False}
             ),
-            'portfolio_or_personal_website':forms.URLInput(
-                attrs={'placeholder': 'https://www.personalsite.com', 'required':False}
+            'personal_website':forms.URLInput(
+                attrs={'placeholder': 'Must start with https://', 'required':False}
             )
         }
 
         labels = {
-            'portfolio_or_personal_website': 'Portfolio/personal website'
+            'personal_website': 'Personal Website'
         }
 
     def clean_phone_number(self):

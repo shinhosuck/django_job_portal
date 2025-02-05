@@ -17,7 +17,7 @@ from utils.decorators import user_login_required
 
 def register_view(request):
     next = request.GET.get('next') or None
-
+    
     if request.user.is_authenticated:
         messages.warning(request, "You are already registered and logged in!")
         return redirect('candidates:jobs')

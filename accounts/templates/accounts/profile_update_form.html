@@ -52,16 +52,38 @@
             </div>
         </div>
     </div>
-
-    
-
 {% endblock content %}
 
 {% block footer %}{% endblock footer %}
 
 {% block js %}
     <script type='text/javascript'>
+        const profileFormInputContainer = document.querySelector('.profile-input-container')
         const profileFormInputRows = Array.from(document.querySelectorAll('.profile-input-row'))
+        const profileUpdateBtn = document.querySelector('.profile-form-update-btn')
+        const profileFormInputArray = new Array()
+        let div = document.createElement('div')
+
+        profileFormInputRows.forEach((row, index) => {
+            if (index === 7) {
+                profileFormInputArray.push(div)
+                div = document.createElement('div')
+                div.append(row)
+            }
+            else {
+                div.append(row)
+            }
+        })
+
+        div.append(profileUpdateBtn)
+        profileFormInputArray.push(div)
+        profileFormInputContainer.innerHTML = ''
+
+        profileFormInputArray.forEach((div) => {
+            div.setAttribute('class', 'inputs')
+            profileFormInputContainer.append(div)
+        })
+        
     </script>
 
 

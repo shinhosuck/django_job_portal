@@ -491,17 +491,17 @@
 .profile-form-row {
     min-height: 100svh;
     display: grid;
-    align-content: center;
+    /* align-content: center; */
     padding: 2rem 0;
 }
 
 .profile-form-container {
     width: 90%;
-    max-width: 700px;
+    max-width: 1000px;
     margin: 0 auto;
     display: grid;
-    align-content: start;
-    align-items: start;
+    /* align-content: start;
+    align-items: start; */
     row-gap: 2rem;
 }
 
@@ -518,7 +518,7 @@
 
 .profile-form-header-text-container {
     display: grid;
-    align-content: start;
+    /* align-content: start; */
     text-align: center;
     gap: 0.8rem
 }
@@ -540,7 +540,7 @@
 
 .profile-form-wrapper {
     display: grid;
-    align-content: start;
+    /* align-content: start; */
     gap: 2rem;
     padding: 1.5rem;
     border-radius: 8px;
@@ -557,7 +557,7 @@
 
 .profile-form {
     display: grid;
-    align-content: start;
+    /* align-content: start; */
     gap: 1.5rem;
 }
 
@@ -616,10 +616,15 @@ br {
     gap: 1.5rem;
 } 
 
+.inputs {
+    display: grid;
+    /* align-content: start; */
+    gap: 1.2rem;
+}
+
 .profile-input-row {
     display: grid;
-    align-content: start;
-    gap: 0.5rem;
+    gap: 0.5rem
 }
 
 .profile-input-row > label {
@@ -688,6 +693,13 @@ br {
     .profile-form-row {
         padding: 3rem 0;
     }
+}
+
+@media screen and (min-width: 800px) {
+    .profile-input-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+    } 
 }
 
 /* CANDIDATE PROFILE INFO */

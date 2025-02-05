@@ -49,9 +49,8 @@ User = get_user_model()
 
 def landing_page_view(request):
     user = request.user
-
+    
     if user.is_authenticated:
-
         if user.profile.user_type == 'employer':
             return redirect('employers:employer')
         else:
