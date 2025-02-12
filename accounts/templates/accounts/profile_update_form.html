@@ -25,7 +25,7 @@
                 </p>
             </div>
             <div class="profile-form-wrapper">
-                <h3 class="profile-form-header">Profile</h3>
+                {% comment %} <h3 class="profile-form-header">Profile</h3> {% endcomment %}
                 <form class="profile-form" action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="profile-input-container">
@@ -58,32 +58,22 @@
 
 {% block js %}
     <script type='text/javascript'>
-        const profileFormInputContainer = document.querySelector('.profile-input-container')
-        const profileFormInputRows = Array.from(document.querySelectorAll('.profile-input-row'))
-        const profileUpdateBtn = document.querySelector('.profile-form-update-btn')
-        const profileFormInputArray = new Array()
-        let div = document.createElement('div')
-
-        profileFormInputRows.forEach((row, index) => {
-            if (index === 7) {
-                profileFormInputArray.push(div)
-                div = document.createElement('div')
-                div.append(row)
-            }
-            else {
-                div.append(row)
-            }
-        })
-
-        div.append(profileUpdateBtn)
-        profileFormInputArray.push(div)
-        profileFormInputContainer.innerHTML = ''
-
-        profileFormInputArray.forEach((div) => {
-            div.setAttribute('class', 'inputs')
-            profileFormInputContainer.append(div)
-        })
+        const profileUpdateForm = document.querySelector('.profile-form')
+        const selectTags = Array.from(profileUpdateForm.querySelectorAll('select'))
         
+        selectTags.forEach((select, index) => {
+            if (index === 0) {
+                const options = Array.from(select.querySelectorAll('option'))
+                options.forEach((option) => {
+                    option.style.display = 'inline-block'
+                    option.style.minBlockSize = 'initial'
+                    option.style.overflow = 'hidden'
+                    option.style.whiteSpace = 'wrap'
+                    option.style.textOverflow = 'ellipsis'
+
+                })
+            }
+        })
     </script>
 
 

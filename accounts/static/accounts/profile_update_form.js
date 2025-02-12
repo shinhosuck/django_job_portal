@@ -25,7 +25,7 @@ function formatFileInput() {
     label.classList.add('label-image-input-wrapper')
     label.removeAttribute('for')
 
-    anchor.textContent = `Default: ${anchor.textContent.split('/').slice(-1)}`
+    anchor.textContent = `Current: ${anchor.textContent.split('/').slice(-1)}`
     anchor.classList.add('current-image-url')
 
     label.append(input)

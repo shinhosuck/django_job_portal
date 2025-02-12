@@ -152,7 +152,7 @@ def profile_update_form_view(request, slug):
         messages.error(request, f"{', '.join(field_errors)}")
 
     context['form'] = form
-
+    
     return render(request, 'accounts/profile_update_form.html', context)
 
 

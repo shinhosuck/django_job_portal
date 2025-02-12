@@ -16,7 +16,7 @@ class RegisterForm(UserCreationForm):
             'password1', 
             'password2'
         ]
-
+        
         widgets = {
             'username': forms.TextInput(attrs={'required':True, 'autofocus':True}),
             'email': forms.EmailInput(attrs={'required':True}),
@@ -50,7 +50,7 @@ class ProfileUpdateForm(forms.ModelForm):
             'personal_website',
             'user_type'
         ]
-
+    
         widgets = {
             'phone_number': forms.TextInput(attrs={'placeholder': 'Must start with + follow by country code.'}),
             'social_link': forms.URLInput(
@@ -62,7 +62,9 @@ class ProfileUpdateForm(forms.ModelForm):
         }
 
         labels = {
-            'personal_website': 'Personal Website'
+            'personal_website': 'Personal Website',
+            'state_or_province': 'State / Province',
+            'post_code_or_zip_code': 'Post Code / Zip Code'
         }
 
     def clean_phone_number(self):

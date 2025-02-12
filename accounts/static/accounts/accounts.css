@@ -491,7 +491,7 @@
 .profile-form-row {
     min-height: 100svh;
     display: grid;
-    /* align-content: center; */
+    align-content: center;
     padding: 2rem 0;
 }
 
@@ -500,9 +500,9 @@
     max-width: 1000px;
     margin: 0 auto;
     display: grid;
-    /* align-content: start;
-    align-items: start; */
-    row-gap: 2rem;
+    align-content: start;
+    align-items: start;
+    gap: 2rem;
 }
 
 .profile-form-container >
@@ -518,7 +518,7 @@
 
 .profile-form-header-text-container {
     display: grid;
-    /* align-content: start; */
+    align-content: start;
     text-align: center;
     gap: 0.8rem
 }
@@ -540,10 +540,10 @@
 
 .profile-form-wrapper {
     display: grid;
-    /* align-content: start; */
+    align-content: start;
     gap: 2rem;
     padding: 1.5rem;
-    border-radius: 8px;
+    border-radius: 20px;
     border: 1px solid var(--black-80);
     background: white;
 }
@@ -557,7 +557,7 @@
 
 .profile-form {
     display: grid;
-    /* align-content: start; */
+    align-content: start;
     gap: 1.5rem;
 }
 
@@ -565,9 +565,9 @@
     display: flex !important;
     align-items: center;
     flex-wrap: wrap;
-    column-gap: 2rem !important;
+    column-gap: 3rem !important;
     row-gap: 0.5rem;
-    border: 1px solid var(--black-85);
+    border: 1px solid var(--black-80);
     border-radius: 5px;
     padding: 0.6rem 1rem;
     overflow: hidden;
@@ -613,18 +613,17 @@ br {
 .profile-input-container {
     display: grid;
     align-content: start;
-    gap: 1.5rem;
+    row-gap: 1.5rem;
+    column-gap: 2rem;
 } 
-
-.inputs {
-    display: grid;
-    /* align-content: start; */
-    gap: 1.2rem;
-}
 
 .profile-input-row {
     display: grid;
-    gap: 0.5rem
+    gap: 0.5rem;
+}
+
+.profile-input-row:nth-child(1){
+    grid-column: 1 / -1;
 }
 
 .profile-input-row > label {
@@ -637,23 +636,34 @@ br {
 .profile-input-row > input {
     border: 1px solid var(--black-80);
     padding: 1rem;
-    border-radius: 5px;
+    border-radius: 8px;
     color: var(--black-30);
     letter-spacing: 0.03rem;
+   
 }
 
 .selected-profile-image {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    align-content: center;
+    gap: 1.5rem;
     color: var(--black-30);
     overflow: hidden;
 }
 
+.remove-selected-profile-image-btn {
+    cursor: pointer;
+    margin-top: 0.2rem;
+}
+
 .profile-input-row > select {
+    display: grid;
     background: none;
     box-sizing: border-box;
     width: 100%;
+    
+    /* overflow-x: hidden !important;
+    white-space: nowrap; */
 }
 
 .profile-input-row > select:focus {
@@ -665,7 +675,7 @@ br {
     border: none;
     background: var(--green-30);
     color: var(--black-90);
-    border-radius: 5px;
+    border-radius: 30px;
     letter-spacing: 0.03rem;
     font-size: 1.1rem;
     cursor: pointer;
@@ -689,18 +699,21 @@ br {
     }
 }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 800px) {
     .profile-form-row {
         padding: 3rem 0;
     }
-}
 
-@media screen and (min-width: 800px) {
     .profile-input-container {
         grid-template-columns: repeat(2, 1fr);
-        gap: 3rem;
     } 
 }
+
+/* @media screen and (min-width: 1000px) {
+    .profile-input-container {
+        grid-template-columns: repeat(3, 1fr);
+    } 
+} */
 
 /* CANDIDATE PROFILE INFO */
 .candidate-profile-form-add,

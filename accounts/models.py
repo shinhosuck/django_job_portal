@@ -20,7 +20,7 @@ class Profile(models.Model):
     country = CountryField()
     post_code_or_zip_code = models.CharField(max_length=50)
     email = models.EmailField()
-    phone_number = models.CharField(max_length=15)
+    phone_number = models.CharField(max_length=15, null=True, blank=True)
     social_link = models.URLField(null=True, blank=True)
     personal_website = models.URLField(blank=True, null=True)
     user_type = models.CharField(max_length=100, choices=USER_TYPE_CHOICES)
