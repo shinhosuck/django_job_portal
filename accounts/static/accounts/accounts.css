@@ -497,7 +497,7 @@
 
 .profile-form-container {
     width: 90%;
-    max-width: 1000px;
+    max-width: 850px;
     margin: 0 auto;
     display: grid;
     align-content: start;
@@ -568,7 +568,7 @@
     column-gap: 3rem !important;
     row-gap: 0.5rem;
     border: 1px solid var(--black-80);
-    border-radius: 5px;
+    border-radius: 8px;
     padding: 0.6rem 1rem;
     overflow: hidden;
 }
@@ -576,7 +576,7 @@
 .label-image-input-wrapper {
     justify-self: start;
     padding: 0.6rem 1rem;
-    border-radius: 5px;
+    border-radius: 8px;
     background: var(--black-30);
     color: white !important;
     overflow: hidden;
@@ -584,6 +584,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     cursor: pointer;
+    font-size: 0.9rem;
     transition: background 100ms linear;
 }
 

@@ -18,7 +18,7 @@ function formatFileInput() {
     input.addEventListener('change', handleProfileImageInput)
 
     div.setAttribute('class', 'profile-image-input-container')
-    newLabel.textContent = 'Profile image:'
+    newLabel.textContent = 'Profile image'
     newLabel.setAttribute('for', 'id_profile_image')
 
     label.textContent = 'Upload image'
@@ -36,7 +36,6 @@ function formatFileInput() {
 
     firstProfileInputRow.append(newLabel)
     firstProfileInputRow.append(div)
-    // splitForm()
 }
 
 // Handles file input change
