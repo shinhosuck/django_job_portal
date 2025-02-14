@@ -103,6 +103,7 @@ def employer_detail_view(request, slug):
     # if not redirect_url:
     #     raise Http404('Page Does Not Exist.')
 
+
     try:
         employer = Employer.objects.get(slug=slug)
     except Employer.DoesNotExist:
@@ -116,7 +117,7 @@ def employer_detail_view(request, slug):
                 'employer':employer, 
                 'jobs':jobs,
                 'redirect_url':redirect_url,
-                'employer_profile_user': employer.profile.user
+                'employer_profile_user': employer.profile and employer.profile.user or None
             }
         )
     

@@ -43,10 +43,22 @@
                             </div>
                         {% endfor %}
                     </div>
-                    <button class="profile-form-update-btn" type="submit">
-                        <span>Next</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
+                    <div class="profile-update-form-btns">
+                        <a href="
+                            {% if request.user.profile.user_type == 'job seeker' %}
+                                /candidates/jobs/
+                            {% else %}
+                                /employers/
+                            {% endif %}" 
+                            class="profile-form-update-cancel-btn"
+                        >
+                            Update Later
+                        </a>
+                        <button class="profile-form-update-btn" type="submit">
+                            <span>Next</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -57,22 +69,7 @@
 
 {% block js %}
     <script type='text/javascript'>
-        const profileUpdateForm = document.querySelector('.profile-form')
-        const selectTags = Array.from(profileUpdateForm.querySelectorAll('select'))
-        
-        selectTags.forEach((select, index) => {
-            if (index === 0) {
-                const options = Array.from(select.querySelectorAll('option'))
-                options.forEach((option) => {
-                    option.style.display = 'inline-block'
-                    option.style.minBlockSize = 'initial'
-                    option.style.overflow = 'hidden'
-                    option.style.whiteSpace = 'wrap'
-                    option.style.textOverflow = 'ellipsis'
-
-                })
-            }
-        })
+        const profileImageInputContainer = document.querySelector('.profile-image-input-container')
     </script>
 
 

@@ -109,7 +109,6 @@ def login_view(request):
 
 @user_login_required
 def profile_update_form_view(request, slug):
-    print('hello world')
     message = request.GET.get('message')
     user = request.user 
     field_errors = []
@@ -145,11 +144,9 @@ def profile_update_form_view(request, slug):
             elif user_type == 'employer':
                 return redirect('employers:employer-register')
         
-        for key, errors in form.errors.items():
-            for error in errors:
-                field_errors.append(error)
-
-        messages.error(request, f"{', '.join(field_errors)}")
+        else:
+            error_message = 'There was an error. Please check the form and try again.'
+            messages.error(request, error_message)
 
     context['form'] = form
     

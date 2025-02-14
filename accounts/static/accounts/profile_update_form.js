@@ -36,6 +36,22 @@ function formatFileInput() {
 
     firstProfileInputRow.append(newLabel)
     firstProfileInputRow.append(div)
+
+    addFocusToProfileImageInputContainer()
+}
+
+function addFocusToProfileImageInputContainer() {
+    const profileImageInputContainer = document.querySelector('.profile-image-input-container')
+    
+    profileImageInputContainer.classList.add('profile-image-input-container-focused')
+
+    window.addEventListener('click', (e) => {
+       if (!profileImageInputContainer.contains(e.target)) {
+            profileImageInputContainer.classList.remove('profile-image-input-container-focused')
+       }else {
+            profileImageInputContainer.classList.add('profile-image-input-container-focused')
+       }
+    })
 }
 
 // Handles file input change
@@ -59,16 +75,11 @@ function handleProfileImageInput() {
 
 // Insert selected file/image
 function insertSelectedImageTag(p) {
-    const profileInputContainer = document.querySelector(
-        '.profile-image-input-container')
-    const currentImageURL = document.querySelector(
-        '.current-image-url')
-
+    const profileInputContainer = document.querySelector('.profile-image-input-container')
+    const currentImageURL = document.querySelector('.current-image-url')
     profileInputContainer.insertBefore(p, currentImageURL)
 
-    selectedProfileImage = document.querySelector(
-        '.selected-profile-image')
-
+    selectedProfileImage = document.querySelector('.selected-profile-image')
 
     const span = selectedProfileImage.querySelector('span')
     span.style.overflow = 'hidden'

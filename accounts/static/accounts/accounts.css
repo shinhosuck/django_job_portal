@@ -497,7 +497,7 @@
 
 .profile-form-container {
     width: 90%;
-    max-width: 850px;
+    max-width: 900px;
     margin: 0 auto;
     display: grid;
     align-content: start;
@@ -571,6 +571,10 @@
     border-radius: 8px;
     padding: 0.6rem 1rem;
     overflow: hidden;
+}
+
+.profile-image-input-container-focused {
+    outline: 3px solid var(--focus);
 }
 
 .label-image-input-wrapper {
@@ -662,20 +666,26 @@ br {
     background: none;
     box-sizing: border-box;
     width: 100%;
-    
-    /* overflow-x: hidden !important;
-    white-space: nowrap; */
 }
 
 .profile-input-row > select:focus {
-    outline: 3px solid var(--green-70);
+    outline: 3px solid var(--focus);
 }
 
+.profile-update-form-btns {
+    display: grid;
+    align-items: start;
+    align-content: start;
+    row-gap: 0.8rem;
+    column-gap: 2rem;
+}
+
+.profile-form-update-cancel-btn,
 .profile-form-update-btn {
     padding: 1rem;
     border: none;
     background: var(--green-30);
-    color: var(--black-90);
+    color: white;
     border-radius: 30px;
     letter-spacing: 0.03rem;
     font-size: 1.1rem;
@@ -690,6 +700,11 @@ br {
     text-align: center;
 }
 
+.profile-form-update-cancel-btn {
+    background: var(--black-30);
+    text-align: center;
+}
+
 .profile-form-update-btn > i {
     font-size: 1rem;
 }
@@ -697,6 +712,10 @@ br {
 @media (hover) {
     .profile-form-update-btn:hover {
         background: var(--green-40)
+    }
+
+    .profile-form-update-cancel-btn:hover {
+        background: var(--black-10);
     }
 }
 
@@ -708,13 +727,11 @@ br {
     .profile-input-container {
         grid-template-columns: repeat(2, 1fr);
     } 
-}
 
-/* @media screen and (min-width: 1000px) {
-    .profile-input-container {
-        grid-template-columns: repeat(3, 1fr);
-    } 
-} */
+    .profile-update-form-btns {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 
 /* CANDIDATE PROFILE INFO */
 .candidate-profile-form-add,

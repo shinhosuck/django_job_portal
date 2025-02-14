@@ -76,7 +76,7 @@ class ProfileUpdateForm(forms.ModelForm):
         if phone_number:
             for item in phone_number:
                 if index == 0 and item != '+':
-                    raise forms.ValidationError('Phone number must start with +')
+                    raise forms.ValidationError('Phone number must start with + follow by country code.')
                 elif index != 0 and item not in nums:
                     raise forms.ValidationError('Invalid phone number')
                 elif len(phone_number) > 15:
