@@ -172,22 +172,22 @@ button {
 }
 
 /* FORM NAVBAR */
-.form-navbar {
+/* .form-navbar {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 1.5rem;
-}
+} */
 
-.logo-container > 
+/* .logo-container > 
 .logo-header {
     font-size: 2rem;
     color: var(--green-35);
     font-weight: 700;
-}
+} */
 
-.form-navlinks-toggle-btn {
+/* .form-navlinks-toggle-btn {
     background: none;
     border: none;
     font-size: 1.1rem;
@@ -254,7 +254,7 @@ button {
         transition: initial;
         background: none;
     }
-}
+} */
 
 /* NAVBAR GLOBAL */
 .nav-row {

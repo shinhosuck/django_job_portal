@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Candidate Register
+    Add Career Detail
 {% endblock title %}
 
 {% block navbar %}{% endblock navbar %}
@@ -10,36 +10,16 @@
 {% block content %}
     <div class="candidate-register-form-row">
         <div class="candidate-register-form-container">
-            <div class="form-navbar">
-                <a href="
-                    {% if next %}
-                        {{ next }}
-                    {% else %}
-                        {% url 'candidates:landing-page' %}
-                    {% endif %}" 
-                    class="logo-container"
-                >
-                    <span class="logo-header">HireSpot</span>
-                </a>
-                <button class="form-navlinks-toggle-btn">
-                    <i class="fas fa-bars form-show-navlinks"></i>
-                    <i class="fas fa-times form-remove-navlinks remove-form-navlinks-toggle-btn-child"></i>
-                </button>
-                {% with request.resolver_match.url_name as url_name %}
-                    <div class="form-navlinks">
-                        <a class='navlink' href="{% url 'candidates:landing-page' %}">Home</a>
-                        <a class='navlink'href="{% url 'candidates:jobs' %}">
-                            Jobs
-                        </a>
-                        <a class="
-                            {% if url_name == 'candidate-add-career-detail' %}active-link{% endif %} navlink" 
-                            href="{% url 'candidates:candidate-add-career-detail' %}"
-                        >
-                            Career Detail
-                        </a>
-                    </div>
-                {% endwith %}
-            </div>
+            <a href="
+                {% if next %}
+                    {{ next }}
+                {% else %}
+                    {% url 'candidates:landing-page' %}
+                {% endif %}" 
+                class="logo-container"
+            >
+                <span class="logo-header">HireSpot</span>
+            </a>
             <div class="candidate-register-form-text-container">
                 <h2 class="candidate-register-form-name">
                     Start Your Job Search Today!
