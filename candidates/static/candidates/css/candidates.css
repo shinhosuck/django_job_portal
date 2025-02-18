@@ -662,7 +662,7 @@
     text-wrap: pretty;
 }
 
-.candidate-register-form {
+.candidate-add-career-form {
     display: grid;
     align-content: start;
     align-items: end;
@@ -784,7 +784,7 @@
     border:none;
 }
 
-.candidate-register-form-btn {
+.candidate-career-submit-btn {
     padding: 1rem 1.5rem;
     border: none;
     background: var(--green-30);
@@ -903,7 +903,7 @@
 }
 
 @media (hover) {
-    .candidate-register-form-btn:hover {
+    .candidate-career-submit-btn:hover {
         background: var(--green-40)
     }
 

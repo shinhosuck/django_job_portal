@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Add Career Detail
+    Add Career
 {% endblock title %}
 
 {% block navbar %}{% endblock navbar %}
@@ -30,11 +30,12 @@
                     It only takes a few minutes to set up and get noticed by recruiters.
                 </p>
             </div>
-            <form class="candidate-register-form" action="" method="POST" enctype='multipart/form-data'>
+            <form class="candidate-add-career-form" action="" method="POST" enctype='multipart/form-data'>
                 {% csrf_token %}
                 <div id='qualification' class="candidate-qualification-input-row">
                     <h2>Qualification</h2>
-                    <div class="qualification-form-container"></div>
+                    <div class="qualification-form-container">
+                    </div>
                 </div>
                 <div id='education' class="candidate-education-input-row">
                     <h2>Education</h2>
@@ -52,7 +53,7 @@
                         Add more experience
                     </button>
                 </div>
-                <button type='submit' class="candidate-register-form-btn">
+                <button type='submit' class="candidate-career-submit-btn">
                     <span class="candidate-profile-button-text">Save Application</span>
                     <span class="candidate-form-button-spinner hide-form-btn-content"></span>
                 </button>
@@ -76,7 +77,7 @@
 {% endblock content %}
 
 {% block js %}
-    <script type="text/javascript" src="{% static 'candidates/js/candidate_register.js' %}"></script>
+    <script type="text/javascript" src="{% static 'candidates/js/candidate_add_career.js' %}"></script>
 {% endblock js %}
 
 {% block footer %}{% endblock footer %}

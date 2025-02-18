@@ -119,7 +119,7 @@ const inputsNotRequired = [
     'completion_date', 'company_name', 'position', 'start_date', 'end_date'
 ]
 
-const candidateRegisterForm = document.querySelector('.candidate-register-form')
+const candidateRegisterForm = document.querySelector('.candidate-add-career-form')
 
 const qualificationFormContainer = document.querySelector('.qualification-form-container')
 const educationFormContainer = document.querySelector('.education-form-container')
@@ -129,7 +129,7 @@ const candidateForm = document.querySelector('.candidate-info-form')
 const educationForm = document.querySelector('.education-form')
 const experienceForm = document.querySelector('.experience-form')
 
-const candidateRegisterFormBtn = document.querySelector('.candidate-register-form-btn')
+const candidateCareerSubmitBtn = document.querySelector('.candidate-career-submit-btn')
 const addMoreBtns = Array.from(document.querySelectorAll('.add-more'))
 
 const candidateProfileButtonText = document.querySelector('.candidate-profile-button-text')
@@ -147,9 +147,12 @@ const formsSent = {}
 window.addEventListener('DOMContentLoaded', createInputElements)
 
 
-// APPEND FORM INPUT ELEMENTS -> THIS WILL RUN ON RELOAD, INITIAL LOAD
+// THIS WILL RUN ON RELOAD, INITIAL LOAD
 async function createInputElements(e) {
     const session = JSON.parse(sessionStorage.getItem('form_ids'))
+
+    // Pre fetch form data on initial and reload or if session storage does not have form_ids: 
+    // form_ids = {"qualification": [],"education": [],"experience": []}
     
     if (!session || !session.qualification.length && !session.education.length 
         && !session.experience.length) {
@@ -167,9 +170,7 @@ async function createInputElements(e) {
         const educationInputContainer = document.createElement('div')
         const experienceInputContainer = document.createElement('div')
 
-        // Pre fetch form data on reload and session storage does not have form_ids: 
-        // form_ids = {"qualification": [],"education": [],"experience": []}
-
+        // Fetches the previous candiate form data
         const {qualification, education, experience} = await preFillFormData()
         
         if (!qualification || !qualification.length) {
@@ -178,7 +179,7 @@ async function createInputElements(e) {
             qualificationInputContainer.setAttribute('data-form-count', `${formsCount}`)
             formsSent[formsCount] = false
             qualificationInputContainer.innerHTML = qualificationElements
-            qualificationFormContainer && qualificationFormContainer.append(qualificationInputContainer)
+            qualificationFormContainer.append(qualificationInputContainer)
             createCustomFileUplodInput()
         }
 
@@ -198,7 +199,8 @@ async function createInputElements(e) {
             experienceInputContainer.innerHTML = experienceElements
             experienceFormContainer.append(experienceInputContainer)
         }
-       
+        
+        // This will be triggered if the user reload the page
         if (qualification?.length || education?.length || experience?.length) {
         
             if (qualification?.length) {
@@ -218,7 +220,9 @@ async function createInputElements(e) {
     }
 
     resumeInput = document.querySelector('#id_resume')
-    resumeInput.setAttribute('onchange', 'handleResumeFileInput()')
+    resumeInput && resumeInput.setAttribute('onchange', 'handleResumeFileInput()')
+
+    // This is only when candidate is updating his/her profile
     scrollToElement()
 }
 
@@ -246,7 +250,7 @@ async function preFillFormData() {
 
 
 // Listen for addMoreBtns click event
-candidateRegisterForm && addMoreBtns.forEach((btn) => {
+addMoreBtns.forEach((btn) => {
     btn.addEventListener('click', addExtraFormElement)
 })
 
@@ -314,8 +318,8 @@ function handleRemoveFormBtns(btns) {
 }
 
 
-// Trigger Functions
-candidateRegisterFormBtn && candidateRegisterFormBtn.addEventListener('click', (e) => {
+// Add eventListener to candidate_career_form_form_btn
+candidateCareerSubmitBtn.addEventListener('click', (e) => {
     e.preventDefault()
     const location = JSON.parse(sessionStorage.getItem('location'))
 
@@ -324,6 +328,8 @@ candidateRegisterFormBtn && candidateRegisterFormBtn.addEventListener('click', (
 
     const qualificationFormChildren = Array.from(
         qualificationFormContainer.querySelectorAll('.qualification-form'))
+
+    // console.log(qualificationFormChildren)
 
     submitQualificationFormData(qualificationFormChildren, location.user)
 })
@@ -342,7 +348,6 @@ function submitChildForms() {
     submitExperienceFormData(experienceFormChildren, location.user)
 }
 
-
 // Candidate info form
 function submitQualificationFormData(data, user) {
     let formData = new FormData()
@@ -353,8 +358,7 @@ function submitQualificationFormData(data, user) {
         const formIndex = parseInt(item.getAttribute('data-form-count'))
         const formID = parseInt(item.getAttribute('id'))
 
-        const dataInputs = Array.from(item.querySelectorAll('p > *'))
-        .filter((ele) => ele.name)
+        const dataInputs = Array.from(item.querySelectorAll('p > *')).filter((ele) => ele.name)
 
         dataInputs.push(resumeInput)
 
@@ -395,7 +399,7 @@ function submitQualificationFormData(data, user) {
                 formData.append('id', formID)
             }
 
-            const value = await registerCandidate(formData, 'qualification', item, formIndex)
+            // const value = await registerCandidate(formData, 'qualification', item, formIndex)
             formData = new FormData()
         }
         else {
@@ -518,6 +522,8 @@ async function registerCandidate(formData, type, item, formIndex) {
         const data = await resp.json()
         
         if (data?.data_type === 'qualification') {
+
+            // When the data_type "qualification" form is saved, call this function to get rest of form data
             submitChildForms()
         }
         

@@ -25,7 +25,7 @@
                 </p>
             </div>
             <div class="profile-form-wrapper">
-                <form class="profile-form" action="" method="POST" enctype="multipart/form-data">
+                <form class="profile-form" action="/profile/{{request.user.username}}/update/" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="profile-input-container">
                         {% for field in form %}
@@ -68,10 +68,5 @@
 {% block footer %}{% endblock footer %}
 
 {% block js %}
-    <script type='text/javascript'>
-        const profileImageInputContainer = document.querySelector('.profile-image-input-container')
-    </script>
-
-
     <script type="text/javascript" src="{% static 'accounts/profile_update_form.js' %}"></script>
 {% endblock js %}

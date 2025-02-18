@@ -181,12 +181,11 @@ def candidate_add_career_detail_view(request):
     data = request.POST
 
     try:
-        resume = user.profile.candidatequalification \
-        .get_resume_url()
+        resume = user.profile.candidatequalification.get_resume_url()
     except CandidateQualification.DoesNotExist:
         resume = None
 
-    if not request.user.profile.user_type:
+    if not user.profile.user_type:
         message = '?message=Please complete your profile.'
         return redirect(f"{reverse('accounts:profile-update')}{message}")
     
