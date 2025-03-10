@@ -3,7 +3,7 @@ const qualificationElements = `
             <span class="candidate-input-error-field">
                 This field is required.
             </span>
-            <label for="id_industry">Industry:</label>
+            <label for="id_industry">Industry</label>
             <select name="industry" autofocus="" required="" id="id_industry">
                 <option value="" selected="">---------</option>
                 <option value="technology">Technology</option>
@@ -29,21 +29,21 @@ const qualificationElements = `
             <span class="candidate-input-error-field">
                 This field is required.
             </span>
-            <label for="id_job_title">Job title:</label>
+            <label for="id_job_title">Job title</label>
             <input type="text" name="job_title" maxlength="200" required="" id="id_job_title">
         </p>
         <p>
             <span class="candidate-input-error-field">
                 This field is required.
             </span>
-            <label for="id_resume">Resume:</label>
+            <label for="id_resume">Resume</label>
             <input type="file" name="resume" id="id_resume">
         </p>
         <p>
             <span class="candidate-input-error-field">
                 This field is required.
             </span>
-            <label for="id_skills">Skills:</label>
+            <label for="id_skills">Skills</label>
             <input type="text" name="skills" maxlength="200" id="id_skills">
         </p>`
 
@@ -52,35 +52,35 @@ const educationElements = `
             <span class="candidate-input-error-field">
                 This field is required.
             </span>
-            <label for="id_major">Major:</label>
+            <label for="id_major">Major</label>
             <input type="text" name="major" maxlength="255" id="id_major">
         </p>
         <p>
             <span class="candidate-input-error-field">
                 This field is required.
             </span>
-            <label for="id_degree">Degree:</label>
+            <label for="id_degree">Degree</label>
             <input type="text" name="degree" maxlength="255" id="id_degree">
         </p>
         <p>
             <span class="candidate-input-error-field">
                 This field is required.
             </span>
-            <label for="id_institution">Institution:</label>
+            <label for="id_institution">Institution</label>
             <input type="text" name="institution" maxlength="255" id="id_institution">
         </p>
          <p>
             <span class="candidate-input-error-field">
                 This field is required.
             </span>
-            <label for="id_start_date">Start date:</label>
+            <label for="id_start_date">Start date</label>
             <input type="date" name="start_date" onkeydown="return false" id="id_start_date">
         </p>
         <p>
             <span class="candidate-input-error-field">
                 This field is required.
             </span>
-            <label for="id_completion_date">Completion date:</label>
+            <label for="id_completion_date">Completion date</label>
             <input type="date" name="completion_date" onkeydown="return false" id="id_completion_date">
         </p>`
 
@@ -89,28 +89,28 @@ const experienceElements = `
             <span class="candidate-input-error-field">
                 This field is required.
             </span>
-            <label for="id_company_name">Company name:</label>
+            <label for="id_company_name">Company name</label>
             <input type="text" name="company_name" maxlength="255" id="id_company_name">
         </p>
         <p>
             <span class="candidate-input-error-field">
                 This field is required.
             </span>
-            <label for="id_position">Position:</label>
+            <label for="id_position">Position</label>
             <input type="text" name="position" maxlength="255" id="id_position">
         </p>
         <p>
             <span class="candidate-input-error-field">
                 This field is required.
             </span>
-            <label for="id_start_date">Start date:</label>
+            <label for="id_start_date">Start date</label>
             <input type="date" name="start_date" onkeydown="return false" id="id_start_date"> 
         </p>
         <p>
             <span class="candidate-input-error-field">
                 This field is required.
             </span>
-            <label for="id_end_date">End date:</label>
+            <label for="id_end_date">End date</label>
             <input type="date" name="end_date" onkeydown="return false" id="id_end_date">
         </p>`
 
@@ -237,6 +237,7 @@ async function preFillFormData() {
             }
         });
         const data = await resp.json()
+        // console.log(data)
     
         if (data?.error) {
             console.log(data.error)
@@ -266,6 +267,7 @@ function addExtraFormElement(e) {
                         type="button" 
                         class="remove-candidate-career-form"
                     >
+                        <i class="fa-solid fa-trash"></i>
                         Remove
                     </button>`
 
@@ -348,7 +350,7 @@ function submitChildForms() {
     submitExperienceFormData(experienceFormChildren, location.user)
 }
 
-// Candidate info form
+// Candidate Qualification Form
 function submitQualificationFormData(data, user) {
     let formData = new FormData()
     let allFieldsValid = true
@@ -661,7 +663,7 @@ function formatQualificationInputTemplate(qualification) {
                     <span class="candidate-input-error-field">
                         This field is required.
                     </span>
-                    <label for="id_industry">Industry:</label>
+                    <label for="id_industry">Industry</label>
                     <select name="industry" autofocus="" required=true id="id_industry">
                         <option value="" selected="">-------</option>
                         <option value="technology">Technology</option>
@@ -687,21 +689,21 @@ function formatQualificationInputTemplate(qualification) {
                     <span class="candidate-input-error-field">
                         This field is required.
                     </span>
-                    <label for="id_job_title">Job title:</label>
+                    <label for="id_job_title">Job title</label>
                     <input type="text" name="job_title" maxlength="200" value="${qua.job_title}" required="" id="id_job_title">
                 </p>
                 <p>
                     <span class="candidate-input-error-field">
                         This field is required.
                     </span>
-                    <label for="id_resume">Resume:</label>
+                    <label for="id_resume">Resume</label>
                     <input type="file" name="resume" id="id_resume">
                 </p>
                 <p>
                     <span class="candidate-input-error-field">
                         This field is required.
                     </span>
-                    <label for="id_skills">Skills:</label>
+                    <label for="id_skills">Skills</label>
                     <input type="text" name="skills" value="${qua.skills}" maxlength="200" id="id_skills">
                 </p>`
 
@@ -741,35 +743,35 @@ function formatEducationInputTemplate(education) {
                     <span class="candidate-input-error-field">
                         This field is required.
                     </span>
-                    <label for="id_major">Major:</label>
+                    <label for="id_major">Major</label>
                     <input type="text" name="major" value='${edu.major}' maxlength="255" id="id_major">
                 </p>
                 <p>
                     <span class="candidate-input-error-field">
                         This field is required.
                     </span>
-                    <label for="id_degree">Degree:</label>
+                    <label for="id_degree">Degree</label>
                     <input type="text" name="degree" value='${edu.degree}' maxlength="255" id="id_degree">
                 </p>
                 <p>
                     <span class="candidate-input-error-field">
                         This field is required.
                     </span>
-                    <label for="id_institution">Institution:</label>
+                    <label for="id_institution">Institution</label>
                     <input type="text" name="institution" value='${edu.institution}' maxlength="255" id="id_institution">
                 </p>
                  <p>
                     <span class="candidate-input-error-field">
                         This field is required.
                     </span>
-                    <label for="id_start_date">Start date:</label>
+                    <label for="id_start_date">Start date</label>
                     <input type="date" name="start_date" onkeydown="return false" value='${edu.start_date}' id="id_start_date">
                 </p>
                 <p>
                     <span class="candidate-input-error-field">
                         This field is required.
                     </span>
-                    <label for="id_completion_date">Completion date:</label>
+                    <label for="id_completion_date">Completion date</label>
                     <input type="date" name="completion_date" onkeydown="return false" value='${edu.completion_date}' id="id_completion_date">
                 </p>`
             
@@ -799,28 +801,28 @@ function formatExperienceInputTemplate(experience) {
                     <span class="candidate-input-error-field">
                         This field is required.
                     </span>
-                    <label for="id_company_name">Company name:</label>
+                    <label for="id_company_name">Company name</label>
                     <input type="text" name="company_name" value='${ex.company_name}' maxlength="255" id="id_company_name">
                 </p>
                 <p>
                     <span class="candidate-input-error-field">
                         This field is required.
                     </span>
-                    <label for="id_position">Position:</label>
+                    <label for="id_position">Position</label>
                     <input type="text" name="position" value='${ex.position}'  maxlength="255" id="id_position">
                 </p>
                 <p>
                     <span class="candidate-input-error-field">
                         This field is required.
                     </span>
-                    <label for="id_start_date">Start date:</label>
+                    <label for="id_start_date">Start date</label>
                     <input type="date" name="start_date" onkeydown="return false" value='${ex.start_date}' id="id_start_date"> 
                 </p>
                 <p>
                     <span class="candidate-input-error-field">
                         This field is required.
                     </span>
-                    <label for="id_end_date">End date:</label>
+                    <label for="id_end_date">End date</label>
                     <input type="date" name="end_date" onkeydown="return false" value='${ex.end_date}' id="id_end_date">
                 </p>`
 
@@ -889,7 +891,7 @@ function createCustomFileUplodInput() {
     }
 
     newLabel.setAttribute('form', 'id_resume')
-    newLabel.textContent = 'Resume:'
+    newLabel.textContent = 'Resume'
 
     const qualiForm = document.querySelector('.qualification-form')
     const pTags = qualiForm && Array.from(qualiForm.querySelectorAll('p'))

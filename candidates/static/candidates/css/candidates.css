@@ -610,7 +610,7 @@
  
 /* End */
 
-/* CANDIDATE REGISTER */
+/* CANDIDATE ADD CAREER DETAIL */
 .candidate-register-form-row {
     min-height: 100svh;
     display: grid;
@@ -666,7 +666,10 @@
     display: grid;
     align-content: start;
     align-items: end;
-    gap: 1.5rem;
+    gap: 2rem;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .candidate-qualification-input-row,
@@ -675,10 +678,6 @@
     display: grid;
     align-content: start;
     gap: 1rem;
-    background: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    border: 1px solid var(--black-80);
 }
 
 .qualification-form-container,
@@ -686,7 +685,7 @@
 .experience-form-container {
     display: grid;
     align-content: start;
-    gap: 2rem;
+    gap: 0.5rem;
 }
 
 .qualification-form,
@@ -698,7 +697,7 @@
     gap: 1.5rem;
     background: white;
     padding: 1.5rem;
-    border-radius: 8px;
+    border-radius: 20px;
     border: 1px solid var(--black-80);
 }
 
@@ -709,11 +708,18 @@
     z-index: 3;
     width: auto;
     height: auto;
-    background: var(--black-30);
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    background: var(--black-50);
     color: white;
     font-size: 0.9rem;
     padding: 0.3rem 0.5rem;
     border-radius: 0.3rem;
+    cursor: pointer;
+    border: none;
 }
 
 .qualification-form > p,
@@ -741,7 +747,7 @@
 .qualification-form > p > input {
     border: 1px solid var(--black-80);
     padding: 1rem;
-    border-radius: 5px;
+    border-radius: 8px;
     color: var(--black-20);
     letter-spacing: 0.03rem;
     background: white;
@@ -768,20 +774,26 @@
     font-size: 1rem;
 }
 
-.experience-form > p > select:focus,
+/* .experience-form > p > select:focus,
 .education-form > p > select:focus,
 .qualification-form > p > select:focus {
-    outline: 3px solid var(--green-60)
-}
+    outline: 3px solid var(--focus);
+} */
 
 .add-more {
     justify-self: end; 
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
     font-size:0.9rem; 
     background:var(--black-20); 
     color: white;
     padding:0.5rem 1rem;
     border-radius:5px;
     border:none;
+    cursor: pointer;
 }
 
 .candidate-career-submit-btn {
@@ -847,11 +859,12 @@
 
 .resume-input-wrapper-label {
     padding: 0.6rem 1rem;
-    border-radius: 5px;
+    border-radius: 8px;
     justify-self: start;
     background: var(--black-30);
     color: white;
-    font-size: 0.9rem
+    font-size: 0.9rem;
+    cursor: pointer;
 }
 
 .resume-input-wrapper {
@@ -862,7 +875,7 @@
     row-gap: 0.5rem;
     border: 1px solid var(--black-80);
     padding: 0.5rem 1rem;
-    border-radius: 5px;
+    border-radius: 8px;
     overflow: hidden;
 }
 
