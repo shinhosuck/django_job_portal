@@ -23,8 +23,13 @@
                                 {% endif %}
                             </h2>
                             {% if request.user == profile.user %}
-                                <a href="
-                                    {% url 'candidates:candidate-update-profile-info' profile.slug %}?data_type=profile"
+                                {% comment %} <a href="{% url 'candidates:candidate-update-profile-info' profile.slug %}?data_type=profile"
+                                    class="candidate-profile-form-update"
+                                >
+                                    <span>Update</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a> {% endcomment %}
+                                <a href="{% url 'accounts:profile-update' profile.slug %}"
                                     class="candidate-profile-form-update"
                                 >
                                     <span>Update</span>
