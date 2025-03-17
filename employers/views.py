@@ -100,6 +100,7 @@ def employer_detail_view(request, slug):
     user = request.user
     context = {}
 
+    print(redirect_url)
     # if not redirect_url:
     #     raise Http404('Page Does Not Exist.')
 
@@ -136,7 +137,7 @@ def employer_job_detail(request, slug):
 
     # if not redirect_url:
     #     raise Http404('Page Does Not Exist.')
-    
+
     try:
         job = Job.objects.get(slug=slug)
     except Job.DoesNotExist:
@@ -145,8 +146,9 @@ def employer_job_detail(request, slug):
     
     context['job'] = job
 
-    if user == job.employer.profile.user:
-        context['is_owner'] = True
+    if job.employer.profile:
+        if user == job.employer.profile.user:
+            context['is_owner'] = True
 
     if user.is_authenticated and user.profile.user_type == 'job seeker':
         if job.applicants.filter(profile__user=user):

@@ -12,7 +12,7 @@ from django.contrib.auth import (
     logout
 )
 from candidates.models import CandidateQualification
-from .models import Profile
+from .models import Profile, SavedJob
 from utils.decorators import user_login_required
 
 def register_view(request):
@@ -209,4 +209,9 @@ def profile_view(request):
         'scroll_to': scroll_to or '',
         'user_type': 'job_seeker'
     }
+
+    print('QUALIFICATION:', context['qualification'], 
+          'EDUCATION:', context['educations'], 
+          'EXPERIENCES:', context['experiences'])
+
     return render(request, 'accounts/profile.html', context)

@@ -23,17 +23,11 @@
                                 {% endif %}
                             </h2>
                             {% if request.user == profile.user %}
-                                {% comment %} <a href="{% url 'candidates:candidate-update-profile-info' profile.slug %}?data_type=profile"
-                                    class="candidate-profile-form-update"
-                                >
-                                    <span>Update</span>
-                                    <i class="fas fa-arrow-right"></i>
-                                </a> {% endcomment %}
                                 <a href="{% url 'accounts:profile-update' profile.slug %}"
                                     class="candidate-profile-form-update"
                                 >
+                                    <i class="fas fa-edit"></i>
                                     <span>Update</span>
-                                    <i class="fas fa-arrow-right"></i>
                                 </a>
                             {% endif %}
                         </div>
@@ -101,23 +95,21 @@
         <section id="qualification" class="candidate-qualification-row">
             <div class="candidate-qualification-header-container">
                 <h2 class="candidate-qualification-header">Qualification</h2>
-                {% if not qualification and request.user == profile.user %}
+                {% if not qualification %}
                     <a href="{% url 'candidates:candidate-add-career-detail' %}?scroll_to=qualification"
                         class="candidate-profile-form-add"
                     >
-                        <span>Add qualification</span>
-                        <i class="fas fa-arrow-right"></i>
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Add</span>
                     </a>
                 {% else %}
-                    {% if request.user == qualification.profile.user %}
-                        <a href="
-                            {% url 'candidates:candidate-update-profile-info' qualification.slug %}?data_type=qualification"
-                            class="candidate-profile-form-update"
-                        >
-                            <span>Update</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                    {% endif %}
+                    <a href="
+                        {% url 'candidates:candidate-add-career-detail' %}?scroll_to=qualification"
+                        class="candidate-profile-form-update"
+                    >
+                        <i class="fas fa-edit"></i>
+                        <span>Update</span>
+                    </a>
                 {% endif %}
             </div>
             {% if qualification %}
@@ -165,12 +157,17 @@
             <section id="education" class="candidate-education-row">
                 <div class="candidate-education-header-container">
                     <h2 class="candidate-education-header">Education</h2>
-                    {% if request.user == profile.user %}
-                        <a class="candidate-profile-form-add" href="{% url 'candidates:candidate-add-career-detail' %}?scroll_to=education">
-                            <span>Add education</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                    {% endif %}
+                        {% if not educations %}
+                            <a class="candidate-profile-form-add" href="{% url 'candidates:candidate-add-career-detail' %}?scroll_to=education">
+                                <i class="fa-solid fa-plus"></i>
+                                <span>Add</span>
+                            </a>
+                        {% else %}
+                            <a class="candidate-profile-form-add" href="{% url 'candidates:candidate-add-career-detail' %}?scroll_to=education">
+                                <i class="fas fa-edit"></i>
+                                <span>Update </span>
+                            </a>
+                        {% endif %}
                 </div>
                 {% if educations %}
                     <div class="candidate-educations">
@@ -220,12 +217,19 @@
         <section id="experience" class="candidate-experience-row">
             <div class="candidate-experience-header-container">
                 <h2 class="candidate-experience-header">Experience</h2>
-                {% if request.user == profile.user %}
+                {% if not experiences %}
                     <a class="candidate-profile-form-add"
                         href="{% url 'candidates:candidate-add-career-detail' %}?scroll_to=experience"
                     >
-                        <span>Add experience</span>
-                        <i class="fas fa-arrow-right"></i>
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Add</span>
+                    </a>
+                {% else %}
+                    <a class="candidate-profile-form-add"
+                        href="{% url 'candidates:candidate-add-career-detail' %}?scroll_to=experience"
+                    >
+                        <i class="fas fa-edit"></i>
+                        <span>Update</span>
                     </a>
                 {% endif %}
             </div>
