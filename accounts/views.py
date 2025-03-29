@@ -110,11 +110,15 @@ def login_view(request):
 @user_login_required
 def profile_update_form_view(request, slug):
     message = request.GET.get('message')
+    redirect_url = request.GET.get('redirect_url')
     user = request.user 
     field_errors = []
 
+    print('MESSAGE:', message)
+
     context = {
-        'message': message
+        'message': message,
+        'redirect_url': redirect_url
     }
 
     if user.profile.slug != slug:
@@ -210,8 +214,8 @@ def profile_view(request):
         'user_type': 'job_seeker'
     }
 
-    print('QUALIFICATION:', context['qualification'], 
-          'EDUCATION:', context['educations'], 
-          'EXPERIENCES:', context['experiences'])
+    # print('QUALIFICATION:', context['qualification'], 
+    #       'EDUCATION:', context['educations'], 
+    #       'EXPERIENCES:', context['experiences'])
 
     return render(request, 'accounts/profile.html', context)

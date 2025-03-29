@@ -9,6 +9,12 @@
 
 {% block content %}
     <div class="profile-form-row">
+        {% if redirect_url %}
+            <a href={{ redirect_url }}>
+                <i class="fas fa-arrow-left"></i>
+                <span>Go back to previous page</span>
+            </a>
+        {% endif %}
         <div class="profile-form-container">
             <a 
                 href="{% if next %}{{ next }}{% else %}{% url 'candidates:landing-page' %}{% endif %}" 

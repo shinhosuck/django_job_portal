@@ -23,7 +23,7 @@
                                 {% endif %}
                             </h2>
                             {% if request.user == profile.user %}
-                                <a href="{% url 'accounts:profile-update' profile.slug %}"
+                                <a href="{% url 'accounts:profile-update' profile.slug %}?redirect_url={% url 'accounts:profile' %}"
                                     class="candidate-profile-form-update"
                                 >
                                     <i class="fas fa-edit"></i>
@@ -96,7 +96,7 @@
             <div class="candidate-qualification-header-container">
                 <h2 class="candidate-qualification-header">Qualification</h2>
                 {% if not qualification %}
-                    <a href="{% url 'candidates:candidate-add-career-detail' %}?scroll_to=qualification"
+                    <a href="{% url 'candidates:candidate-add-career-detail' %}?scroll_to=qualification&redirect_to=profile"
                         class="candidate-profile-form-add"
                     >
                         <i class="fa-solid fa-plus"></i>
@@ -104,7 +104,7 @@
                     </a>
                 {% else %}
                     <a href="
-                        {% url 'candidates:candidate-add-career-detail' %}?scroll_to=qualification"
+                        {% url 'candidates:candidate-add-career-detail' %}?scroll_to=qualification&redirect_to=profile"
                         class="candidate-profile-form-update"
                     >
                         <i class="fas fa-edit"></i>
