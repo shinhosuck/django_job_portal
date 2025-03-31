@@ -23,12 +23,6 @@
                                 {% endif %}
                             </h2>
                             {% if request.user == profile.user %}
-                                {% comment %} <a href="{% url 'accounts:profile-update' profile.slug %}?redirect_url={% url 'accounts:profile' %}"
-                                    class="candidate-profile-form-update"
-                                >
-                                    <i class="fas fa-edit"></i>
-                                    <span>Update</span>
-                                </a> {% endcomment %}
                                 <a href="{% url 'candidates:candidate-update-profile-info' profile.slug %}?redirect_url={% url 'accounts:profile' %}&data_type=profile"
                                     class="candidate-profile-form-update"
                                 >
@@ -109,8 +103,7 @@
                         <span>Add</span>
                     </a>
                 {% else %}
-                    <a href="
-                        {% url 'candidates:candidate-add-career-detail' %}?scroll_to=qualification&redirect_to=profile"
+                    <a href="{% url 'candidates:candidate-update-profile-info' profile.candidatequalification.slug %}?data_type=qualification&redirect_to=profile"
                         class="candidate-profile-form-update"
                     >
                         <i class="fas fa-edit"></i>

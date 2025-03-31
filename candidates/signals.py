@@ -6,13 +6,13 @@ from datetime import datetime
 import os
 import re
 
+
 @receiver(post_save, sender=CandidateQualification)
 def post_save_candidate(sender, instance, created, **kwargs):
 
     if created:
         instance.slug = f'{slugify(instance.profile.user.username)}-'+ \
         ''.join(re.findall('\d', str(datetime.now())))
-        
         instance.save()
 
 

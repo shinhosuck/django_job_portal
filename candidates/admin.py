@@ -21,6 +21,7 @@ class CandidateQualificationAdmin(admin.ModelAdmin):
 class EducationAdmin(admin.ModelAdmin):
     list_display = [
         'qualification',
+        'slug',
         'major',
         'degree',
         'institution',
@@ -32,6 +33,7 @@ class EducationAdmin(admin.ModelAdmin):
 class ExperienceAdmin(admin.ModelAdmin):
     list_display = [
         'qualification',
+        'slug',
         'company_name',
         'position',
         'start_date',

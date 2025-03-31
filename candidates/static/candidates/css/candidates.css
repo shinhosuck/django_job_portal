@@ -1730,13 +1730,49 @@
     gap: 2rem;
 }
 
+.candidate-update-form-container > 
+.logo-container {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    justify-self: center;
+}
+
+.candidate-update-form-container > 
+.logo-container > .logo-header {
+    font-size: 2.5rem;
+    color: var(--green-35);
+    font-weight: 700;
+}
+
+.candidate-update-profile-form-header-text-container {
+    display: grid;
+    align-content: start;
+    text-align: center;
+    gap: 0.8rem
+}
+
+.candidate-update-profile-form-name {
+    color: var(--black-15);
+    font-size: 1.5rem;
+}
+
+.candidate-update-profile-form-text {
+    letter-spacing: 0.03rem;
+    line-height: 1.4;
+    color: var(--black-30);
+    max-width: 450px;
+    font-size: 1.1rem;
+    margin: 0 auto;
+    text-wrap: pretty;
+}
+
 .candidate-update-form {
     display: grid;
     align-content: start;
     gap: 1.5rem;
     padding: 1.5rem;
     border: 1px solid var(--black-80);
-    border-radius: 8px;
+    border-radius: 25px;
     background: white;
 }
 
@@ -1757,7 +1793,7 @@
     width: 100%;
     box-sizing: border-box;
     border: 1px solid var(--black-80);
-    border-radius: 5px;
+    border-radius: 8px;
     padding: 1rem;
     background: white;
     letter-spacing: 0.03rem;
@@ -1769,7 +1805,7 @@
     border: none;
     background: var(--green-30);
     color: var(--black-90);
-    border-radius: 5px;
+    border-radius: 30px;
     letter-spacing: 0.03rem;
     font-size: 1.1rem;
     cursor: pointer;
