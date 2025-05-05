@@ -1719,6 +1719,32 @@
 /* ==== END ==== */
 
 /* UPDATE CANDIDATE PROFILE/CAREER INFO */
+.candidate-update-form-back-to-previous-page {
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 0;
+    padding-top: 3rem;
+
+    display: flex;
+}
+
+.candidate-update-form-back-to-previous-page > a {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--black-50);
+    letter-spacing: 0.03rem;
+}
+
+.candidate-update-form-back-to-previous-page > a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--green-40);
+    color: var(--green-30);
+}
+
 .candidate-update-form-container {
     width: 90%;
     max-width: 700px;

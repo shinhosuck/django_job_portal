@@ -12,6 +12,7 @@ window.addEventListener('DOMContentLoaded', hideFormInutUserType)
 // Hide form input user_type
 // if user profile.user_type has a value.
 function hideFormInutUserType() {
+    
     formInputRows.forEach((element) => {
         const user_type = localStorage.getItem('user_type')
         const select = element.querySelector('select')

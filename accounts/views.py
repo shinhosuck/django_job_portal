@@ -213,9 +213,4 @@ def profile_view(request):
         'scroll_to': scroll_to or '',
         'user_type': 'job_seeker'
     }
-
-    # print('QUALIFICATION:', context['qualification'], 
-    #       'EDUCATION:', context['educations'], 
-    #       'EXPERIENCES:', context['experiences'])
-
     return render(request, 'accounts/profile.html', context)

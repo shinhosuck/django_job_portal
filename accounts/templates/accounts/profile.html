@@ -7,6 +7,8 @@
 
 {% block content %}
     <div class='candidate-profile-info-container'>
+        
+        {% comment %} USER PROFILE {% endcomment %}
         <div class='candidate-profile-container'>
             <section class='candidate-profile-row'>
                 <div id="profile" class='profile-info'>
@@ -92,6 +94,9 @@
                 </div>
             </section>
         </div>
+        {% comment %} END {% endcomment %}
+
+        {% comment %} USER QUALIFICATION  {% endcomment %}
         <section id="qualification" class="candidate-qualification-row">
             <div class="candidate-qualification-header-container">
                 <h2 class="candidate-qualification-header">Qualification</h2>
@@ -152,6 +157,9 @@
                 </div>
             {% endif %}
         </section>
+        {% comment %} END {% endcomment %}
+
+        {% comment %} USER EDUCATION {% endcomment %}
         <div class="candidate-education-container">
             <section id="education" class="candidate-education-row">
                 <div class="candidate-education-header-container">
@@ -206,6 +214,9 @@
                 {% endif %}
             </section>
         </div>
+        {% comment %} END {% endcomment %}
+
+        {% comment %} USER EXPERIENCE {% endcomment %}
         <section id="experience" class="candidate-experience-row">
             <div class="candidate-experience-header-container">
                 <h2 class="candidate-experience-header">Experience</h2>
@@ -258,6 +269,7 @@
                 </div>
             {% endif %}
         </section>
+        {% comment %} END {% endcomment %}
     </div>
 {% endblock content %}
 

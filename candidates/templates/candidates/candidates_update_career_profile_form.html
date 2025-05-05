@@ -8,6 +8,12 @@
 {% block navbar %}{% endblock navbar %}
 
 {% block content %}
+    <div class="candidate-update-form-back-to-previous-page">
+        <a href="{% url 'accounts:profile' %}?data_type={{ data_type }}">
+            <span><i class="fas fa-arrow-left"></i></span>
+            <span>Back to Previous Page</span>
+        </a>
+    </div>
     <div class="candidate-update-form-container">
         <a href="{% url 'candidates:landing-page' %}" class="logo-container">
             <span class="logo-header">HireSpot</span>

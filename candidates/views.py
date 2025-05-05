@@ -457,6 +457,8 @@ def update_candidate_profile_info_view(request, slug):
     context = {}
     profile = request.user.profile
 
+    print('DATA TYPE:', data_type)
+
     if not data_type:
         return redirect('accounts:profile')
 
