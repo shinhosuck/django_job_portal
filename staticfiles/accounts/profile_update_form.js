@@ -18,14 +18,14 @@ function formatFileInput() {
     input.addEventListener('change', handleProfileImageInput)
 
     div.setAttribute('class', 'profile-image-input-container')
-    newLabel.textContent = 'Profile image:'
+    newLabel.textContent = 'Profile image'
     newLabel.setAttribute('for', 'id_profile_image')
 
     label.textContent = 'Upload image'
     label.classList.add('label-image-input-wrapper')
     label.removeAttribute('for')
 
-    anchor.textContent = `Default: ${anchor.textContent.split('/').slice(-1)}`
+    anchor.textContent = `Current: ${anchor.textContent.split('/').slice(-1)}`
     anchor.classList.add('current-image-url')
 
     label.append(input)
@@ -36,14 +36,23 @@ function formatFileInput() {
 
     firstProfileInputRow.append(newLabel)
     firstProfileInputRow.append(div)
-    splitForm()
+
+    addFocusToProfileImageInputContainer()
 }
 
+function addFocusToProfileImageInputContainer() {
+    const profileImageInputContainer = document.querySelector('.profile-image-input-container')
+    
+    profileImageInputContainer.classList.add('profile-image-input-container-focused')
 
-function splitForm() {
-    console.log('split form')
+    window.addEventListener('click', (e) => {
+       if (!profileImageInputContainer.contains(e.target)) {
+            profileImageInputContainer.classList.remove('profile-image-input-container-focused')
+       }else {
+            profileImageInputContainer.classList.add('profile-image-input-container-focused')
+       }
+    })
 }
-
 
 // Handles file input change
 function handleProfileImageInput() {
@@ -66,16 +75,11 @@ function handleProfileImageInput() {
 
 // Insert selected file/image
 function insertSelectedImageTag(p) {
-    const profileInputContainer = document.querySelector(
-        '.profile-image-input-container')
-    const currentImageURL = document.querySelector(
-        '.current-image-url')
-
+    const profileInputContainer = document.querySelector('.profile-image-input-container')
+    const currentImageURL = document.querySelector('.current-image-url')
     profileInputContainer.insertBefore(p, currentImageURL)
 
-    selectedProfileImage = document.querySelector(
-        '.selected-profile-image')
-
+    selectedProfileImage = document.querySelector('.selected-profile-image')
 
     const span = selectedProfileImage.querySelector('span')
     span.style.overflow = 'hidden'
@@ -107,7 +111,7 @@ function insertSelectedImageTag(p) {
     })
 }
 
-const notRequired = ['Profile image:', 'Phone number:', 'Social link:', 'Portfolio/personal website:']
+const notRequired = ['Profile image:', 'Phone number:', 'Social link:', 'Personal Website:']
 const profileForm = document.querySelector('.profile-form')
 const profileFormLabels = Array.from(profileForm.querySelectorAll('label'))
 

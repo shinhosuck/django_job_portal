@@ -18,7 +18,6 @@
     margin: 0 auto;
     display: grid;
     align-content: start;
-    align-items: start;
     row-gap: 2rem;
 }
 
@@ -26,11 +25,14 @@
 .logo-container {
     text-align: center;
     margin-bottom: 0.5rem;
+    justify-self: center;
 }
 
 .register-form-container >
 .logo-container > .logo-header {
     font-size: 2.5rem;
+    color: var(--green-35);
+    font-weight: 700;
 }
 
 .register-form-name {
@@ -228,28 +230,21 @@
 .logo-container {
     text-align: center;
     margin-bottom: 0.5rem;
+    justify-self: center;
 }
 
 .login-form-container > 
 .logo-container > 
 .logo-header {
     font-size: 2.5rem;
+    color: var(--green-35);
+    font-weight: 700;
 }
 
 .login-form-name {
     color: var(--green-15);
     font-size: 1.5rem;
     text-align: center;
-}
-
-.login-form-text {
-    letter-spacing: 0.04rem;
-    line-height: 1.4;
-    color: var(--black-30);
-    max-width: 450px;
-    margin: 0 auto;
-    font-size: 1.1rem;
-    text-wrap: pretty;
 }
 
 .login-form-wrapper {
@@ -497,11 +492,26 @@
 
 .profile-form-container {
     width: 90%;
-    max-width: 700px;
+    max-width: 900px;
     margin: 0 auto;
     display: grid;
     align-content: start;
-    row-gap: 2rem;
+    align-items: start;
+    gap: 2rem;
+}
+
+.profile-form-container >
+.logo-container {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    justify-self: center;
+}
+
+.profile-form-container >
+.logo-container > .logo-header {
+    font-size: 2.5rem;
+    color: var(--green-35);
+    font-weight: 700;
 }
 
 .profile-form-header-text-container {
@@ -512,8 +522,8 @@
 }
 
 .profile-form-name {
-    color: var(--black-20);
-    font-size: 1.7rem;
+    color: var(--black-15);
+    font-size: 1.5rem;
 }
 
 .profile-form-text {
@@ -531,7 +541,7 @@
     align-content: start;
     gap: 2rem;
     padding: 1.5rem;
-    border-radius: 8px;
+    border-radius: 20px;
     border: 1px solid var(--black-80);
     background: white;
 }
@@ -553,18 +563,22 @@
     display: flex !important;
     align-items: center;
     flex-wrap: wrap;
-    column-gap: 2rem !important;
+    column-gap: 3rem !important;
     row-gap: 0.5rem;
-    border: 1px solid var(--black-85);
-    border-radius: 5px;
+    border: 1px solid var(--black-80);
+    border-radius: 8px;
     padding: 0.6rem 1rem;
     overflow: hidden;
+}
+
+.profile-image-input-container-focused {
+    outline: 3px solid var(--focus);
 }
 
 .label-image-input-wrapper {
     justify-self: start;
     padding: 0.6rem 1rem;
-    border-radius: 5px;
+    border-radius: 8px;
     background: var(--black-30);
     color: white !important;
     overflow: hidden;
@@ -572,6 +586,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     cursor: pointer;
+    font-size: 0.9rem;
     transition: background 100ms linear;
 }
 
@@ -601,13 +616,17 @@ br {
 .profile-input-container {
     display: grid;
     align-content: start;
-    gap: 1.5rem;
+    row-gap: 1.5rem;
+    column-gap: 2rem;
 } 
 
 .profile-input-row {
     display: grid;
-    align-content: start;
     gap: 0.5rem;
+}
+
+.profile-input-row:nth-child(1){
+    grid-column: 1 / -1;
 }
 
 .profile-input-row > label {
@@ -620,35 +639,52 @@ br {
 .profile-input-row > input {
     border: 1px solid var(--black-80);
     padding: 1rem;
-    border-radius: 5px;
+    border-radius: 8px;
     color: var(--black-30);
     letter-spacing: 0.03rem;
+   
 }
 
 .selected-profile-image {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    align-content: center;
+    gap: 1.5rem;
     color: var(--black-30);
     overflow: hidden;
 }
 
+.remove-selected-profile-image-btn {
+    cursor: pointer;
+    margin-top: 0.2rem;
+}
+
 .profile-input-row > select {
+    display: grid;
     background: none;
     box-sizing: border-box;
     width: 100%;
 }
 
 .profile-input-row > select:focus {
-    outline: 3px solid var(--green-70);
+    outline: 3px solid var(--focus);
 }
 
+.profile-update-form-btns {
+    display: grid;
+    align-items: start;
+    align-content: start;
+    row-gap: 0.8rem;
+    column-gap: 2rem;
+}
+
+.profile-form-update-cancel-btn,
 .profile-form-update-btn {
     padding: 1rem;
     border: none;
     background: var(--green-30);
-    color: var(--black-90);
-    border-radius: 5px;
+    color: white;
+    border-radius: 30px;
     letter-spacing: 0.03rem;
     font-size: 1.1rem;
     cursor: pointer;
@@ -662,6 +698,11 @@ br {
     text-align: center;
 }
 
+.profile-form-update-cancel-btn {
+    background: var(--black-30);
+    text-align: center;
+}
+
 .profile-form-update-btn > i {
     font-size: 1rem;
 }
@@ -670,15 +711,23 @@ br {
     .profile-form-update-btn:hover {
         background: var(--green-40)
     }
+
+    .profile-form-update-cancel-btn:hover {
+        background: var(--black-10);
+    }
 }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 800px) {
     .profile-form-row {
         padding: 3rem 0;
     }
 
-    .profile-form-header-text-container {
-       margin-top: 2rem;
+    .profile-input-container {
+        grid-template-columns: repeat(2, 1fr);
+    } 
+
+    .profile-update-form-btns {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -718,7 +767,7 @@ br {
 
 .candidate-profile-row {
     width: 90%;
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto;
     display: grid;
     align-content: start;
@@ -822,7 +871,7 @@ br {
 /* Qualification */
 .candidate-qualification-row {
     width: 90%;
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto;
     display: grid;
     align-content: start;
@@ -906,7 +955,7 @@ br {
 
 .candidate-education-row {
     width: 90%;
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto;
     display: grid;
     align-content: start;
@@ -1015,7 +1064,7 @@ br {
 /* Experience */
 .candidate-experience-row {
     width: 90%;
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto;
     display: grid;
     align-content: start;

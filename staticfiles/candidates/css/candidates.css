@@ -610,7 +610,33 @@
  
 /* End */
 
-/* CANDIDATE REGISTER */
+/* CANDIDATE ADD CAREER DETAIL */
+.candidate-add-form-back-to-previous-page {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 0;
+    padding-top: 3rem;
+
+    display: flex;
+}
+
+.candidate-add-form-back-to-previous-page > a {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--black-50);
+    letter-spacing: 0.03rem;
+}
+
+.candidate-add-form-back-to-previous-page > a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--green-40);
+    color: var(--green-30);
+}
+
 .candidate-register-form-row {
     min-height: 100svh;
     display: grid;
@@ -624,7 +650,21 @@
     margin: 0 auto;
     display: grid;
     align-content: start;
-    row-gap: 2rem;
+    align-items: start;
+    gap: 2rem;
+}
+
+.candidate-register-form-container > 
+.logo-container {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.candidate-register-form-container > 
+.logo-container > .logo-header {
+    font-size: 2.5rem;
+    color: var(--green-35);
+    font-weight: 700;
 }
 
 .candidate-register-form-text-container {
@@ -648,11 +688,14 @@
     text-wrap: pretty;
 }
 
-.candidate-register-form {
+.candidate-add-career-form {
     display: grid;
     align-content: start;
     align-items: end;
-    gap: 1.5rem;
+    gap: 2rem;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .candidate-qualification-input-row,
@@ -661,10 +704,6 @@
     display: grid;
     align-content: start;
     gap: 1rem;
-    background: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    border: 1px solid var(--black-80);
 }
 
 .qualification-form-container,
@@ -672,7 +711,7 @@
 .experience-form-container {
     display: grid;
     align-content: start;
-    gap: 2rem;
+    gap: 0.5rem;
 }
 
 .qualification-form,
@@ -684,7 +723,7 @@
     gap: 1.5rem;
     background: white;
     padding: 1.5rem;
-    border-radius: 8px;
+    border-radius: 20px;
     border: 1px solid var(--black-80);
 }
 
@@ -695,11 +734,18 @@
     z-index: 3;
     width: auto;
     height: auto;
-    background: var(--black-30);
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    background: var(--black-50);
     color: white;
     font-size: 0.9rem;
     padding: 0.3rem 0.5rem;
     border-radius: 0.3rem;
+    cursor: pointer;
+    border: none;
 }
 
 .qualification-form > p,
@@ -727,7 +773,7 @@
 .qualification-form > p > input {
     border: 1px solid var(--black-80);
     padding: 1rem;
-    border-radius: 5px;
+    border-radius: 8px;
     color: var(--black-20);
     letter-spacing: 0.03rem;
     background: white;
@@ -754,23 +800,29 @@
     font-size: 1rem;
 }
 
-.experience-form > p > select:focus,
+/* .experience-form > p > select:focus,
 .education-form > p > select:focus,
 .qualification-form > p > select:focus {
-    outline: 3px solid var(--green-60)
-}
+    outline: 3px solid var(--focus);
+} */
 
 .add-more {
     justify-self: end; 
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
     font-size:0.9rem; 
     background:var(--black-20); 
     color: white;
     padding:0.5rem 1rem;
     border-radius:5px;
     border:none;
+    cursor: pointer;
 }
 
-.candidate-register-form-btn {
+.candidate-career-submit-btn {
     padding: 1rem 1.5rem;
     border: none;
     background: var(--green-30);
@@ -833,11 +885,12 @@
 
 .resume-input-wrapper-label {
     padding: 0.6rem 1rem;
-    border-radius: 5px;
+    border-radius: 8px;
     justify-self: start;
     background: var(--black-30);
     color: white;
-    font-size: 0.9rem
+    font-size: 0.9rem;
+    cursor: pointer;
 }
 
 .resume-input-wrapper {
@@ -848,7 +901,7 @@
     row-gap: 0.5rem;
     border: 1px solid var(--black-80);
     padding: 0.5rem 1rem;
-    border-radius: 5px;
+    border-radius: 8px;
     overflow: hidden;
 }
 
@@ -889,7 +942,7 @@
 }
 
 @media (hover) {
-    .candidate-register-form-btn:hover {
+    .candidate-career-submit-btn:hover {
         background: var(--green-40)
     }
 
@@ -901,10 +954,6 @@
 @media screen and (min-width: 700px) {
     .candidate-register-form-row {
         padding: 3rem 0;
-    }
-
-    .candidate-register-form-text-container {
-        margin-top: 2rem;
     }
 }
 
@@ -1696,6 +1745,32 @@
 /* ==== END ==== */
 
 /* UPDATE CANDIDATE PROFILE/CAREER INFO */
+.candidate-update-form-back-to-previous-page {
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 0;
+    padding-top: 3rem;
+
+    display: flex;
+}
+
+.candidate-update-form-back-to-previous-page > a {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--black-50);
+    letter-spacing: 0.03rem;
+}
+
+.candidate-update-form-back-to-previous-page > a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--green-40);
+    color: var(--green-30);
+}
+
 .candidate-update-form-container {
     width: 90%;
     max-width: 700px;
@@ -1707,13 +1782,49 @@
     gap: 2rem;
 }
 
+.candidate-update-form-container > 
+.logo-container {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    justify-self: center;
+}
+
+.candidate-update-form-container > 
+.logo-container > .logo-header {
+    font-size: 2.5rem;
+    color: var(--green-35);
+    font-weight: 700;
+}
+
+.candidate-update-profile-form-header-text-container {
+    display: grid;
+    align-content: start;
+    text-align: center;
+    gap: 0.8rem
+}
+
+.candidate-update-profile-form-name {
+    color: var(--black-15);
+    font-size: 1.5rem;
+}
+
+.candidate-update-profile-form-text {
+    letter-spacing: 0.03rem;
+    line-height: 1.4;
+    color: var(--black-30);
+    max-width: 450px;
+    font-size: 1.1rem;
+    margin: 0 auto;
+    text-wrap: pretty;
+}
+
 .candidate-update-form {
     display: grid;
     align-content: start;
     gap: 1.5rem;
     padding: 1.5rem;
     border: 1px solid var(--black-80);
-    border-radius: 8px;
+    border-radius: 25px;
     background: white;
 }
 
@@ -1734,7 +1845,7 @@
     width: 100%;
     box-sizing: border-box;
     border: 1px solid var(--black-80);
-    border-radius: 5px;
+    border-radius: 8px;
     padding: 1rem;
     background: white;
     letter-spacing: 0.03rem;
@@ -1746,7 +1857,7 @@
     border: none;
     background: var(--green-30);
     color: var(--black-90);
-    border-radius: 5px;
+    border-radius: 30px;
     letter-spacing: 0.03rem;
     font-size: 1.1rem;
     cursor: pointer;
@@ -1812,4 +1923,10 @@
 	overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+@media screen and (min-width: 700px) {
+    .candidate-update-form-container {
+        padding: 3rem 0;
+    }
 }
