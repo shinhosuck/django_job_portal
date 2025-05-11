@@ -101,7 +101,7 @@
             <div class="candidate-qualification-header-container">
                 <h2 class="candidate-qualification-header">Qualification</h2>
                 {% if not qualification %}
-                    <a href="{% url 'candidates:candidate-add-career-detail' %}?scroll_to=qualification&redirect_to=profile"
+                    <a href="{% url 'candidates:candidate-add-career-detail' %}?scroll_to=qualification&redirect_to=profile&data_type=qualification"
                         class="candidate-profile-form-add"
                     >
                         <i class="fa-solid fa-plus"></i>
@@ -164,7 +164,7 @@
             <section id="education" class="candidate-education-row">
                 <div class="candidate-education-header-container">
                     <h2 class="candidate-education-header">Education</h2>
-                    <a class="candidate-profile-form-add" href="{% url 'candidates:candidate-add-career-detail' %}?scroll_to=education">
+                    <a class="candidate-profile-form-add" href="{% url 'candidates:candidate-add-career-detail' %}?scroll_to=education&data_type=education">
                         <i class="fa-solid fa-plus"></i>
                         <span>Add</span>
                     </a>
@@ -221,7 +221,7 @@
             <div class="candidate-experience-header-container">
                 <h2 class="candidate-experience-header">Experience</h2>
                 <a class="candidate-profile-form-add"
-                    href="{% url 'candidates:candidate-add-career-detail' %}?scroll_to=experience"
+                    href="{% url 'candidates:candidate-add-career-detail' %}?scroll_to=experience&data_type=experience"
                 >
                     <i class="fa-solid fa-plus"></i>
                     <span>Add</span>
@@ -276,8 +276,7 @@
 {% block js %}
     <script>
         const scrollTo = "{{ scroll_to }}"
-        const element = scrollTo && document.querySelector(`#${scrollTo}`)
-        
+        const element = scrollTo && document.querySelector(`#${scrollTo}`)        
         element && element.scrollIntoView({behavior:'smooth'})
     </script>
 {% endblock js %}

@@ -8,6 +8,14 @@
 {% block navbar %}{% endblock navbar %}
 
 {% block content %}
+    {% if data_type %}
+        <div class="candidate-add-form-back-to-previous-page">
+            <a href="{% url 'accounts:profile' %}?data_type={{ data_type }}">
+                <span><i class="fas fa-arrow-left"></i></span>
+                <span>Back to Previous Page</span>
+            </a>
+        </div>
+    {% endif %}
     <div class="candidate-register-form-row">
         <div class="candidate-register-form-container">
             <a href="

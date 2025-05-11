@@ -611,6 +611,32 @@
 /* End */
 
 /* CANDIDATE ADD CAREER DETAIL */
+.candidate-add-form-back-to-previous-page {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 0;
+    padding-top: 3rem;
+
+    display: flex;
+}
+
+.candidate-add-form-back-to-previous-page > a {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--black-50);
+    letter-spacing: 0.03rem;
+}
+
+.candidate-add-form-back-to-previous-page > a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--green-40);
+    color: var(--green-30);
+}
+
 .candidate-register-form-row {
     min-height: 100svh;
     display: grid;
@@ -1897,4 +1923,10 @@
 	overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+@media screen and (min-width: 700px) {
+    .candidate-update-form-container {
+        padding: 3rem 0;
+    }
 }

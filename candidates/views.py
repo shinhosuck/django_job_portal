@@ -176,9 +176,11 @@ def job_search_view(request):
 @user_login_required
 def candidate_add_career_detail_view(request):
     scroll_to = request.GET.get('scroll_to')
-    data_type = request.GET.get('type')
+    data_type = request.GET.get('data_type')
     user = request.user
     data = request.POST
+    
+    print('DATA TYPE:', data_type)
 
     try:
         resume = user.profile.candidatequalification.get_resume_url()
@@ -218,7 +220,8 @@ def candidate_add_career_detail_view(request):
         
     context = {
         'resume': resume or '',
-        'scroll_to': scroll_to or ''
+        'scroll_to': scroll_to or '',
+        'data_type': data_type
     }
     
     return render(request, 'candidates/candidates_add_career_detail.html', context)
@@ -456,8 +459,6 @@ def update_candidate_profile_info_view(request, slug):
     form = None
     context = {}
     profile = request.user.profile
-
-    print('DATA TYPE:', data_type)
 
     if not data_type:
         return redirect('accounts:profile')
